@@ -1,0 +1,424 @@
+# Limpieza de datos
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender la importancia de la limpieza de datos dentro de una investigación reproducible.
+* Diagnosticar problemas de calidad en una base de datos.
+* Identificar valores perdidos, registros duplicados y valores extremos.
+* Trabajar con variables etiquetadas provenientes de SPSS.
+* Documentar transformaciones realizadas sobre los datos.
+* Construir una base de datos procesada lista para el análisis estadístico.
+
+## Introducción
+
+Una de las ideas más extendidas entre estudiantes e investigadores noveles consiste en pensar que la limpieza de datos equivale a corregir errores o eliminar observaciones problemáticas. Sin embargo, la realidad es mucho más compleja. Limpiar datos no significa modificar los datos hasta que "se vean bien"; significa identificar, documentar y justificar cada transformación realizada.
+
+La limpieza de datos constituye un proceso sistemático orientado a comprender la estructura de una base de datos, identificar posibles inconsistencias y documentar las transformaciones necesarias para preparar la información para su análisis posterior [@wickham2014; @dasu2003].
+
+En investigación reproducible, ninguna modificación debe realizarse sin dejar evidencia de las decisiones tomadas. Por esta razón, la limpieza de datos no es únicamente una actividad técnica, sino también un ejercicio de transparencia metodológica [@peng2011; @gandrud2015].
+
+A lo largo de este capítulo trabajaremos con información real de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC) 2025.
+
+## ¿Por qué limpiar datos?
+
+Diversos estudios han demostrado que una parte importante del tiempo invertido en proyectos de análisis de datos se concentra en actividades relacionadas con la preparación de la información [@dasu2003].
+
+Antes de estimar modelos estadísticos o construir indicadores es necesario verificar:
+
+* La integridad de los registros.
+* La consistencia de las variables.
+* La presencia de valores perdidos.
+* La existencia de registros duplicados.
+* La presencia de valores extremos.
+* La correcta codificación de categorías.
+
+Cuando estas verificaciones no se realizan adecuadamente, los resultados obtenidos pueden conducir a interpretaciones erróneas.
+
+## Calidad de datos e investigación reproducible
+
+La calidad de los datos constituye uno de los pilares fundamentales de la investigación científica.
+
+Una base de datos de alta calidad debe presentar:
+
+* Completitud.
+* Consistencia.
+* Exactitud.
+* Trazabilidad.
+* Documentación adecuada.
+
+La reproducibilidad requiere que todas las transformaciones realizadas sobre la información puedan ser reconstruidas posteriormente [@wilson2017].
+
+Por esta razón, nunca se recomienda modificar manualmente una base de datos descargada desde una fuente oficial.
+
+## Cargando la base de trabajo
+
+Trabajaremos con el módulo de uso del suelo de la ESPAC 2025.
+
+```{r}
+#| label: cap11-cargar-datos-sunac
+#| warning: false
+#| message: false
+
+library(haven)
+library(dplyr)
+library(here)
+
+sunac <- read_sav(
+  here(
+    "datos",
+    "original",
+    "ESPAC_2025",
+    "spss",
+    "sunac2025.sav"
+  )
+)
+```
+
+## Diagnóstico inicial de la base
+
+Antes de limpiar una base de datos es necesario comprender sus dimensiones generales.
+
+```{r}
+#| label: cap11-resumen-dimensiones-sunac
+
+library(knitr)
+
+data.frame(
+  Registros = nrow(sunac),
+  Variables = ncol(sunac)
+) |>
+  kable()
+```
+
+La ESPAC contiene decenas de miles de observaciones y múltiples variables asociadas al uso del suelo, tenencia y superficie agropecuaria.
+
+## Exploración general de la base
+
+Una primera inspección puede realizarse mediante:
+
+```{r}
+#| label: cap11-resumen-estadistico-sunac
+summary(sunac)
+```
+
+El resumen estadístico permite identificar:
+
+* Variables numéricas.
+* Valores extremos.
+* Rangos de observación.
+* Posibles valores perdidos.
+
+También podemos obtener una visión estructural de la base.
+
+```{r}
+#| label: cap11-vista-general-sunac
+glimpse(sunac)
+```
+
+Esta función muestra el tipo de dato de cada variable y facilita la identificación de variables categóricas, continuas y etiquetadas.
+
+## Observaciones y unidades de análisis
+
+Uno de los errores más frecuentes consiste en asumir que cada fila representa una unidad productiva independiente.
+
+Verifiquemos esta situación.
+
+```{r}
+#| label: cap11-verificar-identificadores-unicos
+
+nrow(sunac)
+
+length(unique(sunac$Identificador))
+```
+
+La primera cifra representa el número total de registros.
+
+La segunda representa el número de identificadores únicos.
+
+Si ambas cantidades son diferentes, significa que una misma unidad productiva puede aparecer varias veces dentro de la base.
+
+Esto ocurre en la ESPAC porque un productor puede registrar múltiples usos del suelo dentro de una misma unidad de producción agropecuaria.
+
+## Identificando registros por productor
+
+Podemos examinar cuántas veces aparece cada identificador.
+
+```{r}
+#| label: cap11-detectar-identificadores-duplicados
+sunac |>
+  count(Identificador) |>
+  arrange(desc(n)) |>
+  head(10)
+```
+
+La existencia de múltiples registros por identificador no implica necesariamente un error.
+
+Antes de eliminar registros es indispensable comprender la estructura metodológica de la encuesta [@groves2009].
+
+## Valores perdidos
+
+Los valores perdidos constituyen una característica habitual de las bases de datos reales.
+
+Podemos cuantificarlos mediante:
+
+```{r}
+#| label: cap11-variables-con-mas-valores-perdidos
+
+na_variables <- colSums(is.na(sunac))
+
+sort(
+  na_variables,
+  decreasing = TRUE
+)[1:10]
+```
+
+El resultado muestra las variables con mayor cantidad de valores perdidos.
+
+Sin embargo, no todos los valores perdidos representan errores.
+
+## ¿Todos los NA son errores?
+
+La respuesta es no.
+
+En encuestas complejas muchas preguntas solamente aplican a determinados productores.
+
+Por ejemplo:
+
+* Variables relacionadas con bosques únicamente aplican a productores que poseen bosque.
+* Variables relacionadas con determinados cultivos solo aplican a quienes desarrollan esas actividades.
+* Variables pecuarias únicamente aplican a productores pecuarios.
+
+Por esta razón, numerosos NA representan respuestas estructuralmente inexistentes y no errores de captura [@groves2009].
+
+## Perfil de valores perdidos
+
+Podemos calcular el porcentaje de valores perdidos por variable.
+
+```{r}
+#| label: cap11-porcentaje-valores-perdidos
+
+porcentaje_na <- round(
+  colMeans(is.na(sunac)) * 100,
+  2
+)
+
+sort(
+  porcentaje_na,
+  decreasing = TRUE
+)[1:10]
+```
+
+Esta información resulta útil para evaluar la calidad y cobertura de cada variable.
+
+## Variables etiquetadas provenientes de SPSS
+
+Una característica importante de las bases importadas mediante `haven` es la conservación de etiquetas.
+
+Por ejemplo:
+
+```{r}
+#| label: cap11-verificar-tipo-su-tenencia
+class(sunac$su_tenencia)
+```
+
+La salida muestra que la variable fue importada como:
+
+```text
+haven_labelled
+```
+
+Esto significa que conserva las etiquetas originales definidas por el INEC.
+
+Podemos examinarlas.
+
+```{r}
+#| label: cap11-consultar-etiquetas-su-tenencia
+attributes(sunac$su_tenencia)$labels
+```
+
+Estas etiquetas permiten interpretar adecuadamente las categorías originales.
+
+## Conversión de variables etiquetadas
+
+Para facilitar el análisis estadístico transformaremos la variable a factor.
+
+```{r}
+#| label: cap11-convertir-su-tenencia-factor
+sunac <- sunac |>
+  mutate(
+    su_tenencia =
+      haven::as_factor(su_tenencia)
+  )
+```
+
+Verificamos el resultado.
+
+```{r}
+#| label: cap11-verificar-factor-su-tenencia
+class(sunac$su_tenencia)
+```
+
+Ahora la variable puede utilizarse fácilmente en tablas y gráficos.
+
+## Distribución de la forma de tenencia
+
+Una vez convertida la variable podemos examinar su distribución.
+
+```{r}
+#| label: cap11-frecuencia-su-tenencia
+
+sunac |>
+  count(su_tenencia) |>
+  arrange(desc(n))
+```
+
+Esta tabla permite identificar cuáles son las formas predominantes de tenencia de la tierra registradas por la encuesta.
+
+## Detección de registros duplicados
+
+Podemos verificar si existen registros completamente duplicados.
+
+```{r}
+#| label: cap11-detectar-registros-duplicados
+sum(duplicated(sunac))
+```
+
+En caso de existir duplicados exactos, será necesario evaluar si corresponden a errores de captura o a características propias de la estructura de la base.
+
+## Detección de valores extremos
+
+Los valores extremos constituyen otra fuente frecuente de preocupación.
+
+Analicemos la variable relacionada con superficie.
+
+```{r}
+#| label: cap11-resumen-su-k202ha
+summary(sunac$su_k202ha)
+```
+
+Esta salida permite identificar:
+
+* Valor mínimo.
+* Cuartiles.
+* Mediana.
+* Media.
+* Valor máximo.
+
+Los valores extremos no deben eliminarse automáticamente.
+
+Primero deben contrastarse con la documentación metodológica y el contexto de estudio [@wilson2017].
+
+## Explorando la superficie total
+
+Analicemos la variable de superficie total.
+
+```{r}
+#| label: tab-cap11-resumen-dimensiones-sunac
+summary(sunac$supertotal)
+```
+
+Los resultados permiten identificar la dispersión de la información y posibles observaciones atípicas.
+
+## Visualización de valores extremos
+
+Los diagramas de caja permiten identificar observaciones alejadas del comportamiento general.
+
+```{r}
+#| label: fig-cap11-boxplot-supertotal
+boxplot(
+  sunac$supertotal,
+  main = "Distribución de la superficie total"
+)
+```
+
+Los puntos alejados de la caja representan posibles valores extremos.
+
+La presencia de estos valores no implica necesariamente errores.
+
+## Identificación de observaciones extremas
+
+Podemos localizar las observaciones con mayores superficies.
+
+```{r}
+#| label: tab-cap11-mayores-superficies
+sunac |>
+  arrange(desc(supertotal)) |>
+  select(
+    Identificador,
+    supertotal
+  ) |>
+  head(10)
+```
+
+Este procedimiento facilita la revisión individual de observaciones potencialmente atípicas.
+
+## Construcción de una base procesada
+
+Una vez completado el diagnóstico inicial podemos almacenar una versión procesada de la base.
+
+```{r}
+#| label: cap11-guardar-sunac-limpio
+saveRDS(
+  sunac,
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_limpio.rds"
+  )
+)
+```
+
+La conservación de versiones procesadas evita repetir tareas y garantiza trazabilidad sobre los cambios realizados [@gandrud2015].
+
+## Documentando transformaciones
+
+Toda modificación realizada sobre una base de datos debe quedar documentada.
+
+Entre las transformaciones más frecuentes se encuentran:
+
+* Conversión de variables etiquetadas.
+* Recodificación de categorías.
+* Creación de indicadores.
+* Corrección de errores identificados.
+* Generación de nuevas variables.
+
+La documentación constituye un requisito fundamental para garantizar la reproducibilidad científica [@peng2011].
+
+## Buenas prácticas de limpieza
+
+Durante el proceso de limpieza se recomienda:
+
+* Mantener intactos los archivos originales.
+* Documentar cada transformación.
+* Conservar versiones intermedias.
+* Revisar la documentación metodológica.
+* Evitar eliminar observaciones sin justificación.
+* Verificar resultados después de cada modificación.
+* Utilizar scripts reproducibles.
+
+Estas prácticas fortalecen la transparencia y calidad del análisis.
+
+## Manos a la obra
+
+Utilizando la base `sunac2025.sav`:
+
+1. Determine cuántos registros y variables contiene la base.
+2. Calcule el número de identificadores únicos.
+3. Identifique las diez variables con más valores perdidos.
+4. Transforme `su_tenencia` a factor.
+5. Construya una tabla de frecuencias para la variable de tenencia.
+6. Identifique los diez registros con mayor superficie total.
+7. Guarde una versión limpia de la base en formato RDS.
+
+Documente cada paso dentro de un archivo Quarto.
+
+## Resumen del capítulo
+
+La limpieza de datos constituye una etapa fundamental de la investigación reproducible. Su propósito no consiste únicamente en corregir errores, sino en comprender la estructura de los datos, diagnosticar problemas potenciales y documentar adecuadamente las transformaciones realizadas.
+
+A través de la ESPAC 2025 aprendimos a evaluar la calidad de una base de datos, identificar valores perdidos, interpretar variables etiquetadas, detectar valores extremos y construir versiones procesadas listas para análisis posteriores.
+
+En el siguiente capítulo aprenderemos a transformar datos para construir variables analíticas, indicadores y estructuras de información orientadas a responder preguntas de investigación.

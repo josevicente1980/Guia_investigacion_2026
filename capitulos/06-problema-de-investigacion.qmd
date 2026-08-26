@@ -1,0 +1,278 @@
+# Del problema de investigación a la pregunta de investigación
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+- Comprender la diferencia entre un tema, un problema y una pregunta de investigación.
+- Identificar las características de un problema científicamente investigable.
+- Formular preguntas de investigación claras, precisas y relevantes.
+- Reconocer la relación entre problema, pregunta, objetivos e hipótesis.
+- Construir preguntas de investigación alineadas con diseños cuantitativos, cualitativos y mixtos.
+
+## Introducción
+
+Toda investigación comienza con una inquietud. Un investigador observa una situación, identifica una necesidad de conocimiento o detecta una contradicción entre la teoría y la realidad. Sin embargo, no toda inquietud constituye automáticamente un problema de investigación.
+
+Uno de los errores más frecuentes entre estudiantes e investigadores noveles consiste en confundir el tema de investigación con el problema de investigación. Mientras el tema representa un área general de interés, el problema constituye una situación específica cuya comprensión requiere la generación de nuevo conocimiento científico [@hernandezsampieri2018].
+
+La calidad de una investigación depende en gran medida de la claridad con la que se formule el problema que pretende resolver.
+
+## ¿Qué es un problema de investigación?
+
+Un problema de investigación puede definirse como una situación, fenómeno o vacío de conocimiento que requiere ser explicado, comprendido o analizado mediante métodos científicos [@creswell2018].
+
+Los problemas de investigación surgen de múltiples fuentes:
+
+- Observación de fenómenos sociales, económicos o ambientales.
+- Resultados contradictorios encontrados en investigaciones previas.
+- Limitaciones identificadas en estudios anteriores.
+- Necesidades de información para la toma de decisiones.
+- Problemas prácticos que requieren evidencia científica.
+
+La investigación científica no busca estudiar temas generales, sino resolver preguntas específicas derivadas de problemas claramente definidos.
+
+## Del tema al problema
+
+Considere los siguientes ejemplos:
+
+| Tema | Problema |
+|--------|--------|
+| Pobreza | Persistencia de la pobreza multidimensional en hogares rurales de Ecuador |
+| Educación | Bajo rendimiento académico en estudiantes universitarios |
+| Cambio climático | Impacto del cambio climático sobre la disponibilidad hídrica |
+| Emprendimiento | Alta tasa de mortalidad empresarial durante los primeros años de operación |
+
+El tema representa un campo amplio de estudio, mientras que el problema delimita una situación concreta susceptible de análisis científico.
+
+Una adecuada delimitación permite enfocar los esfuerzos de investigación y facilita la construcción del diseño metodológico posterior [@booth2016].
+
+## Características de un buen problema de investigación
+
+No todos los problemas son apropiados para una investigación científica.
+
+Un problema de investigación debe reunir al menos las siguientes características:
+
+### Relevancia
+
+Debe abordar una situación que posea importancia teórica, práctica o social.
+
+### Claridad
+
+Debe formularse de manera comprensible y precisa.
+
+### Viabilidad
+
+Debe poder investigarse considerando los recursos, el tiempo y la información disponible.
+
+### Originalidad
+
+No necesariamente implica estudiar algo completamente nuevo, sino aportar evidencia, contexto o perspectivas adicionales sobre un fenómeno existente.
+
+### Fundamentación
+
+Debe apoyarse en literatura científica que justifique su importancia [@machi2016].
+
+## La importancia de la revisión de literatura
+
+La formulación de problemas de investigación no ocurre en el vacío.
+
+Antes de definir un problema resulta indispensable revisar la evidencia científica existente para conocer:
+
+- ¿Qué se sabe sobre el fenómeno?
+- ¿Qué resultados han sido encontrados previamente?
+- ¿Qué vacíos de conocimiento persisten?
+- ¿Qué metodologías han sido utilizadas?
+- ¿Qué limitaciones presentan las investigaciones anteriores?
+
+La revisión de literatura permite identificar oportunidades reales de investigación y evita duplicar estudios ya realizados [@booth2016].
+
+## ¿Qué es una pregunta de investigación?
+
+Una pregunta de investigación constituye la expresión formal del problema que se desea estudiar.
+
+Representa una interrogante específica que orienta todo el proceso investigativo y delimita el tipo de información que será necesaria para responderla [@creswell2018].
+
+La pregunta de investigación se convierte en el eje articulador de:
+
+- Los objetivos.
+- Las hipótesis.
+- El diseño metodológico.
+- La recolección de datos.
+- El análisis de resultados.
+
+## Características de una buena pregunta de investigación
+
+Una pregunta de investigación efectiva debe ser:
+
+### Clara
+
+Debe comprenderse sin ambigüedades.
+
+### Específica
+
+Debe delimitar claramente el fenómeno de interés.
+
+### Investigable
+
+Debe poder responderse mediante evidencia empírica.
+
+### Relevante
+
+Debe aportar conocimiento útil para la comunidad científica o para la sociedad.
+
+### Delimitada
+
+Debe establecer con claridad población, contexto y período de estudio [@hernandezsampieri2018].
+
+## Ejemplos de formulación de preguntas
+
+### Pregunta demasiado amplia
+
+```{.text}
+¿Cómo afecta la economía a las personas?
+```
+
+### Pregunta mejor formulada
+
+```{.text}
+¿Cuál es el efecto del desempleo sobre los niveles de pobreza de los hogares urbanos ecuatorianos durante el período 2015-2024?
+```
+
+### Pregunta demasiado vaga
+
+```{.text}
+¿Por qué fracasan las empresas?
+```
+
+### Pregunta mejor formulada
+
+```{.text}
+¿Qué factores financieros influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación?
+```
+
+## Tipos de preguntas de investigación
+
+Las preguntas pueden adoptar distintas formas según el objetivo del estudio.
+
+### Preguntas descriptivas
+
+Buscan caracterizar un fenómeno.
+
+Ejemplo:
+
+```{.text}
+¿Cuál es el perfil socioeconómico de los emprendedores rurales de la provincia de Loja?
+```
+
+### Preguntas comparativas
+
+Analizan diferencias entre grupos.
+
+Ejemplo:
+
+```{.text}
+¿Existen diferencias en el rendimiento académico entre estudiantes presenciales y virtuales?
+```
+
+### Preguntas relacionales
+
+Analizan asociaciones entre variables.
+
+Ejemplo:
+
+```{.text}
+¿Cuál es la relación entre el nivel educativo y el ingreso laboral?
+```
+
+### Preguntas causales
+
+Buscan identificar efectos o impactos.
+
+Ejemplo:
+
+```{.text}
+¿Cuál es el efecto de la capacitación empresarial sobre la productividad de las microempresas?
+```
+
+## Relación entre problema, pregunta y objetivos
+
+Uno de los errores más frecuentes en la investigación consiste en formular objetivos que no responden a la pregunta planteada.
+
+La lógica correcta puede representarse de la siguiente manera:
+
+```{.text}
+Problema
+    ↓
+Pregunta de investigación
+    ↓
+Objetivo general
+    ↓
+Objetivos específicos
+    ↓
+Metodología
+```
+
+Cada elemento debe derivarse del anterior y mantener coherencia lógica durante todo el proyecto [@maxwell2013].
+
+## Ejemplo integrador
+
+### Problema
+
+Las microempresas presentan elevadas tasas de cierre durante sus primeros años de operación.
+
+### Pregunta
+
+```{.text}
+¿Qué factores financieros influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación?
+```
+
+### Objetivo general
+
+```{.text}
+Analizar los factores financieros que influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.
+```
+
+Obsérvese cómo el objetivo surge directamente de la pregunta planteada.
+
+## Errores frecuentes al formular problemas y preguntas
+
+Entre los errores más comunes destacan:
+
+- Formular preguntas excesivamente amplias.
+- Confundir temas con problemas.
+- Utilizar preguntas imposibles de responder empíricamente.
+- Incorporar juicios de valor.
+- Formular preguntas ambiguas.
+- Plantear múltiples preguntas en una sola oración.
+- No delimitar población, espacio o tiempo.
+
+Evitar estos errores facilita considerablemente el desarrollo posterior de la investigación.
+
+## Manos a la obra
+
+Seleccione un tema de interés relacionado con su área de formación y complete el siguiente esquema:
+
+```{.text}
+Tema:
+
+Problema:
+
+Pregunta de investigación:
+
+Población:
+
+Ubicación:
+
+Período de estudio:
+```
+
+Posteriormente, verifique que su pregunta cumple con los criterios de claridad, especificidad, relevancia y viabilidad analizados en este capítulo.
+
+## Resumen del capítulo
+
+Toda investigación científica comienza con la identificación de un problema que requiere ser comprendido o explicado. La formulación adecuada de preguntas de investigación constituye una etapa fundamental porque orienta la construcción de objetivos, hipótesis y diseños metodológicos.
+
+La calidad de una investigación depende en gran medida de la precisión con la que se definen el problema y la pregunta que guiarán el proceso de generación de conocimiento.
+
+En el siguiente capítulo aprenderemos cómo transformar las preguntas de investigación en objetivos generales y específicos coherentes con el problema planteado.

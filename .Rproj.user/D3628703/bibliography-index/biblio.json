@@ -1,0 +1,2661 @@
+{
+    "sources": [
+        {
+            "author": [
+                {
+                    "family": "Popper",
+                    "given": "Karl"
+                }
+            ],
+            "id": "popper2002",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002
+                    ]
+                ]
+            },
+            "publisher": "Routledge",
+            "title": "The logic of scientific discovery",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Peng",
+                    "given": "Roger D."
+                }
+            ],
+            "container-title": "Science",
+            "id": "peng2011",
+            "issue": "6060",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "1226-1227",
+            "title": "Reproducible research in computational science",
+            "type": "article-journal",
+            "volume": "334"
+        },
+        {
+            "author": [
+                {
+                    "family": "Baker",
+                    "given": "Monya"
+                }
+            ],
+            "container-title": "Nature",
+            "id": "baker2016",
+            "issue": "7604",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "page": "452-454",
+            "title": "1,500 scientists lift the lid on reproducibility",
+            "type": "article-journal",
+            "volume": "533"
+        },
+        {
+            "author": [
+                {
+                    "family": "Ioannidis",
+                    "given": "John P. A."
+                }
+            ],
+            "container-title": "PLoS Medicine",
+            "id": "ioannidis2005",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "page": "e124",
+            "title": "Why most published research findings are false",
+            "type": "article-journal",
+            "volume": "2"
+        },
+        {
+            "author": [
+                {
+                    "family": "Munafo",
+                    "given": "Marcus R."
+                },
+                {
+                    "literal": "others"
+                }
+            ],
+            "container-title": "Nature Human Behaviour",
+            "id": "munafo2017",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "0021",
+            "title": "A manifesto for reproducible science",
+            "type": "article-journal",
+            "volume": "1"
+        },
+        {
+            "author": [
+                {
+                    "family": "Gandrud",
+                    "given": "Christopher"
+                }
+            ],
+            "id": "gandrud2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC",
+            "title": "Reproducible research with r and r studio",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "id": "xie2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC",
+            "title": "Dynamic documents with r and knitr",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Nielsen",
+                    "given": "Michael"
+                }
+            ],
+            "id": "nielsen2012",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "publisher": "Princeton University Press",
+            "title": "Reinventing discovery: The new era of networked science",
+            "title-short": "Reinventing discovery",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Suber",
+                    "given": "Peter"
+                }
+            ],
+            "id": "suber2012",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "publisher": "MIT Press",
+            "title": "Open access",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "literal": "UNESCO"
+                }
+            ],
+            "id": "unesco2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "title": "UNESCO recommendation on open science",
+            "type": ""
+        },
+        {
+            "author": [
+                {
+                    "family": "Wilkinson",
+                    "given": "Mark D."
+                },
+                {
+                    "literal": "others"
+                }
+            ],
+            "container-title": "Scientific Data",
+            "id": "wilkinson2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "page": "160018",
+            "title": "The FAIR guiding principles for scientific data management and stewardship",
+            "type": "article-journal",
+            "volume": "3"
+        },
+        {
+            "author": [
+                {
+                    "family": "Ince",
+                    "given": "Darrel C."
+                },
+                {
+                    "family": "Hatton",
+                    "given": "Leslie"
+                },
+                {
+                    "family": "Graham-Cumming",
+                    "given": "John"
+                }
+            ],
+            "container-title": "Nature",
+            "id": "ince2012",
+            "issue": "7386",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "485-488",
+            "title": "The case for open computer programs",
+            "type": "article-journal",
+            "volume": "482"
+        },
+        {
+            "author": [
+                {
+                    "family": "Ross-Hellauer",
+                    "given": "Tony"
+                }
+            ],
+            "container-title": "F1000Research",
+            "id": "rossheller2017",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "588",
+            "title": "What is open peer review? A systematic review",
+            "type": "article-journal",
+            "volume": "6"
+        },
+        {
+            "author": [
+                {
+                    "family": "Bonney",
+                    "given": "Rick"
+                },
+                {
+                    "literal": "others"
+                }
+            ],
+            "container-title": "Science",
+            "id": "bonney2016",
+            "issue": "6178",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "page": "1436-1437",
+            "title": "Next steps for citizen science",
+            "type": "article-journal",
+            "volume": "343"
+        },
+        {
+            "author": [
+                {
+                    "literal": "Creative Commons"
+                }
+            ],
+            "id": "creativecommons2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "title": "About the licenses",
+            "type": ""
+        },
+        {
+            "author": [
+                {
+                    "literal": "R Core Team"
+                }
+            ],
+            "id": "r2026",
+            "issued": {
+                "date-parts": [
+                    [
+                        2026
+                    ]
+                ]
+            },
+            "publisher": "R Foundation for Statistical Computing",
+            "title": "R: A language and environment for statistical computing",
+            "title-short": "R",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                }
+            ],
+            "id": "wickham2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "Springer",
+            "title": "ggplot2: Elegant graphics for data analysis",
+            "title-short": "ggplot2",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                },
+                {
+                    "literal": "others"
+                }
+            ],
+            "container-title": "Journal of Open Source Software",
+            "id": "wickham2019",
+            "issue": "43",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "page": "1686",
+            "title": "Welcome to the tidyverse",
+            "type": "article-journal",
+            "volume": "4"
+        },
+        {
+            "author": [
+                {
+                    "family": "Wilson",
+                    "given": "Greg"
+                },
+                {
+                    "literal": "others"
+                }
+            ],
+            "container-title": "PLoS Computational Biology",
+            "id": "wilson2017",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "e1005510",
+            "title": "Good enough practices in scientific computing",
+            "type": "article-journal",
+            "volume": "13"
+        },
+        {
+            "author": [
+                {
+                    "family": "Marwick",
+                    "given": "Ben"
+                },
+                {
+                    "literal": "others"
+                }
+            ],
+            "container-title": "The American Statistician",
+            "id": "marwick2018",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "page": "80-88",
+            "title": "Packaging data analytical work reproducibly using r (and friends)",
+            "type": "article-journal",
+            "volume": "72"
+        },
+        {
+            "author": [
+                {
+                    "family": "Lowndes",
+                    "given": "Julia S. S."
+                },
+                {
+                    "literal": "others"
+                }
+            ],
+            "container-title": "Nature Ecology and Evolution",
+            "id": "lowndes2017",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "0160",
+            "title": "Our path to better science in less time using open data science tools",
+            "type": "article-journal",
+            "volume": "1"
+        },
+        {
+            "author": [
+                {
+                    "family": "Broman",
+                    "given": "Karl W."
+                },
+                {
+                    "family": "Woo",
+                    "given": "Kara H."
+                }
+            ],
+            "container-title": "The American Statistician",
+            "id": "broman2018",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "page": "2-10",
+            "title": "Data organization in spreadsheets",
+            "type": "article-journal",
+            "volume": "72"
+        },
+        {
+            "author": [
+                {
+                    "literal": "Posit PBC"
+                }
+            ],
+            "id": "quarto2024",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024
+                    ]
+                ]
+            },
+            "title": "Quarto documentation",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Knuth",
+                    "given": "Donald E."
+                }
+            ],
+            "container-title": "Literate programming",
+            "id": "knuth1984",
+            "issued": {
+                "date-parts": [
+                    [
+                        1992
+                    ]
+                ]
+            },
+            "page": "99-118",
+            "publisher": "Center for the Study of Language; Information",
+            "title": "Literate programming",
+            "type": "chapter"
+        },
+        {
+            "author": [
+                {
+                    "family": "Hernández-Sampieri",
+                    "given": "Roberto"
+                },
+                {
+                    "family": "Mendoza",
+                    "given": "Christian"
+                }
+            ],
+            "id": "hernandezsampieri2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "McGraw-Hill Education",
+            "title": "Metodología de la investigación: Las rutas cuantitativa, cualitativa y mixta",
+            "title-short": "Metodología de la investigación",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Creswell",
+                    "given": "John W."
+                },
+                {
+                    "family": "Creswell",
+                    "given": "J. David"
+                }
+            ],
+            "id": "creswell2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "SAGE Publications",
+            "title": "Research design: Qualitative, quantitative, and mixed methods approaches",
+            "title-short": "Research design",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Booth",
+                    "given": "Wayne C."
+                },
+                {
+                    "family": "Colomb",
+                    "given": "Gregory G."
+                },
+                {
+                    "family": "Williams",
+                    "given": "Joseph M."
+                },
+                {
+                    "family": "Bizup",
+                    "given": "Joseph"
+                },
+                {
+                    "family": "FitzGerald",
+                    "given": "William T."
+                }
+            ],
+            "id": "booth2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "University of Chicago Press",
+            "title": "The craft of research",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Machi",
+                    "given": "Lawrence A."
+                },
+                {
+                    "family": "McEvoy",
+                    "given": "Brenda T."
+                }
+            ],
+            "id": "machi2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "Corwin",
+            "title": "The literature review: Six steps to success",
+            "title-short": "The literature review",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Maxwell",
+                    "given": "Joseph A."
+                }
+            ],
+            "id": "maxwell2013",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "publisher": "SAGE Publications",
+            "title": "Qualitative research design: An interactive approach",
+            "title-short": "Qualitative research design",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Arias",
+                    "given": "Fidias G."
+                }
+            ],
+            "id": "arias2012",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "publisher": "Episteme",
+            "title": "El proyecto de investigación: Introducción a la metodología científica",
+            "title-short": "El proyecto de investigación",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Kerlinger",
+                    "given": "Fred N."
+                },
+                {
+                    "family": "Lee",
+                    "given": "Howard B."
+                }
+            ],
+            "id": "kerlinger2002",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002
+                    ]
+                ]
+            },
+            "publisher": "McGraw-Hill",
+            "title": "Investigación del comportamiento: Métodos de investigación en ciencias sociales",
+            "title-short": "Investigación del comportamiento",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Wooldridge",
+                    "given": "Jeffrey M."
+                }
+            ],
+            "id": "wooldridge2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "Cengage Learning",
+            "title": "Introductory econometrics: A modern approach",
+            "title-short": "Introductory econometrics",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Booth",
+                    "given": "Wayne C."
+                },
+                {
+                    "family": "Colomb",
+                    "given": "Gregory G."
+                },
+                {
+                    "family": "Williams",
+                    "given": "Joseph M."
+                },
+                {
+                    "family": "Bizup",
+                    "given": "Joseph"
+                },
+                {
+                    "family": "FitzGerald",
+                    "given": "William T."
+                }
+            ],
+            "id": "booth2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "University of Chicago Press",
+            "title": "The craft of research",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Hernández-Sampieri",
+                    "given": "Roberto"
+                },
+                {
+                    "family": "Mendoza",
+                    "given": "Christian"
+                }
+            ],
+            "id": "hernandezsampieri2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "McGraw-Hill Education",
+            "title": "Metodología de la investigación: Las rutas cuantitativa, cualitativa y mixta",
+            "title-short": "Metodología de la investigación",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Creswell",
+                    "given": "John W."
+                },
+                {
+                    "family": "Creswell",
+                    "given": "J. David"
+                }
+            ],
+            "id": "creswell2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "SAGE Publications",
+            "title": "Research design: Qualitative, quantitative, and mixed methods approaches",
+            "title-short": "Research design",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Kerlinger",
+                    "given": "Fred N."
+                },
+                {
+                    "family": "Lee",
+                    "given": "Howard B."
+                }
+            ],
+            "id": "kerlinger2002",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002
+                    ]
+                ]
+            },
+            "publisher": "McGraw-Hill",
+            "title": "Investigación del comportamiento: Métodos de investigación en ciencias sociales",
+            "title-short": "Investigación del comportamiento",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Kitchenham",
+                    "given": "Barbara"
+                },
+                {
+                    "family": "Charters",
+                    "given": "Stuart"
+                }
+            ],
+            "id": "kitchenham2007",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007
+                    ]
+                ]
+            },
+            "publisher": "EBSE Technical Report",
+            "title": "Guidelines for performing systematic literature reviews in software engineering",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Martín-Martín",
+                    "given": "Alberto"
+                },
+                {
+                    "family": "Orduna-Malea",
+                    "given": "Enrique"
+                },
+                {
+                    "family": "Thelwall",
+                    "given": "Mike"
+                },
+                {
+                    "family": "Delgado López-Cózar",
+                    "given": "Emilio"
+                }
+            ],
+            "container-title": "Journal of Informetrics",
+            "id": "martinmartin2018",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "page": "1160-1177",
+            "title": "Google scholar, web of science, and scopus: A systematic comparison of citations in 252 subject categories",
+            "title-short": "Google scholar, web of science, and scopus",
+            "type": "article-journal",
+            "volume": "12"
+        },
+        {
+            "author": [
+                {
+                    "family": "Patashnik",
+                    "given": "Oren"
+                }
+            ],
+            "id": "patashnik1988",
+            "issued": {
+                "date-parts": [
+                    [
+                        1988
+                    ]
+                ]
+            },
+            "publisher": "Addison-Wesley",
+            "title": "BibTeXing",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "wickham2014",
+            "issue": "10",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "page": "1-23",
+            "title": "Tidy data",
+            "type": "article-journal",
+            "volume": "59"
+        },
+        {
+            "author": [
+                {
+                    "family": "Dasu",
+                    "given": "Tamraparni"
+                },
+                {
+                    "family": "Johnson",
+                    "given": "Theodore"
+                }
+            ],
+            "id": "dasu2003",
+            "issued": {
+                "date-parts": [
+                    [
+                        2003
+                    ]
+                ]
+            },
+            "publisher": "John Wiley & Sons",
+            "title": "Exploratory data mining and data cleaning",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Gandrud",
+                    "given": "Christopher"
+                }
+            ],
+            "id": "gandrud2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC",
+            "title": "Reproducible research with r and r studio",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Peng",
+                    "given": "Roger D."
+                }
+            ],
+            "container-title": "Science",
+            "id": "peng2011",
+            "issue": "6060",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "1226-1227",
+            "title": "Reproducible research in computational science",
+            "type": "article-journal",
+            "volume": "334"
+        },
+        {
+            "author": [
+                {
+                    "family": "Groves",
+                    "given": "Robert M."
+                },
+                {
+                    "family": "Fowler",
+                    "given": "Floyd J."
+                },
+                {
+                    "family": "Couper",
+                    "given": "Mick P."
+                },
+                {
+                    "family": "Lepkowski",
+                    "given": "James M."
+                },
+                {
+                    "family": "Singer",
+                    "given": "Eleanor"
+                },
+                {
+                    "family": "Tourangeau",
+                    "given": "Roger"
+                }
+            ],
+            "id": "groves2009",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "publisher": "John Wiley & Sons",
+            "title": "Survey methodology",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Wilson",
+                    "given": "Greg"
+                },
+                {
+                    "family": "Bryan",
+                    "given": "Jennifer"
+                },
+                {
+                    "family": "Cranston",
+                    "given": "Karen"
+                },
+                {
+                    "family": "Kitzes",
+                    "given": "Justin"
+                },
+                {
+                    "family": "Nederbragt",
+                    "given": "Lex"
+                },
+                {
+                    "family": "Teal",
+                    "given": "Tracy K."
+                }
+            ],
+            "container-title": "PLoS Computational Biology",
+            "id": "wilson2017",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "e1005510",
+            "title": "Good enough practices in scientific computing",
+            "type": "article-journal",
+            "volume": "13"
+        },
+        {
+            "author": [
+                {
+                    "family": "Dasu",
+                    "given": "Tamraparni"
+                },
+                {
+                    "family": "Johnson",
+                    "given": "Theodore"
+                }
+            ],
+            "id": "dasu2003",
+            "issued": {
+                "date-parts": [
+                    [
+                        2003
+                    ]
+                ]
+            },
+            "publisher": "John Wiley & Sons",
+            "title": "Exploratory data mining and data cleaning",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "literal": "Instituto Nacional de Estadística y Censos"
+                }
+            ],
+            "id": "inec_guia_espac2025",
+            "issued": {
+                "date-parts": [
+                    [
+                        2026
+                    ]
+                ]
+            },
+            "title": "Guía sobre el uso de base de datos de la encuesta de superficie y producción agropecuaria continua (ESPAC)",
+            "type": ""
+        },
+        {
+            "author": [
+                {
+                    "literal": "Instituto Nacional de Estadística y Censos"
+                }
+            ],
+            "id": "inec_manual_espac2025",
+            "issued": {
+                "date-parts": [
+                    [
+                        2026
+                    ]
+                ]
+            },
+            "title": "Manual del encuestador, supervisor, digitador: ESPAC 2025",
+            "title-short": "Manual del encuestador, supervisor, digitador",
+            "type": ""
+        },
+        {
+            "author": [
+                {
+                    "family": "Hastie",
+                    "given": "Trevor"
+                },
+                {
+                    "family": "Tibshirani",
+                    "given": "Robert"
+                },
+                {
+                    "family": "Friedman",
+                    "given": "Jerome"
+                }
+            ],
+            "edition": "2",
+            "id": "hastie2009",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "publisher": "Springer",
+            "title": "The elements of statistical learning: Data mining, inference, and prediction",
+            "title-short": "The elements of statistical learning",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "James",
+                    "given": "Gareth"
+                },
+                {
+                    "family": "Witten",
+                    "given": "Daniela"
+                },
+                {
+                    "family": "Hastie",
+                    "given": "Trevor"
+                },
+                {
+                    "family": "Tibshirani",
+                    "given": "Robert"
+                }
+            ],
+            "edition": "2",
+            "id": "james2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "publisher": "Springer",
+            "title": "An introduction to statistical learning with applications in r",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "literal": "Instituto Nacional de Estadística y Censos"
+                }
+            ],
+            "id": "inec_metodologia_espac2025",
+            "issued": {
+                "date-parts": [
+                    [
+                        2026
+                    ]
+                ]
+            },
+            "title": "Metodología ESPAC 2025",
+            "type": ""
+        },
+        {
+            "author": [
+                {
+                    "family": "Van Buuren",
+                    "given": "Stef"
+                }
+            ],
+            "id": "vanbuuren2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC",
+            "title": "Flexible imputation of missing data",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Kimball",
+                    "given": "Ralph"
+                },
+                {
+                    "family": "Ross",
+                    "given": "Margy"
+                }
+            ],
+            "id": "kimball2013",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "publisher": "John Wiley & Sons",
+            "title": "The data warehouse toolkit",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Little",
+                    "given": "Roderick J. A."
+                },
+                {
+                    "family": "Rubin",
+                    "given": "Donald B."
+                }
+            ],
+            "container-title": "Wiley Series in Probability and Statistics",
+            "id": "little2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "title": "Statistical analysis with missing data",
+            "type": "article-journal",
+            "volume": "793"
+        },
+        {
+            "author": [
+                {
+                    "family": "Peng",
+                    "given": "Roger D."
+                }
+            ],
+            "id": "peng2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "Leanpub",
+            "title": "R programming for data science",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Peng",
+                    "given": "Roger D."
+                }
+            ],
+            "id": "peng2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "Leanpub",
+            "title": "R programming for data science",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Wang",
+                    "given": "Richard Y."
+                },
+                {
+                    "family": "Strong",
+                    "given": "Diane M."
+                }
+            ],
+            "container-title": "Journal of Management Information Systems",
+            "id": "wang1996",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        1996
+                    ]
+                ]
+            },
+            "page": "5-33",
+            "title": "Beyond accuracy: What data quality means to data consumers",
+            "title-short": "Beyond accuracy",
+            "type": "article-journal",
+            "volume": "12"
+        },
+        {
+            "author": [
+                {
+                    "family": "Pipino",
+                    "given": "Leo L."
+                },
+                {
+                    "family": "Lee",
+                    "given": "Yang W."
+                },
+                {
+                    "family": "Wang",
+                    "given": "Richard Y."
+                }
+            ],
+            "container-title": "Communications of the ACM",
+            "id": "pipino2002",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002
+                    ]
+                ]
+            },
+            "page": "211-218",
+            "title": "Data quality assessment",
+            "type": "article-journal",
+            "volume": "45"
+        },
+        {
+            "author": [
+                {
+                    "family": "Redman",
+                    "given": "Thomas C."
+                }
+            ],
+            "container-title": "Communications of the ACM",
+            "id": "redman1998",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1998
+                    ]
+                ]
+            },
+            "page": "79-82",
+            "title": "The impact of poor data quality on the typical enterprise",
+            "type": "article-journal",
+            "volume": "41"
+        },
+        {
+            "author": [
+                {
+                    "family": "Little",
+                    "given": "Roderick J. A."
+                },
+                {
+                    "family": "Rubin",
+                    "given": "Donald B."
+                }
+            ],
+            "id": "little2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "publisher": "John Wiley & Sons",
+            "title": "Statistical analysis with missing data",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Van Buuren",
+                    "given": "Stef"
+                }
+            ],
+            "id": "vanbuuren2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC",
+            "title": "Flexible imputation of missing data",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Tukey",
+                    "given": "John W."
+                }
+            ],
+            "id": "tukey1977",
+            "issued": {
+                "date-parts": [
+                    [
+                        1977
+                    ]
+                ]
+            },
+            "publisher": "Addison-Wesley",
+            "title": "Exploratory data analysis",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Freedman",
+                    "given": "David"
+                },
+                {
+                    "family": "Pisani",
+                    "given": "Robert"
+                },
+                {
+                    "family": "Purves",
+                    "given": "Roger"
+                }
+            ],
+            "id": "freedman2007",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007
+                    ]
+                ]
+            },
+            "publisher": "W. W. Norton",
+            "title": "Statistics",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Moore",
+                    "given": "David S."
+                },
+                {
+                    "family": "McCabe",
+                    "given": "George P."
+                },
+                {
+                    "family": "Craig",
+                    "given": "Bruce A."
+                }
+            ],
+            "id": "moore2017",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "publisher": "W. H. Freeman",
+            "title": "Introduction to the practice of statistics",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Weisberg",
+                    "given": "Sanford"
+                }
+            ],
+            "id": "weisberg2005",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "publisher": "John Wiley & Sons",
+            "title": "Applied linear regression",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Cleveland",
+                    "given": "William S."
+                }
+            ],
+            "id": "cleveland1993",
+            "issued": {
+                "date-parts": [
+                    [
+                        1993
+                    ]
+                ]
+            },
+            "publisher": "Hobart Press",
+            "title": "Visualizing data",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Healy",
+                    "given": "Kieran"
+                }
+            ],
+            "id": "healy2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "Princeton University Press",
+            "title": "Data visualization: A practical introduction",
+            "title-short": "Data visualization",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Wilkinson",
+                    "given": "Leland"
+                }
+            ],
+            "id": "wilkinson2005",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "publisher": "Springer",
+            "title": "The grammar of graphics",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Few",
+                    "given": "Stephen"
+                }
+            ],
+            "id": "few2012",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "publisher": "Analytics Press",
+            "title": "Show me the numbers: Designing tables and graphs to enlighten",
+            "title-short": "Show me the numbers",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Lovelace",
+                    "given": "Robin"
+                },
+                {
+                    "family": "Nowosad",
+                    "given": "Jakub"
+                },
+                {
+                    "family": "Muenchow",
+                    "given": "Jannes"
+                }
+            ],
+            "id": "lovelace2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "publisher": "CRC Press",
+            "title": "Geocomputation with r",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Wilke",
+                    "given": "Claus O."
+                }
+            ],
+            "id": "wilke2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "publisher": "O’Reilly Media",
+            "title": "Fundamentals of data visualization",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Tufte",
+                    "given": "Edward R."
+                }
+            ],
+            "id": "tufte2001",
+            "issued": {
+                "date-parts": [
+                    [
+                        2001
+                    ]
+                ]
+            },
+            "publisher": "Graphics Press",
+            "title": "The visual display of quantitative information",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Cairo",
+                    "given": "Alberto"
+                }
+            ],
+            "id": "cairo2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "New Riders",
+            "title": "The truthful art: Data, charts, and maps for communication",
+            "title-short": "The truthful art",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Lovelace",
+                    "given": "Robin"
+                },
+                {
+                    "family": "Nowosad",
+                    "given": "Jakub"
+                },
+                {
+                    "family": "Muenchow",
+                    "given": "Jannes"
+                }
+            ],
+            "id": "lovelace2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "publisher": "CRC Press",
+            "title": "Geocomputation with r",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Garnier",
+                    "given": "Simon"
+                }
+            ],
+            "id": "garnier2024",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024
+                    ]
+                ]
+            },
+            "note": "R package version 0.6.5",
+            "title": "Viridis: Colorblind-friendly color maps for R",
+            "title-short": "Viridis",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Faraway",
+                    "given": "Julian J."
+                }
+            ],
+            "edition": "2",
+            "id": "faraway2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "CRC Press",
+            "title": "Extending the linear model with r",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Gelman",
+                    "given": "Andrew"
+                },
+                {
+                    "family": "Hill",
+                    "given": "Jennifer"
+                },
+                {
+                    "family": "Vehtari",
+                    "given": "Aki"
+                }
+            ],
+            "id": "gelman2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "Cambridge University Press",
+            "title": "Regression and other stories",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Pearson",
+                    "given": "Karl"
+                }
+            ],
+            "container-title": "Proceedings of the Royal Society of London",
+            "id": "pearson1895",
+            "issued": {
+                "date-parts": [
+                    [
+                        1895
+                    ]
+                ]
+            },
+            "page": "240-242",
+            "title": "Notes on regression and inheritance in the case of two parents",
+            "type": "article-journal",
+            "volume": "58"
+        },
+        {
+            "author": [
+                {
+                    "family": "Spearman",
+                    "given": "Charles"
+                }
+            ],
+            "container-title": "The American Journal of Psychology",
+            "id": "spearman1904",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        1904
+                    ]
+                ]
+            },
+            "page": "72-101",
+            "title": "The proof and measurement of association between two things",
+            "type": "article-journal",
+            "volume": "15"
+        },
+        {
+            "author": [
+                {
+                    "family": "Kendall",
+                    "given": "Maurice G."
+                }
+            ],
+            "container-title": "Biometrika",
+            "id": "kendall1938",
+            "issue": "1/2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1938
+                    ]
+                ]
+            },
+            "page": "81-93",
+            "title": "A new measure of rank correlation",
+            "type": "article-journal",
+            "volume": "30"
+        },
+        {
+            "author": [
+                {
+                    "family": "Angrist",
+                    "given": "Joshua D."
+                },
+                {
+                    "family": "Pischke",
+                    "given": "Jörn-Steffen"
+                }
+            ],
+            "id": "angrist2009",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "publisher": "Princeton University Press",
+            "title": "Mostly harmless econometrics: An empiricist’s companion",
+            "title-short": "Mostly harmless econometrics",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Agresti",
+                    "given": "Alan"
+                },
+                {
+                    "family": "Finlay",
+                    "given": "Barbara"
+                }
+            ],
+            "edition": "5",
+            "id": "agresti2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "Pearson",
+            "publisher-place": "New York",
+            "title": "Statistical methods for the social sciences",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Hernán",
+                    "given": "Miguel A."
+                },
+                {
+                    "family": "Robins",
+                    "given": "James M."
+                }
+            ],
+            "id": "hernan2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC",
+            "publisher-place": "Boca Raton, FL",
+            "title": "Causal inference: What if",
+            "title-short": "Causal inference",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Pearl",
+                    "given": "Judea"
+                },
+                {
+                    "family": "Mackenzie",
+                    "given": "Dana"
+                }
+            ],
+            "id": "pearl2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "Basic Books",
+            "publisher-place": "New York",
+            "title": "The book of why: The new science of cause and effect",
+            "title-short": "The book of why",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Montgomery",
+                    "given": "Douglas C."
+                },
+                {
+                    "family": "Peck",
+                    "given": "Elizabeth A."
+                },
+                {
+                    "family": "Vining",
+                    "given": "G. Geoffrey"
+                }
+            ],
+            "edition": "6",
+            "id": "montgomery2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "publisher": "Wiley",
+            "title": "Introduction to linear regression analysis",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Fox",
+                    "given": "John"
+                },
+                {
+                    "family": "Weisberg",
+                    "given": "Sanford"
+                }
+            ],
+            "edition": "3",
+            "id": "fox2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "publisher": "SAGE",
+            "publisher-place": "Thousand Oaks, CA",
+            "title": "An r companion to applied regression",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Kutner",
+                    "given": "Michael H."
+                },
+                {
+                    "family": "Nachtsheim",
+                    "given": "Christopher J."
+                },
+                {
+                    "family": "Neter",
+                    "given": "John"
+                },
+                {
+                    "family": "Li",
+                    "given": "William"
+                }
+            ],
+            "edition": "5",
+            "id": "kutner2004",
+            "issued": {
+                "date-parts": [
+                    [
+                        2004
+                    ]
+                ]
+            },
+            "publisher": "McGraw-Hill/Irwin",
+            "publisher-place": "Boston",
+            "title": "Applied linear statistical models",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Hosmer",
+                    "given": "David W."
+                },
+                {
+                    "family": "Lemeshow",
+                    "given": "Stanley"
+                },
+                {
+                    "family": "Sturdivant",
+                    "given": "Rodney X."
+                }
+            ],
+            "edition": "3",
+            "id": "hosmer2013",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "publisher": "Wiley",
+            "title": "Applied logistic regression",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Wooldridge",
+                    "given": "Jeffrey M."
+                }
+            ],
+            "edition": "2",
+            "id": "wooldridge2010",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "publisher": "MIT Press",
+            "title": "Econometric analysis of cross section and panel data",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Baltagi",
+                    "given": "Badi H."
+                }
+            ],
+            "edition": "6",
+            "id": "baltagi2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "publisher": "Springer",
+            "title": "Econometric analysis of panel data",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Anselin",
+                    "given": "Luc"
+                }
+            ],
+            "id": "anselin1988",
+            "issued": {
+                "date-parts": [
+                    [
+                        1988
+                    ]
+                ]
+            },
+            "publisher": "Kluwer Academic Publishers",
+            "publisher-place": "Dordrecht",
+            "title": "Spatial econometrics: Methods and models",
+            "title-short": "Spatial econometrics",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Gelman",
+                    "given": "Andrew"
+                },
+                {
+                    "family": "Hill",
+                    "given": "Jennifer"
+                }
+            ],
+            "id": "gelman2007",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007
+                    ]
+                ]
+            },
+            "publisher": "Cambridge University Press",
+            "title": "Data analysis using regression and multilevel/hierarchical models",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Kumbhakar",
+                    "given": "Subal C."
+                },
+                {
+                    "family": "Wang",
+                    "given": "Hung-Jen"
+                },
+                {
+                    "family": "Horncastle",
+                    "given": "Alan P."
+                }
+            ],
+            "id": "kumbhakar2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "Cambridge University Press",
+            "publisher-place": "Cambridge",
+            "title": "A practitioner’s guide to stochastic frontier analysis using stata",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Wooldridge",
+                    "given": "Jeffrey M."
+                }
+            ],
+            "edition": "7",
+            "id": "wooldridge2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "publisher": "Cengage Learning",
+            "publisher-place": "Boston",
+            "title": "Introductory econometrics: A modern approach",
+            "title-short": "Introductory econometrics",
+            "type": "book"
+        },
+        {
+            "URL": "https://quarto.org",
+            "author": [
+                {
+                    "family": "Allaire",
+                    "given": "J. J."
+                },
+                {
+                    "family": "Teague",
+                    "given": "Charles"
+                },
+                {
+                    "family": "Scheidegger",
+                    "given": "Carlos"
+                },
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                },
+                {
+                    "family": "Dervieux",
+                    "given": "Christophe"
+                }
+            ],
+            "id": "allaire2024",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024
+                    ]
+                ]
+            },
+            "publisher": "Posit Software",
+            "title": "Quarto",
+            "type": "book"
+        },
+        {
+            "DOI": "10.18637/jss.v103.i01",
+            "author": [
+                {
+                    "family": "Arel-Bundock",
+                    "given": "Vincent"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "arelbundock2022",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "page": "1-23",
+            "title": "Modelsummary: Data and model summaries in r",
+            "title-short": "Modelsummary",
+            "type": "article-journal",
+            "volume": "103"
+        },
+        {
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                },
+                {
+                    "family": "Dervieux",
+                    "given": "Christophe"
+                },
+                {
+                    "family": "Riederer",
+                    "given": "Emily"
+                }
+            ],
+            "edition": "2",
+            "id": "xie2024",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC",
+            "title": "R markdown: The definitive guide",
+            "title-short": "R markdown",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Swales",
+                    "given": "John M."
+                },
+                {
+                    "family": "Feak",
+                    "given": "Christine B."
+                }
+            ],
+            "edition": "2",
+            "id": "swales2004",
+            "issued": {
+                "date-parts": [
+                    [
+                        2004
+                    ]
+                ]
+            },
+            "publisher": "University of Michigan Press",
+            "title": "Academic writing for graduate students",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Creswell",
+                    "given": "John W."
+                },
+                {
+                    "family": "Creswell",
+                    "given": "J. David"
+                }
+            ],
+            "edition": "5",
+            "id": "creswell2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "SAGE Publications",
+            "title": "Research design: Qualitative, quantitative, and mixed methods approaches",
+            "title-short": "Research design",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Acemoglu",
+                    "given": "Daron"
+                },
+                {
+                    "family": "Robinson",
+                    "given": "James A."
+                }
+            ],
+            "id": "acemoglu2012",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "publisher": "Crown Business",
+            "title": "Why nations fail: The origins of power, prosperity, and poverty",
+            "title-short": "Why nations fail",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Brynjolfsson",
+                    "given": "Erik"
+                },
+                {
+                    "family": "McAfee",
+                    "given": "Andrew"
+                }
+            ],
+            "id": "brynjolfsson2014",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "publisher": "W. W. Norton",
+            "title": "The second machine age",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1126/science.1213847",
+            "author": [
+                {
+                    "family": "Peng",
+                    "given": "Roger D."
+                }
+            ],
+            "container-title": "Science",
+            "id": "peng2011",
+            "issue": "6060",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "1226-1227",
+            "title": "Reproducible research in computational science",
+            "type": "article-journal",
+            "volume": "334"
+        },
+        {
+            "author": [
+                {
+                    "literal": "American Psychological Association"
+                }
+            ],
+            "edition": "7",
+            "id": "apa2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "American Psychological Association",
+            "publisher-place": "Washington, DC",
+            "title": "Publication manual of the american psychological association",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Belcher",
+                    "given": "Wendy Laura"
+                }
+            ],
+            "edition": "2",
+            "id": "belcher2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "publisher": "University of Chicago Press",
+            "title": "Writing your journal article in twelve weeks",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Deaton",
+                    "given": "Angus"
+                }
+            ],
+            "id": "deaton2013",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "publisher": "Princeton University Press",
+            "title": "The great escape: Health, wealth, and the origins of inequality",
+            "title-short": "The great escape",
+            "type": "book"
+        },
+        {
+            "URL": "https://quarto.org",
+            "author": [
+                {
+                    "family": "Allaire",
+                    "given": "J. J."
+                },
+                {
+                    "family": "Teague",
+                    "given": "Charles"
+                },
+                {
+                    "family": "Scheidegger",
+                    "given": "Carlos"
+                },
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                },
+                {
+                    "family": "Dervieux",
+                    "given": "Christophe"
+                }
+            ],
+            "id": "allaire2024",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024
+                    ]
+                ]
+            },
+            "publisher": "Posit Software",
+            "title": "Quarto",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                }
+            ],
+            "edition": "1",
+            "id": "wickham2023",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023
+                    ]
+                ]
+            },
+            "publisher": "O’Reilly Media",
+            "title": "Mastering shiny",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Gujarati",
+                    "given": "Damodar N."
+                },
+                {
+                    "family": "Porter",
+                    "given": "Dawn C."
+                }
+            ],
+            "edition": "5",
+            "id": "gujarati2010econometria",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "publisher": "McGraw-Hill",
+            "publisher-place": "México",
+            "title": "Econometría",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Muñoz",
+                    "given": "Leopoldo"
+                }
+            ],
+            "id": "munoz2013calculo",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "note": "Documento técnico",
+            "title": "Cálculo del RMSE vertical del modelo de elevación de superficie NEXTMap world 30 DSM vs. La red geodésica de primer orden de costa rica",
+            "type": ""
+        },
+        {
+            "author": [
+                {
+                    "family": "Lalinde",
+                    "given": "Juan Diego Hernández"
+                },
+                {
+                    "family": "Castro",
+                    "given": "Franklin Espinosa"
+                },
+                {
+                    "family": "Rodríguez",
+                    "given": "Johel E."
+                },
+                {
+                    "family": "Rangel",
+                    "given": "José Gerardo Chacón"
+                },
+                {
+                    "family": "Sierra",
+                    "given": "Cristian Andrés Toloza"
+                },
+                {
+                    "family": "Torrado",
+                    "given": "Marlly Karina Arenas"
+                },
+                {
+                    "family": "Sierra",
+                    "given": "Sandra Milena Carrillo"
+                },
+                {
+                    "family": "Pirela",
+                    "given": "Valmore José Bermúdez"
+                }
+            ],
+            "container-title": "Archivos Venezolanos de Farmacología y Terapéutica",
+            "id": "lalinde2018uso",
+            "issue": "5",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "page": "587-595",
+            "title": "Sobre el uso adecuado del coeficiente de correlación de pearson: Definición, propiedades y suposiciones",
+            "title-short": "Sobre el uso adecuado del coeficiente de correlación de pearson",
+            "type": "article-journal",
+            "volume": "37"
+        },
+        {
+            "author": [
+                {
+                    "dropping-particle": "del",
+                    "family": "Valle Moreno",
+                    "given": "Juan"
+                },
+                {
+                    "family": "Guerra Bustillo",
+                    "given": "Walkiria"
+                }
+            ],
+            "container-title": "Revista Ciencias Técnicas Agropecuarias",
+            "id": "del2012multicolinealidad",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "80-83",
+            "title": "La multicolinealidad en modelos de regresión lineal múltiple",
+            "type": "article-journal",
+            "volume": "21"
+        },
+        {
+            "author": [
+                {
+                    "family": "Hausman",
+                    "given": "Jerry A."
+                }
+            ],
+            "container-title": "Econometrica",
+            "id": "hausman1978specification",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        1978
+                    ]
+                ]
+            },
+            "page": "1251-1271",
+            "title": "Specification tests in econometrics",
+            "type": "article-journal",
+            "volume": "46"
+        }
+    ],
+    "project_biblios": [
+        "referencias/referencias.bib"
+    ]
+}

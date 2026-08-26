@@ -1,0 +1,92 @@
+# Investigación reproducible: construyendo confianza en la ciencia
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Una vez comprendido cómo está organizada esta obra, es momento de abordar el concepto que articula todo el libro: la investigación reproducible.
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender el concepto de investigación reproducible.
+* Identificar problemas frecuentes asociados a los flujos de trabajo tradicionales.
+* Reconocer los beneficios de integrar datos, código y documentación en un único proyecto.
+* Comprender la importancia de la reproducibilidad para la credibilidad y acumulación del conocimiento científico.
+
+## ¿Por qué hablar de reproducibilidad?
+
+La ciencia abierta no consiste únicamente en publicar artículos de acceso libre. Representa un cambio profundo en la forma de producir, compartir, verificar y reutilizar el conocimiento científico. En este nuevo paradigma, los datos, el código, los procesos y los resultados dejan de ser productos aislados para convertirse en componentes de un ecosistema colaborativo orientado a generar conocimiento más transparente, confiable para beneficio global.
+
+La ciencia se fundamenta en la posibilidad de verificar y contrastar los resultados obtenidos por otros investigadores. Desde los orígenes del método científico, la descripción detallada de procedimientos, observaciones y experimentos ha sido un requisito esencial para garantizar que los hallazgos puedan ser examinados y validados por la comunidad académica [@popper2002].
+
+Sin embargo, durante las últimas décadas ha surgido una creciente preocupación por la dificultad de reproducir numerosos resultados científicos publicados en distintas disciplinas. Diversos estudios han evidenciado que una proporción considerable de investigaciones no puede ser replicada completamente debido a la falta de acceso a los datos originales, a la ausencia de documentación metodológica suficiente o a la imposibilidad de reconstruir los procedimientos analíticos utilizados [@peng2011; @baker2016].
+
+Imagine que después de varios meses de trabajo usted termina su tesis de grado. El documento contiene tablas, gráficos, análisis estadísticos y conclusiones cuidadosamente elaboradas. El trabajo es aprobado y finalmente archivado.
+
+Un año después, su director de tesis le solicita actualizar uno de los análisis utilizando una nueva versión de la base de datos. Usted abre la carpeta donde guardó el proyecto y encuentra decenas de archivos con nombres como:
+
+```text
+tesis_final.docx
+tesis_final_corregida.docx
+tesis_final_corregida_2.docx
+tabla_definitiva.xlsx
+tabla_definitiva_final.xlsx
+grafico_bueno.png
+grafico_bueno_final.png
+```
+
+Después de varias horas descubre que ya no recuerda qué procedimientos utilizó para obtener algunos resultados, qué versión de la base de datos empleó o cómo generó determinadas tablas.
+
+Aunque este escenario parece anecdótico, refleja un problema frecuente en la práctica investigativa contemporánea.
+
+## El problema de las investigaciones irreproducibles
+
+Durante muchos años la investigación se desarrolló mediante procesos fragmentados. Los datos eran procesados en una aplicación, los resultados trasladados a hojas de cálculo y posteriormente incorporados manualmente a documentos de texto.
+
+Este tipo de flujo de trabajo genera diversos riesgos:
+
+* Errores de transcripción.
+* Pérdida de información sobre las transformaciones realizadas.
+* Dificultades para actualizar resultados.
+* Escasa transparencia metodológica.
+* Limitaciones para la verificación independiente.
+
+Como consecuencia, los resultados pueden volverse difíciles de reproducir incluso para los propios autores de la investigación.
+
+La preocupación por este fenómeno ha dado origen a lo que algunos autores denominan la "crisis de reproducibilidad", un debate que ha adquirido especial relevancia en áreas como la psicología, las ciencias biomédicas y las ciencias sociales [@ioannidis2005; @munafo2017].
+
+## ¿Qué es una investigación reproducible?
+
+La investigación reproducible puede definirse como aquella en la que los datos, métodos y procedimientos utilizados se encuentran suficientemente documentados para permitir que otros investigadores obtengan los mismos resultados utilizando la misma información y los mismos procesos analíticos [@peng2011].
+
+En términos prácticos, una investigación reproducible debe responder claramente a preguntas como:
+
+* ¿De dónde provienen los datos?
+* ¿Cómo fueron procesados?
+* ¿Qué procedimientos estadísticos se aplicaron?
+* ¿Cómo se generaron las tablas y figuras?
+* ¿Cómo se elaboró el informe final?
+
+La reproducibilidad no garantiza que una investigación sea correcta, pero sí permite que otros investigadores evalúen críticamente cada una de las etapas desarrolladas.
+
+## Un nuevo paradigma para investigar
+
+La reproducibilidad implica mucho más que compartir resultados finales. Supone documentar de forma transparente todo el proceso de investigación.
+
+En lugar de trabajar con múltiples archivos desconectados entre sí, los enfoques reproducibles integran datos, código, documentación, referencias bibliográficas y resultados dentro de una estructura organizada y coherente.
+
+Este cambio permite que cualquier modificación en los datos se refleje automáticamente en los análisis y productos derivados, reduciendo errores y aumentando la eficiencia del trabajo científico [@gandrud2015].
+
+## De los documentos estáticos a los documentos dinámicos
+
+Tradicionalmente, los informes académicos se elaboran mediante procesos manuales en los cuales tablas, gráficos y resultados son copiados e insertados individualmente dentro del documento final.
+
+Los documentos dinámicos adoptan una lógica diferente. En ellos, los resultados se generan automáticamente a partir de los datos y del código utilizado para analizarlos.
+
+Este enfoque reduce la posibilidad de errores de transcripción, facilita la actualización de resultados y fortalece la transparencia del proceso investigativo [@xie2015].
+
+## Resumen del capítulo
+
+La reproducibilidad constituye uno de los pilares fundamentales de la ciencia moderna. Su propósito es garantizar que los resultados obtenidos puedan ser comprendidos, verificados y reutilizados por otros investigadores.
+
+La creciente preocupación por la transparencia y la confiabilidad de los resultados científicos ha impulsado el desarrollo de nuevas prácticas orientadas a documentar y compartir de forma abierta los datos, métodos y procedimientos utilizados en la investigación.
+
+En el siguiente capítulo analizaremos cómo estas iniciativas dieron origen al movimiento de ciencia abierta y cómo este ha transformado la producción y difusión del conocimiento científico.

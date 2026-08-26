@@ -1,0 +1,110 @@
+# La ciencia abierta como ecosistema de investigación
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender el concepto de ciencia abierta y su evolución.
+* Identificar los principales componentes del ecosistema de ciencia abierta.
+* Reconocer la importancia del acceso abierto, los datos abiertos y el código abierto.
+* Comprender el papel de los repositorios científicos en la difusión y preservación del conocimiento.
+* Aplicar principios de transparencia y reproducibilidad en proyectos de investigación.
+
+## La transformación de la ciencia
+
+La forma en que se produce y comunica el conocimiento científico ha cambiado profundamente durante las últimas décadas. Tradicionalmente, los resultados de investigación se difundían principalmente a través de revistas especializadas, libros académicos y congresos científicos. El acceso a estos recursos dependía en gran medida de la afiliación institucional, la disponibilidad de bibliotecas especializadas y la capacidad económica para acceder a publicaciones científicas.
+
+La expansión de Internet y el desarrollo de tecnologías digitales transformaron este escenario. La comunicación científica comenzó a desarrollarse en un entorno más dinámico, interconectado y global, permitiendo nuevas formas de colaboración, intercambio de información y construcción colectiva del conocimiento [@nielsen2012].
+
+Sin embargo, la disponibilidad de información por sí sola no garantiza una ciencia más transparente ni más confiable. La posibilidad de acceder a un artículo científico no implica necesariamente que los datos, métodos o procedimientos utilizados puedan ser examinados o reutilizados por otros investigadores. Como respuesta a estas limitaciones surgió el movimiento conocido como ciencia abierta.
+
+## ¿Qué es la ciencia abierta?
+
+La ciencia abierta puede definirse como un conjunto de principios y prácticas orientadas a hacer que la investigación científica sea más accesible, transparente, colaborativa y reproducible [@unesco2021].
+
+Bajo esta perspectiva, la investigación deja de entenderse únicamente como un producto final (un artículo, una tesis o un informe) para concebirse como un proceso completo que debe poder ser examinado, comprendido y reutilizado por la comunidad científica y por la sociedad.
+
+La Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura (UNESCO) considera que la ciencia abierta constituye un mecanismo para democratizar el conocimiento científico, reducir desigualdades en el acceso a la información y fortalecer la cooperación internacional en investigación [@unesco2021].
+
+## El ecosistema de la ciencia abierta
+
+La ciencia abierta no se limita a una única práctica. Constituye un ecosistema integrado por diversos componentes que interactúan entre sí para promover una investigación más transparente y accesible.
+
+### Acceso abierto
+
+El acceso abierto (*Open Access*) busca eliminar las barreras económicas y legales que dificultan el acceso a publicaciones científicas.
+
+Su objetivo es garantizar que los resultados de investigación financiados con recursos públicos puedan ser consultados libremente por investigadores, estudiantes, profesionales y ciudadanos interesados [@suber2012].
+
+Actualmente, numerosas revistas científicas y repositorios institucionales permiten acceder gratuitamente a artículos, tesis e informes de investigación.
+
+### Datos abiertos
+
+Los datos constituyen uno de los insumos fundamentales de la actividad científica.
+
+La filosofía de datos abiertos promueve que las bases de datos utilizadas en investigaciones puedan compartirse de forma responsable, respetando principios éticos, legales y de protección de la privacidad cuando corresponda [@wilkinson2016].
+
+La disponibilidad de datos facilita la verificación de resultados, la realización de nuevos análisis y el desarrollo de investigaciones complementarias.
+
+### Código abierto
+
+El crecimiento de la investigación computacional ha incrementado la importancia del software como herramienta científica.
+
+Compartir el código utilizado para procesar datos y generar resultados permite documentar con precisión los procedimientos aplicados y facilita la reproducción de los análisis realizados [@ince2012].
+
+Lenguajes como R y Python han adquirido un papel central dentro de este movimiento debido a su naturaleza abierta y colaborativa.
+
+### Revisión abierta
+
+La revisión por pares constituye uno de los mecanismos fundamentales para garantizar la calidad de la producción científica.
+
+Los modelos de revisión abierta buscan incrementar la transparencia editorial mediante la publicación de informes de evaluación, comentarios de revisores o versiones previas de los manuscritos [@rossheller2017].
+
+### Ciencia ciudadana
+
+La ciencia abierta también promueve formas más amplias de participación social en la generación de conocimiento.
+
+La denominada ciencia ciudadana involucra a personas, comunidades y organizaciones en actividades relacionadas con la recolección de datos, observación de fenómenos naturales, monitoreo ambiental y generación de información científica [@bonney2016].
+
+## Reproducibilidad: el corazón de la ciencia abierta
+
+Aunque la ciencia abierta abarca múltiples dimensiones, la reproducibilidad ocupa un lugar central dentro de este ecosistema.
+
+Una investigación reproducible permite comprender de manera transparente cómo se obtuvieron los resultados reportados. Para ello es necesario documentar adecuadamente los datos utilizados, los procedimientos aplicados, el código empleado y los criterios de interpretación desarrollados [@peng2011].
+
+En este contexto, la reproducibilidad se convierte en un puente entre la apertura y la confianza científica. Cuanto mayor sea la capacidad de verificar y reconstruir una investigación, mayor será la credibilidad de sus resultados.
+
+## Buscando evidencia científica de calidad
+
+La investigación científica comienza con la identificación y evaluación crítica de la evidencia existente.
+
+Actualmente existen diversas plataformas especializadas que permiten localizar literatura científica relevante para un problema de investigación.
+
+Entre las más utilizadas destacan Google Scholar, Scopus, Web of Science, SciELO, Redalyc y Dialnet. Estas herramientas facilitan la identificación de artículos, libros, tesis e informes técnicos, así como el seguimiento de citas y tendencias de investigación.
+
+Más adelante aprenderemos a utilizar estas plataformas para construir revisiones de literatura y generar automáticamente referencias bibliográficas en formato BibTeX.
+
+## Repositorios científicos y preservación del conocimiento
+
+La ciencia abierta también promueve el almacenamiento seguro y accesible de productos de investigación.
+
+Repositorios como Zenodo, Figshare, Open Science Framework (OSF), GitHub y los repositorios institucionales universitarios permiten compartir artículos, bases de datos, código fuente y materiales complementarios asociados a un proyecto científico.
+
+Estos espacios cumplen una función esencial en la preservación, difusión y reutilización del conocimiento científico [@wilkinson2016].
+
+## Licencias abiertas y reutilización responsable
+
+La apertura del conocimiento no implica renunciar a la autoría intelectual.
+
+Las licencias abiertas establecen las condiciones bajo las cuales terceros pueden utilizar, modificar o redistribuir recursos científicos.
+
+Entre las más utilizadas se encuentran las licencias Creative Commons, las cuales permiten definir distintos niveles de reutilización manteniendo el reconocimiento de la autoría original [@creativecommons2019].
+
+## Resumen del capítulo
+
+La ciencia abierta representa una transformación profunda en la forma de producir, compartir y validar conocimiento científico. Más que una práctica aislada, constituye un ecosistema integrado por acceso abierto, datos abiertos, código abierto, repositorios científicos, licencias abiertas y principios de reproducibilidad.
+
+Comprender este ecosistema resulta fundamental para desarrollar investigaciones transparentes, verificables y alineadas con las tendencias contemporáneas de producción científica.
+
+En el siguiente capítulo conoceremos cómo R y Quarto permiten materializar muchos de estos principios mediante un flujo de trabajo integrado para la investigación reproducible.
+

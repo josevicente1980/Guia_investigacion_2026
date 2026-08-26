@@ -1,0 +1,1118 @@
+# Regresión lineal simple
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar esta sección, el lector será capaz de:
+
+- Comprender el propósito de la regresión lineal simple.
+- Diferenciar entre variable dependiente y variable explicativa.
+- Estimar un modelo lineal simple utilizando R.
+- Interpretar intercepto y pendiente.
+- Representar gráficamente la recta de regresión.
+- Comprender la lógica básica de predicción lineal.
+
+## Introducción
+
+La correlación permite cuantificar la intensidad de la asociación entre dos variables. Sin embargo, en muchos contextos resulta necesario ir un paso más allá y construir una ecuación que describa formalmente dicha relación.
+
+La regresión lineal simple constituye uno de los modelos estadísticos más utilizados en ciencias sociales, económicas, ambientales y de la salud. Su objetivo es describir cómo cambia una variable de interés cuando otra variable experimenta variaciones [@montgomery2021].
+
+En este capítulo utilizaremos la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC) para ilustrar el proceso completo de estimación e interpretación de una regresión lineal simple.
+
+## Cargando librerías
+
+```{r}
+#| label: reg20-cargar-librerias
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(knitr)
+library(here)
+```
+
+## Cargando la base analítica
+
+```{r}
+#| label: reg20-cargar-base
+
+base_analitica <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+## Preparación de variables
+
+```{r}
+#| label: reg20-preparar-base
+
+base_regresion <- base_analitica |>
+  mutate(
+    log_supertotal =
+      log1p(
+        supertotal
+      )
+  ) |>
+  select(
+    log_supertotal,
+    fact_exp_fin
+  )
+```
+
+## ¿Qué es una regresión lineal simple?
+
+La regresión lineal simple modela la relación entre una variable dependiente y una única variable explicativa.
+
+La forma general del modelo es:
+
+:contentReference[oaicite:0]{index=0}
+
+donde:
+
+- \(Y\) es la variable dependiente.
+- \(X\) es la variable explicativa.
+- \(\beta_0\) es el intercepto.
+- \(\beta_1\) es la pendiente.
+- \(\varepsilon\) representa el error aleatorio.
+
+## Variables del modelo
+
+En este capítulo utilizaremos:
+
+```text
+Variable dependiente:
+log_supertotal
+```
+
+```text
+Variable explicativa:
+fact_exp_fin
+```
+
+## Exploración visual inicial
+
+Antes de estimar cualquier modelo conviene observar los datos.
+
+```{r}
+#| label: fig-reg20-dispersion-inicial
+#| fig-cap: "Relación entre superficie transformada y factor de expansión"
+
+ggplot(
+  base_regresion,
+  aes(
+    x = fact_exp_fin,
+    y = log_supertotal
+  )
+) +
+  geom_point(
+    alpha = 0.20,
+    color = "steelblue"
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Factor de expansión",
+    y = "Logaritmo de la superficie total"
+  )
+```
+
+**Interpretación**
+
+El gráfico permite visualizar la relación observada entre ambas variables. La dispersión sugiere la existencia de una tendencia general que puede modelarse mediante una recta de regresión.
+
+## Estimación del modelo
+
+La función `lm()` permite estimar modelos lineales.
+
+```{r}
+#| label: reg20-estimar-modelo
+
+modelo_simple <- lm(
+  log_supertotal ~ fact_exp_fin,
+  data = base_regresion
+)
+```
+
+## Resumen del modelo
+
+```{r}
+#| label: tbl-reg20-resumen-modelo
+
+summary(
+  modelo_simple
+)
+```
+
+**Interpretación**
+
+El resumen contiene la información principal del modelo:
+
+- Coeficientes estimados.
+- Errores estándar.
+- Estadísticos t.
+- Valores p.
+- Coeficiente de determinación.
+
+Cada uno de estos elementos será interpretado en las siguientes secciones.
+
+## Extracción de coeficientes
+
+```{r}
+#| label: tbl-reg20-coeficientes
+
+broom::tidy(
+  modelo_simple
+) |>
+  kable(
+    digits = 4,
+    caption = "Coeficientes estimados del modelo"
+  )
+```
+
+**Interpretación**
+
+La tabla resume los parámetros estimados de la ecuación de regresión.
+
+## Interpretación del intercepto
+
+El intercepto representa el valor esperado de la variable dependiente cuando la variable explicativa toma el valor cero. Antes de emitir una interpretación, se debe verificar que el valor p sea menor que 0,05. Una vez comprobada la significancia estadística, se concluye que, cuando el factor de expansión es igual a cero, la superficie total transformada toma el valor estimado por el intercepto.
+
+En términos prácticos:
+
+```text
+Valor esperado de log_supertotal
+cuando fact_exp_fin = 0
+```
+
+Su interpretación debe evaluarse siempre dentro del contexto de los datos observados.
+
+## Interpretación de la pendiente
+
+La pendiente representa el cambio promedio esperado en la variable dependiente ante un incremento de una unidad en la variable explicativa.
+
+En nuestro caso:
+
+```text
+Cambio esperado en log_supertotal
+cuando fact_exp_fin aumenta una unidad.
+```
+
+La pendiente constituye el parámetro más importante de la regresión lineal simple. En este caso, una vez comprobada su significancia estadística, puede interpretarse que, cuando el factor de expansión aumenta en una unidad, la superficie total transformada cambia en la magnitud indicada por el coeficiente estimado.
+
+## Incorporando la recta de regresión
+
+```{r}
+#| label: fig-reg20-recta-regresion
+#| fig-cap: "Recta de regresión lineal simple"
+
+ggplot(
+  base_regresion,
+  aes(
+    x = fact_exp_fin,
+    y = log_supertotal
+  )
+) +
+  geom_point(
+    alpha = 0.20,
+    color = "steelblue"
+  ) +
+  geom_smooth(
+    method = "lm",
+    color = "darkred",
+    se = TRUE
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Factor de expansión",
+    y = "Logaritmo de la superficie total"
+  )
+```
+
+**Interpretación**
+
+La línea representa la relación promedio estimada por el modelo. La banda sombreada corresponde al intervalo de confianza de la recta estimada.
+
+## Valores ajustados
+
+Una vez estimado el modelo podemos obtener valores predichos.
+
+```{r}
+#| label: reg20-valores-ajustados
+
+base_regresion <-
+  base_regresion |>
+  mutate(
+    valor_ajustado =
+      predict(
+        modelo_simple
+      )
+  )
+```
+
+## Primer vistazo a las predicciones
+
+```{r}
+#| label: tbl-reg20-ajustados
+
+base_regresion |>
+  slice_head(
+    n = 10
+  ) |>
+  kable(
+    digits = 3,
+    caption = "Primeras observaciones con valores ajustados"
+  )
+```
+
+**Interpretación**
+
+Los valores ajustados representan la respuesta estimada por el modelo para cada observación.
+
+## Conclusión práctica
+
+La regresión lineal simple permite construir una ecuación que resume la relación promedio entre dos variables. En esta primera parte aprendimos a:
+
+- Definir variables dependiente y explicativa.
+- Estimar un modelo lineal simple.
+- Interpretar intercepto y pendiente.
+- Representar gráficamente la recta de regresión.
+- Obtener predicciones iniciales.
+
+En la siguiente sección estudiaremos cómo evaluar la calidad del ajuste mediante el coeficiente de determinación, intervalos de confianza y medidas básicas de desempeño.
+
+## Evaluar representación de datos 
+
+Una vez estimada la ecuación de regresión, el siguiente paso consiste en evaluar qué tan bien representa los datos observados.
+
+La pregunta fundamental es:
+
+```text
+¿Qué tan útil es el modelo para describir la relación entre las variables?
+```
+
+Para responderla utilizaremos:
+
+- Coeficiente de determinación (R²).
+- R² ajustado.
+- Error estándar residual.
+- Intervalos de confianza.
+- Predicciones puntuales.
+- Intervalos de predicción.
+
+Estas herramientas permiten evaluar la capacidad explicativa y predictiva del modelo [@montgomery2021].
+
+## Cargando librerías
+
+```{r}
+#| label: reg20-cargar-librerias-parte2
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(knitr)
+library(here)
+```
+
+## Cargando la base analítica
+
+```{r}
+#| label: reg20-cargar-base-parte2
+
+base_analitica <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+## Preparación de variables
+
+```{r}
+#| label: reg20-preparar-base-parte2
+
+base_regresion <- base_analitica |>
+  mutate(
+    log_supertotal =
+      log1p(
+        supertotal
+      )
+  ) |>
+  select(
+    log_supertotal,
+    fact_exp_fin
+  )
+```
+
+## Reestimando el modelo
+
+```{r}
+#| label: reg20-modelo-simple-parte2
+
+modelo_simple <- lm(
+  log_supertotal ~ fact_exp_fin,
+  data = base_regresion
+)
+```
+
+## Bondad de ajuste
+
+La bondad de ajuste indica qué tan bien el modelo reproduce el comportamiento observado en los datos.
+
+Una de las medidas más utilizadas es el coeficiente de determinación.
+
+## Coeficiente de determinación R²
+
+El coeficiente de determinación mide la proporción de variabilidad de la variable dependiente explicada por el modelo.
+
+Su valor oscila entre:
+
+```text
+0 y 1
+```
+
+Formalmente:
+
+:contentReference[oaicite:0]{index=0}
+
+## Extracción del R²
+
+```{r}
+#| label: tbl-reg20-r2
+
+resumen_modelo <- summary(
+  modelo_simple
+)
+
+tibble(
+  Indicador = "R²",
+  Valor = resumen_modelo$r.squared
+) |>
+  kable(
+    digits = 4,
+    caption = "Coeficiente de determinación"
+  )
+```
+
+**Interpretación**
+
+El R² indica qué proporción de la variabilidad observada en `log_supertotal` es explicada por `fact_exp_fin`.
+
+## R² ajustado
+
+Cuando se trabaja con varios predictores suele utilizarse el R² ajustado. Aunque nuestro modelo contiene una sola variable explicativa, conviene familiarizarse con este indicador porque será ampliamente utilizado en los capítulos siguientes.
+
+```{r}
+#| label: tbl-reg20-r2-ajustado
+
+tibble(
+  Indicador = c(
+    "R²",
+    "R² ajustado"
+  ),
+  Valor = c(
+    resumen_modelo$r.squared,
+    resumen_modelo$adj.r.squared
+  )
+) |>
+  kable(
+    digits = 4,
+    caption = "Comparación entre R² y R² ajustado"
+  )
+```
+
+**Interpretación**
+
+En regresión simple ambos indicadores suelen presentar valores muy similares.
+
+## Error estándar residual
+
+El error estándar residual resume la magnitud promedio de los errores de predicción.
+
+```{r}
+#| label: tbl-reg20-error-estandar
+
+tibble(
+  Indicador = "Error estándar residual",
+  Valor = resumen_modelo$sigma
+) |>
+  kable(
+    digits = 4,
+    caption = "Error estándar residual"
+  )
+```
+
+**Interpretación**
+
+Valores menores indican que las predicciones se encuentran más próximas a los valores observados.
+
+## Observado versus ajustado
+
+Una forma intuitiva de evaluar el modelo consiste en comparar observaciones reales y predichas.
+
+```{r}
+#| label: reg20-crear-ajustados
+
+base_regresion <- base_regresion |>
+  mutate(
+    ajustado =
+      predict(
+        modelo_simple
+      )
+  )
+```
+
+```{r}
+#| label: fig-reg20-observado-ajustado
+#| fig-cap: "Valores observados y ajustados"
+
+ggplot(
+  base_regresion,
+  aes(
+    x = ajustado,
+    y = log_supertotal
+  )
+) +
+  geom_point(
+    alpha = 0.20,
+    color = "steelblue"
+  ) +
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    color = "red"
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Valor ajustado",
+    y = "Valor observado"
+  )
+```
+
+**Interpretación**
+
+Mientras más cercanos se encuentren los puntos a la línea roja, mejor será el ajuste del modelo.
+
+## Intervalos de confianza de los coeficientes
+
+Toda estimación posee incertidumbre.
+
+Por ello resulta útil construir intervalos de confianza para los parámetros estimados.
+
+```{r}
+#| label: tbl-reg20-intervalos-coeficientes
+
+confint(
+  modelo_simple
+) |>
+  as.data.frame() |>
+  rownames_to_column(
+    "Parametro"
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Intervalos de confianza de los coeficientes"
+  )
+```
+
+**Interpretación**
+
+Los intervalos reflejan el rango plausible de valores para cada parámetro poblacional.
+
+## Predicción para nuevos valores
+
+Una de las principales aplicaciones de la regresión consiste en realizar predicciones.
+
+Crearemos algunos valores hipotéticos del factor de expansión.
+
+```{r}
+#| label: tbl-reg20-nuevos-valores
+
+nuevos_datos <- tibble(
+  fact_exp_fin =
+    seq(
+      min(
+        base_regresion$fact_exp_fin,
+        na.rm = TRUE
+      ),
+      max(
+        base_regresion$fact_exp_fin,
+        na.rm = TRUE
+      ),
+      length.out = 10
+    )
+)
+
+nuevos_datos |>
+  kable(
+    digits = 2,
+    caption = "Valores utilizados para predicción"
+  )
+```
+
+## Predicciones puntuales
+
+```{r}
+#| label: tbl-reg20-predicciones
+
+predicciones <- predict(
+  modelo_simple,
+  newdata = nuevos_datos
+)
+
+nuevos_datos |>
+  mutate(
+    prediccion = predicciones
+  ) |>
+  kable(
+    digits = 3,
+    caption = "Predicciones puntuales"
+  )
+```
+
+**Interpretación**
+
+Cada valor corresponde a la respuesta esperada de `log_supertotal` para un valor específico del factor de expansión.
+
+## Intervalos de confianza para la media estimada
+
+```{r}
+#| label: tbl-reg20-ic-prediccion
+
+predict(
+  modelo_simple,
+  newdata = nuevos_datos,
+  interval = "confidence"
+) |>
+  as.data.frame() |>
+  head() |>
+  kable(
+    digits = 3,
+    caption = "Intervalos de confianza para la media estimada"
+  )
+```
+
+**Interpretación**
+
+Estos intervalos representan la incertidumbre asociada a la estimación de la media condicional.
+
+## Intervalos de predicción
+
+Los intervalos de predicción son más amplios porque consideran la variabilidad individual de futuras observaciones.
+
+```{r}
+#| label: tbl-reg20-intervalo-prediccion
+
+predict(
+  modelo_simple,
+  newdata = nuevos_datos,
+  interval = "prediction"
+) |>
+  as.data.frame() |>
+  head() |>
+  kable(
+    digits = 3,
+    caption = "Intervalos de predicción"
+  )
+```
+
+**Interpretación**
+
+Estos intervalos indican dónde podría ubicarse una observación futura individual.
+
+## Visualización de predicciones
+
+```{r}
+#| label: fig-reg20-predicciones
+#| fig-cap: "Recta de regresión y predicciones"
+
+ggplot(
+  base_regresion,
+  aes(
+    x = fact_exp_fin,
+    y = log_supertotal
+  )
+) +
+  geom_point(
+    alpha = 0.15,
+    color = "steelblue"
+  ) +
+  geom_smooth(
+    method = "lm",
+    color = "darkred",
+    se = TRUE
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Factor de expansión",
+    y = "Logaritmo de la superficie total"
+  )
+```
+
+**Interpretación**
+
+La línea representa la predicción promedio del modelo y la banda sombreada refleja la incertidumbre de la estimación.
+
+## Significancia global del modelo
+
+Además de evaluar la significancia individual de cada coeficiente, el modelo de regresión incorpora la **prueba F**, la cual permite determinar si el conjunto de variables explicativas contribuye de manera significativa a explicar la variabilidad de la variable dependiente. En otras palabras, esta prueba evalúa la **significancia global del modelo**, contrastando la hipótesis nula de que todos los coeficientes de las variables explicativas son simultáneamente iguales a cero [@del2012multicolinealidad].
+
+El modelo también incorpora una prueba F que evalúa si existe evidencia estadística de relación entre las variables.
+
+```{r}
+#| label: tbl-reg20-prueba-f
+
+glance(
+  modelo_simple
+) |>
+  select(
+    statistic,
+    p.value
+  ) |>
+  rename(
+    Estadistico_F = statistic,
+    Valor_p = p.value
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Prueba F global del modelo"
+  )
+```
+
+**Interpretación**
+
+Un valor p pequeño sugiere que la relación lineal observada difícilmente se explica por azar. Si el **valor p** de la prueba F es menor que el nivel de significancia (generalmente 0,05), se concluye que el modelo explica de manera significativa la variabilidad de la variable dependiente.
+
+## Conclusión práctica
+
+Hasta este punto hemos aprendido a:
+
+- Evaluar la calidad del ajuste.
+- Interpretar el R².
+- Interpretar el R² ajustado.
+- Analizar el error estándar residual.
+- Construir intervalos de confianza.
+- Generar predicciones.
+- Interpretar intervalos de predicción.
+
+En la siguiente sección estudiaremos los supuestos básicos del modelo lineal y realizaremos un diagnóstico introductorio de residuos, paso indispensable antes de utilizar una regresión para apoyar decisiones o realizar inferencias.
+
+## Verificar supuestos
+
+Hasta este punto hemos estimado una regresión lineal simple, interpretado sus coeficientes y evaluado su capacidad predictiva mediante el coeficiente de determinación y diferentes tipos de predicción.
+
+Sin embargo, antes de confiar en cualquier modelo estadístico es necesario verificar si sus supuestos básicos parecen razonables.
+
+En esta sección realizaremos un diagnóstico introductorio utilizando residuos. El estudio detallado de los supuestos será desarrollado en el Capítulo 22, pero aquí construiremos las herramientas fundamentales para comprender cómo se evalúa un modelo lineal.
+
+## Cargando librerías
+
+```{r}
+#| label: reg20-cargar-librerias-parte3
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(knitr)
+library(here)
+```
+
+## Cargando la base analítica
+
+```{r}
+#| label: reg20-cargar-base-parte3
+
+base_analitica <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+## Preparación de variables
+
+```{r}
+#| label: reg20-preparar-base-parte3
+
+base_regresion <- base_analitica |>
+  mutate(
+    log_supertotal =
+      log1p(
+        supertotal
+      )
+  ) |>
+  select(
+    log_supertotal,
+    fact_exp_fin
+  )
+```
+
+## Reestimación del modelo
+
+```{r}
+#| label: reg20-modelo-parte3
+
+modelo_simple <- lm(
+  log_supertotal ~ fact_exp_fin,
+  data = base_regresion
+)
+```
+
+## ¿Qué son los residuos?
+
+Los residuos representan la diferencia entre el valor observado y el valor predicho por el modelo.
+
+Formalmente:
+
+:contentReference[oaicite:0]{index=0}
+
+donde:
+
+- $y_i$ es el valor observado.
+- $\hat{y}_i$ es el valor predicho.
+- $e_i$ es el residuo.
+
+Un buen modelo debería producir residuos pequeños y sin patrones sistemáticos.
+
+## Generando residuos
+
+```{r}
+#| label: reg20-generar-residuos
+
+base_regresion <- base_regresion |>
+  mutate(
+    ajustado =
+      predict(
+        modelo_simple
+      ),
+    residuo =
+      residuals(
+        modelo_simple
+      )
+  )
+```
+
+## Exploración inicial de residuos
+
+```{r}
+#| label: tbl-reg20-resumen-residuos
+
+tibble(
+  Estadistico = c(
+    "Mínimo",
+    "Primer cuartil",
+    "Mediana",
+    "Media",
+    "Tercer cuartil",
+    "Máximo"
+  ),
+  Valor = as.numeric(
+    summary(
+      base_regresion$residuo
+    )
+  )
+) |>
+  kable(
+    digits = 4,
+    caption = "Resumen de residuos"
+  )
+```
+
+**Interpretación**
+
+Los residuos deberían distribuirse alrededor de cero. Valores muy extremos podrían indicar observaciones atípicas o limitaciones del modelo.
+
+El histograma de los residuos permite evaluar visualmente la forma de la distribución de los errores. Si presenta una forma aproximadamente de campana y está centrado en cero, existe evidencia de que los residuos siguen una distribución cercana a la normal. En cambio, una distribución asimétrica o con colas pronunciadas puede indicar un posible incumplimiento del supuesto de normalidad.
+
+## Histograma de residuos
+
+```{r}
+#| label: fig-reg20-histograma-residuos
+#| fig-cap: "Distribución de residuos"
+
+ggplot(
+  base_regresion,
+  aes(
+    x = residuo
+  )
+) +
+  geom_histogram(
+    bins = 30,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Residuo",
+    y = "Frecuencia"
+  )
+```
+
+**Interpretación**
+
+El histograma permite evaluar si los residuos presentan una distribución aproximadamente simétrica alrededor de cero.
+
+## Curva de densidad de residuos
+
+```{r}
+#| label: fig-reg20-densidad-residuos
+#| fig-cap: "Curva de densidad de residuos"
+
+ggplot(
+  base_regresion,
+  aes(
+    x = residuo
+  )
+) +
+  geom_density(
+    fill = "steelblue",
+    alpha = 0.4
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Residuo",
+    y = "Densidad"
+  )
+```
+
+**Interpretación**
+
+La densidad facilita la identificación de asimetrías, colas largas o concentraciones inusuales de observaciones.
+
+## Residuos versus valores ajustados
+
+Uno de los gráficos más importantes en regresión es el de residuos contra valores ajustados.
+
+```{r}
+#| label: fig-reg20-residuos-ajustados
+#| fig-cap: "Residuos versus valores ajustados"
+
+ggplot(
+  base_regresion,
+  aes(
+    x = ajustado,
+    y = residuo
+  )
+) +
+  geom_point(
+    alpha = 0.25,
+    color = "steelblue"
+  ) +
+  geom_hline(
+    yintercept = 0,
+    color = "red"
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Valor ajustado",
+    y = "Residuo"
+  )
+```
+
+**Interpretación**
+
+Idealmente los residuos deberían dispersarse aleatoriamente alrededor de la línea horizontal ubicada en cero.
+
+Patrones sistemáticos pueden sugerir problemas de especificación.
+
+## Identificación visual de heterogeneidad
+
+```{r}
+#| label: fig-reg20-dispersion-residuos
+#| fig-cap: "Variabilidad de residuos"
+
+ggplot(
+  base_regresion,
+  aes(
+    x = ajustado,
+    y = abs(residuo)
+  )
+) +
+  geom_point(
+    alpha = 0.25,
+    color = "steelblue"
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Valor ajustado",
+    y = "Valor absoluto del residuo"
+  )
+```
+
+**Interpretación**
+
+Cambios importantes en la dispersión de los residuos podrían indicar problemas de varianza no constante.
+
+## Residuos estandarizados
+
+Los residuos estandarizados permiten comparar observaciones utilizando una escala común.
+
+```{r}
+#| label: reg20-residuos-estandarizados
+
+base_regresion <- base_regresion |>
+  mutate(
+    residuo_std =
+      rstandard(
+        modelo_simple
+      )
+  )
+```
+
+## Resumen de residuos estandarizados
+
+```{r}
+#| label: tbl-reg20-residuos-estandarizados
+
+tibble(
+  Estadistico = c(
+    "Mínimo",
+    "Primer cuartil",
+    "Mediana",
+    "Media",
+    "Tercer cuartil",
+    "Máximo"
+  ),
+  Valor = as.numeric(
+    summary(
+      base_regresion$residuo_std
+    )
+  )
+) |>
+  kable(
+    digits = 4,
+    caption = "Resumen de residuos estandarizados"
+  )
+```
+
+
+
+**Interpretación**
+
+Observaciones con residuos estandarizados muy alejados de cero pueden requerir revisión adicional.
+
+## Posibles observaciones extremas
+
+```{r}
+#| label: tbl-reg20-casos-extremos
+
+base_regresion |>
+  filter(
+    abs(
+      residuo_std
+    ) > 2
+  ) |>
+  slice_head(
+    n = 10
+  ) |>
+  kable(
+    digits = 3,
+    caption = "Primeras observaciones con residuos estandarizados elevados"
+  )
+```
+
+**Interpretación**
+
+Estas observaciones podrían influir de manera importante en el ajuste del modelo.
+
+## Gráfico Q-Q
+
+El gráfico cuantíl-cuantíl permite comparar la distribución de residuos con una distribución normal teórica.
+
+```{r}
+#| label: fig-reg20-qqplot
+#| fig-cap: "Gráfico Q-Q de residuos"
+
+qqnorm(
+  residuals(
+    modelo_simple
+  )
+)
+
+qqline(
+  residuals(
+    modelo_simple
+  ),
+  col = "red"
+)
+```
+
+**Interpretación**
+
+Mientras más próximos se encuentren los puntos a la línea de referencia, más compatible será la distribución de residuos con una distribución normal.
+
+## Resumen integrado del diagnóstico
+
+```{r}
+#| label: tbl-reg20-resumen-diagnostico
+
+tibble(
+  Aspecto = c(
+    "Linealidad",
+    "Residuos centrados en cero",
+    "Normalidad aproximada",
+    "Observaciones extremas",
+    "Variabilidad de residuos"
+  ),
+  Objetivo = c(
+    "Relación lineal razonable",
+    "Media de residuos cercana a cero",
+    "Distribución aproximadamente normal",
+    "Detectar casos influyentes",
+    "Evaluar homogeneidad"
+  )
+) |>
+  kable(
+    caption = "Elementos básicos del diagnóstico del modelo"
+  )
+```
+
+**Interpretación**
+
+Estos elementos constituyen una primera aproximación al análisis de calidad del modelo.
+
+## Aplicación práctica
+
+A partir de los resultados obtenidos podemos responder tres preguntas fundamentales:
+
+1. ¿Existe una relación lineal observable?
+2. ¿El modelo explica parte de la variabilidad observada?
+3. ¿Los residuos muestran patrones preocupantes?
+
+Estas preguntas constituyen la base de cualquier evaluación preliminar de modelos lineales.
+
+## Manos a la obra
+
+1. Estime una regresión lineal simple.
+2. Obtenga valores ajustados.
+3. Calcule residuos.
+4. Construya un histograma de residuos.
+5. Elabore una curva de densidad.
+6. Grafique residuos versus ajustados.
+7. Obtenga residuos estandarizados.
+8. Identifique posibles observaciones extremas.
+9. Construya un gráfico Q-Q.
+10. Redacte una evaluación general del modelo.
+
+## Resumen del capítulo
+
+En este capítulo aprendimos a construir e interpretar una regresión lineal simple utilizando datos reales de la ESPAC.
+
+Primero definimos la estructura del modelo, estimamos sus parámetros e interpretamos intercepto y pendiente. Posteriormente evaluamos la calidad del ajuste mediante el coeficiente de determinación, intervalos de confianza y predicciones. Finalmente realizamos un diagnóstico introductorio utilizando residuos y herramientas gráficas básicas.
+
+La regresión lineal simple constituye el punto de partida para gran parte de los modelos estadísticos modernos. En el siguiente capítulo ampliaremos esta lógica incorporando múltiples variables explicativas mediante la regresión lineal múltiple.

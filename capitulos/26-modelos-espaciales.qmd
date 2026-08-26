@@ -1,0 +1,999 @@
+# Modelos espaciales y extensiones modernas
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar esta sección, el lector será capaz de:
+
+- Comprender el concepto de dependencia espacial.
+- Construir matrices de pesos espaciales.
+- Calcular el índice de Moran.
+- Identificar autocorrelación espacial.
+- Estimar un modelo SAR básico.
+- Interpretar resultados espaciales.
+
+## Introducción
+
+En los capítulos anteriores asumimos que las observaciones eran independientes.
+
+Sin embargo, en numerosos fenómenos económicos, sociales y territoriales esta condición no se cumple.
+
+Por ejemplo:
+
+```text
+Desempleo entre provincias vecinas.
+
+Precios inmobiliarios entre barrios.
+
+Productividad agrícola entre cantones.
+
+Contaminación entre ciudades.
+```
+
+Cuando las observaciones cercanas tienden a parecerse entre sí aparece la denominada dependencia espacial [@anselin1988].
+
+## ¿Qué es la dependencia espacial?
+
+La dependencia espacial implica que el valor observado en una ubicación puede estar influenciado por valores observados en ubicaciones vecinas.
+
+Formalmente:
+
+```text
+Todo está relacionado con todo,
+pero los objetos cercanos
+están más relacionados
+que los distantes.
+```
+
+Este principio es conocido como la Primera Ley de la Geografía de Tobler.
+
+## Cargando librerías
+
+```{r}
+#| label: reg26-cargar-librerias
+#| warning: false
+#| message: false
+
+library(sf)
+library(spdep)
+library(spatialreg)
+library(spData)
+library(tidyverse)
+library(knitr)
+```
+
+## Cargando la base espacial
+
+Utilizaremos la base `columbus` incluida en `spData`.
+
+```{r}
+#| label: reg26-cargar-columbus
+
+data(
+  "columbus",
+  package = "spData"
+)
+
+data(
+  "col.gal.nb",
+  package = "spData"
+)
+
+columbus_sf <- sf::st_read(
+  system.file(
+    "shapes/columbus.gpkg",
+    package = "spData"
+  ),
+  quiet = TRUE
+)
+
+vecinos <- col.gal.nb
+```
+
+## Explorando la base
+
+```{r}
+#| label: tbl-reg26-estructura
+
+glimpse(
+  columbus_sf
+)
+```
+
+**Interpretación**
+
+Cada observación corresponde a un área geográfica de la ciudad de Columbus.
+
+## Visualización espacial
+
+```{r}
+#| label: fig-reg26-mapa-columbus
+#| fig-cap: "Áreas geográficas de Columbus"
+
+plot(
+  st_geometry(
+    columbus_sf
+  )
+)
+```
+
+**Interpretación**
+
+Cada polígono representa una unidad espacial.
+
+## Construcción de vecinos
+
+La dependencia espacial requiere identificar relaciones de vecindad.
+
+## Resumen de vecinos
+
+```{r}
+#| label: tbl-reg26-vecinos
+
+tibble(
+  Area = 1:length(vecinos),
+  Vecinos =
+    sapply(
+      vecinos,
+      length
+    )
+) |>
+  summarise(
+    Promedio =
+      mean(Vecinos),
+    Minimo =
+      min(Vecinos),
+    Maximo =
+      max(Vecinos)
+  ) |>
+  kable(
+    caption = "Resumen de vecindad"
+  )
+```
+
+**Interpretación**
+
+Cada área posee un conjunto de vecinos espaciales que influirá en el análisis.
+
+## Matriz de pesos espaciales
+
+```{r}
+#| label: reg26-pesos
+
+pesos <- nb2listw(
+  vecinos,
+  style = "W"
+)
+```
+
+
+## Índice de Moran
+
+El índice de Moran evalúa autocorrelación espacial.
+
+```{r}
+#| label: tbl-reg26-moran
+
+moran.test(
+  columbus_sf$CRIME,
+  pesos
+)
+```
+
+**Interpretación**
+
+Hipótesis nula:
+
+```text
+No existe autocorrelación espacial.
+```
+
+Valores p pequeños indican dependencia espacial significativa.
+
+## Diagrama de Moran
+
+```{r}
+#| label: fig-reg26-moran
+#| fig-cap: "Diagrama de Moran"
+
+moran.plot(
+  columbus_sf$CRIME,
+  pesos
+)
+```
+
+**Interpretación**
+
+La pendiente refleja el grado de autocorrelación espacial.
+
+## Modelo SAR
+
+Cuando existe dependencia espacial podemos estimar un modelo autorregresivo espacial.
+
+```{r}
+#| label: reg26-sar
+
+modelo_sar <- lagsarlm(
+  CRIME ~ INC + HOVAL,
+  data = columbus_sf,
+  listw = pesos
+)
+```
+
+## Resultados del modelo SAR
+
+```{r}
+#| label: tbl-reg26-sar
+
+broom::tidy(
+  modelo_sar
+) |>
+  kable(
+    digits = 4,
+    caption = "Modelo SAR"
+  )
+```
+
+**Interpretación**
+
+Los coeficientes representan efectos directos mientras que el parámetro espacial captura la dependencia entre áreas vecinas.
+
+## Conclusión práctica
+
+En esta primera parte aprendimos a:
+
+- Reconocer dependencia espacial.
+- Construir matrices de pesos.
+- Calcular el índice de Moran.
+- Interpretar autocorrelación espacial.
+- Estimar un modelo SAR.
+
+## Introducción
+
+En los capítulos anteriores asumimos que todas las observaciones pertenecían a un mismo nivel de análisis.
+
+Sin embargo, en muchas investigaciones los datos poseen una estructura jerárquica.
+
+Por ejemplo:
+
+```text
+Estudiantes dentro de escuelas.
+
+Pacientes dentro de hospitales.
+
+Trabajadores dentro de empresas.
+
+Ciudadanos dentro de provincias.
+```
+
+Cuando existe esta estructura anidada, los modelos tradicionales pueden subestimar errores estándar y producir inferencias incorrectas [@gelman2007].
+
+## ¿Qué es un modelo multinivel?
+
+Un modelo multinivel permite analizar simultáneamente:
+
+```text
+Variación entre individuos
+
++
+
+Variación entre grupos
+```
+
+La idea central consiste en reconocer que observaciones pertenecientes al mismo grupo tienden a parecerse entre sí.
+
+## Cargando librerías
+
+```{r}
+#| label: reg26-cargar-librerias-multinivel
+#| warning: false
+#| message: false
+
+library(lme4)
+library(mlmRev)
+library(tidyverse)
+library(broom.mixed)
+library(knitr)
+```
+
+## Cargando la base de datos
+
+Utilizaremos la base `Exam` incluida en el paquete `mlmRev`.
+
+```{r}
+#| label: reg26-cargar-exam
+
+data(
+  "Exam",
+  package = "mlmRev"
+)
+
+datos_exam <- Exam
+```
+
+## Explorando la base
+
+```{r}
+#| label: tbl-reg26-estructura-exam
+
+glimpse(
+  datos_exam
+)
+```
+
+**Interpretación**
+
+Cada observación corresponde a un estudiante.
+
+Los estudiantes están agrupados dentro de escuelas.
+
+## Número de escuelas
+
+```{r}
+#| label: tbl-reg26-num-escuelas
+
+datos_exam |>
+  summarise(
+    Escuelas =
+      n_distinct(
+        school
+      )
+  ) |>
+  kable(
+    caption = "Número de escuelas"
+  )
+```
+
+## Número de estudiantes
+
+```{r}
+#| label: tbl-reg26-num-estudiantes
+
+datos_exam |>
+  summarise(
+    Estudiantes = n()
+  ) |>
+  kable(
+    caption = "Número de estudiantes"
+  )
+```
+
+## Visualización jerárquica
+
+```{r}
+#| label: fig-reg26-score-escuela
+#| fig-cap: "Resultados por escuela"
+
+ggplot(
+  datos_exam,
+  aes(
+    x = factor(
+      school
+    ),
+    y = normexam
+  )
+) +
+  geom_boxplot() +
+  coord_flip() +
+  theme_minimal()
+```
+
+**Interpretación**
+
+Existen diferencias importantes entre escuelas.
+
+Esto sugiere la presencia de variabilidad grupal.
+
+## Modelo lineal tradicional
+
+Comenzaremos ignorando la estructura jerárquica.
+
+```{r}
+#| label: reg26-modelo-lm
+
+modelo_lm <- lm(
+  normexam ~ standLRT,
+  data = datos_exam
+)
+```
+
+## Resultados del modelo lineal
+
+```{r}
+#| label: tbl-reg26-lm
+
+tidy(
+  modelo_lm
+) |>
+  kable(
+    digits = 4,
+    caption = "Modelo lineal tradicional"
+  )
+```
+
+**Interpretación**
+
+El puntaje de ingreso (`standLRT`) presenta una asociación positiva con el rendimiento académico.
+
+## Modelo multinivel básico
+
+Ahora permitimos que cada escuela tenga su propio intercepto.
+
+```{r}
+#| label: reg26-modelo-multinivel
+
+modelo_ml <- lmer(
+  normexam ~
+    standLRT +
+    (1 | school),
+  data = datos_exam
+)
+```
+
+## Resultados del modelo multinivel
+
+```{r}
+#| label: tbl-reg26-multinivel
+
+tidy(
+  modelo_ml,
+  effects = "fixed"
+) |>
+  kable(
+    digits = 4,
+    caption = "Coeficientes fijos"
+  )
+```
+
+**Interpretación**
+
+El coeficiente de `standLRT` representa el efecto promedio entre todas las escuelas.
+
+## Componentes de varianza
+
+```{r}
+#| label: tbl-reg26-varianza
+
+as.data.frame(
+  VarCorr(
+    modelo_ml
+  )
+) |>
+  select(
+    grp,
+    vcov
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Componentes de varianza"
+  )
+```
+
+**Interpretación**
+
+La varianza asociada a las escuelas indica cuánto difieren los interceptos entre instituciones.
+
+## Efectos aleatorios
+
+```{r}
+#| label: tbl-reg26-efectos-aleatorios
+
+ranef(
+  modelo_ml
+)$school |>
+  head() |>
+  tibble::rownames_to_column(
+    "Escuela"
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Primeros efectos aleatorios"
+  )
+```
+
+**Interpretación**
+
+Cada escuela presenta una desviación específica respecto al promedio general.
+
+## Visualización de efectos aleatorios
+
+```{r}
+#| label: fig-reg26-efectos-aleatorios
+#| fig-cap: "Interceptos aleatorios por escuela"
+
+efectos_escuela <- ranef(
+  modelo_ml
+)$school |>
+  tibble::rownames_to_column(
+    "Escuela"
+  )
+
+ggplot(
+  efectos_escuela,
+  aes(
+    x = reorder(
+      Escuela,
+      `(Intercept)`
+    ),
+    y = `(Intercept)`
+  )
+) +
+  geom_col(
+    fill = "steelblue"
+  ) +
+  coord_flip() +
+  theme_minimal()
+```
+
+**Interpretación**
+
+Las escuelas con valores positivos presentan rendimientos superiores al promedio esperado.
+
+## Comparación de modelos
+
+```{r}
+#| label: tbl-reg26-comparacion-modelos
+
+tibble(
+  Modelo = c(
+    "Lineal",
+    "Multinivel"
+  ),
+  AIC = c(
+    AIC(modelo_lm),
+    AIC(modelo_ml)
+  )
+) |>
+  kable(
+    digits = 2,
+    caption = "Comparación mediante AIC"
+  )
+```
+
+**Interpretación**
+
+Menores valores de AIC indican mejor ajuste relativo.
+
+## ¿Cuándo utilizar modelos multinivel?
+
+Los modelos multinivel son apropiados cuando existen:
+
+- Datos agrupados.
+- Dependencia dentro de grupos.
+- Estructuras jerárquicas.
+- Variación entre organizaciones.
+- Variación territorial.
+
+## Aplicaciones frecuentes
+
+```{r}
+#| label: tbl-reg26-aplicaciones
+
+tibble(
+  Area = c(
+    "Educación",
+    "Salud",
+    "Economía",
+    "Políticas públicas",
+    "Mercado laboral"
+  ),
+  Ejemplo = c(
+    "Estudiantes y escuelas",
+    "Pacientes y hospitales",
+    "Empresas y sectores",
+    "Ciudadanos y municipios",
+    "Trabajadores y empresas"
+  )
+) |>
+  kable(
+    caption = "Aplicaciones multinivel"
+  )
+```
+
+## Conclusión práctica
+
+En esta sección aprendimos a:
+
+- Reconocer estructuras jerárquicas.
+- Estimar modelos multinivel.
+- Interpretar efectos fijos.
+- Interpretar efectos aleatorios.
+- Analizar componentes de varianza.
+- Comparar modelos jerárquicos.
+
+En la siguiente sección estudiaremos modelos de frontera estocástica para medir eficiencia técnica y productiva.
+
+## Frontera estocástica y medición de eficiencia
+
+## Introducción
+
+Hasta ahora hemos utilizado modelos orientados a explicar relaciones entre variables. Sin embargo, en muchos contextos el interés principal consiste en responder una pregunta diferente:
+
+```text
+¿Qué tan eficiente es una unidad productiva?
+```
+
+Los modelos de frontera estocástica permiten estimar eficiencia técnica comparando el desempeño observado con una frontera de producción [@kumbhakar2015].
+
+## Cargando librerías
+
+```{r}
+#| label: reg26-cargar-librerias-sfa
+#| warning: false
+#| message: false
+
+library(frontier)
+library(tidyverse)
+library(knitr)
+library(broom)
+```
+
+## Creación de base simulada reproducible
+
+Para asegurar que el capítulo renderice correctamente en cualquier equipo, construiremos una base simulada de producción. La base sigue la lógica de una función Cobb-Douglas con capital, trabajo, ruido aleatorio e ineficiencia técnica.
+
+```{r}
+#| label: reg26-crear-datos-sfa
+
+set.seed(
+  123
+)
+
+datos_sfa <- tibble(
+  capital = runif(
+    120,
+    min = 10,
+    max = 100
+  ),
+  labour = runif(
+    120,
+    min = 5,
+    max = 80
+  ),
+  error = rnorm(
+    120,
+    mean = 0,
+    sd = 0.15
+  ),
+  ineficiencia = abs(
+    rnorm(
+      120,
+      mean = 0,
+      sd = 0.25
+    )
+  )
+) |>
+  mutate(
+    output =
+      exp(
+        1 +
+          0.45 * log(capital) +
+          0.35 * log(labour) +
+          error -
+          ineficiencia
+      )
+  )
+```
+
+## Explorando la base
+
+```{r}
+#| label: tbl-reg26-estructura-sfa
+
+glimpse(
+  datos_sfa
+)
+```
+
+**Interpretación**
+
+La base contiene una variable de producción (`output`) y dos insumos productivos (`capital` y `labour`). Además, incluye componentes simulados de error e ineficiencia para fines pedagógicos.
+
+## Resumen descriptivo
+
+```{r}
+#| label: tbl-reg26-resumen-sfa
+
+datos_sfa |>
+  select(
+    output,
+    capital,
+    labour
+  ) |>
+  summary() |>
+  as.data.frame() |>
+  kable(
+    caption = "Resumen descriptivo de producción e insumos"
+  )
+```
+
+**Interpretación**
+
+El resumen permite verificar que existe variabilidad suficiente en producción, capital y trabajo para estimar una función de producción.
+
+## Relación entre capital y producción
+
+```{r}
+#| label: fig-reg26-produccion-capital
+#| fig-cap: "Producción y capital"
+
+ggplot(
+  datos_sfa,
+  aes(
+    x = capital,
+    y = output
+  )
+) +
+  geom_point(
+    alpha = 0.6,
+    color = "steelblue"
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = FALSE,
+    color = "darkred"
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Capital",
+    y = "Producción"
+  )
+```
+
+**Interpretación**
+
+El gráfico muestra una asociación positiva entre capital y producción. Esta relación es consistente con la lógica de una función de producción.
+
+## Función de producción convencional
+
+Antes de estimar eficiencia técnica, construiremos una regresión convencional.
+
+```{r}
+#| label: reg26-modelo-produccion-lm
+
+modelo_lm_sfa <- lm(
+  log(output) ~
+    log(capital) +
+    log(labour),
+  data = datos_sfa
+)
+```
+
+## Resultados de la regresión convencional
+
+```{r}
+#| label: tbl-reg26-regresion-produccion
+
+broom::tidy(
+  modelo_lm_sfa
+) |>
+  kable(
+    digits = 4,
+    caption = "Función de producción convencional"
+  )
+```
+
+**Interpretación**
+
+Los coeficientes representan elasticidades de producción. Un coeficiente positivo indica que aumentos en el insumo se asocian con aumentos en la producción.
+
+## Estimación de frontera estocástica
+
+Ahora estimaremos una frontera estocástica. A diferencia de la regresión convencional, este modelo separa el error aleatorio de la ineficiencia técnica.
+
+```{r}
+#| label: reg26-modelo-sfa
+
+modelo_sfa <- frontier::sfa(
+  log(output) ~
+    log(capital) +
+    log(labour),
+  data = datos_sfa
+)
+```
+
+## Resultados del modelo SFA
+
+```{r}
+#| label: tbl-reg26-sfa
+
+summary(
+  modelo_sfa
+)
+```
+
+**Interpretación**
+
+El modelo estima una frontera de producción. Los coeficientes de capital y trabajo indican cómo se relacionan los insumos con la producción potencial. Los parámetros adicionales del modelo permiten separar ruido estadístico e ineficiencia técnica.
+
+## Eficiencia técnica estimada
+
+```{r}
+#| label: reg26-eficiencia-sfa
+
+eficiencia <- efficiencies(
+  modelo_sfa
+)
+```
+
+## Resumen de eficiencia
+
+```{r}
+#| label: tbl-reg26-resumen-eficiencia
+
+tibble(
+  Eficiencia = as.numeric(
+    eficiencia
+  )
+) |>
+  summarise(
+    Minimo = min(
+      Eficiencia
+    ),
+    Promedio = mean(
+      Eficiencia
+    ),
+    Maximo = max(
+      Eficiencia
+    )
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Resumen de eficiencia técnica"
+  )
+```
+
+**Interpretación**
+
+La eficiencia técnica toma valores entre 0 y 1. Valores cercanos a 1 indican unidades más próximas a la frontera eficiente.
+
+## Distribución de eficiencia
+
+```{r}
+#| label: fig-reg26-distribucion-eficiencia
+#| fig-cap: "Distribución de eficiencia técnica"
+
+tibble(
+  eficiencia = as.numeric(
+    eficiencia
+  )
+) |>
+  ggplot(
+    aes(
+      x = eficiencia
+    )
+  ) +
+  geom_histogram(
+    bins = 25,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Eficiencia técnica",
+    y = "Frecuencia"
+  )
+```
+
+**Interpretación**
+
+El histograma permite identificar si la mayoría de unidades se encuentran cerca o lejos de la frontera eficiente.
+
+## Ranking de eficiencia
+
+```{r}
+#| label: tbl-reg26-ranking-eficiencia
+
+tibble(
+  Unidad = 1:length(
+    eficiencia
+  ),
+  Eficiencia = as.numeric(
+    eficiencia
+  )
+) |>
+  arrange(
+    desc(
+      Eficiencia
+    )
+  ) |>
+  slice_head(
+    n = 10
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Unidades más eficientes"
+  )
+```
+
+**Interpretación**
+
+Las unidades ubicadas en los primeros lugares presentan los mayores niveles de eficiencia técnica estimada.
+
+## Comparación entre regresión y frontera estocástica
+
+```{r}
+#| label: tbl-reg26-comparacion-lm-sfa
+
+tibble(
+  Modelo = c(
+    "Regresión convencional",
+    "Frontera estocástica"
+  ),
+  Objetivo = c(
+    "Estimar relación promedio",
+    "Estimar producción potencial y eficiencia"
+  ),
+  Error = c(
+    "Un solo componente de error",
+    "Ruido aleatorio e ineficiencia"
+  )
+) |>
+  kable(
+    caption = "Comparación entre regresión convencional y frontera estocástica"
+  )
+```
+
+**Interpretación**
+
+La regresión convencional estima una relación promedio. La frontera estocástica permite evaluar qué tan cerca se encuentra cada unidad de su producción potencial.
+
+## Comparación de modelos avanzados
+
+```{r}
+#| label: tbl-reg26-comparacion-avanzada
+
+tibble(
+  Modelo = c(
+    "Espacial",
+    "Multinivel",
+    "Frontera estocástica"
+  ),
+  Objetivo = c(
+    "Analizar dependencia geográfica",
+    "Analizar estructuras jerárquicas",
+    "Medir eficiencia técnica"
+  )
+) |>
+  kable(
+    caption = "Comparación de modelos avanzados"
+  )
+```
+
+**Interpretación**
+
+Cada familia de modelos responde a una necesidad metodológica distinta. La elección depende del problema empírico.
+
+## ¿Cuándo utilizar frontera estocástica?
+
+La frontera estocástica es útil cuando el objetivo es evaluar eficiencia en unidades productivas como:
+
+```text
+Empresas
+Bancos
+Fincas agrícolas
+Hospitales
+Universidades
+```
+
+Su principal aporte consiste en distinguir entre bajo desempeño por ruido aleatorio y bajo desempeño por ineficiencia.
+
+## Manos a la obra
+
+1. Construya una base de producción con insumos y producto.
+2. Estime una función de producción convencional.
+3. Interprete las elasticidades.
+4. Estime una frontera estocástica.
+5. Obtenga eficiencias técnicas.
+6. Construya un histograma de eficiencia.
+7. Elabore un ranking de unidades.
+8. Compare regresión convencional y SFA.
+9. Explique qué unidades presentan mejor desempeño.
+10. Redacte una conclusión aplicada sobre eficiencia.
+
+## Resumen del capítulo
+
+En este capítulo ampliamos el alcance de los modelos de regresión incorporando tres enfoques avanzados.
+
+Primero estudiamos modelos espaciales para analizar dependencia geográfica entre observaciones. Posteriormente introdujimos modelos multinivel para trabajar con estructuras jerárquicas. Finalmente utilizamos modelos de frontera estocástica para medir eficiencia técnica.
+
+Estos enfoques permiten abordar problemas que no pueden resolverse adecuadamente mediante modelos lineales tradicionales.

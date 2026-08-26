@@ -1,0 +1,752 @@
+# Tablas descriptivas
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+- Comprender la importancia de las tablas descriptivas en la investigación científica.
+- Construir tablas descriptivas reproducibles utilizando R y Quarto.
+- Elaborar tablas de variables numéricas y categóricas.
+- Generar tablas cruzadas para explorar asociaciones entre variables.
+- Aplicar buenas prácticas para la presentación de resultados estadísticos.
+- Preparar tablas listas para informes, tesis y artículos científicos.
+
+## Introducción
+
+Las tablas constituyen uno de los mecanismos más utilizados para comunicar resultados estadísticos en artículos científicos, tesis, informes técnicos y documentos institucionales.
+
+Una buena tabla permite resumir grandes volúmenes de información de forma clara, precisa y reproducible. Por el contrario, una tabla mal construida puede dificultar la interpretación de los resultados y reducir el impacto de una investigación [@cleveland1993; @healy2018].
+
+En el contexto de la investigación reproducible, las tablas deben generarse automáticamente a partir de los datos y del código utilizado en el análisis. Esto evita errores manuales, facilita actualizaciones y garantiza la trazabilidad de los resultados [@peng2011; @gandrud2015].
+
+En este capítulo aprenderemos a construir tablas descriptivas utilizando información real de la ESPAC 2025.
+
+## Cargando la base de trabajo
+
+```{r}
+#| label: ch15-cargar-paquetes
+#| warning: false
+#| message: false
+
+library(dplyr)
+library(knitr)
+library(here)
+
+base_analitica <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+## ¿Por qué son importantes las tablas?
+
+Las tablas permiten:
+
+- Resumir grandes cantidades de información.
+- Comparar grupos de observación.
+- Identificar patrones y diferencias.
+- Facilitar la comunicación de resultados.
+- Documentar evidencia estadística de forma reproducible.
+
+La mayoría de artículos científicos presentan resultados descriptivos inicialmente mediante tablas antes de introducir modelos estadísticos más complejos [@healy2018].
+
+## Principios de una buena tabla
+
+Una tabla académica debe cumplir varios criterios básicos:
+
+- Tener un título claro.
+- Mostrar únicamente información relevante.
+- Mantener un formato consistente.
+- Utilizar nombres comprensibles.
+- Incluir unidades cuando sea necesario.
+- Ser autoexplicativa.
+
+Por ejemplo, esta tabla es más informativa:
+
+```text
+Tabla 1. Estadísticas descriptivas de la superficie total
+```
+
+que:
+
+```text
+Tabla de resultados
+```
+
+## Construcción de una tabla simple
+
+Podemos comenzar creando una tabla que muestre las dimensiones generales de la base.
+
+```{r}
+#| label: tbl-ch15-dimensiones-base
+
+data.frame(
+  Registros = nrow(base_analitica),
+  Variables = ncol(base_analitica)
+) |>
+  kable(
+    caption = "Dimensiones generales de la base analítica"
+  )
+```
+
+La tabla resume el tamaño de la base utilizada durante el análisis.
+
+## Tablas descriptivas para variables numéricas
+
+Las variables numéricas suelen describirse mediante:
+
+- Media.
+- Mediana.
+- Desviación estándar.
+- Valor mínimo.
+- Valor máximo.
+
+Estas estadísticas permiten resumir el comportamiento general de una variable [@moore2017].
+
+## Tabla descriptiva básica
+
+Analizaremos la variable `supertotal`.
+
+```{r}
+#| label: tbl-ch15-descriptiva-superficie
+
+data.frame(
+  Variable = "Superficie total",
+  Media = mean(
+    base_analitica$supertotal,
+    na.rm = TRUE
+  ),
+  Mediana = median(
+    base_analitica$supertotal,
+    na.rm = TRUE
+  ),
+  Desviacion = sd(
+    base_analitica$supertotal,
+    na.rm = TRUE
+  ),
+  Minimo = min(
+    base_analitica$supertotal,
+    na.rm = TRUE
+  ),
+  Maximo = max(
+    base_analitica$supertotal,
+    na.rm = TRUE
+  )
+) |>
+  kable(
+    digits = 2,
+    caption = "Estadísticas descriptivas de la superficie total"
+  )
+```
+
+Esta tabla resume los principales indicadores descriptivos de la variable.
+
+## Tabla descriptiva de múltiples variables
+
+En la práctica, generalmente analizamos varias variables simultáneamente.
+
+```{r}
+#| label: tbl-ch15-media-ponderada-superficie
+
+data.frame(
+  Indicador = c(
+    "Media no ponderada",
+    "Media ponderada"
+  ),
+  Valor = c(
+    mean(
+      base_analitica$supertotal,
+      na.rm = TRUE
+    ),
+    weighted.mean(
+      x = base_analitica$supertotal,
+      w = base_analitica$fact_exp_fin,
+      na.rm = TRUE
+    )
+  )
+) |>
+  knitr::kable(
+    digits = 2,
+    caption = "Media no ponderada y ponderada de la superficie total"
+  )
+```
+
+Observe cómo una sola tabla resume múltiples variables de interés.
+
+## Interpretación de tablas descriptivas
+
+La interpretación debe acompañar siempre a las tablas.
+
+Por ejemplo:
+
+- La media representa el comportamiento promedio.
+- La mediana indica el valor central.
+- La desviación estándar refleja la dispersión.
+- Diferencias importantes entre media y mediana pueden sugerir asimetría.
+
+La tabla debe ser el punto de partida para la interpretación y no un fin en sí misma.
+
+## Tablas de frecuencia
+
+Las variables categóricas requieren otro tipo de resumen.
+
+Para estas variables se utilizan tablas de frecuencia.
+
+Analicemos la variable:
+
+```text
+tamano_upa
+```
+
+## Frecuencia absoluta
+
+```{r}
+#| label: tbl-ch15-frecuencia-absoluta
+
+base_analitica |>
+  count(
+    tamano_upa
+  ) |>
+  arrange(
+    desc(n)
+  ) |>
+  kable(
+    caption = "Frecuencia absoluta del tamaño de UPA"
+  )
+```
+
+Esta tabla muestra cuántas observaciones pertenecen a cada categoría.
+
+## Frecuencia relativa
+
+Los porcentajes suelen ser más informativos.
+
+```{r}
+#| label: tbl-ch15-frecuencia-relativa
+
+base_analitica |>
+  count(
+    tamano_upa
+  ) |>
+  mutate(
+    porcentaje =
+      round(
+        n / sum(n) * 100,
+        2
+      )
+  ) |>
+  arrange(
+    desc(n)
+  ) |>
+  kable(
+    caption = "Frecuencia relativa del tamaño de UPA"
+  )
+```
+
+La frecuencia relativa facilita la comparación entre categorías.
+
+## Frecuencias acumuladas
+
+También podemos construir frecuencias acumuladas.
+
+```{r}
+#| label: tbl-ch15-frecuencia-acumulada
+
+base_analitica |>
+  count(
+    tamano_upa
+  ) |>
+  mutate(
+    porcentaje =
+      round(
+        n / sum(n) * 100,
+        2
+      ),
+    acumulado =
+      cumsum(
+        porcentaje
+      )
+  ) |>
+  kable(
+    digits = 2,
+    caption = "Frecuencias acumuladas del tamaño de UPA"
+  )
+```
+
+Las frecuencias acumuladas permiten conocer qué porcentaje de observaciones se concentra hasta una determinada categoría.
+
+## Tablas descriptivas de la tenencia de la tierra
+
+La variable `su_tenencia` resulta particularmente relevante en estudios agropecuarios.
+
+```{r}
+#| label: tbl-ch15-tenencia
+
+base_analitica |>
+  count(
+    su_tenencia
+  ) |>
+  mutate(
+    porcentaje =
+      round(
+        n / sum(n) * 100,
+        2
+      )
+  ) |>
+  arrange(
+    desc(n)
+  ) |>
+  kable(
+    caption = "Distribución de la forma de tenencia"
+  )
+```
+
+La tabla permite identificar las formas predominantes de acceso a la tierra.
+
+## Tablas cruzadas
+
+Las tablas cruzadas permiten analizar simultáneamente dos variables categóricas.
+
+Por ejemplo:
+
+```text
+tamano_upa
+y
+tiene_bosque
+```
+
+## Construcción de una tabla cruzada
+
+```{r}
+#| label: tbl-ch15-tabla-cruzada
+
+table(
+  base_analitica$tamano_upa,
+  base_analitica$tiene_bosque
+) |>
+  kable(
+    caption = "Tabla cruzada entre tamaño de UPA y presencia de bosque"
+  )
+```
+
+La tabla muestra la distribución conjunta de ambas variables.
+
+## Tabla cruzada con porcentajes
+
+También podemos calcular porcentajes por fila.
+
+```{r}
+#| label: tbl-ch15-tabla-cruzada-porcentajes
+
+prop.table(
+  table(
+    base_analitica$tamano_upa,
+    base_analitica$tiene_bosque
+  ),
+  margin = 1
+) |>
+  round(3) |>
+  kable(
+    caption = "Porcentajes por fila para tamaño de UPA y presencia de bosque"
+  )
+```
+
+Estos porcentajes facilitan la comparación entre grupos.
+
+## Interpretación de tablas cruzadas
+
+Las tablas cruzadas permiten responder preguntas como:
+
+- ¿Los productores más grandes presentan mayor presencia de bosque?
+- ¿Existen diferencias entre categorías?
+- ¿Cómo se distribuyen las observaciones entre grupos?
+
+Estas tablas constituyen la base de muchos análisis inferenciales posteriores.
+
+## Buenas prácticas en la construcción de tablas
+
+Al construir tablas descriptivas se recomienda:
+
+- Utilizar títulos informativos.
+- Mantener un número razonable de decimales.
+- Evitar tablas excesivamente extensas.
+- Ordenar categorías cuando sea pertinente.
+- Presentar porcentajes junto con frecuencias.
+- Incorporar interpretaciones sustantivas.
+
+Estas prácticas mejoran significativamente la comunicación de resultados [@cleveland1993].
+
+## Tablas descriptivas ponderadas
+
+En el capítulo anterior aprendimos que las encuestas oficiales utilizan factores de expansión para representar adecuadamente a la población.
+
+En la ESPAC 2025, la variable:
+
+```text
+fact_exp_fin
+```
+
+permite extrapolar los resultados de la muestra hacia la población objetivo.
+
+Por esta razón, muchas tablas descriptivas deben construirse utilizando ponderaciones [@groves2009].
+
+## ¿Por qué ponderar?
+
+Supongamos que queremos estimar la distribución de las unidades productivas según tamaño.
+
+Sin ponderación:
+
+```{r}
+#| label: tbl-ch15-tamano-no-ponderado
+
+base_analitica |>
+  count(
+    tamano_upa
+  ) |>
+  mutate(
+    porcentaje =
+      round(
+        n / sum(n) * 100,
+        2
+      )
+  ) |>
+  kable(
+    caption = "Distribución no ponderada del tamaño de UPA"
+  )
+```
+
+Esta tabla describe únicamente la muestra observada.
+
+## Distribución ponderada
+
+Ahora incorporamos los factores de expansión.
+
+```{r}
+#| label: tbl-ch15-tamano-ponderado
+
+base_analitica |>
+  group_by(
+    tamano_upa
+  ) |>
+  summarise(
+    expansion =
+      sum(
+        fact_exp_fin,
+        na.rm = TRUE
+      )
+  ) |>
+  mutate(
+    porcentaje =
+      round(
+        expansion /
+          sum(expansion) * 100,
+        2
+      )
+  ) |>
+  arrange(
+    desc(expansion)
+  ) |>
+  kable(
+    digits = 0,
+    caption = "Distribución ponderada del tamaño de UPA"
+  )
+```
+
+La diferencia entre ambas tablas refleja el efecto del diseño muestral.
+
+## Tablas descriptivas ponderadas por provincia
+
+También podemos estimar la distribución territorial de la población.
+
+```{r}
+#| label: tbl-ch15-provincia-ponderada
+
+base_analitica |>
+  group_by(
+    provincia
+  ) |>
+  summarise(
+    expansion =
+      sum(
+        fact_exp_fin,
+        na.rm = TRUE
+      )
+  ) |>
+  arrange(
+    desc(expansion)
+  ) |>
+  head(10) |>
+  kable(
+    digits = 0,
+    caption = "Estimación poblacional por provincia"
+  )
+```
+
+La tabla muestra las provincias con mayor representación dentro de la población estimada.
+
+## Medias ponderadas
+
+Las ponderaciones también pueden utilizarse para estimar estadísticas descriptivas.
+
+Por ejemplo:
+
+```{r}
+#| label: tbl-ch15-media-ponderada-superficie-2
+
+data.frame(
+  media_simple =
+    mean(
+      base_analitica$supertotal,
+      na.rm = TRUE
+    ),
+  media_ponderada =
+    weighted.mean(
+      base_analitica$supertotal,
+      w =
+        base_analitica$fact_exp_fin,
+      na.rm = TRUE
+    )
+) |>
+  kable(
+    digits = 2,
+    caption = "Comparación entre media simple y ponderada"
+  )
+```
+
+Las diferencias observadas reflejan la importancia de considerar el diseño muestral durante el análisis.
+
+## Tablas profesionales con gt
+
+Aunque `kable()` resulta muy útil, en proyectos profesionales suele requerirse un nivel adicional de presentación.
+
+Para ello podemos utilizar el paquete `gt`.
+
+```{r}
+#| label: ch15-cargar-gt
+
+library(gt)
+```
+
+## Primera tabla con gt
+
+```{r}
+#| label: tbl-ch15-primer-gt
+
+base_analitica |>
+  count(
+    tamano_upa
+  ) |>
+  gt() |>
+  tab_header(
+    title =
+      "Distribución del tamaño de UPA"
+  )
+```
+
+Observe cómo la presentación resulta más elegante y profesional.
+
+## Personalizando títulos
+
+Podemos añadir subtítulos.
+
+```{r}
+#| label: tbl-ch15-gt-subtitulo
+
+base_analitica |>
+  count(
+    tamano_upa
+  ) |>
+  gt() |>
+  tab_header(
+    title =
+      "Distribución del tamaño de UPA",
+    subtitle =
+      "ESPAC 2025"
+  )
+```
+
+Esta práctica es particularmente útil en informes institucionales.
+
+## Renombrando columnas
+
+También podemos modificar los encabezados.
+
+```{r}
+#| label: tbl-ch15-gt-columnas
+
+base_analitica |>
+  count(
+    tamano_upa
+  ) |>
+  gt() |>
+  cols_label(
+    tamano_upa =
+      "Tamaño de UPA",
+    n =
+      "Frecuencia"
+  )
+```
+
+Los nombres descriptivos mejoran considerablemente la legibilidad.
+
+## Formateando números
+
+Las tablas académicas suelen requerir un número consistente de decimales.
+
+```{r}
+#| label: tbl-ch15-gt-decimales
+
+data.frame(
+  Media =
+    mean(
+      base_analitica$supertotal,
+      na.rm = TRUE
+    ),
+  Mediana =
+    median(
+      base_analitica$supertotal,
+      na.rm = TRUE
+    )
+) |>
+  gt() |>
+  fmt_number(
+    decimals = 2
+  )
+```
+
+Esta práctica facilita la interpretación de los resultados.
+
+## Tabla descriptiva profesional
+
+Podemos combinar varias estadísticas en una sola tabla.
+
+```{r}
+#| label: tbl-ch15-descriptiva-profesional
+
+tabla_descriptiva <-
+  data.frame(
+    Variable = c(
+      "Superficie total",
+      "Porcentaje bosque",
+      "Factor expansión"
+    ),
+    Media = c(
+      mean(
+        base_analitica$supertotal,
+        na.rm = TRUE
+      ),
+      mean(
+        base_analitica$pct_bosque,
+        na.rm = TRUE
+      ),
+      mean(
+        base_analitica$fact_exp_fin,
+        na.rm = TRUE
+      )
+    ),
+    Mediana = c(
+      median(
+        base_analitica$supertotal,
+        na.rm = TRUE
+      ),
+      median(
+        base_analitica$pct_bosque,
+        na.rm = TRUE
+      ),
+      median(
+        base_analitica$fact_exp_fin,
+        na.rm = TRUE
+      )
+    )
+  )
+
+tabla_descriptiva |>
+  gt() |>
+  fmt_number(
+    columns =
+      c(
+        Media,
+        Mediana
+      ),
+    decimals = 2
+  ) |>
+  tab_header(
+    title =
+      "Tabla descriptiva de variables seleccionadas"
+  )
+```
+
+Este tipo de tablas suele encontrarse en artículos científicos y reportes técnicos.
+
+## Exportación de tablas
+
+Una ventaja importante de Quarto es que las tablas se exportan automáticamente.
+
+Al renderizar el documento:
+
+```text
+HTML
+PDF
+Word
+```
+
+las tablas mantienen su estructura y formato.
+
+Por ello no es necesario copiar resultados manualmente desde R hacia procesadores de texto.
+
+## Tablas y reproducibilidad
+
+La construcción automática de tablas constituye uno de los pilares de la investigación reproducible [@peng2011; @gandrud2015].
+
+Cuando los datos cambian:
+
+```text
+Base actualizada
+↓
+Renderizar nuevamente
+↓
+Tablas actualizadas
+```
+
+Todo el documento se actualiza automáticamente sin intervención manual.
+
+## Recomendaciones para artículos científicos
+
+Antes de finalizar este capítulo conviene considerar algunas recomendaciones prácticas:
+
+- Utilizar títulos descriptivos.
+- Incluir unidades de medida cuando corresponda.
+- Limitar el número de decimales.
+- Ordenar categorías lógicamente.
+- Reportar porcentajes junto con frecuencias.
+- Mantener consistencia visual entre tablas.
+- Generar todas las tablas mediante código reproducible.
+
+Estas prácticas mejoran la claridad y credibilidad de los resultados [@healy2018].
+
+## Manos a la obra
+
+Utilizando la base `base_analitica`:
+
+1. Construya una tabla descriptiva para `pct_bosque`.
+2. Elabore una tabla de frecuencias para `provincia`.
+3. Genere una tabla cruzada entre `tamano_upa` y `su_tenencia`.
+4. Construya una tabla ponderada para `tamano_upa`.
+5. Calcule una media ponderada para `pct_bosque`.
+6. Elabore una tabla utilizando `gt`.
+7. Personalice títulos y nombres de columnas.
+8. Interprete los resultados obtenidos.
+
+## Resumen del capítulo
+
+Las tablas descriptivas constituyen una herramienta fundamental para comunicar resultados estadísticos de manera clara, precisa y reproducible.
+
+Durante este capítulo aprendimos a construir tablas para variables numéricas y categóricas, elaborar tablas cruzadas, incorporar factores de expansión y generar presentaciones profesionales utilizando los paquetes `kable()` y `gt`.
+
+Estas herramientas permiten transformar resultados estadísticos en evidencia comprensible para investigadores, tomadores de decisiones y lectores especializados.
+
+En el siguiente capítulo abordaremos la visualización de datos mediante gráficos estadísticos reproducibles utilizando `ggplot2`, una de las herramientas más poderosas para explorar y comunicar información cuantitativa.

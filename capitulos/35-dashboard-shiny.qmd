@@ -1,0 +1,437 @@
+# Dashboards con Shiny y Quarto
+
+## Objetivos de aprendizaje
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender qué es un dashboard interactivo.
+* Diferenciar un informe reproducible de un dashboard.
+* Preparar datos para un dashboard.
+* Diseñar indicadores, gráficos y tablas.
+* Construir una plantilla básica de Shiny en Quarto.
+* Evitar errores de renderización en libros Quarto.
+
+## Introducción
+
+Un dashboard es una herramienta visual que permite explorar información mediante filtros, indicadores, gráficos y tablas. Su propósito es facilitar el análisis y apoyar la toma de decisiones.
+
+A diferencia de un informe tradicional, un dashboard permite interacción con los datos. Sin embargo, cuando se trabaja dentro de un libro Quarto que debe renderizar en HTML, PDF y Word, conviene separar dos elementos:
+
+```text
+Capítulo del libro
+=
+explicación reproducible y estática
+
+Dashboard Shiny
+=
+archivo independiente interactivo
+```
+
+Esta separación evita errores de compilación y mantiene la reproducibilidad del proyecto [@allaire2024].
+
+## Configuración inicial
+
+```{r}
+#| label: reg35-cargar-librerias
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(gapminder)
+library(knitr)
+```
+
+```{r}
+#| label: reg35-cargar-datos
+
+data(
+  "gapminder",
+  package = "gapminder"
+)
+
+datos_dashboard <- gapminder
+```
+
+## ¿Qué contiene un dashboard?
+
+Un dashboard suele integrar cinco componentes:
+
+```{r}
+#| label: tbl-reg35-componentes
+
+tibble(
+  Componente = c(
+    "Filtros",
+    "Indicadores",
+    "Gráficos",
+    "Tablas",
+    "Conclusiones"
+  ),
+  Funcion = c(
+    "Seleccionar información",
+    "Resumir datos clave",
+    "Visualizar patrones",
+    "Explorar registros",
+    "Apoyar decisiones"
+  )
+) |>
+  kable(
+    caption = "Componentes básicos de un dashboard"
+  )
+```
+
+**Interpretación**
+
+Un dashboard no debe ser una acumulación de gráficos. Debe organizar información útil para responder preguntas concretas.
+
+## Preparación de indicadores
+
+```{r}
+#| label: tbl-reg35-indicadores
+
+datos_dashboard |>
+  group_by(
+    continent
+  ) |>
+  summarise(
+    Esperanza_vida_promedio = mean(
+      lifeExp
+    ),
+    PIB_promedio = mean(
+      gdpPercap
+    ),
+    Poblacion_promedio = mean(
+      pop
+    ),
+    .groups = "drop"
+  ) |>
+  kable(
+    digits = 2,
+    caption = "Indicadores por continente"
+  )
+```
+
+**Interpretación**
+
+Los indicadores permiten comparar rápidamente el comportamiento promedio de cada continente.
+
+## Gráfico principal del dashboard
+
+```{r}
+#| label: fig-reg35-dispersion
+#| fig-cap: "Relación entre PIB per cápita y esperanza de vida"
+
+ggplot(
+  datos_dashboard,
+  aes(
+    x = gdpPercap,
+    y = lifeExp
+  )
+) +
+  geom_point(
+    alpha = 0.4
+  ) +
+  scale_x_log10() +
+  theme_minimal() +
+  labs(
+    x = "PIB per cápita",
+    y = "Esperanza de vida"
+  )
+```
+
+**Interpretación**
+
+El gráfico muestra una relación positiva entre ingreso y esperanza de vida. La escala logarítmica facilita la lectura porque el PIB per cápita presenta alta dispersión.
+
+## Serie temporal
+
+```{r}
+#| label: fig-reg35-serie-tiempo
+#| fig-cap: "Evolución promedio de la esperanza de vida"
+
+datos_dashboard |>
+  group_by(
+    year
+  ) |>
+  summarise(
+    esperanza = mean(
+      lifeExp
+    ),
+    .groups = "drop"
+  ) |>
+  ggplot(
+    aes(
+      x = year,
+      y = esperanza
+    )
+  ) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(
+    x = "Año",
+    y = "Esperanza de vida promedio"
+  )
+```
+
+**Interpretación**
+
+La serie temporal permite observar la evolución general de la esperanza de vida a lo largo del tiempo.
+
+## Tabla para exploración
+
+```{r}
+#| label: tbl-reg35-tabla-base
+
+datos_dashboard |>
+  select(
+    country,
+    continent,
+    year,
+    lifeExp,
+    gdpPercap
+  ) |>
+  slice_head(
+    n = 10
+  ) |>
+  kable(
+    digits = 2,
+    caption = "Primeras observaciones para el dashboard"
+  )
+```
+
+**Interpretación**
+
+La tabla muestra la estructura mínima que podría incorporarse en un dashboard interactivo.
+
+## Estructura recomendada para un dashboard
+
+```text
+Filtro principal
+
+↓
+
+Indicadores clave
+
+↓
+
+Gráfico principal
+
+↓
+
+Serie temporal
+
+↓
+
+Tabla de detalle
+```
+
+## Plantilla de dashboard Shiny en Quarto
+
+El siguiente código debe guardarse como un archivo independiente, por ejemplo:
+
+```text
+dashboard-gapminder.qmd
+```
+
+No debe ejecutarse dentro del libro completo si también se renderiza a PDF o Word.
+
+```{r}
+#| label: reg35-plantilla-dashboard
+#| eval: false
+
+# ---
+# title: "Dashboard Gapminder"
+# format:
+#   html:
+#     theme: cosmo
+# server: shiny
+# ---
+
+library(shiny)
+library(tidyverse)
+library(gapminder)
+library(plotly)
+library(DT)
+
+data(
+  "gapminder",
+  package = "gapminder"
+)
+
+datos_dashboard <- gapminder
+
+selectInput(
+  inputId = "continente",
+  label = "Seleccione un continente:",
+  choices = unique(datos_dashboard$continent),
+  selected = "Europe"
+)
+
+datos_filtrados <- reactive({
+
+  datos_dashboard |>
+    filter(
+      continent == input$continente
+    )
+
+})
+
+renderText({
+
+  round(
+    mean(
+      datos_filtrados()$lifeExp
+    ),
+    2
+  )
+
+})
+
+renderPlotly({
+
+  grafico <- ggplot(
+    datos_filtrados(),
+    aes(
+      x = gdpPercap,
+      y = lifeExp
+    )
+  ) +
+    geom_point() +
+    scale_x_log10() +
+    theme_minimal()
+
+  ggplotly(
+    grafico
+  )
+
+})
+
+renderDT({
+
+  datatable(
+    datos_filtrados(),
+    options = list(
+      pageLength = 10
+    )
+  )
+
+})
+```
+
+**Interpretación**
+
+Esta plantilla contiene los elementos mínimos de un dashboard Shiny: filtro, datos reactivos, indicador, gráfico interactivo y tabla dinámica.
+
+## ¿Por qué separar el dashboard del libro?
+
+```{r}
+#| label: tbl-reg35-separacion
+
+tibble(
+  Elemento = c(
+    "Libro Quarto",
+    "Dashboard Shiny"
+  ),
+  Funcion = c(
+    "Explicar y documentar",
+    "Permitir interacción"
+  ),
+  Formatos = c(
+    "HTML, PDF y Word",
+    "HTML interactivo"
+  )
+) |>
+  kable(
+    caption = "Separación recomendada entre libro y dashboard"
+  )
+```
+
+**Interpretación**
+
+La separación evita errores de renderización y permite que cada producto cumpla su función.
+
+## Publicación del dashboard
+
+Para ejecutar el dashboard interactivo:
+
+```r
+quarto::quarto_preview(
+  "dashboard-gapminder.qmd"
+)
+```
+
+Para generar el HTML:
+
+```bash
+quarto render dashboard-gapminder.qmd
+```
+
+## Errores frecuentes
+
+```{r}
+#| label: tbl-reg35-errores
+
+tibble(
+  Error = c(
+    "Usar renderPlotly dentro de un libro PDF",
+    "No activar server: shiny",
+    "Poner ggplotly fuera de renderPlotly",
+    "Mezclar dashboard interactivo y libro completo"
+  ),
+  Solucion = c(
+    "Dejar el código con eval: false",
+    "Agregar server: shiny en el archivo dashboard",
+    "Colocar ggplotly dentro de renderPlotly",
+    "Crear un archivo dashboard separado"
+  )
+) |>
+  kable(
+    caption = "Errores frecuentes en dashboards Shiny"
+  )
+```
+
+## Lista de verificación
+
+```{r}
+#| label: tbl-reg35-checklist
+
+tibble(
+  Elemento = c(
+    "Capítulo estático renderiza",
+    "Dashboard separado",
+    "Filtros definidos",
+    "Datos reactivos",
+    "Gráficos interactivos",
+    "Tabla interactiva"
+  ),
+  Estado = c(
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí"
+  )
+) |>
+  kable(
+    caption = "Lista de verificación para dashboards"
+  )
+```
+
+## Manos a la obra
+
+1. Renderice este capítulo dentro del libro.
+2. Cree un archivo independiente llamado `dashboard-gapminder.qmd`.
+3. Active `server: shiny`.
+4. Copie la plantilla del dashboard.
+5. Ejecute el dashboard con `quarto_preview()`.
+6. Verifique que el filtro funcione.
+7. Revise el gráfico interactivo.
+8. Revise la tabla dinámica.
+9. Exporte el dashboard a HTML.
+10. Mantenga separado el dashboard del libro principal.
+
+## Resumen del capítulo
+
+En este capítulo se presentó una forma robusta de trabajar con dashboards dentro de un proyecto Quarto. El libro debe contener la explicación, las tablas y los gráficos estáticos que renderizan correctamente en HTML, PDF y Word. El dashboard interactivo debe construirse como un archivo independiente con Shiny. Esta estrategia evita errores de compilación y permite cerrar el ciclo completo de investigación reproducible, desde el análisis hasta la comunicación interactiva de resultados.

@@ -1,0 +1,1288 @@
+# Diagnóstico del modelo
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar esta sección, el lector será capaz de:
+
+- Comprender el propósito del diagnóstico de modelos.
+- Interpretar residuos de regresión.
+- Evaluar linealidad.
+- Evaluar normalidad de residuos.
+- Evaluar homogeneidad de varianza.
+- Identificar señales tempranas de problemas de especificación.
+
+## Introducción
+
+La estimación de una regresión no constituye el final del análisis.
+
+Una vez ajustado un modelo es necesario verificar si sus supuestos básicos resultan razonables. El incumplimiento de estos supuestos puede afectar la validez de las inferencias, los intervalos de confianza y las predicciones [@montgomery2021].
+
+En este capítulo utilizaremos el modelo múltiple construido previamente para ilustrar las principales herramientas de diagnóstico.
+
+## Cargando librerías
+
+```{r}
+#| label: reg22-cargar-librerias
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(knitr)
+library(here)
+library(car)
+```
+
+## Cargando la base analítica
+
+```{r}
+#| label: reg22-cargar-base
+
+base_analitica <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+## Preparación de variables
+
+```{r}
+#| label: reg22-preparar-base
+
+base_modelo <- base_analitica |>
+  mutate(
+    log_supertotal =
+      log1p(
+        supertotal
+      ),
+    tamano_upa =
+      as.factor(
+        tamano_upa
+      ),
+    provincia =
+      as.factor(
+        provincia
+      )
+  ) |>
+  select(
+    log_supertotal,
+    fact_exp_fin,
+    tamano_upa,
+    provincia
+  ) |>
+  drop_na()
+```
+
+## Estimación del modelo
+
+```{r}
+#| label: reg22-estimar-modelo
+
+modelo_diag <- lm(
+  log_supertotal ~
+    fact_exp_fin +
+    tamano_upa +
+    provincia,
+  data = base_modelo
+)
+```
+
+## Resumen general del modelo
+
+```{r}
+#| label: tbl-reg22-resumen-modelo
+
+glance(
+  modelo_diag
+) |>
+  select(
+    r.squared,
+    adj.r.squared,
+    sigma
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Resumen general del modelo"
+  )
+```
+
+**Interpretación**
+
+El modelo presenta una determinada capacidad explicativa y un error residual promedio que servirá como referencia para el diagnóstico posterior.
+
+## ¿Qué son los residuos?
+
+Los residuos representan la diferencia entre los valores observados y los valores predichos.
+
+Formalmente:
+
+:contentReference[oaicite:0]{index=0}
+
+Un buen modelo produce residuos pequeños y sin patrones sistemáticos.
+
+## Construcción de residuos
+
+```{r}
+#| label: reg22-construir-residuos
+
+base_modelo <- base_modelo |>
+  mutate(
+    ajustado =
+      fitted(
+        modelo_diag
+      ),
+    residuo =
+      residuals(
+        modelo_diag
+      )
+  )
+```
+
+## Resumen de residuos
+
+```{r}
+#| label: tbl-reg22-resumen-residuos
+
+tibble(
+  Estadistico = c(
+    "Minimo",
+    "Primer cuartil",
+    "Mediana",
+    "Media",
+    "Tercer cuartil",
+    "Maximo"
+  ),
+  Valor = as.numeric(
+    summary(
+      base_modelo$residuo
+    )
+  )
+) |>
+  kable(
+    digits = 4,
+    caption = "Resumen descriptivo de residuos"
+  )
+```
+
+**Interpretación**
+
+La media de los residuos debería aproximarse a cero y la distribución debería ser relativamente simétrica.
+
+## Histograma de residuos
+
+```{r}
+#| label: fig-reg22-histograma-residuos
+#| fig-cap: "Distribución de residuos"
+
+ggplot(
+  base_modelo,
+  aes(
+    x = residuo
+  )
+) +
+  geom_histogram(
+    bins = 30,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+El histograma permite identificar asimetrías, colas largas o valores extremos.
+
+## Curva de densidad
+
+```{r}
+#| label: fig-reg22-densidad-residuos
+#| fig-cap: "Curva de densidad de residuos"
+
+ggplot(
+  base_modelo,
+  aes(
+    x = residuo
+  )
+) +
+  geom_density(
+    fill = "steelblue",
+    alpha = 0.4
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+La densidad facilita la evaluación visual de la forma general de la distribución.
+
+## Evaluación de linealidad
+
+Uno de los supuestos básicos indica que la relación entre variables debe estar adecuadamente representada por una función lineal.
+
+## Residuos versus valores ajustados
+
+```{r}
+#| label: fig-reg22-residuos-ajustados
+#| fig-cap: "Residuos versus valores ajustados"
+
+ggplot(
+  base_modelo,
+  aes(
+    x = ajustado,
+    y = residuo
+  )
+) +
+  geom_point(
+    alpha = 0.25,
+    color = "steelblue"
+  ) +
+  geom_hline(
+    yintercept = 0,
+    color = "red"
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+Los residuos deberían dispersarse aleatoriamente alrededor de cero.
+
+Patrones curvos pueden sugerir problemas de linealidad.
+
+## Evaluación de normalidad
+
+La normalidad de residuos es importante para la validez de diversos procedimientos inferenciales.
+
+## Gráfico Q-Q
+
+```{r}
+#| label: fig-reg22-qqplot
+#| fig-cap: "Gráfico Q-Q de residuos"
+
+qqnorm(
+  residuals(
+    modelo_diag
+  )
+)
+
+qqline(
+  residuals(
+    modelo_diag
+  ),
+  col = "red"
+)
+```
+
+**Interpretación**
+
+Mientras más próximos se encuentren los puntos a la línea de referencia, más compatible será la distribución observada con una distribución normal.
+
+## Prueba de Shapiro-Wilk
+
+```{r}
+#| label: tbl-reg22-shapiro
+
+shapiro.test(
+  sample(
+    residuals(
+      modelo_diag
+    ),
+    min(
+      5000,
+      length(
+        residuals(
+          modelo_diag
+        )
+      )
+    )
+  )
+)
+```
+
+**Interpretación**
+
+Valores p pequeños sugieren desviaciones respecto a la normalidad.
+
+## Homoscedasticidad
+
+La homoscedasticidad implica que la variabilidad de los residuos permanece aproximadamente constante a lo largo de los valores ajustados.
+
+## Visualización de dispersión residual
+
+```{r}
+#| label: fig-reg22-homoscedasticidad
+#| fig-cap: "Evaluación visual de homoscedasticidad"
+
+ggplot(
+  base_modelo,
+  aes(
+    x = ajustado,
+    y = abs(
+      residuo
+    )
+  )
+) +
+  geom_point(
+    alpha = 0.25,
+    color = "steelblue"
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+Una dispersión relativamente uniforme favorece el supuesto de homoscedasticidad.
+
+## Resumen de supuestos evaluados
+
+```{r}
+#| label: tbl-reg22-resumen-supuestos
+
+tibble(
+  Supuesto = c(
+    "Linealidad",
+    "Normalidad",
+    "Homoscedasticidad"
+  ),
+  Herramienta = c(
+    "Residuos vs ajustados",
+    "Q-Q Plot y Shapiro",
+    "Dispersión residual"
+  )
+) |>
+  kable(
+    caption = "Herramientas básicas de diagnóstico"
+  )
+```
+
+**Interpretación**
+
+Estas herramientas constituyen la base del diagnóstico de cualquier modelo lineal.
+
+## Conclusión práctica
+
+En esta primera parte aprendimos a:
+
+- Construir residuos.
+- Interpretar residuos.
+- Evaluar linealidad.
+- Evaluar normalidad.
+- Evaluar homoscedasticidad.
+
+## Introducción
+
+En la sección anterior evaluamos la distribución de los residuos y verificamos los supuestos básicos del modelo lineal.
+
+Ahora analizaremos tres aspectos adicionales que pueden afectar la calidad de una regresión múltiple:
+
+- Multicolinealidad.
+- Observaciones influyentes.
+- Leverage.
+
+Estos elementos son especialmente importantes cuando se trabaja con múltiples variables explicativas [@montgomery2021].
+
+## Cargando librerías
+
+```{r}
+#| label: reg22-cargar-librerias-parte2
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(knitr)
+library(here)
+library(car)
+```
+
+## Cargando la base analítica
+
+```{r}
+#| label: reg22-cargar-base-parte2
+
+base_analitica <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+## Preparación de variables
+
+```{r}
+#| label: reg22-preparar-base-parte2
+
+base_modelo <- base_analitica |>
+  mutate(
+    log_supertotal =
+      log1p(
+        supertotal
+      ),
+    tamano_upa =
+      as.factor(
+        tamano_upa
+      ),
+    provincia =
+      as.factor(
+        provincia
+      )
+  ) |>
+  select(
+    log_supertotal,
+    fact_exp_fin,
+    tamano_upa,
+    provincia
+  ) |>
+  drop_na()
+```
+
+## Reestimación del modelo
+
+```{r}
+#| label: reg22-modelo-parte2
+
+modelo_diag <- lm(
+  log_supertotal ~
+    fact_exp_fin +
+    tamano_upa +
+    provincia,
+  data = base_modelo
+)
+```
+
+## ¿Qué es la multicolinealidad?
+
+La multicolinealidad aparece cuando dos o más variables explicativas contienen información muy similar.
+
+Conceptualmente:
+
+```text
+X1  ↔  X2
+```
+
+Si ambas variables aportan prácticamente la misma información, la estimación de los coeficientes puede volverse inestable.
+
+## Consecuencias de la multicolinealidad
+
+La multicolinealidad puede provocar:
+
+- Coeficientes poco estables.
+- Errores estándar elevados.
+- Intervalos de confianza amplios.
+- Dificultades de interpretación.
+
+No afecta necesariamente la capacidad predictiva del modelo, pero sí puede dificultar la interpretación individual de los coeficientes.
+
+## Factor de inflación de la varianza (VIF)
+
+La medida más utilizada para evaluar multicolinealidad es el Variance Inflation Factor (VIF).
+
+```{r}
+#| label: tbl-reg22-vif
+
+vif_valores <- car::vif(
+  modelo_diag
+)
+
+if (
+  is.matrix(
+    vif_valores
+  )
+) {
+  vif_tabla <- as.data.frame(
+    vif_valores
+  ) |>
+    tibble::rownames_to_column(
+      "Variable"
+    )
+} else {
+  vif_tabla <- tibble(
+    Variable =
+      names(
+        vif_valores
+      ),
+    VIF =
+      as.numeric(
+        vif_valores
+      )
+  )
+}
+
+vif_tabla |>
+  kable(
+    digits = 3,
+    caption = "Factores de inflación de la varianza"
+  )
+```
+
+**Interpretación**
+
+Como regla práctica:
+
+```text
+VIF < 5
+Multicolinealidad baja
+
+VIF entre 5 y 10
+Posible preocupación
+
+VIF > 10
+Problema importante
+```
+
+## Visualización de VIF
+
+```{r}
+#| label: fig-reg22-vif
+#| fig-cap: "Factores de inflación de la varianza"
+
+vif_tabla |>
+  mutate(
+    VIF_grafico =
+      ifelse(
+        "GVIF^(1/(2*Df))" %in% names(
+          vif_tabla
+        ),
+        `GVIF^(1/(2*Df))`,
+        VIF
+      )
+  ) |>
+  ggplot(
+    aes(
+      x = reorder(
+        Variable,
+        VIF_grafico
+      ),
+      y = VIF_grafico
+    )
+  ) +
+  geom_col(
+    fill = "steelblue"
+  ) +
+  coord_flip() +
+  theme_minimal() +
+  labs(
+    x = "Variable",
+    y = "VIF"
+  )
+```
+
+**Interpretación**
+
+El gráfico facilita identificar qué variables presentan mayores niveles de colinealidad.
+
+## ¿Qué es una observación influyente?
+
+Una observación influyente es aquella que tiene capacidad para modificar significativamente los resultados del modelo.
+
+No todas las observaciones extremas son necesariamente influyentes.
+
+## Distancia de Cook
+
+La Distancia de Cook es una de las medidas más utilizadas para identificar observaciones influyentes.
+
+```{r}
+#| label: reg22-cook
+
+base_modelo <- base_modelo |>
+  mutate(
+    cook =
+      cooks.distance(
+        modelo_diag
+      )
+  )
+```
+
+## Resumen de Distancia de Cook
+
+```{r}
+#| label: tbl-reg22-cook-resumen
+
+tibble(
+  Estadistico = c(
+    "Minimo",
+    "Primer cuartil",
+    "Mediana",
+    "Media",
+    "Tercer cuartil",
+    "Maximo"
+  ),
+  Valor = as.numeric(
+    summary(
+      base_modelo$cook
+    )
+  )
+) |>
+  kable(
+    digits = 5,
+    caption = "Resumen de la Distancia de Cook"
+  )
+```
+
+**Interpretación**
+
+Valores elevados sugieren observaciones que merecen revisión adicional.
+
+## Observaciones más influyentes
+
+```{r}
+#| label: tbl-reg22-casos-influyentes
+
+base_modelo |>
+  mutate(
+    id = row_number()
+  ) |>
+  arrange(
+    desc(
+      cook
+    )
+  ) |>
+  slice_head(
+    n = 10
+  ) |>
+  select(
+    id,
+    cook
+  ) |>
+  kable(
+    digits = 5,
+    caption = "Observaciones con mayor influencia"
+  )
+```
+
+**Interpretación**
+
+Estas observaciones son candidatas para una revisión detallada.
+
+## Visualización de Distancia de Cook
+
+```{r}
+#| label: fig-reg22-cook
+#| fig-cap: "Distancia de Cook"
+
+base_modelo |>
+  mutate(
+    id = row_number()
+  ) |>
+  ggplot(
+    aes(
+      x = id,
+      y = cook
+    )
+  ) +
+  geom_point(
+    color = "steelblue",
+    alpha = 0.6
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Observación",
+    y = "Distancia de Cook"
+  )
+```
+
+**Interpretación**
+
+El gráfico permite identificar observaciones que destacan respecto al resto de la muestra.
+
+## ¿Qué es el leverage?
+
+El leverage mide qué tan alejadas se encuentran las observaciones respecto al centro de la nube de datos explicativos.
+
+Observaciones con leverage elevado tienen mayor capacidad para influir en el ajuste.
+
+## Cálculo del leverage
+
+```{r}
+#| label: reg22-leverage
+
+base_modelo <- base_modelo |>
+  mutate(
+    leverage =
+      hatvalues(
+        modelo_diag
+      )
+  )
+```
+
+## Resumen del leverage
+
+```{r}
+#| label: tbl-reg22-leverage
+
+tibble(
+  Estadistico = c(
+    "Minimo",
+    "Primer cuartil",
+    "Mediana",
+    "Media",
+    "Tercer cuartil",
+    "Maximo"
+  ),
+  Valor = as.numeric(
+    summary(
+      base_modelo$leverage
+    )
+  )
+) |>
+  kable(
+    digits = 5,
+    caption = "Resumen de leverage"
+  )
+```
+
+**Interpretación**
+
+Valores elevados indican observaciones ubicadas en zonas poco representadas del espacio explicativo.
+
+## Visualización de leverage
+
+```{r}
+#| label: fig-reg22-leverage
+#| fig-cap: "Valores de leverage"
+
+base_modelo |>
+  mutate(
+    id = row_number()
+  ) |>
+  ggplot(
+    aes(
+      x = id,
+      y = leverage
+    )
+  ) +
+  geom_point(
+    color = "steelblue",
+    alpha = 0.6
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Observación",
+    y = "Leverage"
+  )
+```
+
+**Interpretación**
+
+Las observaciones con leverage elevado pueden influir considerablemente en la posición de la recta de regresión.
+
+## Influencia versus leverage
+
+No todas las observaciones con leverage alto son influyentes.
+
+Tampoco todas las observaciones influyentes presentan leverage elevado.
+
+Por ello es recomendable analizar simultáneamente:
+
+- Residuos.
+- Leverage.
+- Distancia de Cook.
+
+## Resumen integrado
+
+```{r}
+#| label: tbl-reg22-resumen-influencia
+
+tibble(
+  Indicador = c(
+    "VIF",
+    "Cook",
+    "Leverage"
+  ),
+  Objetivo = c(
+    "Detectar multicolinealidad",
+    "Detectar influencia",
+    "Detectar observaciones extremas en X"
+  )
+) |>
+  kable(
+    caption = "Herramientas complementarias de diagnóstico"
+  )
+```
+
+**Interpretación**
+
+Cada herramienta responde a una pregunta distinta sobre la calidad del modelo.
+
+## Conclusión práctica
+
+En esta segunda parte aprendimos a:
+
+- Evaluar multicolinealidad mediante VIF.
+- Identificar observaciones influyentes.
+- Interpretar la Distancia de Cook.
+- Analizar leverage.
+- Comprender la diferencia entre influencia y posición extrema.
+
+En la siguiente sección integraremos todos los diagnósticos estudiados y construiremos un procedimiento completo de validación de modelos de regresión.
+
+## Introducción
+
+A estas alturas ya hemos evaluado:
+
+- Linealidad.
+- Normalidad de residuos.
+- Homoscedasticidad.
+- Multicolinealidad.
+- Observaciones influyentes.
+- Leverage.
+
+La pregunta final es:
+
+```text
+¿Podemos confiar en el modelo?
+```
+
+En esta sección integraremos todos los diagnósticos en un único procedimiento práctico que podrá utilizarse en cualquier proyecto de investigación.
+
+## Cargando librerías
+
+```{r}
+#| label: reg22-cargar-librerias-parte3
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(knitr)
+library(here)
+library(car)
+```
+
+## Cargando la base analítica
+
+```{r}
+#| label: reg22-cargar-base-parte3
+
+base_analitica <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+## Preparación de variables
+
+```{r}
+#| label: reg22-preparar-base-parte3
+
+base_modelo <- base_analitica |>
+  mutate(
+    log_supertotal =
+      log1p(
+        supertotal
+      ),
+    tamano_upa =
+      as.factor(
+        tamano_upa
+      ),
+    provincia =
+      as.factor(
+        provincia
+      )
+  ) |>
+  select(
+    log_supertotal,
+    fact_exp_fin,
+    tamano_upa,
+    provincia
+  ) |>
+  drop_na()
+```
+
+## Estimación del modelo final
+
+```{r}
+#| label: reg22-modelo-final
+
+modelo_diag <- lm(
+  log_supertotal ~
+    fact_exp_fin +
+    tamano_upa +
+    provincia,
+  data = base_modelo
+)
+```
+
+## Construcción de métricas diagnósticas
+
+```{r}
+#| label: reg22-construir-diagnosticos
+
+base_modelo <- base_modelo |>
+  mutate(
+    ajustado =
+      fitted(
+        modelo_diag
+      ),
+    residuo =
+      residuals(
+        modelo_diag
+      ),
+    residuo_std =
+      rstandard(
+        modelo_diag
+      ),
+    leverage =
+      hatvalues(
+        modelo_diag
+      ),
+    cook =
+      cooks.distance(
+        modelo_diag
+      )
+  )
+```
+
+## Resumen global del modelo
+
+```{r}
+#| label: tbl-reg22-resumen-global
+
+glance(
+  modelo_diag
+) |>
+  select(
+    r.squared,
+    adj.r.squared,
+    sigma,
+    statistic,
+    p.value
+  ) |>
+  rename(
+    R2 = r.squared,
+    R2_Ajustado = adj.r.squared,
+    Error_Residual = sigma,
+    Estadistico_F = statistic,
+    Valor_p = p.value
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Resumen global del modelo"
+  )
+```
+
+**Interpretación**
+
+Esta tabla resume el desempeño general del modelo antes de analizar individualmente cada supuesto.
+
+## Panel básico de diagnóstico
+
+```{r}
+#| label: fig-reg22-panel-diagnostico
+#| fig-cap: "Panel básico de diagnóstico"
+
+par(
+  mfrow = c(
+    2,
+    2
+  )
+)
+
+plot(
+  modelo_diag
+)
+
+par(
+  mfrow = c(
+    1,
+    1
+  )
+)
+```
+
+**Interpretación**
+
+Este panel reúne cuatro gráficos clásicos utilizados en diagnóstico de regresión:
+
+- Residuos versus ajustados.
+- Gráfico Q-Q.
+- Escala localización.
+- Residuos versus leverage.
+
+Con frecuencia constituye el primer paso en la validación de modelos.
+
+## Evaluación integrada de residuos
+
+```{r}
+#| label: tbl-reg22-resumen-residuos-final
+
+tibble(
+  Indicador = c(
+    "Media",
+    "Desviación estándar",
+    "Mínimo",
+    "Máximo"
+  ),
+  Valor = c(
+    mean(
+      base_modelo$residuo
+    ),
+    sd(
+      base_modelo$residuo
+    ),
+    min(
+      base_modelo$residuo
+    ),
+    max(
+      base_modelo$residuo
+    )
+  )
+) |>
+  kable(
+    digits = 4,
+    caption = "Resumen integrado de residuos"
+  )
+```
+
+**Interpretación**
+
+La media de los residuos debería aproximarse a cero y no deberían existir valores extremos excesivamente dominantes.
+
+## Evaluación integrada de influencia
+
+```{r}
+#| label: tbl-reg22-resumen-influencia-final
+
+tibble(
+  Indicador = c(
+    "Cook máximo",
+    "Leverage máximo"
+  ),
+  Valor = c(
+    max(
+      base_modelo$cook
+    ),
+    max(
+      base_modelo$leverage
+    )
+  )
+) |>
+  kable(
+    digits = 5,
+    caption = "Resumen de observaciones potencialmente influyentes"
+  )
+```
+
+**Interpretación**
+
+Estos valores permiten identificar si existen observaciones que podrían afectar desproporcionadamente los resultados.
+
+## Identificación automática de casos a revisar
+
+```{r}
+#| label: tbl-reg22-casos-revision
+
+base_modelo |>
+  mutate(
+    id = row_number()
+  ) |>
+  filter(
+    abs(
+      residuo_std
+    ) > 2 |
+    cook > 4 / nrow(
+      base_modelo
+    )
+  ) |>
+  select(
+    id,
+    residuo_std,
+    leverage,
+    cook
+  ) |>
+  slice_head(
+    n = 15
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Casos sugeridos para revisión"
+  )
+```
+
+**Interpretación**
+
+La presencia de observaciones en esta tabla no implica necesariamente errores. Indica únicamente que merecen una inspección adicional.
+
+## Diagnóstico de multicolinealidad
+
+```{r}
+#| label: tbl-reg22-vif-final
+
+vif_valores_final <- car::vif(
+  modelo_diag
+)
+
+if (
+  is.matrix(
+    vif_valores_final
+  )
+) {
+  vif_tabla_final <- as.data.frame(
+    vif_valores_final
+  ) |>
+    tibble::rownames_to_column(
+      "Variable"
+    )
+} else {
+  vif_tabla_final <- tibble(
+    Variable =
+      names(
+        vif_valores_final
+      ),
+    VIF =
+      as.numeric(
+        vif_valores_final
+      )
+  )
+}
+
+vif_tabla_final |>
+  kable(
+    digits = 3,
+    caption = "Diagnóstico final de multicolinealidad"
+  )
+```
+
+**Interpretación**
+
+Valores reducidos de VIF sugieren que las variables explicativas aportan información diferenciada.
+
+## Lista de verificación del modelo
+
+```{r}
+#| label: tbl-reg22-checklist
+
+tibble(
+  Verificacion = c(
+    "Linealidad",
+    "Normalidad aproximada",
+    "Homoscedasticidad",
+    "Multicolinealidad",
+    "Influencia excesiva",
+    "Capacidad predictiva"
+  ),
+  Herramienta = c(
+    "Residuos vs ajustados",
+    "Q-Q Plot",
+    "Escala localización",
+    "VIF",
+    "Cook y leverage",
+    "R² y error residual"
+  )
+) |>
+  kable(
+    caption = "Lista de verificación para validación del modelo"
+  )
+```
+
+**Interpretación**
+
+Esta lista resume el procedimiento básico que debe seguirse antes de interpretar o reportar una regresión.
+
+## Problemas frecuentes y posibles soluciones
+
+```{r}
+#| label: tbl-reg22-problemas-soluciones
+
+tibble(
+  Problema = c(
+    "No linealidad",
+    "Heterocedasticidad",
+    "Multicolinealidad",
+    "Valores influyentes",
+    "Distribución residual problemática"
+  ),
+  Posible_Solucion = c(
+    "Transformar variables",
+    "Errores robustos",
+    "Eliminar variables redundantes",
+    "Revisar observaciones",
+    "Transformaciones o modelos alternativos"
+  )
+) |>
+  kable(
+    caption = "Problemas frecuentes y posibles soluciones"
+  )
+```
+
+**Interpretación**
+
+El objetivo del diagnóstico no es descartar automáticamente un modelo, sino identificar posibles limitaciones y documentarlas adecuadamente, con la finalidad de obtener estimadores robustos.
+
+## Flujo recomendado de validación
+
+```{r}
+#| label: tbl-reg22-flujo-validacion
+
+tibble(
+  Paso = 1:6,
+  Actividad = c(
+    "Estimar el modelo",
+    "Evaluar residuos",
+    "Evaluar normalidad",
+    "Evaluar homoscedasticidad",
+    "Evaluar multicolinealidad",
+    "Evaluar influencia"
+  )
+) |>
+  kable(
+    caption = "Flujo recomendado de validación"
+  )
+```
+
+**Interpretación**
+
+Este flujo resume una secuencia práctica para validar modelos de regresión lineal.
+
+## Aplicación práctica
+
+Antes de reportar resultados de una regresión:
+
+1. Revise los residuos.
+2. Analice el gráfico Q-Q.
+3. Evalúe homoscedasticidad.
+4. Calcule VIF.
+5. Revise leverage.
+6. Analice Distancia de Cook.
+7. Identifique observaciones atípicas.
+8. Verifique la estabilidad de los coeficientes.
+9. Documente limitaciones.
+10. Interprete resultados únicamente después de completar el diagnóstico.
+
+## Manos a la obra
+
+1. Estime una regresión múltiple.
+2. Construya residuos.
+3. Evalúe linealidad.
+4. Evalúe normalidad.
+5. Evalúe homoscedasticidad.
+6. Calcule VIF.
+7. Obtenga leverage.
+8. Calcule Distancia de Cook.
+9. Identifique observaciones influyentes.
+10. Elabore un informe de validación del modelo.
+
+## Resumen del capítulo
+
+En este capítulo aprendimos a validar modelos de regresión mediante herramientas diagnósticas fundamentales.
+
+Primero analizamos residuos, linealidad, normalidad y homoscedasticidad. Posteriormente estudiamos multicolinealidad mediante VIF e identificamos observaciones influyentes utilizando leverage y Distancia de Cook. Finalmente integramos todos los diagnósticos en un procedimiento sistemático de validación.
+
+El diagnóstico constituye una etapa indispensable dentro de cualquier análisis estadístico porque permite evaluar la confiabilidad de las inferencias y la calidad de las predicciones generadas por el modelo.
+
+A partir de este punto contamos con las herramientas necesarias para avanzar hacia técnicas de modelación más especializadas y modelos aplicados a diferentes tipos de variables respuesta.
+

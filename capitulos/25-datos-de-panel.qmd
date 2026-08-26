@@ -1,0 +1,1125 @@
+# Datos de panel
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar esta sección, el lector será capaz de:
+
+- Comprender qué son los datos de panel.
+- Diferenciar datos transversales, series de tiempo y panel.
+- Identificar paneles balanceados y desbalanceados.
+- Preparar datos panel en R.
+- Reconocer la estructura individuo-tiempo.
+- Explorar bases para modelos de panel.
+
+## Introducción
+
+En capítulos anteriores trabajamos con observaciones independientes registradas en un único momento del tiempo, es decir, con datos transversales.
+
+Sin embargo, muchas investigaciones requieren observar las mismas unidades durante varios períodos.
+
+Por ejemplo:
+
+```text
+Empresas observadas durante varios años.
+
+Provincias observadas durante varias décadas.
+
+Hogares observados en múltiples encuestas.
+```
+
+Este tipo de información recibe el nombre de datos de panel [@wooldridge2010].
+
+## ¿Qué son los datos de panel?
+
+Los datos de panel combinan simultáneamente:
+
+```text
+Dimensión transversal
++
+Dimensión temporal
+```
+
+Por ejemplo:
+
+| Empresa | Año | Inversión |
+|----------|----------|----------|
+| A | 2020 | 100 |
+| A | 2021 | 120 |
+| A | 2022 | 135 |
+| B | 2020 | 80 |
+| B | 2021 | 95 |
+| B | 2022 | 110 |
+
+La misma unidad aparece repetidamente a través del tiempo.
+
+## Ventajas de los datos de panel
+
+Los datos de panel permiten:
+
+- Analizar cambios temporales.
+- Controlar heterogeneidad individual.
+- Incrementar el número de observaciones.
+- Mejorar la precisión de las estimaciones.
+- Evaluar dinámicas de comportamiento.
+
+## Cargando librerías
+
+```{r}
+#| label: reg25-cargar-librerias
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(plm)
+library(broom)
+library(knitr)
+```
+
+## Cargando la base de datos
+
+Utilizaremos la base `Grunfeld` incluida en el paquete `plm`.
+
+```{r}
+#| label: reg25-cargar-datos
+
+data(
+  "Grunfeld",
+  package = "plm"
+)
+
+panel_datos <- Grunfeld
+```
+
+## Explorando la estructura
+
+```{r}
+#| label: tbl-reg25-estructura
+
+glimpse(
+  panel_datos
+)
+```
+
+**Interpretación**
+
+La base contiene:
+
+- Empresa (`firm`)
+- Año (`year`)
+- Inversión (`inv`)
+- Valor de mercado (`value`)
+- Capital (`capital`)
+
+## Primeras observaciones
+
+```{r}
+#| label: tbl-reg25-primeras-filas
+
+panel_datos |>
+  slice_head(
+    n = 10
+  ) |>
+  kable(
+    caption = "Primeras observaciones de la base Grunfeld"
+  )
+```
+
+**Interpretación**
+
+Cada empresa aparece repetidamente en distintos años.
+
+Esta característica define la estructura panel.
+
+## Identificando individuos
+
+```{r}
+#| label: tbl-reg25-num-empresas
+
+panel_datos |>
+  summarise(
+    Empresas =
+      n_distinct(
+        firm
+      )
+  ) |>
+  kable(
+    caption = "Número de empresas"
+  )
+```
+
+## Identificando períodos
+
+```{r}
+#| label: tbl-reg25-num-periodos
+
+panel_datos |>
+  summarise(
+    Periodos =
+      n_distinct(
+        year
+      )
+  ) |>
+  kable(
+    caption = "Número de períodos"
+  )
+```
+
+**Interpretación**
+
+La combinación empresa-año constituye la unidad básica de observación.
+
+## Visualización temporal
+
+```{r}
+#| label: fig-reg25-serie-empresa
+#| fig-cap: "Inversión de una empresa a través del tiempo"
+
+panel_datos |>
+  filter(
+    firm == 1
+  ) |>
+  ggplot(
+    aes(
+      x = year,
+      y = inv
+    )
+  ) +
+  geom_line(
+    color = "steelblue"
+  ) +
+  geom_point() +
+  theme_minimal()
+```
+
+**Interpretación**
+
+La inversión cambia a lo largo del tiempo para una misma empresa.
+
+## Panel balanceado
+
+Un panel es balanceado cuando todas las unidades poseen observaciones para todos los períodos.
+
+```{r}
+#| label: tbl-reg25-balanceado
+
+pdata.frame(
+  panel_datos,
+  index = c(
+    "firm",
+    "year"
+  )
+) |>
+  is.pbalanced() |>
+  tibble(
+    Panel_Balanceado = _
+  ) |>
+  kable(
+    caption = "Verificación de balance del panel"
+  )
+```
+
+**Interpretación**
+
+Un valor TRUE indica que todas las empresas poseen información completa.
+
+## Conversión a objeto panel
+
+```{r}
+#| label: reg25-crear-panel
+
+panel_grunfeld <- pdata.frame(
+  panel_datos,
+  index = c(
+    "firm",
+    "year"
+  )
+)
+```
+
+## Verificación del índice
+
+```{r}
+#| label: tbl-reg25-indices
+
+index(
+  panel_grunfeld
+) |>
+  as.data.frame() |>
+  slice_head(
+    n = 10
+  ) |>
+  kable(
+    caption = "Índices del panel"
+  )
+```
+
+**Interpretación**
+
+R reconoce explícitamente:
+
+- Individuo: empresa.
+- Tiempo: año.
+
+Esta estructura será utilizada en los modelos econométricos posteriores.
+
+## Conclusión práctica
+
+En esta primera parte aprendimos a:
+
+- Identificar datos de panel.
+- Diferenciar dimensiones transversal y temporal.
+- Reconocer paneles balanceados.
+- Cargar bases panel.
+- Construir objetos `pdata.frame`.
+- Preparar datos para modelos de panel.
+
+En la siguiente sección estimaremos modelos pooled OLS, efectos fijos y efectos aleatorios.
+
+## Introducción
+
+Una vez definida la estructura panel, el siguiente paso consiste en estimar modelos econométricos.
+
+Los tres enfoques más utilizados son:
+
+```text
+Pooled OLS
+
+Efectos Fijos
+
+Efectos Aleatorios
+```
+
+Cada uno realiza supuestos distintos sobre la heterogeneidad existente entre individuos [@wooldridge2010].
+
+## Cargando librerías
+
+```{r}
+#| label: reg25-cargar-librerias-parte2
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(plm)
+library(broom)
+library(knitr)
+```
+
+## Cargando la base Grunfeld
+
+```{r}
+#| label: reg25-cargar-datos-parte2
+
+data(
+  "Grunfeld",
+  package = "plm"
+)
+
+panel_grunfeld <- pdata.frame(
+  Grunfeld,
+  index = c(
+    "firm",
+    "year"
+  )
+)
+```
+
+## Variables del modelo
+
+Trabajaremos con la siguiente especificación:
+
+```text
+Inversión = f(Valor de mercado, Capital)
+```
+
+donde:
+
+```text
+inv      = inversión
+
+value    = valor de mercado
+
+capital  = stock de capital
+```
+
+## Exploración inicial
+
+```{r}
+#| label: tbl-reg25-resumen-variables
+
+panel_grunfeld |>
+  select(
+    inv,
+    value,
+    capital
+  ) |>
+  summary() |>
+  as.data.frame() |>
+  kable(
+    caption = "Resumen descriptivo de variables"
+  )
+```
+
+**Interpretación**
+
+Las tres variables presentan una dispersión considerable, lo que resulta adecuado para la estimación econométrica.
+
+## Relación inversión y valor de mercado
+
+```{r}
+#| label: fig-reg25-dispersion-value
+#| fig-cap: "Inversión y valor de mercado"
+
+ggplot(
+  as.data.frame(panel_grunfeld),
+  aes(
+    x = value,
+    y = inv
+  )
+) +
+  geom_point(
+    alpha = 0.4
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = FALSE,
+    color = "steelblue"
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+Existe una relación positiva entre valor de mercado e inversión, es decir, a medida que aumenta el valor de mercado, la inversión también se incrementa.
+
+## Modelo pooled OLS
+
+El modelo pooled ignora la estructura panel y trata todas las observaciones como si fueran independientes.
+
+```{r}
+#| label: reg25-modelo-pooled
+
+modelo_pooled <- plm(
+  inv ~ value + capital,
+  data = panel_grunfeld,
+  model = "pooling"
+)
+```
+
+## Resultados pooled OLS
+
+```{r}
+#| label: tbl-reg25-pooled
+
+tidy(
+  modelo_pooled
+) |>
+  kable(
+    digits = 4,
+    caption = "Modelo pooled OLS"
+  )
+```
+
+**Interpretación**
+
+Los coeficientes representan el efecto promedio de cada variable explicativa sobre la inversión. No debe olvidarse comprobar la significancia estadística mediante el valor p o el estadístico *t*.
+
+## Coeficiente de determinación
+
+```{r}
+#| label: tbl-reg25-r2-pooled
+
+tibble(
+  R2 =
+    summary(
+      modelo_pooled
+    )$r.squared[1]
+) |>
+  kable(
+    digits = 4,
+    caption = "R² del modelo pooled"
+  )
+```
+
+**Interpretación**
+
+El R² indica la proporción de variabilidad de la inversión explicada por el modelo.
+
+## ¿Cuál es el problema del pooled OLS?
+
+Las empresas poseen características propias:
+
+```text
+Tecnología
+
+Capacidad gerencial
+
+Cultura organizacional
+
+Ubicación
+```
+
+Muchas de estas variables no son observables.
+
+El modelo pooled ignora estas diferencias.
+
+## Modelo de efectos fijos
+
+Los efectos fijos controlan características constantes de cada empresa.
+
+```{r}
+#| label: reg25-modelo-fe
+
+modelo_fe <- plm(
+  inv ~ value + capital,
+  data = panel_grunfeld,
+  model = "within"
+)
+```
+
+## Resultados efectos fijos
+
+```{r}
+#| label: tbl-reg25-efectos-fijos
+
+tidy(
+  modelo_fe
+) |>
+  kable(
+    digits = 4,
+    caption = "Modelo de efectos fijos"
+  )
+```
+
+**Interpretación**
+
+Los coeficientes reflejan cambios dentro de cada empresa a través del tiempo.
+
+## Efectos individuales
+
+```{r}
+#| label: tbl-reg25-efectos-individuales
+
+fixef(
+  modelo_fe
+) |>
+  head() |>
+  as.data.frame() |>
+  tibble::rownames_to_column(
+    "Empresa"
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Primeros efectos individuales"
+  )
+```
+
+**Interpretación**
+
+Cada empresa posee un intercepto propio.
+
+## Visualización de efectos individuales
+
+```{r}
+#| label: fig-reg25-efectos-fijos
+#| fig-cap: "Efectos individuales estimados"
+
+efectos_fijos <- fixef(
+  modelo_fe
+) |>
+  as.numeric()
+
+efectos_fijos_tabla <- tibble(
+  Empresa = names(
+    fixef(
+      modelo_fe
+    )
+  ),
+  Efecto = efectos_fijos
+)
+
+ggplot(
+  efectos_fijos_tabla,
+  aes(
+    x = reorder(
+      Empresa,
+      Efecto
+    ),
+    y = Efecto
+  )
+) +
+  geom_col(
+    fill = "steelblue"
+  ) +
+  coord_flip() +
+  theme_minimal() +
+  labs(
+    x = "Empresa",
+    y = "Efecto fijo estimado"
+  )
+```
+
+
+**Interpretación**
+
+Las diferencias observadas representan heterogeneidad específica entre empresas.
+
+## Modelo de efectos aleatorios
+
+Los efectos aleatorios consideran que las diferencias individuales son aleatorias.
+
+```{r}
+#| label: reg25-modelo-re
+
+modelo_re <- plm(
+  inv ~ value + capital,
+  data = panel_grunfeld,
+  model = "random"
+)
+```
+
+## Resultados efectos aleatorios
+
+```{r}
+#| label: tbl-reg25-efectos-aleatorios
+
+tidy(
+  modelo_re
+) |>
+  kable(
+    digits = 4,
+    caption = "Modelo de efectos aleatorios"
+  )
+```
+
+**Interpretación**
+
+Los coeficientes suelen ser similares a los de efectos fijos, aunque los supuestos subyacentes son diferentes.
+
+## Comparación de coeficientes
+
+```{r}
+#| label: tbl-reg25-comparacion-modelos
+
+coef_pooled <- tidy(
+  modelo_pooled
+) |>
+  select(
+    term,
+    estimate
+  ) |>
+  rename(
+    Pooled = estimate
+  )
+
+coef_fe <- tidy(
+  modelo_fe
+) |>
+  select(
+    term,
+    estimate
+  ) |>
+  rename(
+    Efectos_Fijos = estimate
+  )
+
+coef_re <- tidy(
+  modelo_re
+) |>
+  select(
+    term,
+    estimate
+  ) |>
+  rename(
+    Efectos_Aleatorios = estimate
+  )
+
+coef_pooled |>
+  left_join(
+    coef_fe,
+    by = "term"
+  ) |>
+  left_join(
+    coef_re,
+    by = "term"
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Comparación de coeficientes"
+  )
+```
+
+**Interpretación**
+
+Las diferencias entre coeficientes reflejan la forma en que cada modelo trata la heterogeneidad individual.
+
+## Comparación gráfica
+
+```{r}
+#| label: fig-reg25-comparacion-grafica
+#| fig-cap: "Comparación de estimadores"
+
+bind_rows(
+  tidy(modelo_pooled) |>
+    mutate(Modelo = "Pooled"),
+  tidy(modelo_fe) |>
+    mutate(Modelo = "Fijos"),
+  tidy(modelo_re) |>
+    mutate(Modelo = "Aleatorios")
+) |>
+  filter(
+    term != "(Intercept)"
+  ) |>
+  ggplot(
+    aes(
+      x = term,
+      y = estimate,
+      fill = Modelo
+    )
+  ) +
+  geom_col(
+    position = "dodge"
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+La comparación visual facilita identificar diferencias entre estimadores.
+
+## ¿Cuándo utilizar cada modelo?
+
+```{r}
+#| label: tbl-reg25-cuando-usar
+
+tibble(
+  Modelo = c(
+    "Pooled",
+    "Efectos Fijos",
+    "Efectos Aleatorios"
+  ),
+  Uso = c(
+    "Sin heterogeneidad",
+    "Heterogeneidad correlacionada",
+    "Heterogeneidad no correlacionada"
+  )
+) |>
+  kable(
+    caption = "Uso general de los modelos de panel"
+  )
+```
+
+## Conclusión práctica
+
+En esta sección aprendimos a:
+
+- Estimar modelos pooled OLS.
+- Estimar modelos de efectos fijos.
+- Estimar modelos de efectos aleatorios.
+- Interpretar coeficientes en panel.
+- Identificar heterogeneidad individual.
+- Comparar diferentes especificaciones.
+
+En la siguiente sección utilizaremos pruebas formales para seleccionar entre efectos fijos y efectos aleatorios mediante la prueba de Hausman.
+
+## Introducción
+
+Después de estimar modelos pooled OLS, efectos fijos y efectos aleatorios surge una pregunta fundamental:
+
+```text
+¿Cuál de los modelos debe utilizarse?
+```
+
+La respuesta depende de los supuestos sobre la heterogeneidad individual.
+
+En esta sección utilizaremos pruebas formales para seleccionar el modelo más apropiado y realizaremos una aplicación completa de análisis con datos de panel [@wooldridge2010].
+
+## Cargando librerías
+
+```{r}
+#| label: reg25-cargar-librerias-parte3
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(plm)
+library(broom)
+library(knitr)
+```
+
+## Cargando la base de datos
+
+```{r}
+#| label: reg25-cargar-datos-parte3
+
+data(
+  "Grunfeld",
+  package = "plm"
+)
+
+panel_grunfeld <- pdata.frame(
+  Grunfeld,
+  index = c(
+    "firm",
+    "year"
+  )
+)
+```
+
+## Reestimación de modelos
+
+```{r}
+#| label: reg25-modelos-finales
+
+modelo_pooled <- plm(
+  inv ~ value + capital,
+  data = panel_grunfeld,
+  model = "pooling"
+)
+
+modelo_fe <- plm(
+  inv ~ value + capital,
+  data = panel_grunfeld,
+  model = "within"
+)
+
+modelo_re <- plm(
+  inv ~ value + capital,
+  data = panel_grunfeld,
+  model = "random"
+)
+```
+
+## Comparación inicial
+
+```{r}
+#| label: tbl-reg25-r2-modelos
+
+tibble(
+  Modelo = c(
+    "Pooled",
+    "Efectos fijos",
+    "Efectos aleatorios"
+  ),
+  R2 = c(
+    summary(modelo_pooled)$r.squared[1],
+    summary(modelo_fe)$r.squared[1],
+    summary(modelo_re)$r.squared[1]
+  )
+) |>
+  kable(
+    digits = 4,
+    caption = "Comparación de R²"
+  )
+```
+
+**Interpretación**
+
+Los valores de R² permiten evaluar la capacidad explicativa de cada especificación.
+
+## Prueba de Breusch-Pagan para panel
+
+Antes de comparar efectos fijos y aleatorios conviene verificar si la estructura panel aporta información adicional respecto al modelo pooled.
+
+```{r}
+#| label: tbl-reg25-breusch-pagan
+
+plmtest(
+  modelo_pooled,
+  type = "bp"
+)
+```
+
+**Interpretación**
+
+Hipótesis nula:
+
+```text
+No existen efectos individuales.
+```
+
+Si el valor p es pequeño, la estructura panel aporta información relevante y resulta preferible utilizar modelos de panel.
+
+## Prueba F para efectos fijos
+
+```{r}
+#| label: tbl-reg25-test-fijos
+
+pFtest(
+  modelo_fe,
+  modelo_pooled
+)
+```
+
+**Interpretación**
+
+Hipótesis nula:
+
+```text
+No existen efectos fijos.
+```
+
+Un valor p pequeño favorece el modelo de efectos fijos frente al pooled OLS.
+
+## Prueba de Hausman
+
+La prueba de Hausman constituye una de las herramientas más utilizadas en econometría de panel. La prueba mide si existe correlación entre los efectos individuales y las variables explicativas del modelo.
+
+En otras palabras, analiza si las características propias de cada unidad —empresa, país o persona— están relacionadas con las variables independientes [@hausman1978specification].
+
+**Efectos fijos:** se asume que cada unidad del panel tiene características propias constantes que pueden afectar la variable dependiente.
+
+**Efectos aleatorios:** cada unidad del panel tiene características propias aleatorias que no están correlacionadas con las variables explicativas del modelo.
+
+```{r}
+#| label: tbl-reg25-hausman
+
+phtest(
+  modelo_fe,
+  modelo_re
+)
+```
+
+**Interpretación**
+
+Hipótesis nula:
+
+```text
+Los efectos aleatorios son consistentes.
+```
+
+Hipótesis alternativa:
+
+```text
+Los efectos aleatorios son inconsistentes.
+```
+
+## Regla de decisión
+
+```{r}
+#| label: tbl-reg25-decision
+
+tibble(
+  Resultado = c(
+    "Valor p pequeño",
+    "Valor p grande"
+  ),
+  Decision = c(
+    "Elegir efectos fijos",
+    "Elegir efectos aleatorios"
+  )
+) |>
+  kable(
+    caption = "Regla de decisión para Hausman"
+  )
+```
+
+**Interpretación**
+
+La decisión final depende del resultado empírico obtenido en la prueba.
+
+## Coeficientes del modelo seleccionado
+
+Para fines pedagógicos continuaremos utilizando el modelo de efectos fijos.
+
+```{r}
+#| label: tbl-reg25-coeficientes-finales
+
+tidy(
+  modelo_fe
+) |>
+  kable(
+    digits = 4,
+    caption = "Coeficientes finales del modelo"
+  )
+```
+
+**Interpretación**
+
+Los coeficientes representan cambios dentro de cada empresa a lo largo del tiempo.
+
+## Interpretación económica
+
+Supongamos que el coeficiente de:
+
+```text
+value
+```
+
+es positivo.
+
+La interpretación sería:
+
+```text
+Un aumento en el valor de mercado
+se asocia con un incremento de la inversión,
+manteniendo constante el capital.
+```
+
+## Predicciones del modelo
+
+```{r}
+#| label: reg25-predicciones
+
+panel_pred <- panel_grunfeld |>
+  mutate(
+    prediccion =
+      as.numeric(
+        predict(
+          modelo_fe
+        )
+      )
+  )
+```
+
+## Resumen de predicciones
+
+```{r}
+#| label: tbl-reg25-predicciones
+
+panel_pred |>
+  summarise(
+    Minimo =
+      min(prediccion),
+    Media =
+      mean(prediccion),
+    Maximo =
+      max(prediccion)
+  ) |>
+  kable(
+    digits = 3,
+    caption = "Resumen de predicciones"
+  )
+```
+
+**Interpretación**
+
+Las predicciones representan los niveles esperados de inversión para cada observación del panel.
+
+## Observado versus predicho
+
+```{r}
+#| label: fig-reg25-observado-predicho
+#| fig-cap: "Valores observados y predichos"
+
+ggplot(
+  panel_pred,
+  aes(
+    x = prediccion,
+    y = inv
+  )
+) +
+  geom_point(
+    alpha = 0.4
+  ) +
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    color = "red"
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+Mientras más próximos estén los puntos a la diagonal, mejor será el ajuste del modelo.
+
+## Residuos del modelo
+
+```{r}
+#| label: reg25-residuos
+
+panel_pred <- as.data.frame(
+  panel_pred
+) |>
+  mutate(
+    inv = as.numeric(
+      inv
+    ),
+    prediccion = as.numeric(
+      prediccion
+    ),
+    residuo =
+      inv - prediccion
+  )
+```
+
+## Distribución de residuos
+
+```{r}
+#| label: fig-reg25-residuos
+#| fig-cap: "Distribución de residuos"
+
+ggplot(
+  panel_pred,
+  aes(
+    x = as.numeric(
+      residuo
+    )
+  )
+) +
+  geom_histogram(
+    bins = 30,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Residuo",
+    y = "Frecuencia"
+  )
+```
+**Interpretación**
+
+La distribución permite evaluar visualmente el comportamiento de los errores del modelo e identificar si siguen una distribución normal; es decir, si el histograma presenta una forma aproximadamente de campana y está centrado en cero, existe evidencia de que los residuos siguen una distribución cercana a la normal.
+
+## Flujo completo de análisis
+
+```{r}
+#| label: tbl-reg25-flujo-completo
+
+tibble(
+  Paso = 1:7,
+  Actividad = c(
+    "Preparar panel",
+    "Estimar pooled",
+    "Estimar efectos fijos",
+    "Estimar efectos aleatorios",
+    "Aplicar Hausman",
+    "Seleccionar modelo",
+    "Interpretar resultados"
+  )
+) |>
+  kable(
+    caption = "Flujo de trabajo para datos de panel"
+  )
+```
+
+## Aplicaciones de los datos de panel
+
+Los modelos de panel son ampliamente utilizados en:
+
+- Economía empresarial.
+- Finanzas corporativas.
+- Desarrollo económico.
+- Evaluación de políticas públicas.
+- Mercados laborales.
+- Estudios regionales.
+
+## Manos a la obra
+
+1. Identifique individuos y períodos.
+2. Construya un objeto `pdata.frame`.
+3. Estime un modelo pooled.
+4. Estime un modelo de efectos fijos.
+5. Estime un modelo de efectos aleatorios.
+6. Aplique la prueba de Hausman.
+7. Seleccione el modelo apropiado.
+8. Interprete coeficientes.
+9. Genere predicciones.
+10. Redacte conclusiones sustantivas.
+
+## Resumen del capítulo
+
+En este capítulo aprendimos a trabajar con datos de panel utilizando la base Grunfeld. Inicialmente identificamos la estructura individuo-tiempo y construimos un objeto `pdata.frame`. Posteriormente estimamos modelos pooled OLS, efectos fijos y efectos aleatorios. Finalmente utilizamos la prueba de Hausman para seleccionar la especificación más apropiada y generamos predicciones a partir del modelo estimado.
+
+Los modelos de panel constituyen una herramienta fundamental para analizar fenómenos que evolucionan a través del tiempo, permitiendo controlar heterogeneidad no observada y mejorar la calidad de las inferencias econométricas.

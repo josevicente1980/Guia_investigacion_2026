@@ -1,0 +1,427 @@
+# Generación de documentos Word, PDF y HTML
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender la lógica de publicación de Quarto.
+* Generar documentos HTML, PDF y Word desde una misma fuente.
+* Configurar formatos de salida.
+* Personalizar documentos reproducibles.
+* Exportar informes científicos profesionales.
+
+## Introducción
+
+Uno de los principales beneficios de Quarto es el principio de "escribir una vez y publicar en múltiples formatos" [@allaire2024].
+
+A partir de un único archivo `.qmd`, es posible generar:
+
+* Documentos HTML.
+* Documentos PDF.
+* Documentos Word.
+* Presentaciones.
+* Libros.
+* Dashboards.
+
+Esto elimina la necesidad de copiar resultados manualmente entre diferentes plataformas.
+
+## Configuración inicial
+
+### Carga de librerías
+
+```{r}
+#| label: reg33-cargar-librerias
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(gapminder)
+library(knitr)
+```
+
+### Carga de datos
+
+```{r}
+#| label: reg33-cargar-datos
+
+data(
+  "gapminder",
+  package = "gapminder"
+)
+
+datos_exportacion <- gapminder
+```
+
+## Documento mínimo en Quarto
+
+Un archivo básico contiene:
+
+```markdown
+---
+title: "Mi informe"
+format: html
+---
+
+# Introducción
+
+Texto del informe.
+```
+
+**Interpretación**
+
+El encabezado YAML controla la configuración general del documento.
+
+## Generación de HTML
+
+El formato HTML es el más flexible para distribución digital.
+
+### Configuración
+
+```yaml
+---
+title: "Mi informe"
+format: html
+---
+```
+
+### Renderización
+
+```{r}
+#| label: tbl-reg33-html
+
+tibble(
+  Comando = "quarto render informe.qmd --to html"
+) |>
+  kable(
+    caption = "Comando para generar HTML"
+  )
+```
+
+**Interpretación**
+
+El documento se transforma automáticamente en una página web navegable.
+
+## Generación de PDF
+
+Los documentos PDF son ampliamente utilizados para tesis, artículos y reportes institucionales.
+
+### Configuración
+
+```yaml
+---
+title: "Mi informe"
+format:
+  pdf:
+    toc: true
+---
+```
+
+### Renderización
+
+```{r}
+#| label: tbl-reg33-pdf
+
+tibble(
+  Comando = "quarto render informe.qmd --to pdf"
+) |>
+  kable(
+    caption = "Comando para generar PDF"
+  )
+```
+
+**Interpretación**
+
+Quarto utiliza LaTeX para producir documentos PDF de alta calidad tipográfica.
+
+## Generación de Word
+
+Word continúa siendo uno de los formatos más solicitados en contextos académicos y profesionales.
+
+### Configuración
+
+```yaml
+---
+title: "Mi informe"
+format:
+  docx: default
+---
+```
+
+### Renderización
+
+```{r}
+#| label: tbl-reg33-word
+
+tibble(
+  Comando = "quarto render informe.qmd --to docx"
+) |>
+  kable(
+    caption = "Comando para generar Word"
+  )
+```
+
+**Interpretación**
+
+El documento generado puede editarse posteriormente mediante Microsoft Word.
+
+## Generación simultánea de múltiples formatos
+
+Una de las ventajas más importantes de Quarto es la posibilidad de producir varios formatos desde el mismo documento.
+
+### YAML
+
+```yaml
+---
+title: "Mi informe"
+
+format:
+  html:
+    toc: true
+
+  pdf:
+    toc: true
+
+  docx:
+    toc: true
+---
+```
+
+**Interpretación**
+
+Un único archivo produce simultáneamente:
+
+* informe.html
+* informe.pdf
+* informe.docx
+
+## Incorporación de tablas
+
+Las tablas generadas en R se exportan automáticamente.
+
+```{r}
+#| label: tbl-reg33-ejemplo-tabla
+
+datos_exportacion |>
+  summarise(
+    Esperanza_vida = mean(lifeExp),
+    PIB = mean(gdpPercap)
+  ) |>
+  kable(
+    digits = 2,
+    caption = "Tabla reproducible"
+  )
+```
+
+**Interpretación**
+
+La misma tabla aparecerá correctamente formateada en HTML, PDF y Word.
+
+## Incorporación de figuras
+
+Las figuras también se exportan automáticamente.
+
+```{r}
+#| label: fig-reg33-ejemplo-grafico
+#| fig-cap: "Relación entre ingreso y esperanza de vida"
+
+ggplot(
+  datos_exportacion,
+  aes(
+    x = gdpPercap,
+    y = lifeExp
+  )
+) +
+  geom_point(
+    alpha = 0.4
+  ) +
+  scale_x_log10() +
+  theme_minimal()
+```
+
+**Interpretación**
+
+Quarto adapta automáticamente la figura al formato de salida.
+
+## Tabla de contenidos automática
+
+### Configuración
+
+```yaml
+format:
+  html:
+    toc: true
+
+  pdf:
+    toc: true
+
+  docx:
+    toc: true
+```
+
+**Interpretación**
+
+La tabla de contenidos mejora la navegación en documentos extensos.
+
+## Numeración automática
+
+### Configuración
+
+```yaml
+number-sections: true
+```
+
+**Interpretación**
+
+Las secciones se numeran automáticamente durante la compilación.
+
+## Referencias bibliográficas automáticas
+
+### YAML
+
+```yaml
+bibliography: referencias.bib
+csl: apa.csl
+```
+
+### Ejemplo
+
+```markdown
+Según @peng2011 la reproducibilidad constituye un principio fundamental de la ciencia moderna.
+```
+
+**Interpretación**
+
+Las citas y referencias se generan automáticamente.
+
+## Flujo de publicación recomendado
+
+```text
+Archivo QMD
+
+↓
+
+Código R
+
+↓
+
+Tablas
+
+↓
+
+Figuras
+
+↓
+
+Renderizado
+
+↓
+
+HTML | PDF | Word
+```
+
+## Automatización completa
+
+```{r}
+#| label: tbl-reg33-comandos
+
+tibble(
+  Formato = c(
+    "HTML",
+    "PDF",
+    "Word"
+  ),
+  Comando = c(
+    "quarto render archivo.qmd --to html",
+    "quarto render archivo.qmd --to pdf",
+    "quarto render archivo.qmd --to docx"
+  )
+) |>
+  kable(
+    caption = "Comandos de renderización"
+  )
+```
+
+**Interpretación**
+
+Estos comandos permiten automatizar completamente la generación de documentos.
+
+## Errores frecuentes
+
+### Problema
+
+No encuentra LaTeX.
+
+### Solución
+
+Instalar TinyTeX:
+
+```r
+tinytex::install_tinytex()
+```
+
+### Problema
+
+No encuentra bibliografía.
+
+### Solución
+
+Verificar la ruta del archivo `.bib`.
+
+### Problema
+
+Las figuras no aparecen.
+
+### Solución
+
+Revisar errores dentro de los chunks.
+
+## Lista de verificación
+
+```{r}
+#| label: tbl-reg33-checklist
+
+tibble(
+  Elemento = c(
+    "YAML configurado",
+    "Bibliografía conectada",
+    "Tablas reproducibles",
+    "Figuras reproducibles",
+    "HTML generado",
+    "PDF generado",
+    "Word generado"
+  ),
+  Estado = c(
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí"
+  )
+) |>
+  kable(
+    caption = "Lista de verificación para exportación"
+  )
+```
+
+**Interpretación**
+
+Antes de distribuir un documento es recomendable verificar que todos los formatos se generen correctamente.
+
+## Manos a la obra
+
+1. Cree un archivo `.qmd`.
+2. Agregue un encabezado YAML.
+3. Inserte texto.
+4. Genere una tabla.
+5. Genere una figura.
+6. Incorpore referencias.
+7. Renderice HTML.
+8. Renderice PDF.
+9. Renderice Word.
+10. Compare los resultados obtenidos.
+
+## Resumen del capítulo
+
+En este capítulo se mostró cómo utilizar Quarto para generar documentos reproducibles en HTML, PDF y Word. Se presentaron configuraciones YAML fundamentales, estrategias de exportación automática y buenas prácticas para distribuir resultados científicos de manera profesional y reproducible.

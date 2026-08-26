@@ -1,0 +1,313 @@
+# Resultados
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender la función de la sección de resultados.
+* Presentar resultados estadísticos de forma clara y reproducible.
+* Construir tablas y figuras científicas para comunicar hallazgos.
+* Diferenciar entre resultados e interpretación.
+* Integrar resultados automáticamente mediante Quarto.
+
+## Introducción
+
+La sección de resultados tiene como objetivo presentar de forma objetiva los hallazgos obtenidos durante el análisis de datos. Su función no consiste en explicar causas ni discutir implicaciones teóricas. Estas tareas corresponden a la discusión.
+
+Los resultados deben responder directamente a los objetivos y preguntas de investigación formulados previamente [@apa2020].
+
+## Configuración inicial
+
+### Carga de librerías
+
+```{r}
+#| label: reg30-cargar-librerias
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(gapminder)
+library(knitr)
+library(broom)
+library(modelsummary)
+```
+
+### Carga de datos
+
+```{r}
+#| label: reg30-cargar-datos
+
+data(
+  "gapminder",
+  package = "gapminder"
+)
+
+datos_resultados <- gapminder
+```
+
+## Resultados descriptivos
+
+La primera parte de una sección de resultados suele presentar información descriptiva de la muestra analizada.
+
+```{r}
+#| label: tbl-reg30-descriptivos
+
+datos_resultados |>
+  summarise(
+    Esperanza_vida = mean(
+      lifeExp
+    ),
+    PIB_per_capita = mean(
+      gdpPercap
+    ),
+    Poblacion = mean(
+      pop
+    )
+  ) |>
+  kable(
+    digits = 2,
+    caption = "Estadísticos descriptivos principales"
+  )
+```
+
+**Interpretación**
+
+Los resultados descriptivos permiten caracterizar la muestra estudiada antes de presentar análisis más complejos.
+
+## Distribución de la variable principal
+
+```{r}
+#| label: fig-reg30-histograma
+#| fig-cap: "Distribución de la esperanza de vida"
+
+ggplot(
+  datos_resultados,
+  aes(
+    x = lifeExp
+  )
+) +
+  geom_histogram(
+    bins = 30,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+La figura permite identificar la distribución general de la variable de interés.
+
+## Resultados del modelo
+
+### Estimación
+
+```{r}
+#| label: reg30-modelo
+
+modelo_resultados <- lm(
+  lifeExp ~ log(gdpPercap),
+  data = datos_resultados
+)
+```
+
+### Coeficientes
+
+```{r}
+#| label: tbl-reg30-coeficientes
+
+broom::tidy(
+  modelo_resultados
+) |>
+  kable(
+    digits = 4,
+    caption = "Coeficientes estimados"
+  )
+```
+
+**Interpretación**
+
+La relación entre PIB per cápita y esperanza de vida presenta un coeficiente positivo. Esto indica que países con mayores niveles de ingreso tienden a presentar mayores niveles de esperanza de vida.
+
+## Presentación profesional de resultados
+
+```{r}
+#| label: tbl-reg30-modelsummary
+
+modelsummary(
+  modelo_resultados,
+  stars = TRUE,
+  title = "Modelo de esperanza de vida"
+)
+```
+
+**Interpretación**
+
+Las tablas de resultados deben incluir coeficientes, errores estándar, niveles de significancia y medidas de ajuste.
+
+## Representación gráfica de resultados
+
+```{r}
+#| label: fig-reg30-regresion
+#| fig-cap: "Relación entre ingreso y esperanza de vida"
+
+ggplot(
+  datos_resultados,
+  aes(
+    x = log(gdpPercap),
+    y = lifeExp
+  )
+) +
+  geom_point(
+    alpha = 0.4
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = TRUE
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+La figura facilita la visualización de la asociación estimada por el modelo.
+
+## Valores observados y predichos
+
+```{r}
+#| label: reg30-predicciones
+
+datos_resultados <- datos_resultados |>
+  mutate(
+    prediccion = predict(
+      modelo_resultados
+    )
+  )
+```
+
+```{r}
+#| label: fig-reg30-observado-predicho
+#| fig-cap: "Valores observados y predichos"
+
+ggplot(
+  datos_resultados,
+  aes(
+    x = prediccion,
+    y = lifeExp
+  )
+) +
+  geom_point(
+    alpha = 0.4
+  ) +
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    color = "red"
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+La cercanía entre observaciones y predicciones permite evaluar visualmente el ajuste del modelo.
+
+## Cómo redactar resultados
+
+Un ejemplo adecuado sería:
+
+> Los resultados indican una relación positiva y estadísticamente significativa entre el PIB per cápita y la esperanza de vida. El coeficiente estimado sugiere que incrementos en el ingreso se asocian con mayores niveles de esperanza de vida.
+
+Un ejemplo incorrecto sería:
+
+> Los países ricos tienen mejor calidad de vida porque invierten más en salud.
+
+La segunda afirmación introduce una explicación causal que corresponde a la discusión y no a los resultados.
+
+## Estructura recomendada
+
+```text
+Resultados descriptivos
+
+↓
+
+Resultados principales
+
+↓
+
+Tablas
+
+↓
+
+Figuras
+
+↓
+
+Síntesis de hallazgos
+```
+
+## Buenas prácticas
+
+### Recomendaciones
+
+* Presentar resultados en el mismo orden que los objetivos.
+* Utilizar tablas claras y consistentes.
+* Incorporar figuras únicamente cuando aporten valor.
+* Reportar resultados completos.
+* Mantener objetividad.
+
+### Errores frecuentes
+
+* Interpretar causalidad sin evidencia.
+* Mezclar resultados y discusión.
+* Repetir información de tablas dentro del texto.
+* Omitir medidas de ajuste.
+* Presentar resultados irrelevantes.
+
+## Lista de verificación
+
+```{r}
+#| label: tbl-reg30-checklist
+
+tibble(
+  Elemento = c(
+    "Descriptivos",
+    "Modelo",
+    "Tablas",
+    "Figuras",
+    "Interpretación",
+    "Coherencia"
+  ),
+  Estado = c(
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí"
+  )
+) |>
+  kable(
+    caption = "Lista de verificación de resultados"
+  )
+```
+
+**Interpretación**
+
+La lista de verificación permite asegurar que la sección de resultados cumple los estándares básicos de reporte científico.
+
+## Manos a la obra
+
+1. Presente estadísticas descriptivas.
+2. Organice resultados según los objetivos.
+3. Construya tablas reproducibles.
+4. Genere figuras relevantes.
+5. Reporte coeficientes y medidas de ajuste.
+6. Evite interpretaciones causales.
+7. Redacte hallazgos de forma objetiva.
+8. Revise consistencia entre texto y tablas.
+9. Renderice el documento.
+10. Verifique reproducibilidad.
+
+## Resumen del capítulo
+
+En este capítulo se presentó la estructura fundamental de una sección de resultados reproducible. Se mostraron estrategias para reportar estadísticos descriptivos, coeficientes de modelos, tablas y figuras utilizando Quarto. La sección de resultados debe comunicar hallazgos de manera clara, objetiva y directamente vinculada con los objetivos de investigación.

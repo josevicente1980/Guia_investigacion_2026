@@ -1,0 +1,812 @@
+## Transformación de datos
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender el papel de la transformación de datos dentro de la investigación reproducible.
+* Diferenciar entre datos originales y variables analíticas.
+* Seleccionar variables relevantes para el análisis.
+* Transformar variables etiquetadas provenientes de SPSS.
+* Crear nuevas variables mediante reglas de investigación.
+* Construir indicadores derivados.
+* Generar una base analítica lista para análisis estadístico y econométrico.
+* Documentar adecuadamente las transformaciones realizadas.
+
+## Introducción
+
+Una vez que los datos han sido importados y limpiados, el siguiente paso consiste en transformarlos en información útil para responder preguntas de investigación.
+
+Las bases de datos originales suelen contener variables diseñadas para procesos de captura, validación y almacenamiento de información. Sin embargo, estas variables no siempre resultan adecuadas para el análisis estadístico o econométrico.
+
+La transformación de datos constituye el proceso mediante el cual los datos originales se convierten en variables analíticas capaces de describir fenómenos, construir indicadores, contrastar hipótesis y estimar modelos estadísticos [@wickham2014; @peng2020].
+
+En investigación reproducible todas las transformaciones deben realizarse mediante código documentado, evitando modificaciones manuales sobre los archivos originales [@peng2011; @gandrud2015].
+
+Durante este capítulo trabajaremos con información real de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC) 2025.
+
+## ¿Qué significa transformar datos?
+
+Transformar datos implica modificar la estructura, formato o contenido de una variable para facilitar su interpretación y análisis.
+
+En términos prácticos, transformar datos puede significar:
+
+* Cambiar el tipo de una variable.
+* Recodificar categorías.
+* Crear indicadores.
+* Construir índices.
+* Agregar registros.
+* Generar nuevas variables derivadas.
+
+La transformación constituye el puente entre la preparación de datos y el análisis estadístico.
+
+Mientras la limpieza busca identificar y corregir problemas potenciales de calidad, la transformación busca convertir los datos en variables útiles para responder preguntas de investigación.
+
+## Cargando la base procesada
+
+Trabajaremos con la base generada en el capítulo anterior.
+
+```{r}
+#| label: cap12-cargar-datos-sunac-limpio
+#| warning: false
+#| message: false
+
+library(dplyr)
+library(haven)
+library(here)
+library(knitr)
+library(ggplot2)
+
+sunac <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_limpio.rds"
+  )
+)
+```
+
+## Conociendo la base de trabajo
+
+Antes de realizar cualquier transformación es recomendable recordar las dimensiones de la información disponible.
+
+```{r}
+#| label: tab-cap12-resumen-dimensiones-sunac
+
+data.frame(
+  Registros = nrow(sunac),
+  Variables = ncol(sunac)
+) |>
+  kable()
+```
+
+La salida muestra la cantidad de observaciones y variables disponibles para el análisis.
+
+En el caso de la ESPAC observamos una base de gran tamaño que contiene información sobre uso del suelo, superficie, tenencia y características territoriales.
+
+También podemos visualizar rápidamente la estructura general de la base.
+
+```{r}
+#| label: cap12-vista-general-sunac
+glimpse(sunac)
+```
+
+La función `glimpse()` permite identificar los nombres de las variables, sus tipos de datos y algunos ejemplos de valores observados.
+
+## De datos originales a variables analíticas
+
+Considere la variable:
+
+```text
+su_tenencia
+```
+
+Esta variable almacena la forma de tenencia de la tierra.
+
+Originalmente se encuentra codificada mediante valores numéricos etiquetados.
+
+```{r}
+#| label: cap12-verificar-tipo-su-tenencia
+class(sunac$su_tenencia)
+```
+
+La salida muestra que la variable fue importada como:
+
+```text
+haven_labelled
+```
+
+Este formato es adecuado para preservar la información original del archivo SPSS, pero no siempre resulta conveniente para análisis posteriores.
+
+Por esta razón, uno de los primeros pasos de transformación consiste en convertir variables etiquetadas a factores.
+
+## Selección de variables relevantes
+
+Las bases oficiales suelen contener decenas o incluso cientos de variables.
+
+Sin embargo, no todas son necesarias para responder una pregunta específica de investigación.
+
+Supongamos que deseamos analizar la relación entre superficie, tenencia y territorio.
+
+Podemos construir una base reducida.
+
+```{r}
+#| label: cap12-crear-sunac-reducido
+sunac_reducido <- sunac |>
+  select(
+    Identificador,
+    ual_prov,
+    su_tenencia,
+    su_categoria,
+    supertotal,
+    fact_exp_fin
+  )
+
+glimpse(sunac_reducido)
+```
+
+La selección de variables facilita el trabajo analítico y mejora la legibilidad del código.
+
+Además, reduce el consumo de memoria cuando se trabaja con bases de gran tamaño [@peng2020].
+
+## Renombrando variables
+
+Muchas operaciones estadísticas utilizan nombres abreviados difíciles de interpretar.
+
+Por esta razón, es recomendable utilizar nombres descriptivos.
+
+```{r}
+#| label: cap12-renombrar-variables-sunac
+sunac_reducido <- sunac_reducido |>
+  rename(
+    provincia = ual_prov,
+    tenencia = su_tenencia,
+    categoria = su_categoria,
+    superficie_total = supertotal
+  )
+
+names(sunac_reducido)
+```
+
+Observe cómo los nombres resultan ahora más intuitivos.
+
+Esta práctica facilita la lectura del código y reduce errores durante etapas posteriores [@wilson2017].
+
+## Transformación de variables etiquetadas
+
+Las variables provenientes de SPSS conservan etiquetas originales.
+
+Podemos examinarlas mediante:
+
+```{r}
+#| label: cap12-consultar-etiquetas-su-tenencia
+attributes(sunac$su_tenencia)$labels
+```
+
+Las categorías corresponden a distintas formas de tenencia de la tierra registradas por el INEC.
+
+Para facilitar el análisis transformaremos la variable en un factor.
+
+```{r}
+#| label: cap12-convertir-variables-factor
+sunac <- sunac |>
+  mutate(
+    su_tenencia =
+      haven::as_factor(su_tenencia),
+
+    su_categoria =
+      haven::as_factor(su_categoria)
+  )
+```
+
+Verificamos el resultado:
+
+```{r}
+#| label: cap12-verificar-tipos-variables-factor
+class(sunac$su_tenencia)
+
+class(sunac$su_categoria)
+```
+
+Ahora ambas variables pueden utilizarse directamente en tablas, gráficos y modelos estadísticos.
+
+## Explorando las categorías transformadas
+
+Una vez realizada la transformación podemos observar la distribución de frecuencias.
+
+```{r}
+#| label: tab-cap12-frecuencia-su-tenencia
+sunac |>
+  count(su_tenencia) |>
+  arrange(desc(n))
+```
+
+La tabla muestra la cantidad de observaciones registradas para cada forma de tenencia.
+
+La interpretación de esta distribución resulta mucho más sencilla que trabajar con códigos numéricos.
+
+## Transformación de variables geográficas
+
+La variable `ual_prov` contiene códigos provinciales.
+
+Si la base conserva etiquetas podemos transformarla directamente.
+
+```{r}
+#| label: cap12-crear-variable-provincia
+sunac <- sunac |>
+  mutate(
+    provincia =
+      haven::as_factor(ual_prov)
+  )
+```
+
+Podemos verificar el resultado.
+
+```{r}
+#| label: cap12-verificar-tipo-provincia
+class(sunac$provincia)
+```
+
+La nueva variable permitirá realizar análisis territoriales utilizando nombres de provincias en lugar de códigos numéricos.
+
+## Creación de nuevas variables
+
+Uno de los principales objetivos de la transformación consiste en construir variables que no existen originalmente en la base de datos.
+
+Estas nuevas variables permiten representar conceptos analíticos que facilitan la interpretación de los resultados y responden de manera más directa a las preguntas de investigación.
+
+Por ejemplo, la variable `supertotal` registra la superficie total observada en cada registro.
+
+```{r} 
+#| label: cap12-resumen-supertotal
+summary(sunac$supertotal)
+```
+
+Aunque esta variable es informativa, en muchos casos resulta más útil trabajar con categorías de tamaño.
+
+## Construcción de categorías de tamaño de explotación
+
+La clasificación de explotaciones agropecuarias por tamaño constituye una práctica habitual en estudios agrícolas y rurales.
+
+Podemos crear una nueva variable denominada `tamano_upa`.
+
+```{r} 
+#| label: cap12-crear-tamano-upa
+sunac <- sunac |>
+  mutate(
+    tamano_upa =
+      case_when(
+        supertotal < 1  ~ "Micro",
+        supertotal < 5  ~ "Pequeña",
+        supertotal < 20 ~ "Mediana",
+        TRUE            ~ "Grande"
+      )
+  )
+```
+
+Verifiquemos la distribución de la nueva variable.
+
+```{r} 
+#| label: tab-cap12-distribucion-tamano-upa
+sunac |>
+  count(tamano_upa) |>
+  arrange(desc(n))
+```
+
+La tabla permite identificar la estructura productiva observada en la encuesta.
+
+Esta transformación convierte una variable continua en una categoría fácilmente interpretable.
+
+## Visualizando el tamaño de las explotaciones
+
+Podemos representar gráficamente la distribución de las categorías creadas.
+
+```{r} 
+#| label: fig-cap12-distribucion-tamano-upa
+sunac |>
+  count(tamano_upa) |>
+  ggplot(
+    aes(
+      x = reorder(tamano_upa, n),
+      y = n
+    )
+  ) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    x = "Tamaño de UPA",
+    y = "Frecuencia",
+    title = "Distribución de explotaciones por tamaño"
+  )
+```
+
+La visualización facilita la comprensión de la estructura de la población estudiada.
+
+## Construcción de variables binarias
+
+Las variables binarias resultan extremadamente útiles en análisis descriptivos y econométricos.
+
+Estas variables representan únicamente dos categorías.
+
+Por ejemplo:
+
+```text
+Sí / No
+Presencia / Ausencia
+1 / 0
+```
+
+Una variable interesante en la ESPAC es:
+
+```text
+us_montesha
+```
+
+que representa superficie de monte o bosque.
+
+## Indicador de presencia de bosque
+
+Podemos construir una variable que indique si existe o no bosque en el registro.
+
+```{r} 
+#| label: cap12-crear-variable-tiene-bosque
+sunac <- sunac |>
+  mutate(
+    tiene_bosque =
+      if_else(
+        us_montesha > 0,
+        "Sí",
+        "No",
+        missing = "No"
+      )
+  )
+```
+
+Analicemos la distribución resultante.
+
+```{r} 
+#| label: tab-cap12-frecuencia-tiene-bosque
+table(sunac$tiene_bosque)
+```
+
+La nueva variable simplifica considerablemente la interpretación.
+
+En lugar de analizar hectáreas específicas, podemos distinguir rápidamente entre productores con y sin cobertura boscosa.
+
+## Indicador de cultivos transitorios
+
+También podemos crear una variable relacionada con actividades agrícolas.
+
+```{r} 
+#| label: cap12-crear-variable-tiene-transitorios
+sunac <- sunac |>
+  mutate(
+    tiene_transitorios =
+      if_else(
+        us_transiha > 0,
+        "Sí",
+        "No",
+        missing = "No"
+      )
+  )
+```
+
+Verificamos el resultado.
+
+```{r} 
+#| label: tab-cap12-frecuencia-tiene-transitorios
+table(sunac$tiene_transitorios)
+```
+
+Este tipo de indicadores resulta especialmente útil en análisis comparativos.
+
+## Construcción de indicadores porcentuales
+
+En investigación aplicada suele ser más informativo trabajar con proporciones que con valores absolutos.
+
+Por ejemplo, una explotación con 5 hectáreas de bosque puede ser muy diferente según su superficie total.
+
+Podemos construir un indicador porcentual.
+
+```{r} 
+#| label: cap12-calcular-porcentaje-bosque
+sunac <- sunac |>
+  mutate(
+    pct_bosque =
+      (us_montesha / supertotal) * 100
+  )
+```
+
+Analizamos su distribución.
+
+```{r} 
+#| label: cap12-resumen-porcentaje-bosque
+summary(sunac$pct_bosque)
+```
+
+Este indicador permite comparar explotaciones de distinto tamaño utilizando una misma escala.
+
+## Visualizando indicadores porcentuales
+
+```{r} 
+#| label: fig-cap12-histograma-porcentaje-bosque
+hist(
+  sunac$pct_bosque,
+  main = "Porcentaje de bosque",
+  xlab = "Porcentaje",
+  breaks = 30
+)
+```
+
+La visualización facilita la identificación de patrones de distribución.
+
+## Transformaciones mediante reglas de clasificación
+
+Las transformaciones frecuentemente responden a necesidades específicas de investigación.
+
+Supongamos que queremos diferenciar entre pequeños productores y el resto.
+
+```{r} 
+#| label: cap12-crear-grupo-tamano
+sunac <- sunac |>
+  mutate(
+    grupo_tamano =
+      case_when(
+        supertotal < 5 ~ "Pequeños productores",
+        TRUE ~ "Medianos y grandes productores"
+      )
+  )
+```
+
+Analizamos la distribución.
+
+```{r} 
+#| label: tab-cap12-frecuencia-grupo-tamano
+table(sunac$grupo_tamano)
+```
+
+Las categorías agregadas permiten simplificar la interpretación cuando existen demasiados grupos.
+
+## Explorando variables derivadas
+
+Una buena práctica consiste en verificar inmediatamente los resultados de cada transformación.
+
+```{r} 
+#| label: tab-cap12-ejemplo-clasificacion-productores
+sunac |>
+  select(
+    supertotal,
+    tamano_upa,
+    grupo_tamano
+  ) |>
+  head(10)
+```
+
+Esta inspección permite validar que las reglas aplicadas generan resultados coherentes.
+
+## Construcción de indicadores para análisis posteriores
+
+Una vez transformadas las variables podemos generar una tabla resumen.
+
+```{r} 
+#| label: tab-cap12-resumen-variables-creadas
+sunac |>
+  select(
+    tamano_upa,
+    tiene_bosque,
+    tiene_transitorios
+  ) |>
+  summary()
+```
+
+Observe cómo ahora disponemos de variables listas para análisis descriptivos, visualizaciones y modelos estadísticos.
+
+## Importancia de las transformaciones reproducibles
+
+Todas las transformaciones realizadas hasta este punto han sido ejecutadas mediante código.
+
+Esto significa que cualquier investigador puede reproducir exactamente los mismos resultados utilizando la misma base de datos.
+
+La reproducibilidad constituye una condición esencial para garantizar transparencia y credibilidad científica [@peng2011; @gandrud2015].
+
+## Buenas prácticas durante la transformación
+
+Durante el proceso de transformación se recomienda:
+
+* Crear nuevas variables en lugar de sobrescribir variables originales.
+* Utilizar nombres descriptivos.
+* Documentar cada decisión tomada.
+* Verificar resultados inmediatamente después de cada transformación.
+* Conservar versiones intermedias de trabajo.
+* Mantener intactos los datos originales.
+
+Estas prácticas facilitan la trazabilidad y reducen errores analíticos.
+
+## Agregación de información
+
+Hasta este momento hemos trabajado a nivel de registros individuales.
+
+Sin embargo, durante el capítulo anterior identificamos que la base contiene más registros que identificadores únicos.
+
+Esto significa que una misma unidad de producción agropecuaria puede aparecer varias veces dentro del archivo.
+
+Verifiquemos nuevamente esta situación.
+
+```{r} 
+#| label: cap12-verificar-integridad-identificadores
+nrow(sunac)
+
+length(unique(sunac$Identificador))
+```
+
+La diferencia entre ambas cifras indica que existen múltiples registros asociados a un mismo productor o unidad productiva.
+
+En muchos análisis será necesario trabajar a nivel de productor y no a nivel de registro.
+
+## Construcción de una base agregada por productor
+
+Podemos resumir la información utilizando el identificador único.
+
+```{r} 
+#| label: cap12-agregar-indicadores-por-upa
+upa <- sunac |>
+  group_by(Identificador) |>
+  summarise(
+    superficie_total =
+      sum(
+        supertotal,
+        na.rm = TRUE
+      ),
+
+    superficie_bosque =
+      sum(
+        us_montesha,
+        na.rm = TRUE
+      ),
+
+    superficie_transitorios =
+      sum(
+        us_transiha,
+        na.rm = TRUE
+      )
+  )
+```
+
+Analicemos las dimensiones de la nueva base.
+
+```{r} 
+#| label: tab-cap12-resumen-dimensiones-upa
+data.frame(
+  Registros = nrow(upa),
+  Variables = ncol(upa)
+) |>
+  knitr::kable()
+```
+
+Observe que ahora cada fila representa una unidad productiva única.
+
+Esta transformación cambia completamente la unidad de análisis.
+
+## Explorando la base agregada
+
+Podemos visualizar los primeros registros.
+
+```{r} 
+#| label: tab-cap12-primeras-observaciones-upa
+head(upa)
+```
+
+Ahora cada observación resume la información disponible para un productor específico.
+
+La agregación constituye una de las transformaciones más frecuentes en investigación aplicada, especialmente cuando se trabaja con encuestas complejas y registros múltiples [@wickham2014].
+
+## Construcción de indicadores agregados
+
+A partir de las variables resumidas podemos generar nuevos indicadores.
+
+Por ejemplo, el porcentaje de bosque por unidad productiva.
+
+```{r} 
+#| label: cap12-calcular-porcentaje-bosque-upa
+upa <- upa |>
+  mutate(
+    pct_bosque =
+      (superficie_bosque /
+         superficie_total) * 100
+  )
+```
+
+Analizamos su comportamiento.
+
+```{r} 
+#| label: cap12-resumen-porcentaje-bosque-upa
+summary(upa$pct_bosque)
+```
+
+Este indicador permite comparar productores independientemente de su tamaño.
+
+## Clasificación de productores según tamaño
+
+También podemos clasificar las unidades productivas agregadas.
+
+```{r} 
+#| label: cap12-crear-tamano-upa-agregado
+upa <- upa |>
+  mutate(
+    tamano_upa =
+      case_when(
+        superficie_total < 1  ~ "Micro",
+        superficie_total < 5  ~ "Pequeña",
+        superficie_total < 20 ~ "Mediana",
+        TRUE                  ~ "Grande"
+      )
+  )
+```
+
+Verificamos la distribución.
+
+```{r} 
+#| label: tab-cap12-distribucion-tamano-upa-agregado
+upa |>
+  count(tamano_upa) |>
+  arrange(desc(n))
+```
+
+Esta clasificación será útil en análisis posteriores relacionados con estructura productiva.
+
+## Construcción de una base analítica
+
+Una vez realizadas las transformaciones necesarias podemos construir una base diseñada específicamente para el análisis.
+
+El objetivo consiste en conservar únicamente las variables relevantes para responder nuestras preguntas de investigación.
+
+```{r} 
+#| label: cap12-crear-base-analitica
+base_analitica <- sunac |>
+  select(
+    Identificador,
+    provincia,
+    su_tenencia,
+    tamano_upa,
+    grupo_tamano,
+    tiene_bosque,
+    tiene_transitorios,
+    pct_bosque,
+    supertotal,
+    fact_exp_fin
+  )
+```
+
+Verificamos su estructura.
+
+```{r} 
+#| label: cap12-vista-general-base-analitica
+glimpse(base_analitica)
+```
+
+La nueva base contiene variables interpretables y listas para análisis descriptivos y econométricos.
+
+## Explorando la base analítica
+
+Podemos visualizar las primeras observaciones.
+
+```{r} 
+#| label: tab-cap12-primeras-observaciones-base-analitica
+head(base_analitica)
+```
+
+Observe cómo las variables transformadas permiten comprender la información con mucha mayor facilidad que las variables originales codificadas.
+
+## Guardando los resultados
+
+Una vez finalizado el proceso de transformación es recomendable almacenar la base resultante.
+
+```{r} 
+#| label: cap12-guardar-base-analitica
+saveRDS(
+  base_analitica,
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+El formato RDS conserva tipos de datos, factores y atributos propios de R.
+
+Posteriormente podremos recuperar la información mediante:
+
+```{r} 
+#| label: cap12-verificar-base-analitica
+base_analitica <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+Verificamos que la carga fue exitosa.
+
+```{r} 
+#| label: cap12-verificar-dimensiones-base-analitica
+dim(base_analitica)
+```
+
+## Trazabilidad de las transformaciones
+
+Uno de los principios fundamentales de la investigación reproducible consiste en que todas las transformaciones puedan reconstruirse completamente.
+
+Las operaciones realizadas durante este capítulo incluyen:
+
+* Selección de variables.
+* Renombramiento de variables.
+* Conversión de variables etiquetadas.
+* Construcción de categorías.
+* Creación de indicadores binarios.
+* Generación de porcentajes.
+* Agregación de registros.
+* Construcción de bases analíticas.
+
+Gracias al uso de scripts, cualquier investigador puede reproducir exactamente el mismo flujo de trabajo [@peng2011; @gandrud2015].
+
+## Validación de resultados
+
+Antes de continuar con el análisis es recomendable verificar que las transformaciones producen resultados coherentes.
+
+Por ejemplo:
+
+```{r} 
+#| label: cap12-resumen-variables-principales
+summary(base_analitica$supertotal)
+
+summary(base_analitica$pct_bosque)
+```
+
+También podemos revisar distribuciones.
+
+```{r} 
+#| label: tab-cap12-frecuencias-variables-principales
+table(base_analitica$tamano_upa)
+
+table(base_analitica$tiene_bosque)
+```
+
+Estas verificaciones permiten detectar errores tempranamente.
+
+## Transformación de datos y análisis estadístico
+
+La calidad de cualquier análisis depende directamente de la calidad de las transformaciones realizadas previamente.
+
+Variables mal definidas pueden conducir a interpretaciones erróneas y modelos estadísticos incorrectos.
+
+Por esta razón, la etapa de transformación debe considerarse una parte fundamental del proceso científico y no una simple tarea operativa [@marwick2018; @lowndes2017].
+
+## Manos a la obra
+
+Utilizando la base `sunac_limpio.rds`:
+
+1. Convierta las variables etiquetadas a factores.
+2. Cree una variable de tamaño de explotación.
+3. Construya un indicador de presencia de bosque.
+4. Calcule el porcentaje de bosque respecto a la superficie total.
+5. Agregue la información por productor.
+6. Construya una base analítica.
+7. Guarde la base transformada en formato RDS.
+8. Documente todas las transformaciones realizadas.
+
+## Resumen del capítulo
+
+La transformación de datos constituye el proceso mediante el cual los datos originales se convierten en variables analíticas útiles para responder preguntas de investigación.
+
+Durante este capítulo aprendimos a seleccionar variables, renombrarlas, transformar variables etiquetadas provenientes de SPSS, construir indicadores, generar categorías analíticas, agregar información y crear una base lista para análisis posteriores.
+
+Todas estas transformaciones fueron realizadas mediante código reproducible, garantizando transparencia y trazabilidad en el flujo de trabajo.
+
+En el siguiente capítulo abordaremos la evaluación de la calidad de los datos, donde aprenderemos a medir consistencia, integridad y confiabilidad de la información antes de iniciar análisis descriptivos y modelos estadísticos.
+

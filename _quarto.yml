@@ -1,0 +1,104 @@
+project:
+  type: book
+  output-dir: reportes
+
+book:
+  title: "Investigación reproducible con R y Quarto"
+  subtitle: "Una guía práctica para estudiantes universitarios"
+  author:
+    - name: José Vicente Ordóñez Yaguache
+    - name: Yomara Karolina Ruiz Reyes
+    - name: Kevin Marlow Jiménez Villavicencio
+  date: today
+  date-format: "D [de] MMMM [de] YYYY"
+  language: es
+  output-file: Investigacion_reproducible_con_R_y_Quarto.docx
+
+  chapters:
+    - index.qmd
+    - prologo.qmd
+    - como-utilizar-este-libro.qmd
+
+    - part: "Parte I. Fundamentos de la investigación reproducible"
+      chapters:
+        - capitulos/01-investigacion-reproducible.qmd
+        - capitulos/02-ciencia-abierta.qmd
+        - capitulos/03-r-y-quarto.qmd
+
+    - part: "Parte II. Preparando el proyecto de investigación"
+      chapters:
+        - capitulos/04-organizacion-del-proyecto.qmd
+        - capitulos/05-primer-libro-quarto.qmd
+
+    - part: "Parte III. Construcción de la investigación"
+      chapters:
+        - capitulos/06-problema-de-investigacion.qmd
+        - capitulos/07-objetivos-hipotesis.qmd
+        - capitulos/08-marco-teorico.qmd
+        - capitulos/09-busqueda-cientifica-bibtex-apa.qmd
+
+    - part: "Parte IV. Gestión y preparación de datos con R"
+      chapters:
+        - capitulos/10-importacion-de-datos.qmd
+        - capitulos/11-limpieza-de-datos.qmd
+        - capitulos/12-transformacion-de-datos.qmd
+        - capitulos/13-calidad-de-datos.qmd
+
+    - part: "Parte V. Estadística descriptiva y visualización"
+      chapters:
+        - capitulos/14-estadistica-descriptiva.qmd
+        - capitulos/15-tablas-descriptivas.qmd
+        - capitulos/16-visualizacion-de-datos.qmd
+        - capitulos/17-graficos-cientificos.qmd
+
+    - part: "Parte VI. Modelación econométrica aplicada"
+      chapters:
+        - capitulos/18-del-analisis-descriptivo-a-la-modelacion.qmd
+        - capitulos/19-correlacion-asociacion-causalidad.qmd
+        - capitulos/20-regresion-lineal-simple.qmd
+        - capitulos/21-regresion-lineal-multiple.qmd
+        - capitulos/22-diagnostico-del-modelo.qmd
+        - capitulos/23-variables-categoricas.qmd
+        - capitulos/24-modelos-logit-probit.qmd
+        - capitulos/25-datos-de-panel.qmd
+        - capitulos/26-modelos-espaciales.qmd
+        - capitulos/27-presentacion-modelos-quarto.qmd
+
+    - part: "Parte VII. Redacción científica del informe"
+      chapters:
+        - capitulos/28-introduccion.qmd
+        - capitulos/29-metodologia.qmd
+        - capitulos/30-resultados.qmd
+        - capitulos/31-discusion.qmd
+        - capitulos/32-conclusiones-recomendaciones.qmd
+
+    - part: "Parte VIII. Difusión y comunicación científica"
+      chapters:
+        - capitulos/33-generacion-word-pdf-html.qmd
+        - capitulos/34-presentaciones-quarto.qmd
+        - capitulos/35-dashboard-shiny.qmd
+
+    - bibliografia.qmd
+    
+bibliography: referencias/referencias.bib
+csl: referencias/apa.csl
+link-citations: true
+
+lang: es
+
+execute:
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+
+format:
+  docx:
+    toc: true
+    toc-title: "Contenido"
+    toc-depth: 3
+    number-sections: true
+    number-depth: 3
+    fig-cap-location: bottom
+    tbl-cap-location: top
+    reference-doc: plantillas/plantilla.docx

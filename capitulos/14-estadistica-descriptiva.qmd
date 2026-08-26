@@ -1,0 +1,1111 @@
+# Estadística descriptiva
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender la función de la estadística descriptiva dentro de una investigación.
+* Diferenciar variables numéricas y categóricas.
+* Calcular medidas de tendencia central.
+* Interpretar media, mediana y moda en datos reales.
+* Aplicar estadística descriptiva utilizando R y Quarto.
+* Elaborar interpretaciones reproducibles a partir de resultados estadísticos.
+
+## Introducción
+
+La estadística descriptiva constituye una de las primeras etapas del análisis de datos. Su propósito es organizar, resumir e interpretar la información disponible antes de avanzar hacia análisis más complejos, como pruebas de hipótesis, modelos econométricos o métodos predictivos.
+
+En investigación aplicada, describir los datos no significa simplemente calcular promedios. Implica comprender la estructura de las variables, identificar patrones generales, reconocer posibles valores atípicos y generar una primera lectura sustantiva del fenómeno estudiado [@tukey1977].
+
+La estadística descriptiva permite responder preguntas como:
+
+* ¿Cuántas observaciones contiene la base?
+* ¿Qué tipos de variables están disponibles?
+* ¿Cuál es el valor promedio de una variable?
+* ¿Cuál es el valor típico o central?
+* ¿Qué categorías son más frecuentes?
+* ¿Existen diferencias importantes entre media y mediana?
+
+En este capítulo trabajaremos con la base analítica construida a partir de la ESPAC 2025.
+
+## Cargando la base de trabajo
+
+Comenzamos cargando los paquetes necesarios y la base transformada en capítulos anteriores.
+
+```{r}
+#| label: ch14-cargar-paquetes
+#| warning: false
+#| message: false
+
+library(dplyr)
+library(here)
+library(knitr)
+library(moments)
+
+base_analitica <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+Para mantener nombres claros en este capítulo, verificamos si la variable de superficie se llama `supertotal` y, en ese caso, la renombramos como `superficie_total`.
+
+```{r}
+#| label: ch14-renombrar-superficie
+#| warning: false
+#| message: false
+
+if (
+  "supertotal" %in% names(base_analitica) &&
+  !"superficie_total" %in% names(base_analitica)
+) {
+  base_analitica <- base_analitica |>
+    rename(
+      superficie_total = supertotal
+    )
+}
+```
+
+## Exploración inicial de la base
+
+Antes de calcular estadísticas descriptivas, revisamos las dimensiones generales de la base.
+
+```{r}
+#| label: tbl-ch14-dimensiones-base
+
+data.frame(
+  Registros = nrow(base_analitica),
+  Variables = ncol(base_analitica)
+) |>
+  kable(
+    caption = "Dimensiones generales de la base analítica"
+  )
+```
+
+La tabla muestra el número de registros y variables disponibles. Esta verificación inicial permite confirmar que la base fue cargada correctamente y está lista para el análisis.
+
+También podemos revisar la estructura de las variables.
+
+```{r}
+#| label: ch14-estructura-base
+
+glimpse(base_analitica)
+```
+
+La salida permite identificar variables categóricas, numéricas y derivadas. Esta revisión es importante porque el tipo de variable determina qué estadísticas descriptivas son apropiadas.
+
+## Tipos de variables
+
+En estadística descriptiva es fundamental distinguir entre variables numéricas y categóricas.
+
+Las variables numéricas representan cantidades medibles. Por ejemplo:
+
+```text
+superficie_total
+pct_bosque
+fact_exp_fin
+```
+
+Las variables categóricas representan grupos o cualidades. Por ejemplo:
+
+```text
+provincia
+su_tenencia
+tamano_upa
+tiene_bosque
+```
+
+Esta distinción es importante porque no todas las medidas estadísticas son adecuadas para todas las variables. La media y la desviación estándar son apropiadas para variables numéricas, mientras que las tablas de frecuencia son más adecuadas para variables categóricas [@moore2017].
+
+## Identificación automática de tipos de variables
+
+Podemos identificar los tipos de variables utilizando R.
+
+```{r}
+#| label: tbl-ch14-tipos-variables
+
+data.frame(
+  variable = names(base_analitica),
+  tipo = sapply(base_analitica, class)
+) |>
+  kable(
+    caption = "Tipos de variables en la base analítica"
+  )
+```
+
+Esta tabla permite reconocer cómo R interpreta cada variable. Una correcta identificación del tipo de dato evita errores en el análisis posterior.
+
+## Variables numéricas disponibles
+
+Identifiquemos las variables numéricas de la base.
+
+```{r}
+#| label: tbl-ch14-variables-numericas
+
+variables_numericas <- base_analitica |>
+  select(
+    where(is.numeric)
+  )
+
+data.frame(
+  variable = names(variables_numericas)
+) |>
+  kable(
+    caption = "Variables numéricas disponibles"
+  )
+```
+
+Estas variables serán utilizadas para calcular medidas de tendencia central, dispersión, posición y forma de la distribución.
+
+## Variables categóricas disponibles
+
+También podemos identificar variables categóricas.
+
+```{r}
+#| label: tbl-ch14-variables-categoricas
+
+variables_categoricas <- base_analitica |>
+  select(
+    where(
+      function(x) is.character(x) || is.factor(x)
+    )
+  )
+
+data.frame(
+  variable = names(variables_categoricas)
+) |>
+  kable(
+    caption = "Variables categóricas disponibles"
+  )
+```
+
+Las variables categóricas serán analizadas mediante tablas de frecuencia y porcentajes.
+
+## Medidas de tendencia central
+
+Las medidas de tendencia central resumen el comportamiento típico de una variable numérica.
+
+Las más utilizadas son:
+
+* Media.
+* Mediana.
+* Moda.
+
+Estas medidas permiten construir una primera descripción del fenómeno estudiado [@freedman2007].
+
+## Media aritmética
+
+La media aritmética se obtiene sumando todos los valores y dividiendo entre el número de observaciones.
+
+```{r}
+#| label: tbl-ch14-media-superficie
+
+data.frame(
+  media_superficie =
+    mean(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    )
+) |>
+  kable(
+    digits = 2,
+    caption = "Media de la superficie total"
+  )
+```
+
+La media representa el promedio de superficie observado en la base. Sin embargo, cuando existen valores extremos, la media puede verse afectada y dejar de representar adecuadamente el valor típico de la distribución.
+
+## Mediana
+
+La mediana es el valor que divide la distribución en dos partes iguales.
+
+```{r}
+#| label: tbl-ch14-mediana-superficie
+
+data.frame(
+  mediana_superficie =
+    median(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    )
+) |>
+  kable(
+    digits = 2,
+    caption = "Mediana de la superficie total"
+  )
+```
+
+La mediana es especialmente útil cuando la distribución presenta valores extremos o asimetría. Si la media y la mediana son muy diferentes, esto sugiere que la distribución no es simétrica.
+
+## Comparación entre media y mediana
+
+Podemos presentar ambas medidas en una sola tabla.
+
+```{r}
+#| label: tbl-ch14-media-mediana-superficie
+
+data.frame(
+  medida = c(
+    "Media",
+    "Mediana"
+  ),
+  valor = c(
+    mean(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    ),
+    median(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    )
+  )
+) |>
+  kable(
+    digits = 2,
+    caption = "Comparación entre media y mediana de la superficie total"
+  )
+```
+
+Cuando la media es mayor que la mediana, suele existir una distribución sesgada hacia valores altos. Este patrón es frecuente en variables de superficie, ingreso, producción o ventas.
+
+## Moda
+
+La moda representa el valor o categoría que aparece con mayor frecuencia.
+
+En variables categóricas, la moda permite identificar la categoría predominante.
+
+```{r}
+#| label: tbl-ch14-moda-tamano-upa
+
+base_analitica |>
+  count(
+    tamano_upa
+  ) |>
+  arrange(
+    desc(n)
+  ) |>
+  slice(1) |>
+  kable(
+    caption = "Moda de la variable tamaño de UPA"
+  )
+```
+
+La tabla muestra la categoría más frecuente de tamaño de UPA dentro de la base analítica.
+
+## Función para calcular la moda
+
+Podemos crear una función simple para calcular la moda de una variable.
+
+```{r}
+#| label: ch14-funcion-moda
+
+calcular_moda <- function(x) {
+  tabla <- table(x)
+  names(tabla)[which.max(tabla)]
+}
+```
+
+Aplicamos la función a la variable `tamano_upa`.
+
+```{r}
+#| label: tbl-ch14-moda-funcion
+
+data.frame(
+  variable = "tamano_upa",
+  moda = calcular_moda(
+    base_analitica$tamano_upa
+  )
+) |>
+  kable(
+    caption = "Moda calculada mediante función personalizada"
+  )
+```
+
+El resultado permite identificar automáticamente la categoría más frecuente.
+
+## Estadísticas descriptivas básicas
+
+Podemos reunir media, mediana, mínimo y máximo en una tabla resumen.
+
+```{r}
+#| label: tbl-ch14-resumen-tendencia-central
+
+data.frame(
+  variable = "superficie_total",
+  media = mean(
+    base_analitica$superficie_total,
+    na.rm = TRUE
+  ),
+  mediana = median(
+    base_analitica$superficie_total,
+    na.rm = TRUE
+  ),
+  minimo = min(
+    base_analitica$superficie_total,
+    na.rm = TRUE
+  ),
+  maximo = max(
+    base_analitica$superficie_total,
+    na.rm = TRUE
+  )
+) |>
+  kable(
+    digits = 2,
+    caption = "Resumen de tendencia central y rango de superficie total"
+  )
+```
+
+La tabla resume el comportamiento general de la superficie total. Esta información permite identificar el nivel promedio, el valor central y la amplitud de la variable.
+
+## Interpretación inicial
+
+La estadística descriptiva no debe limitarse a producir tablas. Cada resultado requiere interpretación.
+
+En el caso de la superficie total, la comparación entre media y mediana permite evaluar si existen diferencias importantes entre el promedio y el valor central. Cuando la media supera ampliamente a la mediana, esto suele indicar que existen pocas observaciones con superficies muy altas que elevan el promedio general.
+
+Este tipo de lectura inicial es fundamental antes de construir gráficos, tablas más complejas o modelos estadísticos.
+
+## Medidas de dispersión
+
+Las medidas de tendencia central permiten identificar valores típicos dentro de una distribución. Sin embargo, dos conjuntos de datos pueden tener exactamente la misma media y presentar niveles de variabilidad completamente diferentes.
+
+Por esta razón, la estadística descriptiva también estudia la dispersión de los datos.
+
+Las medidas de dispersión permiten responder preguntas como:
+
+- ¿Qué tan homogéneos son los datos?
+- ¿Qué tan alejadas están las observaciones respecto al promedio?
+- ¿Existe mucha o poca variabilidad?
+
+Las medidas más utilizadas son:
+
+- Rango.
+- Varianza.
+- Desviación estándar.
+- Coeficiente de variación.
+
+## Rango
+
+El rango representa la diferencia entre el valor máximo y el valor mínimo de una variable.
+
+```{r}
+#| label: tbl-ch14-rango-superficie
+
+rango_superficie <-
+  max(
+    base_analitica$superficie_total,
+    na.rm = TRUE
+  ) -
+  min(
+    base_analitica$superficie_total,
+    na.rm = TRUE
+  )
+
+data.frame(
+  rango = rango_superficie
+) |>
+  kable(
+    digits = 2,
+    caption = "Rango de la superficie total"
+  )
+```
+
+El rango proporciona una primera aproximación a la amplitud de la distribución.
+
+Sin embargo, esta medida utiliza únicamente dos observaciones y puede verse fuertemente afectada por valores extremos.
+
+## Varianza
+
+La varianza mide la dispersión promedio de los datos respecto a la media.
+
+Cuanto mayor sea la varianza, mayor será la heterogeneidad de la información.
+
+```{r}
+#| label: tbl-ch14-varianza-superficie
+
+data.frame(
+  varianza =
+    var(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    )
+) |>
+  kable(
+    digits = 2,
+    caption = "Varianza de la superficie total"
+  )
+```
+
+La principal limitación de la varianza es que sus unidades se encuentran elevadas al cuadrado, dificultando su interpretación directa.
+
+## Desviación estándar
+
+La desviación estándar corrige esta limitación al expresar la dispersión en las mismas unidades originales de la variable.
+
+```{r}
+#| label: tbl-ch14-desviacion-superficie
+
+data.frame(
+  desviacion_estandar =
+    sd(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    )
+) |>
+  kable(
+    digits = 2,
+    caption = "Desviación estándar de la superficie total"
+  )
+```
+
+La desviación estándar es una de las medidas de dispersión más utilizadas en investigación aplicada [@moore2017].
+
+## Interpretación de la desviación estándar
+
+Podemos comparar simultáneamente la media y la desviación estándar.
+
+```{r}
+#| label: tbl-ch14-media-desviacion
+
+data.frame(
+  medida = c(
+    "Media",
+    "Desviación estándar"
+  ),
+  valor = c(
+    mean(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    ),
+    sd(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    )
+  )
+) |>
+  kable(
+    digits = 2,
+    caption = "Media y desviación estándar de la superficie total"
+  )
+```
+
+Si la desviación estándar es elevada respecto a la media, esto sugiere una importante heterogeneidad entre las unidades observadas.
+
+## Coeficiente de variación
+
+El coeficiente de variación permite comparar niveles de dispersión entre variables medidas en diferentes escalas.
+
+Se calcula como:
+
+```text
+CV = (Desviación estándar / Media) × 100
+```
+
+```{r}
+#| label: tbl-ch14-coeficiente-variacion
+
+cv_superficie <-
+  (
+    sd(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    ) /
+    mean(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    )
+  ) * 100
+
+data.frame(
+  coeficiente_variacion =
+    cv_superficie
+) |>
+  kable(
+    digits = 2,
+    caption = "Coeficiente de variación de la superficie total"
+  )
+```
+
+Valores elevados indican una fuerte heterogeneidad entre las observaciones.
+
+## Resumen de medidas de dispersión
+
+```{r}
+#| label: tbl-ch14-resumen-dispersion
+
+data.frame(
+  Medida = c(
+    "Rango",
+    "Varianza",
+    "Desviación estándar",
+    "Coeficiente de variación"
+  ),
+  Valor = c(
+    rango_superficie,
+    var(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    ),
+    sd(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    ),
+    cv_superficie
+  )
+) |>
+  kable(
+    digits = 2,
+    caption = "Resumen de medidas de dispersión"
+  )
+```
+
+Esta tabla resume los principales indicadores de variabilidad de la superficie total.
+
+## Medidas de posición
+
+Las medidas de posición permiten conocer cómo se distribuyen los datos dentro de una variable.
+
+Las más utilizadas son:
+
+- Cuartiles.
+- Deciles.
+- Percentiles.
+
+Estas medidas permiten dividir una distribución en grupos ordenados [@freedman2007].
+
+## Cuartiles
+
+Los cuartiles dividen la distribución en cuatro partes iguales.
+
+```{r}
+#| label: tbl-ch14-cuartiles
+
+cuartiles <-
+  quantile(
+    base_analitica$superficie_total,
+    probs = c(
+      0.25,
+      0.50,
+      0.75
+    ),
+    na.rm = TRUE
+  )
+
+data.frame(
+  Cuartil = names(cuartiles),
+  Valor = as.numeric(cuartiles)
+) |>
+  kable(
+    digits = 2,
+    caption = "Cuartiles de la superficie total"
+  )
+```
+
+Interpretación:
+
+- Q1: 25% de las observaciones se encuentran por debajo de este valor.
+- Q2: corresponde a la mediana.
+- Q3: 75% de las observaciones se encuentran por debajo de este valor.
+
+## Percentiles
+
+También podemos calcular percentiles específicos.
+
+```{r}
+#| label: tbl-ch14-percentiles
+
+percentiles <-
+  quantile(
+    base_analitica$superficie_total,
+    probs = c(
+      0.10,
+      0.25,
+      0.50,
+      0.75,
+      0.90
+    ),
+    na.rm = TRUE
+  )
+
+data.frame(
+  Percentil = names(percentiles),
+  Valor = as.numeric(percentiles)
+) |>
+  kable(
+    digits = 2,
+    caption = "Percentiles seleccionados de la superficie total"
+  )
+```
+
+Los percentiles permiten estudiar con mayor detalle la distribución de una variable.
+
+## Visualización mediante diagrama de caja
+
+Los diagramas de caja constituyen una herramienta fundamental para visualizar medidas de posición y dispersión.
+
+```{r}
+#| label: fig-ch14-boxplot-superficie
+#| fig-cap: "Diagrama de caja de la superficie total"
+
+boxplot(
+  base_analitica$superficie_total,
+  main = "Superficie total",
+  ylab = "Hectáreas"
+)
+```
+
+La figura muestra:
+
+- Cuartiles.
+- Mediana.
+- Valores extremos.
+- Posibles observaciones atípicas.
+
+## Forma de la distribución
+
+Además de conocer el centro y la dispersión de los datos, resulta importante comprender la forma de la distribución.
+
+Dos conceptos fundamentales son:
+
+- Asimetría.
+- Curtosis.
+
+Estas medidas ayudan a evaluar qué tan cercana se encuentra una distribución respecto a la normalidad [@weisberg2005].
+
+## Asimetría
+
+La asimetría mide el grado de simetría de una distribución.
+
+Para calcularla utilizaremos el paquete `moments`.
+
+```{r}
+#| label: ch14-instalar-moments
+#| eval: false
+
+install.packages("moments")
+```
+
+```{r}
+#| label: tbl-ch14-asimetria
+
+data.frame(
+  asimetria =
+    skewness(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    )
+) |>
+  kable(
+    digits = 3,
+    caption = "Coeficiente de asimetría"
+  )
+```
+
+Interpretación:
+
+- Valor cercano a 0: distribución simétrica.
+- Valor positivo: cola hacia la derecha.
+- Valor negativo: cola hacia la izquierda.
+
+## Curtosis
+
+La curtosis mide el grado de concentración de observaciones alrededor de la media.
+
+```{r}
+#| label: tbl-ch14-curtosis
+
+data.frame(
+  curtosis =
+    kurtosis(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    )
+) |>
+  kable(
+    digits = 3,
+    caption = "Coeficiente de curtosis"
+  )
+```
+
+Valores elevados suelen indicar la presencia de observaciones extremas.
+
+## Histograma de la superficie total
+
+Podemos visualizar simultáneamente la forma de la distribución.
+
+```{r}
+#| label: fig-ch14-histograma-superficie
+#| fig-cap: "Histograma de la superficie total"
+
+hist(
+  base_analitica$superficie_total,
+  breaks = 40,
+  main = "Distribución de la superficie total",
+  xlab = "Hectáreas"
+)
+```
+
+La figura permite interpretar visualmente:
+
+- Simetría.
+- Concentración.
+- Valores extremos.
+- Forma general de la distribución.
+
+## Interpretación general
+
+Hasta este punto hemos aprendido a describir una variable numérica utilizando:
+
+- Medidas de tendencia central.
+- Medidas de dispersión.
+- Medidas de posición.
+- Medidas de forma.
+
+Estas herramientas constituyen la base de cualquier análisis estadístico y permiten comprender adecuadamente los datos antes de construir modelos más complejos [@tukey1977].
+
+## Tablas de frecuencia
+
+Hasta este punto hemos trabajado principalmente con variables numéricas. Sin embargo, una gran parte de la información utilizada en investigación corresponde a variables categóricas.
+
+Las tablas de frecuencia constituyen la herramienta básica para describir este tipo de variables [@moore2017].
+
+Permiten responder preguntas como:
+
+- ¿Cuál es la categoría más frecuente?
+- ¿Qué porcentaje representa cada grupo?
+- ¿Cómo se distribuyen las observaciones?
+
+## Frecuencia absoluta
+
+Comenzaremos analizando la variable:
+
+```text
+tamano_upa
+```
+
+```{r}
+#| label: tbl-ch14-frecuencia-tamano-upa
+
+base_analitica |>
+  count(
+    tamano_upa
+  ) |>
+  arrange(
+    desc(n)
+  ) |>
+  kable(
+    caption = "Frecuencia absoluta del tamaño de UPA"
+  )
+```
+
+La tabla muestra la cantidad de observaciones pertenecientes a cada categoría.
+
+## Frecuencia relativa
+
+Las frecuencias absolutas son útiles, pero generalmente resulta más informativo trabajar con porcentajes.
+
+```{r}
+#| label: tbl-ch14-frecuencia-relativa-tamano
+
+base_analitica |>
+  count(
+    tamano_upa
+  ) |>
+  mutate(
+    porcentaje =
+      round(
+        n / sum(n) * 100,
+        2
+      )
+  ) |>
+  arrange(
+    desc(n)
+  ) |>
+  kable(
+    caption = "Frecuencia relativa del tamaño de UPA"
+  )
+```
+
+Los porcentajes facilitan la comparación entre categorías.
+
+## Distribución de la tenencia de la tierra
+
+Ahora analizaremos una variable de gran importancia para los estudios agrarios.
+
+```{r}
+#| label: tbl-ch14-tenencia-tierra
+
+base_analitica |>
+  count(
+    su_tenencia
+  ) |>
+  mutate(
+    porcentaje =
+      round(
+        n / sum(n) * 100,
+        2
+      )
+  ) |>
+  arrange(
+    desc(n)
+  ) |>
+  kable(
+    caption = "Distribución de la forma de tenencia"
+  )
+```
+
+Esta tabla permite identificar cuáles son las modalidades predominantes de tenencia de la tierra dentro de la población estudiada.
+
+## Visualización de frecuencias
+
+Los gráficos de barras constituyen la representación visual más utilizada para variables categóricas.
+
+```{r}
+#| label: fig-ch14-tamano-upa
+#| fig-cap: "Distribución del tamaño de UPA"
+
+library(ggplot2)
+
+base_analitica |>
+  count(
+    tamano_upa
+  ) |>
+  ggplot(
+    aes(
+      x = reorder(
+        tamano_upa,
+        n
+      ),
+      y = n
+    )
+  ) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    x = "Tamaño de UPA",
+    y = "Frecuencia"
+  )
+```
+
+La figura facilita la comparación visual entre categorías.
+
+## Tablas de contingencia
+
+Las tablas de contingencia permiten analizar simultáneamente dos variables categóricas.
+
+Por ejemplo:
+
+```text
+tamano_upa
+y
+tiene_bosque
+```
+
+```{r}
+#| label: tbl-ch14-contingencia-bosque
+
+table(
+  base_analitica$tamano_upa,
+  base_analitica$tiene_bosque
+) |>
+  kable(
+    caption = "Tabla de contingencia entre tamaño de UPA y presencia de bosque"
+  )
+```
+
+Este tipo de análisis constituye el punto de partida para estudiar asociaciones entre variables categóricas.
+
+## Estadística descriptiva ponderada
+
+Las encuestas oficiales generalmente utilizan diseños muestrales complejos.
+
+Por esta razón, cada observación representa un número diferente de unidades dentro de la población.
+
+La ESPAC incorpora el factor de expansión:
+
+```text
+fact_exp_fin
+```
+
+Esta variable permite obtener estimaciones representativas de la población nacional.
+
+## ¿Por qué utilizar factores de expansión?
+
+Supongamos que deseamos estimar el número total de unidades productivas.
+
+Sin ponderación:
+
+```{r}
+#| label: tbl-ch14-total-no-ponderado
+
+data.frame(
+  observaciones =
+    nrow(base_analitica)
+) |>
+  kable(
+    caption = "Número de observaciones de la muestra"
+  )
+```
+
+Con ponderación:
+
+```{r}
+#| label: tbl-ch14-total-ponderado
+
+data.frame(
+  estimacion_poblacional =
+    sum(
+      base_analitica$fact_exp_fin,
+      na.rm = TRUE
+    )
+) |>
+  kable(
+    digits = 0,
+    caption = "Estimación poblacional utilizando factores de expansión"
+  )
+```
+
+Observe que los resultados son completamente distintos.
+
+La muestra contiene observaciones reales, mientras que la suma de factores de expansión aproxima el tamaño de la población representada.
+
+## Media ponderada
+
+También podemos calcular medias ponderadas.
+
+Por ejemplo, para la superficie total.
+
+```{r}
+#| label: tbl-ch14-media-ponderada
+
+media_ponderada <-
+  weighted.mean(
+    base_analitica$superficie_total,
+    w =
+      base_analitica$fact_exp_fin,
+    na.rm = TRUE
+  )
+
+data.frame(
+  media_ponderada =
+    media_ponderada
+) |>
+  kable(
+    digits = 2,
+    caption = "Media ponderada de la superficie total"
+  )
+```
+
+La media ponderada incorpora el diseño de la encuesta y suele proporcionar estimaciones más representativas de la realidad nacional.
+
+## Comparación entre media simple y media ponderada
+
+```{r}
+#| label: tbl-ch14-comparacion-medias
+
+data.frame(
+  Medida = c(
+    "Media simple",
+    "Media ponderada"
+  ),
+  Valor = c(
+    mean(
+      base_analitica$superficie_total,
+      na.rm = TRUE
+    ),
+    weighted.mean(
+      base_analitica$superficie_total,
+      w =
+        base_analitica$fact_exp_fin,
+      na.rm = TRUE
+    )
+  )
+) |>
+  kable(
+    digits = 2,
+    caption = "Comparación entre media simple y ponderada"
+  )
+```
+
+Las diferencias observadas reflejan el efecto del diseño muestral sobre las estimaciones.
+
+## Tabla descriptiva reproducible
+
+Una práctica frecuente consiste en generar tablas resumen para informes y artículos científicos.
+
+```{r}
+#| label: tbl-ch14-resumen-descriptivo
+
+data.frame(
+  Variable = "Superficie total",
+  Media = mean(
+    base_analitica$superficie_total,
+    na.rm = TRUE
+  ),
+  Mediana = median(
+    base_analitica$superficie_total,
+    na.rm = TRUE
+  ),
+  Desv_Est = sd(
+    base_analitica$superficie_total,
+    na.rm = TRUE
+  ),
+  Minimo = min(
+    base_analitica$superficie_total,
+    na.rm = TRUE
+  ),
+  Maximo = max(
+    base_analitica$superficie_total,
+    na.rm = TRUE
+  )
+) |>
+  kable(
+    digits = 2,
+    caption = "Resumen descriptivo de la superficie total"
+  )
+```
+
+Esta tabla resume las principales características estadísticas de una variable.
+
+## Interpretación integrada
+
+La estadística descriptiva permite transformar grandes volúmenes de datos en información comprensible.
+
+En este capítulo observamos cómo:
+
+- La media resume el comportamiento promedio.
+- La mediana identifica el valor central.
+- La desviación estándar mide la dispersión.
+- Los cuartiles describen la posición relativa.
+- La asimetría y curtosis caracterizan la forma de la distribución.
+- Las tablas de frecuencia resumen variables categóricas.
+- Los factores de expansión permiten producir estimaciones poblacionales.
+
+Estas herramientas constituyen la base de prácticamente todos los análisis estadísticos posteriores [@tukey1977].
+
+## Manos a la obra
+
+Utilizando la base `base_analitica`:
+
+1. Calcule la media, mediana y desviación estándar de `pct_bosque`.
+2. Construya una tabla de frecuencias para `provincia`.
+3. Genere un histograma para `pct_bosque`.
+4. Calcule los cuartiles de `fact_exp_fin`.
+5. Obtenga una media ponderada de `pct_bosque`.
+6. Construya una tabla descriptiva para `superficie_total`.
+7. Interprete los resultados obtenidos.
+8. Elabore un breve reporte descriptivo utilizando Quarto.
+
+## Resumen del capítulo
+
+La estadística descriptiva constituye la primera etapa del análisis cuantitativo y permite comprender la estructura general de los datos antes de aplicar técnicas más avanzadas.
+
+Durante este capítulo aprendimos a calcular medidas de tendencia central, dispersión, posición y forma de la distribución. También construimos tablas de frecuencia, analizamos variables categóricas y utilizamos factores de expansión para producir estimaciones representativas de la población.
+
+Estas herramientas proporcionan la base necesaria para explorar datos, generar evidencia y preparar información para análisis inferenciales y econométricos.
+
+En el siguiente capítulo profundizaremos en la construcción de tablas descriptivas reproducibles para informes, tesis, artículos científicos y reportes técnicos.

@@ -1,0 +1,402 @@
+# Construyendo nuestro primer libro en Quarto
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender el concepto de proyecto en Quarto.
+* Identificar los componentes fundamentales de un libro reproducible.
+* Crear un proyecto tipo libro utilizando Quarto.
+* Interpretar la estructura y función del archivo `_quarto.yml`.
+* Integrar capítulos, referencias bibliográficas y código dentro de un único flujo de trabajo.
+* Generar documentos en múltiples formatos a partir de una única fuente.
+
+## Introducción
+
+Hasta este punto hemos estudiado los fundamentos de la investigación reproducible, los principios de la ciencia abierta y las herramientas que utilizaremos a lo largo de este libro. Sin embargo, todavía no hemos construido un entorno de trabajo real.
+
+La investigación reproducible no consiste únicamente en utilizar software moderno. Su verdadero potencial aparece cuando datos, código, referencias bibliográficas y documentación científica se integran dentro de una estructura organizada y coherente [@gandrud2015].
+
+En este capítulo construiremos nuestro primer proyecto en Quarto. Este proyecto será la base sobre la cual desarrollaremos todos los ejercicios, ejemplos y aplicaciones prácticas del resto del libro.
+
+## ¿Por qué utilizar Quarto para investigar?
+
+La elaboración de informes académicos suele realizarse mediante múltiples aplicaciones independientes. Es frecuente que los investigadores almacenen los datos en hojas de cálculo, ejecuten los análisis en programas estadísticos y posteriormente copien los resultados a documentos de texto.
+
+Aunque este enfoque continúa siendo ampliamente utilizado, presenta limitaciones importantes asociadas con la actualización de resultados, la trazabilidad metodológica y la reproducibilidad de la investigación [@peng2011].
+
+Los documentos dinámicos surgieron precisamente para resolver este problema. Su objetivo consiste en integrar datos, código, resultados y narrativa científica dentro de un mismo documento, permitiendo que todos los elementos se actualicen automáticamente cuando cambian los datos o los análisis [@xie2015].
+
+Quarto representa una evolución de esta filosofía y proporciona una plataforma moderna para generar documentos científicos reproducibles, artículos académicos, libros, presentaciones y sitios web a partir de una única fuente de información [@quarto2024].
+
+## Del documento al proyecto
+
+Una diferencia fundamental entre Quarto y los procesadores de texto tradicionales radica en la forma de organizar el trabajo.
+
+En aplicaciones convencionales, el proyecto suele estar representado por un único archivo:
+
+```{.text}
+tesis.docx
+```
+
+Sin embargo, las investigaciones reales generan una gran cantidad de recursos adicionales:
+
+* Bases de datos.
+* Scripts de análisis.
+* Figuras.
+* Tablas.
+* Referencias bibliográficas.
+* Instrumentos de recolección.
+* Anexos.
+* Versiones preliminares del informe.
+
+Por esta razón, Quarto adopta una lógica basada en proyectos.
+
+```{.text}
+Proyecto/
+│
+├── capitulos/
+├── datos/
+├── scripts/
+├── figuras/
+├── tablas/
+├── referencias/
+├── anexos/
+├── reportes/
+├── dashboard/
+├── _quarto.yml
+└── index.qmd
+```
+
+Esta estructura permite mantener todos los elementos relacionados con la investigación dentro de un mismo entorno organizado [@marwick2018; @wilson2017].
+
+## ¿Qué es un proyecto Quarto?
+
+Un proyecto Quarto es un conjunto organizado de archivos que permiten producir uno o varios productos académicos a partir de una misma fuente de información.
+
+Dependiendo de sus características, un proyecto puede generar:
+
+* Informes técnicos.
+* Artículos científicos.
+* Tesis.
+* Libros.
+* Presentaciones.
+* Sitios web.
+* Dashboards interactivos.
+
+La principal ventaja de este enfoque consiste en que los distintos productos pueden compartir datos, análisis y referencias bibliográficas, reduciendo la duplicación de trabajo y fortaleciendo la reproducibilidad [@gandrud2015].
+
+## Creando nuestro proyecto
+
+A lo largo de este libro trabajaremos utilizando la siguiente estructura de carpetas:
+
+```{.text}
+Guia_investigacion/
+│
+├── capitulos/
+├── datos/
+├── scripts/
+├── figuras/
+├── tablas/
+├── referencias/
+├── anexos/
+├── presentaciones/
+├── reportes/
+└── dashboard/
+```
+
+Cada carpeta cumple una función específica dentro del flujo de trabajo.
+
+### Carpeta de capítulos
+
+Contiene los documentos que conforman el libro.
+
+```{.text}
+capitulos/
+│
+├── 01-investigacion-reproducible.qmd
+├── 02-ciencia-abierta.qmd
+├── 03-r-y-quarto.qmd
+└── ...
+```
+
+### Carpeta de datos
+
+Almacena las bases de datos utilizadas en la investigación.
+
+```{.text}
+datos/
+│
+├── original/
+└── procesado/
+```
+
+### Carpeta de scripts
+
+Contiene los programas desarrollados en R.
+
+```{.text}
+scripts/
+│
+├── 01-importacion.R
+├── 02-limpieza.R
+├── 03-analisis.R
+└── 04-modelos.R
+```
+
+### Carpeta de figuras
+
+Almacena gráficos, mapas e imágenes generados durante el análisis.
+
+### Carpeta de tablas
+
+Contiene tablas producidas automáticamente mediante R.
+
+### Carpeta de referencias
+
+Almacena la base de datos bibliográfica y el estilo de citación.
+
+```{.text}
+referencias/
+│
+├── referencias.bib
+└── apa.csl
+```
+
+## El corazón del proyecto: el archivo `_quarto.yml`
+
+Todo proyecto Quarto posee un archivo denominado `_quarto.yml`.
+
+Este archivo actúa como centro de control de todo el proyecto y contiene información relacionada con:
+
+* Tipo de proyecto.
+* Título.
+* Autores.
+* Capítulos.
+* Formatos de salida.
+* Bibliografía.
+* Opciones de ejecución.
+
+Un ejemplo simplificado se muestra a continuación:
+
+```{.yaml}
+project:
+  type: book
+
+book:
+  title: "Investigación reproducible con R y Quarto"
+
+bibliography: referencias/referencias.bib
+
+format:
+  html:
+    toc: true
+```
+
+Cuando Quarto renderiza un proyecto, este archivo es el primero que consulta.
+
+## Comprendiendo la estructura del YAML
+
+### Tipo de proyecto
+
+```{.yaml}
+project:
+  type: book
+```
+
+Esta instrucción indica que el proyecto será compilado como un libro.
+
+### Información general
+
+```{.yaml}
+book:
+  title: "Investigación reproducible con R y Quarto"
+```
+
+Permite definir el título y otros metadatos.
+
+### Autores
+
+```{.yaml}
+author:
+  - name: José Vicente Ordóñez Yaguache
+  - name: Yomara Karolina Ruiz Reyes
+  - name: Kevin Marlow Jiménez Villavicencio
+```
+
+### Capítulos
+
+```{.yaml}
+chapters:
+  - index.qmd
+  - capitulo1.qmd
+  - capitulo2.qmd
+```
+
+Define el orden de aparición de los documentos.
+
+### Bibliografía
+
+```{.yaml}
+bibliography: referencias/referencias.bib
+```
+
+Conecta el proyecto con la base de datos bibliográfica.
+
+### Estilo de citación
+
+```{.yaml}
+csl: referencias/apa.csl
+```
+
+Define el formato utilizado para generar las citas y referencias.
+
+## Nuestro primer documento Quarto
+
+Los documentos Quarto utilizan la extensión `.qmd`.
+
+Un documento mínimo puede construirse de la siguiente manera:
+
+```{.markdown}
+# Hola Quarto
+
+Este es mi primer documento reproducible.
+```
+
+Al renderizar el documento, Quarto generará automáticamente una salida en el formato seleccionado.
+
+## Integrando texto y código
+
+La principal característica de Quarto consiste en integrar texto y código dentro del mismo documento.
+
+Por ejemplo:
+
+
+```{r}
+2 + 2
+```
+
+
+Cuando el documento sea renderizado, Quarto ejecutará el código y mostrará el resultado.
+
+```{r}
+#| eval: false
+
+2 + 2
+```
+
+Resultado esperado:
+
+```{.text}
+[1] 4
+```
+
+Este principio constituye la base de la investigación reproducible: los resultados son generados directamente a partir del código utilizado para producirlos [@peng2011; @xie2015].
+
+## El proceso de renderización
+
+La renderización es el procedimiento mediante el cual Quarto transforma los archivos fuente en documentos finales.
+
+Desde R puede ejecutarse mediante:
+
+```{r}
+#| eval: false
+
+quarto::quarto_render()
+```
+
+Durante este proceso Quarto:
+
+1. Lee el archivo `_quarto.yml`.
+2. Identifica los capítulos del proyecto.
+3. Ejecuta el código contenido en cada documento.
+4. Genera tablas y figuras.
+5. Procesa las referencias bibliográficas.
+6. Construye los formatos de salida especificados.
+
+Todo este proceso se realiza de manera automática y reproducible [@gandrud2015].
+
+## Generando múltiples formatos
+
+Una de las ventajas más importantes de Quarto consiste en la posibilidad de generar múltiples formatos a partir de una única fuente.
+
+```{.yaml}
+format:
+  html:
+    toc: true
+
+  pdf:
+    toc: true
+
+  docx:
+    toc: true
+```
+
+Esta configuración permite producir simultáneamente:
+
+* Una versión web en HTML.
+* Un documento PDF.
+* Un archivo Word.
+
+Esta característica reduce significativamente el trabajo asociado a la elaboración de múltiples versiones de un mismo informe [@quarto2024].
+
+## Citas y referencias bibliográficas
+
+Una de las fortalezas más importantes de Quarto consiste en la gestión automatizada de referencias bibliográficas.
+
+Por ejemplo, una cita narrativa puede escribirse como:
+
+```{.markdown}
+Según @peng2011, la reproducibilidad constituye uno de los pilares fundamentales de la ciencia moderna.
+```
+
+Mientras que una cita parentética puede escribirse como:
+
+```{.markdown}
+La reproducibilidad constituye uno de los pilares fundamentales de la ciencia moderna [@peng2011].
+```
+
+Durante la renderización, Quarto generará automáticamente el formato de citación definido por el archivo CSL.
+
+## Buenas prácticas para proyectos Quarto
+
+A medida que el proyecto crece, resulta recomendable seguir algunas reglas simples:
+
+* Mantener un capítulo por archivo.
+* Utilizar nombres descriptivos.
+* Centralizar las referencias bibliográficas.
+* Evitar copiar resultados manualmente.
+* Mantener separados datos originales y datos procesados.
+* Documentar todas las transformaciones mediante código.
+* Mantener una estructura consistente de carpetas.
+
+Estas recomendaciones se encuentran alineadas con las buenas prácticas propuestas para la computación científica reproducible [@wilson2017; @broman2018].
+
+## Manos a la obra
+
+Antes de continuar con el siguiente capítulo, verifique que su proyecto contiene los siguientes elementos:
+
+```{.text}
+✓ index.qmd
+✓ _quarto.yml
+✓ carpeta capitulos
+✓ carpeta referencias
+✓ referencias.bib
+✓ apa.csl
+```
+
+Posteriormente ejecute:
+
+```{r}
+#| eval: false
+
+quarto::quarto_render()
+```
+
+Si el proceso finaliza correctamente, habrá construido su primer libro reproducible utilizando Quarto.
+
+## Resumen del capítulo
+
+Quarto proporciona una plataforma moderna para desarrollar documentos científicos reproducibles mediante la integración de texto, código, resultados y referencias bibliográficas dentro de un mismo proyecto.
+
+La lógica basada en proyectos facilita la organización de la investigación, mejora la trazabilidad de los análisis y fortalece la reproducibilidad de los resultados. A partir de este punto, utilizaremos esta infraestructura para desarrollar todas las etapas del proceso de investigación presentadas en este libro.

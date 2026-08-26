@@ -1,0 +1,78 @@
+# Presentación
+
+La investigación científica ha experimentado una transformación profunda durante las últimas décadas. La disponibilidad de grandes volúmenes de información, el acceso a bases de datos abiertas, el desarrollo de software libre y el crecimiento de la ciencia abierta han modificado la forma en que se generan, analizan y comunican los resultados de investigación.
+
+Sin embargo, gran parte de la formación universitaria continúa enfocándose en procedimientos manuales que dificultan la reproducibilidad de los estudios. Es común encontrar investigaciones donde las bases de datos, los análisis estadísticos, las tablas, los gráficos y el documento final se encuentran dispersos en múltiples archivos, dificultando su actualización, verificación y reutilización.
+
+Este libro surge como una respuesta a esa necesidad. Su propósito es enseñar al lector a desarrollar investigaciones académicas utilizando herramientas modernas que permitan integrar la gestión de información, el análisis de datos, la modelación estadística y la redacción científica dentro de un único flujo de trabajo reproducible.
+
+A lo largo de esta guía se utilizarán principalmente R y Quarto, dos herramientas de código abierto ampliamente utilizadas por investigadores, universidades y centros de investigación alrededor del mundo. Estas herramientas permitirán automatizar procesos que tradicionalmente se realizan de manera manual, reduciendo errores y mejorando la calidad de los productos científicos.
+
+# ¿Por qué este libro?
+
+La investigación contemporánea exige mucho más que la aplicación de técnicas estadísticas. Los investigadores deben ser capaces de formular preguntas relevantes, gestionar información científica, analizar datos de manera rigurosa, construir modelos explicativos y comunicar sus hallazgos de forma clara y transparente.
+
+Este libro ha sido diseñado para acompañar al estudiante durante todo ese proceso. No se trata de un manual de programación ni de una guía exclusivamente metodológica. Por el contrario, integra ambos enfoques para mostrar cómo las herramientas computacionales pueden apoyar cada una de las etapas de una investigación.
+
+El lector aprenderá a construir un proyecto completo, desde la definición del problema de investigación hasta la generación automática de informes, presentaciones y productos interactivos.
+
+# ¿A quién está dirigido?
+
+Esta obra está dirigida a:
+
+- Estudiantes de grado que desarrollan trabajos de integración curricular o titulación.
+- Estudiantes de posgrado que elaboran tesis o proyectos de investigación.
+- Docentes universitarios interesados en fortalecer la reproducibilidad de sus investigaciones.
+- Profesionales que requieren analizar datos y comunicar resultados científicos.
+- Investigadores que desean incorporar herramientas de ciencia abierta en sus flujos de trabajo.
+
+No se requieren conocimientos previos de programación, ya que cada procedimiento será desarrollado paso a paso mediante ejemplos prácticos.
+
+# Competencias que desarrollará el lector
+
+Al finalizar este libro, el lector será capaz de:
+
+- Diseñar proyectos de investigación con criterios de reproducibilidad.
+- Gestionar literatura científica utilizando referencias en formato BibTeX.
+- Utilizar buscadores académicos especializados para identificar evidencia científica relevante.
+- Importar, transformar y analizar bases de datos utilizando R.
+- Elaborar tablas y visualizaciones científicas de alta calidad.
+- Construir modelos estadísticos y econométricos para explicar fenómenos de interés.
+- Redactar informes científicos utilizando Quarto.
+- Generar automáticamente documentos en formatos HTML, PDF y Word.
+- Elaborar presentaciones académicas y productos interactivos para la difusión de resultados.
+
+# ¿Cómo está organizado el libro?
+
+El contenido se encuentra estructurado en ocho partes.
+
+La primera aborda los fundamentos de la investigación reproducible y la ciencia abierta. La segunda se centra en la organización del proyecto y el entorno de trabajo. La tercera desarrolla los elementos fundamentales del diseño de investigación. La cuarta y quinta introducen la gestión y análisis descriptivo de datos. La sexta incorpora técnicas de modelación econométrica aplicadas a la investigación. La séptima se enfoca en la redacción científica y la construcción del informe final. Finalmente, la octava presenta herramientas para la generación de productos académicos y de divulgación científica.
+
+# Recursos necesarios
+
+Antes de iniciar el desarrollo de los ejercicios propuestos, es importante preparar un entorno de trabajo adecuado. Las herramientas y recursos que se presentan a continuación constituyen la base para implementar un flujo de investigación reproducible, permitiendo desarrollar, documentar y comunicar cada etapa del proceso científico de manera organizada y eficiente. Aunque al inicio algunos programas puedan resultar nuevos para el lector, su uso será introducido progresivamente a lo largo del libro mediante ejemplos prácticos.
+
+Para desarrollar las actividades propuestas en este libro se recomienda disponer de:
+
+- R.
+- RStudio.
+
+- Quarto.
+
+- Un editor de texto.
+
+- Acceso a Internet para consultas bibliográficas.
+
+- Archivo de estilo APA 7 en formato CSL.
+
+- Bases de datos para las prácticas propuestas.
+
+Todas las herramientas utilizadas son de acceso libre o cuentan con alternativas gratuitas.
+
+# Convenciones utilizadas en el libro
+
+El propósito de las convenciones no es únicamente facilitar la lectura, sino promover una forma organizada y reproducible de trabajar. Para facilitar la lectura, se emplearán diferentes elementos para distinguir conceptos, procedimientos y ejemplos.
+
+Los fragmentos de código aparecerán en bloques claramente identificados. Las notas metodológicas se utilizarán para profundizar aspectos conceptuales relevantes. Los ejemplos prácticos estarán orientados a problemas reales de investigación y los ejercicios permitirán consolidar los conocimientos adquiridos en cada capítulo.
+
+Más que aprender software, el objetivo de esta guía es desarrollar una forma de trabajo científica, organizada, transparente y reproducible que pueda acompañar al lector durante toda su trayectoria académica y profesional.

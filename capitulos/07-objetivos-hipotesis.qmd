@@ -1,0 +1,314 @@
+# Objetivos e hipótesis de investigación
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+- Comprender la función de los objetivos dentro de una investigación científica.
+- Diferenciar entre objetivo general y objetivos específicos.
+- Formular objetivos coherentes con el problema y la pregunta de investigación.
+- Comprender el papel de las hipótesis en la investigación cuantitativa.
+- Construir hipótesis verificables y metodológicamente consistentes.
+
+## Introducción
+
+Una vez identificado el problema y formulada la pregunta de investigación, el siguiente paso consiste en establecer con precisión qué se pretende lograr mediante el estudio.
+
+Los objetivos representan la traducción operativa de la pregunta de investigación. Mientras la pregunta expresa una interrogante, los objetivos describen las acciones que permitirán responderla [@hernandezsampieri2018].
+
+Por su parte, las hipótesis constituyen proposiciones tentativas acerca de las relaciones esperadas entre variables y desempeñan un papel central en numerosos estudios cuantitativos [@creswell2018].
+
+La correcta formulación de objetivos e hipótesis resulta fundamental para garantizar la coherencia metodológica de toda investigación.
+
+## ¿Qué son los objetivos de investigación?
+
+Los objetivos de investigación son enunciados que describen los propósitos que persigue un estudio.
+
+Indican qué pretende alcanzar el investigador y orientan las decisiones metodológicas que se adoptarán durante el desarrollo del proyecto [@arias2012].
+
+Los objetivos permiten:
+
+- Delimitar el alcance de la investigación.
+- Guiar la selección de métodos y técnicas.
+- Definir las variables de estudio.
+- Organizar el análisis de resultados.
+- Evaluar el cumplimiento del proyecto.
+
+En términos prácticos, los objetivos constituyen una hoja de ruta para el proceso de investigación.
+
+## El objetivo general
+
+El objetivo general expresa el propósito principal de la investigación.
+
+Debe encontrarse directamente relacionado con la pregunta de investigación y describir el resultado central que se espera alcanzar.
+
+Por ejemplo, si la pregunta es:
+
+```{.text}
+¿Qué factores financieros influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación?
+```
+
+El objetivo general podría formularse como:
+
+```{.text}
+Analizar los factores financieros que influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.
+```
+
+Obsérvese que el objetivo transforma la pregunta en una acción concreta.
+
+## Características de un buen objetivo general
+
+Un objetivo general debe ser:
+
+- Claro.
+- Preciso.
+- Coherente con la pregunta.
+- Alcanzable.
+- Medible.
+- Delimitado en espacio y tiempo.
+
+Asimismo, debe comenzar con un verbo en infinitivo que describa una acción concreta.
+
+Algunos verbos frecuentemente utilizados son:
+
+- Analizar.
+- Determinar.
+- Evaluar.
+- Identificar.
+- Explicar.
+- Comparar.
+- Estimar.
+- Describir.
+- Examinar.
+- Caracterizar.
+
+## Los objetivos específicos
+
+Los objetivos específicos representan las etapas necesarias para alcanzar el objetivo general.
+
+Descomponen el propósito principal en tareas más concretas y operativas.
+
+Continuando con el ejemplo anterior:
+
+### Objetivo general
+
+```{.text}
+Analizar los factores financieros que influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.
+```
+
+### Objetivos específicos
+
+```{.text}
+1. Caracterizar el perfil financiero de las microempresas analizadas.
+
+2. Identificar los principales indicadores financieros asociados con la supervivencia empresarial.
+
+3. Estimar la influencia de dichos indicadores sobre la probabilidad de permanencia de las empresas.
+
+4. Comparar los resultados obtenidos entre distintos sectores económicos.
+```
+
+Cada objetivo específico contribuye al cumplimiento del objetivo general.
+
+## La lógica de los objetivos
+
+La relación entre pregunta y objetivos puede representarse mediante el siguiente esquema:
+
+```{.text}
+Problema
+    ↓
+Pregunta de investigación
+    ↓
+Objetivo general
+    ↓
+Objetivos específicos
+    ↓
+Metodología
+```
+
+La coherencia entre estos elementos constituye uno de los principales criterios utilizados para evaluar la calidad metodológica de una investigación [@maxwell2013].
+
+## Errores frecuentes en la formulación de objetivos
+
+Entre los errores más comunes destacan:
+
+### Objetivos excesivamente amplios
+
+```{.text}
+Analizar todos los factores que afectan la economía ecuatoriana.
+```
+
+### Objetivos ambiguos
+
+```{.text}
+Estudiar algunos aspectos relacionados con la educación.
+```
+
+### Objetivos que describen actividades
+
+```{.text}
+Aplicar encuestas a los estudiantes.
+```
+
+Aplicar encuestas es una actividad metodológica, no un objetivo de investigación.
+
+### Objetivos desconectados de la pregunta
+
+Cuando los objetivos no responden directamente a la pregunta planteada, la investigación pierde coherencia interna.
+
+## ¿Qué es una hipótesis?
+
+Las hipótesis son explicaciones tentativas acerca de las relaciones existentes entre variables o fenómenos [@kerlinger2002].
+
+Una hipótesis representa una afirmación que será contrastada mediante evidencia empírica.
+
+Por ejemplo:
+
+```{.text}
+El acceso al crédito incrementa la probabilidad de supervivencia de las microempresas.
+```
+
+Esta afirmación puede ser evaluada mediante datos y técnicas estadísticas.
+
+## El papel de las hipótesis en la investigación científica
+
+Las hipótesis cumplen varias funciones importantes:
+
+- Orientan la recolección de datos.
+- Facilitan la selección de variables.
+- Guián el análisis estadístico.
+- Permiten contrastar teorías existentes.
+- Favorecen la interpretación de resultados.
+
+En investigaciones cuantitativas suelen ocupar un papel central, mientras que en muchos estudios cualitativos pueden no ser necesarias [@creswell2018].
+
+## Tipos de hipótesis
+
+### Hipótesis descriptivas
+
+Plantean características esperadas de un fenómeno.
+
+Ejemplo:
+
+```{.text}
+La mayoría de los emprendedores rurales posee educación secundaria completa.
+```
+
+### Hipótesis correlacionales
+
+Proponen asociaciones entre variables.
+
+Ejemplo:
+
+```{.text}
+Existe una relación positiva entre educación e ingreso laboral.
+```
+
+### Hipótesis causales
+
+Proponen relaciones de causa y efecto.
+
+Ejemplo:
+
+```{.text}
+La capacitación empresarial incrementa la productividad de las microempresas.
+```
+
+### Hipótesis comparativas
+
+Plantean diferencias entre grupos.
+
+Ejemplo:
+
+```{.text}
+Los estudiantes que utilizan tutorías académicas presentan un rendimiento superior al de quienes no las utilizan.
+```
+
+## Hipótesis nula e hipótesis alternativa
+
+En investigación cuantitativa es frecuente trabajar con dos hipótesis complementarias.
+
+### Hipótesis nula
+
+Representa la ausencia de efecto o relación.
+
+```{.text}
+H₀: La capacitación empresarial no influye en la productividad de las microempresas.
+```
+
+### Hipótesis alternativa
+
+Representa la existencia del efecto esperado.
+
+```{.text}
+H₁: La capacitación empresarial influye positivamente en la productividad de las microempresas.
+```
+
+Los procedimientos estadísticos permiten evaluar cuál de estas hipótesis recibe mayor respaldo empírico [@wooldridge2020].
+
+## Relación entre teoría e hipótesis
+
+Las hipótesis no deben formularse arbitrariamente.
+
+Deben derivarse de:
+
+- Teorías existentes.
+- Evidencia empírica previa.
+- Revisiones de literatura.
+- Resultados encontrados en investigaciones anteriores.
+
+Por esta razón, la construcción del marco teórico desempeña un papel fundamental en el desarrollo de hipótesis científicamente fundamentadas [@booth2016].
+
+## Ejemplo integrador
+
+### Problema
+
+Elevada mortalidad de microempresas durante sus primeros años de operación.
+
+### Pregunta
+
+```{.text}
+¿Qué factores financieros influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación?
+```
+
+### Objetivo general
+
+```{.text}
+Analizar los factores financieros que influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.
+```
+
+### Hipótesis
+
+```{.text}
+Las microempresas con mayores niveles de liquidez presentan una mayor probabilidad de supervivencia durante sus primeros tres años de operación.
+```
+
+Obsérvese cómo problema, pregunta, objetivo e hipótesis mantienen una relación lógica y coherente.
+
+## Manos a la obra
+
+Utilizando la pregunta formulada en el capítulo anterior, complete el siguiente esquema:
+
+```{.text}
+Pregunta de investigación:
+
+Objetivo general:
+
+Objetivo específico 1:
+
+Objetivo específico 2:
+
+Objetivo específico 3:
+
+Hipótesis principal:
+```
+
+Verifique posteriormente que todos los elementos mantienen coherencia lógica entre sí.
+
+## Resumen del capítulo
+
+Los objetivos constituyen la traducción operativa de la pregunta de investigación y orientan todas las actividades desarrolladas durante el estudio. Por su parte, las hipótesis representan explicaciones tentativas que permiten contrastar teorías y relaciones entre variables mediante evidencia empírica.
+
+La coherencia entre problema, pregunta, objetivos e hipótesis constituye uno de los pilares fundamentales de una investigación rigurosa y metodológicamente sólida.
+
+En el siguiente capítulo abordaremos la construcción del marco teórico y aprenderemos cómo utilizar la literatura científica para fundamentar nuestras investigaciones.

@@ -1,0 +1,146 @@
+# R y Quarto: una plataforma integrada para la investigación reproducible
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender las limitaciones de los flujos de trabajo tradicionales en investigación.
+* Identificar las principales características de R como entorno para el análisis de datos.
+* Comprender el papel de Quarto en la generación de documentos reproducibles.
+* Reconocer las ventajas de integrar datos, código y narrativa científica dentro de un mismo proyecto.
+* Ejecutar su primer bloque de código en un documento Quarto.
+
+## Del software fragmentado a los flujos de trabajo integrados
+
+Durante décadas, gran parte de la investigación académica se desarrolló utilizando múltiples herramientas independientes. Era habitual que los datos fueran almacenados en hojas de cálculo, los análisis realizados en paquetes estadísticos especializados y los resultados finales copiados manualmente a procesadores de texto.
+
+Un flujo de trabajo típico podía involucrar programas como Excel para la gestión de datos, SPSS o Stata para el análisis estadístico y Microsoft Word para la redacción del informe final.
+
+Aunque este enfoque permitió el desarrollo de innumerables investigaciones, también introdujo importantes limitaciones relacionadas con la reproducibilidad, la trazabilidad y la actualización de resultados. Cada transferencia manual de información incrementa la posibilidad de errores y dificulta la reconstrucción completa del proceso analítico [@gandrud2015].
+
+La investigación reproducible propone una alternativa: integrar datos, análisis y documentación dentro de un único flujo de trabajo coherente.
+
+## ¿Qué es R?
+
+R es un lenguaje de programación y un entorno de software especializado en computación estadística, análisis de datos y visualización científica. Fue desarrollado originalmente por Ross Ihaka y Robert Gentleman en la década de 1990 y actualmente es mantenido por la comunidad internacional de desarrolladores coordinada por el R Core Team [@r2026].
+
+A diferencia de muchos programas estadísticos tradicionales, R permite registrar cada una de las operaciones realizadas mediante código. Esto significa que cada transformación de datos, análisis estadístico o gráfico puede ser documentado y reproducido posteriormente.
+
+La filosofía de R se encuentra estrechamente vinculada con los principios de transparencia y reproducibilidad que caracterizan a la ciencia abierta.
+
+## ¿Por qué R se ha convertido en una herramienta científica?
+
+La adopción de R en universidades, centros de investigación y organismos internacionales ha crecido de manera sostenida durante los últimos años.
+
+Entre las principales razones destacan:
+
+* Es software libre y de código abierto.
+* Posee una comunidad global de desarrollo.
+* Cuenta con miles de paquetes especializados.
+* Permite automatizar procesos complejos.
+* Facilita la reproducción de análisis científicos.
+* Integra análisis estadístico, visualización y documentación.
+
+Además, muchas de las metodologías más recientes en ciencia de datos, econometría, análisis espacial, aprendizaje automático y visualización científica se implementan rápidamente dentro del ecosistema de R.
+
+## El ecosistema de paquetes de R
+
+Una de las mayores fortalezas de R es su sistema de paquetes.
+
+Los paquetes son extensiones que incorporan nuevas funciones y capacidades al lenguaje base. Actualmente existen miles de paquetes disponibles a través de la Comprehensive R Archive Network (CRAN), así como repositorios especializados desarrollados por universidades, centros de investigación y comunidades científicas.
+
+Entre los paquetes más utilizados destacan:
+
+| Paquete      | Función principal                      |
+| ------------ | -------------------------------------- |
+| tidyverse    | Manipulación y transformación de datos |
+| ggplot2      | Visualización de datos                 |
+| readxl       | Importación de archivos Excel          |
+| sf           | Análisis espacial                      |
+| modelsummary | Presentación de modelos estadísticos   |
+| quarto       | Integración con documentos Quarto      |
+
+El conjunto de paquetes conocido como *tidyverse* ha contribuido significativamente a simplificar el trabajo con datos mediante una sintaxis consistente y orientada a la legibilidad del código [@wickham2019].
+
+## ¿Qué es Quarto?
+
+Quarto es un sistema de publicación científica desarrollado por Posit que permite combinar texto, código, resultados, tablas, gráficos y referencias bibliográficas dentro de un único documento reproducible.
+
+Su filosofía se basa en la idea de que el informe científico no debe estar separado del proceso analítico que lo genera.
+
+En lugar de copiar resultados desde otros programas, Quarto ejecuta directamente el código y utiliza los resultados producidos para construir el documento final.
+
+De esta manera, cualquier modificación realizada en los datos o en los análisis puede reflejarse automáticamente en el informe generado.
+
+## Del documento estático al documento dinámico
+
+La mayoría de los documentos académicos tradicionales son estáticos. Una vez insertadas tablas y figuras, estas permanecen inalteradas hasta que el autor decide actualizarlas manualmente.
+
+Los documentos dinámicos funcionan de manera diferente. En ellos, los resultados son generados automáticamente durante el proceso de compilación del documento.
+
+Este enfoque reduce significativamente la posibilidad de errores de transcripción y facilita la actualización permanente de resultados [@xie2015].
+
+## Cómo interactúan R y Quarto
+
+La integración entre R y Quarto permite construir documentos en los que la narrativa científica y el análisis computacional conviven dentro de un mismo archivo.
+
+Por ejemplo, un investigador puede escribir una explicación metodológica y, a continuación, incluir un bloque de código encargado de generar automáticamente un resultado.
+
+El siguiente ejemplo muestra el bloque de código más sencillo posible:
+
+```{r}
+2 + 2
+```
+
+
+Al renderizar el documento, Quarto ejecutará el código y mostrará automáticamente el resultado:
+
+```r
+2 + 2
+```
+
+```text
+[1] 4
+```
+
+Aunque este ejemplo parece trivial, ilustra un principio fundamental de la investigación reproducible: los resultados deben generarse directamente a partir del código que los produce.
+
+## Un ejemplo sencillo de investigación reproducible
+
+Supongamos que deseamos calcular el promedio de las calificaciones obtenidas por un grupo de estudiantes.
+
+Podemos registrar los datos y realizar el cálculo mediante el siguiente código:
+
+```{r}
+calificaciones <- c(8, 9, 7, 10, 8)
+
+mean(calificaciones)
+```
+
+Cada vez que el documento sea renderizado, el promedio será recalculado automáticamente.
+
+Si los datos cambian, el resultado también cambiará, eliminando la necesidad de realizar modificaciones manuales en el informe.
+
+## Ventajas de trabajar con R y Quarto
+
+La combinación de R y Quarto ofrece múltiples beneficios para investigadores, estudiantes y profesionales.
+
+Entre las principales ventajas destacan:
+
+* Mayor transparencia metodológica.
+* Reproducibilidad de resultados.
+* Reducción de errores humanos.
+* Automatización de tareas repetitivas.
+* Integración de análisis y documentación.
+* Generación automática de informes en múltiples formatos.
+* Facilidad para compartir y actualizar investigaciones.
+
+Estas características convierten a R y Quarto en herramientas especialmente valiosas para proyectos de investigación que requieren rigor metodológico y trazabilidad analítica.
+
+## Resumen del capítulo
+
+La investigación reproducible requiere herramientas capaces de integrar datos, análisis y documentación dentro de un mismo flujo de trabajo.
+
+R proporciona un entorno flexible para el análisis estadístico y la ciencia de datos, mientras que Quarto permite transformar esos análisis en documentos científicos dinámicos y reproducibles.
+
+A partir de este capítulo comenzaremos a utilizar ambas herramientas para construir un proyecto de investigación completo, siguiendo los principios de transparencia y reproducibilidad estudiados en los capítulos anteriores.

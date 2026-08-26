@@ -1,0 +1,222 @@
+# Organización del proyecto de investigación
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender la importancia de la organización en proyectos de investigación reproducibles.
+* Identificar los componentes fundamentales de una estructura de proyecto.
+* Reconocer el ciclo de vida de los datos dentro de una investigación.
+* Construir una estructura de carpetas estandarizada para proyectos académicos.
+* Aplicar buenas prácticas para la gestión de archivos, datos y código.
+* Preparar el entorno de trabajo que será utilizado durante el resto del libro.
+
+## ¿Por qué organizar un proyecto de investigación?
+
+Toda investigación genera una gran cantidad de recursos digitales. Bases de datos, artículos científicos, instrumentos de recolección de información, scripts de análisis, tablas, gráficos, informes y materiales complementarios se acumulan progresivamente a medida que avanza el proyecto.
+
+Cuando estos recursos no se encuentran adecuadamente organizados, aumentan las posibilidades de cometer errores, perder información valiosa o dificultar la actualización de resultados. La organización constituye uno de los pilares fundamentales de la investigación reproducible, ya que permite documentar el proceso analítico y facilita la reconstrucción de cada una de las etapas desarrolladas [@gandrud2015; @marwick2018].
+
+En este sentido, la reproducibilidad no comienza cuando se ejecuta un análisis estadístico. Comienza desde el momento en que se crea la primera carpeta del proyecto.
+
+## Organización como principio de reproducibilidad
+
+La investigación reproducible busca que otras personas (o incluso el propio investigador en el futuro) puedan comprender, verificar y reutilizar los procedimientos realizados durante un estudio [@peng2011].
+
+Para lograrlo, no basta con conservar los resultados finales. Es necesario mantener una estructura que permita identificar claramente:
+
+* Los datos originales utilizados.
+* Las transformaciones realizadas sobre dichos datos.
+* Los procedimientos analíticos aplicados.
+* Las tablas y figuras generadas.
+* Las referencias bibliográficas consultadas.
+* Las versiones finales de los informes.
+
+Marwick et al. señalan que una adecuada organización de los proyectos constituye uno de los requisitos fundamentales para la reproducibilidad computacional, ya que permite integrar datos, código y documentación dentro de un flujo de trabajo coherente [@marwick2018].
+
+## El problema de los proyectos desorganizados
+
+Considere la siguiente estructura de archivos:
+
+```text
+Tesis/
+│
+├── Base.xlsx
+├── Base_final.xlsx
+├── Base_final_definitiva.xlsx
+├── Tabla1.xlsx
+├── Tabla1_final.xlsx
+├── Grafico1.png
+├── Grafico1_nuevo.png
+├── Resultados.docx
+├── Resultados_final.docx
+└── Resultados_final_corregido.docx
+```
+
+Aunque esta situación resulta familiar para muchos estudiantes e investigadores, presenta importantes problemas:
+
+* No es posible identificar rápidamente cuál es la versión correcta de cada archivo.
+* Los datos originales pueden sobrescribirse accidentalmente.
+* Los análisis realizados son difíciles de rastrear.
+* La colaboración entre investigadores se vuelve compleja.
+* La actualización de resultados requiere procesos manuales repetitivos.
+
+Estos problemas no solo afectan la eficiencia del trabajo, sino también la confiabilidad de los resultados obtenidos.
+
+## El ciclo de vida de los datos de investigación
+
+Uno de los principios fundamentales de la investigación reproducible consiste en comprender que los datos atraviesan diferentes etapas a lo largo del proyecto.
+
+De forma simplificada, el ciclo de vida de los datos puede representarse de la siguiente manera:
+
+```text
+Datos originales
+       ↓
+Limpieza y validación
+       ↓
+Transformación
+       ↓
+Análisis
+       ↓
+Resultados
+       ↓
+Publicación y difusión
+```
+
+Los principios FAIR propuestos por Wilkinson et al. enfatizan la importancia de que los datos sean localizables, accesibles, interoperables y reutilizables, promoviendo una gestión más eficiente de la información científica [@wilkinson2016].
+
+Por esta razón, resulta recomendable conservar siempre una copia intacta de los datos originales y realizar todas las modificaciones mediante código documentado.
+
+## Pensando como un investigador reproducible
+
+Un investigador reproducible debería poder responder inmediatamente preguntas como:
+
+* ¿Dónde se encuentran los datos originales?
+* ¿Qué script generó una determinada tabla?
+* ¿Cómo se construyó una figura específica?
+* ¿Qué referencias respaldan el análisis realizado?
+* ¿Qué versión del informe corresponde a los resultados más recientes?
+
+Responder estas preguntas no debería depender de la memoria del investigador, sino de una estructura organizada de trabajo.
+
+Lowndes et al. destacan que la adopción de herramientas y prácticas abiertas permite mejorar simultáneamente la eficiencia, la colaboración y la calidad de la investigación científica [@lowndes2017].
+
+## Una estructura estándar para proyectos de investigación
+
+A lo largo de este libro utilizaremos una estructura inspirada en las buenas prácticas recomendadas para proyectos reproducibles [@wilson2017; @marwick2018].
+
+```text
+Guia_investigacion/
+│
+├── datos/
+├── scripts/
+├── figuras/
+├── tablas/
+├── referencias/
+├── anexos/
+├── presentaciones/
+├── reportes/
+└── dashboard/
+```
+
+Cada carpeta cumple una función específica dentro del proyecto.
+
+### Carpeta de datos
+
+La carpeta `datos` almacena toda la información utilizada durante la investigación.
+
+Se recomienda subdividirla de la siguiente manera:
+
+```text
+datos/
+│
+├── original/
+└── procesado/
+```
+
+Los datos originales nunca deben modificarse directamente. Todas las transformaciones deben realizarse mediante código reproducible.
+
+### Carpeta de scripts
+
+La carpeta `scripts` contiene los programas desarrollados en R.
+
+Por ejemplo:
+
+```text
+scripts/
+│
+├── 01_importacion.R
+├── 02_limpieza.R
+├── 03_descriptivos.R
+└── 04_modelos.R
+```
+
+La numeración permite documentar el flujo lógico del análisis.
+
+### Carpetas de figuras y tablas
+
+Las carpetas `figuras` y `tablas` almacenan los productos generados automáticamente durante el análisis.
+
+Separar resultados de datos y código facilita la actualización y reutilización de los materiales producidos.
+
+### Carpeta de referencias
+
+La carpeta `referencias` contiene los recursos necesarios para la gestión bibliográfica.
+
+```text
+referencias/
+│
+├── referencias.bib
+└── apa.csl
+```
+
+Esta estructura permitirá automatizar las citas y referencias bibliográficas mediante Quarto.
+
+## Buenas prácticas para la gestión de archivos
+
+Broman y Woo identifican diversos problemas asociados al manejo inadecuado de archivos y hojas de cálculo, proponiendo principios simples que mejoran significativamente la calidad del trabajo científico [@broman2018].
+
+Entre las recomendaciones más importantes destacan:
+
+* Utilizar nombres descriptivos.
+* Evitar espacios y caracteres especiales.
+* Mantener una estructura consistente de carpetas.
+* Separar datos originales de datos procesados.
+* Automatizar procesos mediante código.
+* Documentar todas las transformaciones realizadas.
+
+Estas prácticas reducen errores y facilitan la colaboración entre investigadores.
+
+## Creando la estructura del proyecto con R
+
+Una de las ventajas de trabajar con R consiste en la posibilidad de automatizar tareas repetitivas.
+
+El siguiente código permite crear automáticamente la estructura básica del proyecto:
+
+```{r}
+carpetas <- c(
+  "datos",
+  "scripts",
+  "figuras",
+  "tablas",
+  "referencias",
+  "anexos",
+  "presentaciones",
+  "reportes",
+  "dashboard"
+)
+
+invisible(
+  lapply(carpetas, dir.create, showWarnings = FALSE)
+)
+```
+
+Este procedimiento garantiza que todos los estudiantes trabajen bajo una estructura homogénea y reproducible.
+
+## Resumen del capítulo
+
+La organización constituye uno de los pilares fundamentales de la investigación reproducible. Una estructura adecuada de carpetas, datos, código y documentación permite mantener la trazabilidad del proyecto, facilita la colaboración y reduce significativamente la probabilidad de errores.
+
+La adopción de buenas prácticas organizativas no representa únicamente una cuestión estética, sino una condición necesaria para desarrollar investigaciones transparentes, verificables y sostenibles en el tiempo.
+
+En el siguiente capítulo construiremos nuestro primer proyecto en Quarto y aprenderemos cómo transformar esta estructura organizativa en un entorno de trabajo completamente reproducible.

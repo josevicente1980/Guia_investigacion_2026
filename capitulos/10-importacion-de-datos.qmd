@@ -1,0 +1,477 @@
+# Importación de datos con R
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender la importancia de la importación de datos dentro de una investigación reproducible.
+* Organizar adecuadamente archivos de datos dentro de un proyecto de investigación.
+* Identificar la estructura de una operación estadística oficial.
+* Importar archivos SPSS y CSV utilizando R.
+* Explorar la estructura inicial de una base de datos.
+* Reconocer variables, observaciones y unidades de análisis.
+* Preparar datos para procesos posteriores de limpieza, transformación y análisis.
+
+## Introducción
+
+Toda investigación empírica comienza con los datos. Antes de construir tablas, elaborar gráficos o estimar modelos estadísticos, es necesario obtener, organizar e importar adecuadamente la información que será utilizada durante el proceso de investigación.
+
+Aunque esta etapa suele considerarse una tarea operativa, diversos estudios han demostrado que una proporción importante del tiempo invertido en proyectos de análisis de datos se concentra en la adquisición, organización y preparación de la información [@wickham2014; @dasu2003]. Por esta razón, la importación no debe entenderse como una acción aislada, sino como el primer paso de un flujo de trabajo analítico reproducible.
+
+En el contexto de la investigación reproducible, importar datos implica establecer procedimientos transparentes y documentados que permitan reconstruir completamente el proceso de análisis [@peng2011; @gandrud2015]. Si una base de datos se abre, modifica o transforma manualmente sin dejar registro, el estudio pierde trazabilidad y se dificulta su verificación posterior.
+
+A lo largo de este libro utilizaremos información oficial de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC) 2025, desarrollada por el Instituto Nacional de Estadística y Censos (INEC) del Ecuador. La ESPAC tiene como objetivo proporcionar información continua, confiable y oportuna sobre superficie sembrada, cosechada, producción, ventas, ganadería, aves y empleo agropecuario [@inec_manual_espac2025]. Además, la guía de uso de bases de datos de la encuesta describe su estructura, variables, factores de expansión y recomendaciones para el usuario [@inec_guia_espac2025].
+
+## La importancia de los datos en la investigación científica
+
+Los datos constituyen la materia prima de la investigación empírica. A partir de ellos los investigadores describen fenómenos, contrastan hipótesis, construyen indicadores y generan evidencia para la toma de decisiones.
+
+Sin embargo, disponer de datos no garantiza automáticamente la calidad de una investigación. Resulta igualmente importante comprender de dónde provienen, cómo fueron recolectados, qué representan sus variables, cuál es su unidad de análisis y cuáles son sus limitaciones [@groves2009].
+
+En el caso de encuestas oficiales, esta comprensión requiere revisar no solo la base de datos, sino también los documentos metodológicos, cuestionarios, diccionarios de variables y guías de uso. En la ESPAC 2025, por ejemplo, el manual del encuestador describe los capítulos del cuestionario, incluyendo uso del suelo, cultivos, ganadería, empleo, ambiente, financiamiento, ingresos y costos en finca [@inec_manual_espac2025].
+
+## Organización de los datos dentro del proyecto
+
+Uno de los principios fundamentales de la investigación reproducible consiste en separar claramente los datos originales de los datos transformados durante el análisis [@wilson2017]. Esta separación evita alterar accidentalmente la información descargada desde la fuente oficial y permite reconstruir el proceso de trabajo desde el inicio.
+
+Por esta razón, en este libro utilizaremos la siguiente estructura de carpetas:
+
+```{.text}
+datos/
+│
+├── original/
+│   └── ESPAC_2025/
+│       ├── spss/
+│       ├── csv/
+│       └── documentacion/
+│
+└── procesado/
+    └── ESPAC_2025/
+```
+
+La carpeta `original` contiene los archivos descargados directamente desde el portal oficial de la institución productora de información. Estos archivos no deben modificarse manualmente.
+
+La carpeta `procesado` almacenará los objetos generados durante las etapas de limpieza, transformación y análisis. Esta práctica permite mantener una distinción clara entre datos fuente y datos derivados, principio coherente con las buenas prácticas de computación científica reproducible [@wilson2017; @broman2018].
+
+## Conociendo la ESPAC 2025
+
+Antes de importar cualquier archivo es importante comprender qué información contiene la encuesta. La metodología oficial de la ESPAC 2025 describe la operación estadística, su marco conceptual, diseño muestral, recolección, procesamiento y análisis de resultados [@inec_metodologia_espac2025].
+
+La ESPAC 2025 se distribuye mediante múltiples módulos temáticos que almacenan información sobre distintos componentes de la actividad agropecuaria.
+
+Entre los principales módulos disponibles se encuentran:
+
+| Archivo     | Contenido                               |
+| ----------- | --------------------------------------- |
+| `cgnac2025` | Características generales del productor |
+| `sunac2025` | Uso del suelo                           |
+| `eunac2025` | Empleo agropecuario                     |
+| `cpnac2025` | Cultivos permanentes                    |
+| `ctnac2025` | Cultivos transitorios                   |
+| `glnac2025` | Ganado bovino                           |
+| `gpnac2025` | Ganado porcino                          |
+| `acnac2025` | Aves de campo                           |
+| `apnac2025` | Planteles avícolas                      |
+
+En este capítulo trabajaremos inicialmente con el archivo:
+
+```{.text}
+sunac2025.sav
+```
+
+Este módulo contiene información relacionada con uso del suelo y superficie agropecuaria, por lo que resulta adecuado para iniciar el proceso de importación y exploración de datos.
+
+## Instalación y carga de paquetes
+
+Para importar datos utilizaremos principalmente los paquetes `haven`, `readr`, `dplyr` y `here`.
+
+El paquete `haven` permite importar archivos provenientes de programas como SPSS, Stata y SAS. El paquete `readr` facilita la lectura de archivos de texto plano, como CSV. El paquete `dplyr` permite explorar y manipular datos, mientras que `here` ayuda a construir rutas relativas al proyecto.
+
+El siguiente bloque instala los paquetes necesarios. Debe ejecutarse una sola vez en el computador del estudiante.
+
+```{r} 
+#| label: cap10-configuracion-paquetes
+#| eval: false
+
+install.packages(c("haven", "readr", "dplyr", "here"))
+```
+
+Una vez instalados, cargamos los paquetes:
+
+```{r} 
+#| label: cap10-cargar-librerias
+
+library(haven)
+library(readr)
+library(dplyr)
+library(here)
+```
+
+El uso de `here()` es importante porque permite construir rutas desde la raíz del proyecto, evitando errores cuando los capítulos se encuentran dentro de subcarpetas. Este tipo de práctica fortalece la portabilidad del proyecto y evita depender de rutas absolutas asociadas a un computador específico [@wilson2017].
+
+## Verificando la ubicación de los archivos
+
+Antes de importar información, siempre es recomendable verificar que los archivos se encuentran disponibles en la carpeta esperada.
+
+```{r} 
+#| label: cap10-listar-archivos
+
+list.files(
+  here("datos", "original", "ESPAC_2025", "spss")
+)
+```
+
+El resultado muestra los archivos SPSS disponibles dentro del proyecto. Esta verificación confirma que R puede localizar los archivos originales antes de intentar importarlos.
+
+También podemos revisar los archivos CSV:
+
+```{r} 
+#| label: cap10-listar-archivos-csv
+
+list.files(
+  here("datos", "original", "ESPAC_2025", "csv")
+)
+```
+
+Y la documentación:
+
+```{r} 
+#| label: cap10-listar-documentacion
+
+list.files(
+  here("datos", "original", "ESPAC_2025", "documentacion")
+)
+```
+
+Estos comandos permiten verificar que la estructura del proyecto está completa y que los insumos necesarios para trabajar con la ESPAC 2025 se encuentran correctamente ubicados.
+
+## Importando archivos SPSS
+
+Una gran cantidad de encuestas oficiales se distribuyen en formato SPSS (`.sav`). Este formato permite conservar metadatos útiles, como etiquetas de variables y etiquetas de valores.
+
+Para importar el módulo de uso del suelo de la ESPAC 2025 utilizamos:
+
+```{r} 
+#| label: cap10-importar-sunac
+
+sunac <- read_sav(
+  here(
+    "datos",
+    "original",
+    "ESPAC_2025",
+    "spss",
+    "sunac2025.sav"
+  )
+)
+```
+
+El objeto `sunac` contiene ahora la información almacenada en el archivo original. La importación mediante código permite que este procedimiento pueda repetirse cuantas veces sea necesario, manteniendo trazabilidad sobre la fuente utilizada [@peng2011].
+
+## Explorando las dimensiones de la base
+
+Una de las primeras preguntas que debemos responder es cuántas observaciones y variables contiene la base.
+
+```{r} 
+#| label: cap10-dimensiones-sunac
+
+dim(sunac)
+```
+
+El primer valor corresponde al número de filas y el segundo al número de columnas. En una base de datos, las filas representan observaciones y las columnas representan variables.
+
+También podemos obtener esta información por separado:
+
+```{r} 
+#| label: cap10-conteo-filas-columnas
+
+nrow(sunac)
+ncol(sunac)
+```
+
+Estos resultados permiten dimensionar el tamaño del archivo y verificar si la importación fue exitosa.
+
+## Explorando los nombres de las variables
+
+Para conocer las variables disponibles utilizamos:
+
+```{r} 
+#| label: cap10-nombres-variables
+
+names(sunac)
+```
+
+En este módulo aparecen variables de identificación, localización, uso del suelo, tenencia y superficie. Algunas variables relevantes son:
+
+```{.text}
+Identificador
+ual_prov
+ual_estr
+ual_segm
+al_ncues
+su_numl
+su_numt
+su_categoria
+su_tenencia
+supertotal
+fact_exp_fin
+```
+
+Estas variables serán importantes en capítulos posteriores, especialmente cuando integremos distintos módulos de la ESPAC.
+
+## Explorando la estructura de la base
+
+Una de las funciones más útiles durante las primeras etapas del análisis es `str()`.
+
+```{r} 
+#| label: cap10-estructura-sunac
+str(sunac, max.level = 1)
+```
+
+Esta función proporciona información sobre:
+
+* Número de observaciones.
+* Número de variables.
+* Tipo de dato de cada variable.
+* Etiquetas asociadas.
+
+También podemos usar `glimpse()`:
+
+```{r} 
+#| label: cap10-vista-general-sunac
+glimpse(sunac)
+```
+
+Esta función ofrece una visualización más compacta y amigable para bases con muchas variables.
+
+## Visualizando las primeras observaciones
+
+Antes de iniciar cualquier análisis es recomendable inspeccionar visualmente los datos.
+
+```{r} 
+#| label: cap10-primeras-observaciones
+head(sunac)
+```
+
+También es posible visualizar un número específico de registros:
+
+```{r} 
+#| label: cap10-primeras-10-observaciones
+head(sunac, 10)
+```
+
+Esta práctica permite detectar rápidamente posibles problemas de importación. En trabajos con datos reales, una inspección inicial suele revelar nombres de variables poco descriptivos, valores codificados, etiquetas heredadas del software original o inconsistencias que deberán abordarse durante la limpieza de datos [@wickham2014].
+
+## Comprendiendo los tipos de variables
+
+Toda base de datos contiene distintos tipos de variables.
+
+| Tipo        | Descripción                                 |
+| ----------- | ------------------------------------------- |
+| `numeric`   | Valores numéricos                           |
+| `character` | Texto                                       |
+| `factor`    | Categorías                                  |
+| `labelled`  | Variables etiquetadas importadas desde SPSS |
+| `Date`      | Fechas                                      |
+
+Cuando importamos archivos SPSS mediante `haven`, muchas variables pueden conservar etiquetas provenientes del archivo original.
+
+Podemos verificar la clase de una variable mediante:
+
+```{r} 
+#| label: cap10-clase-su-tenencia
+class(sunac$su_tenencia)
+```
+
+También podemos revisar las etiquetas de una variable:
+
+```{r} 
+#| label: cap10-etiquetas-su-tenencia
+attr(sunac$su_tenencia, "labels")
+```
+
+El resultado permite observar las categorías originales de la variable `su_tenencia`. Esta información será útil en los capítulos de limpieza y transformación de datos.
+
+## Importando archivos CSV
+
+Además del formato SPSS, muchas instituciones distribuyen información en formato CSV.
+
+La importación se realiza mediante `read_csv()`:
+
+```{r} 
+#| label: cap10-importar-sunac-csv
+sunac_csv <- read_csv(
+  here(
+    "datos",
+    "original",
+    "ESPAC_2025",
+    "csv",
+    "INEC_sunac_BD_2025.csv"
+  )
+)
+```
+
+Posteriormente verificamos sus dimensiones:
+
+```{r} #| label:
+dim(sunac_csv)
+```
+
+Y exploramos su estructura:
+
+```{r} 
+#| label: cap10-vista-general-sunac-csv
+glimpse(sunac_csv)
+```
+
+El formato CSV es ampliamente utilizado porque facilita la interoperabilidad entre programas, aunque suele conservar menos metadatos que los formatos nativos de software estadístico [@broman2018].
+
+## Comparando formatos SPSS y CSV
+
+Aunque ambas versiones pueden contener la misma información, existen diferencias importantes.
+
+Los archivos SPSS suelen conservar:
+
+* Etiquetas de variables.
+* Etiquetas de categorías.
+* Metadatos originales.
+* Estructuras heredadas del software estadístico.
+
+Los archivos CSV suelen ofrecer:
+
+* Mayor portabilidad.
+* Compatibilidad universal.
+* Lectura sencilla desde múltiples programas.
+* Menor dependencia de software especializado.
+
+Por esta razón, en este libro utilizaremos principalmente archivos SPSS cuando necesitemos conservar etiquetas y archivos CSV cuando queramos enfatizar portabilidad y compatibilidad.
+
+## Guardando objetos de trabajo
+
+Una vez importados los datos, resulta conveniente almacenarlos en un formato nativo de R.
+
+```{r} 
+#| label: cap10-guardar-sunac-rds
+saveRDS(
+  sunac,
+  here("datos", "procesado", "ESPAC_2025", "sunac.rds")
+)
+```
+
+Posteriormente podremos recuperarlos mediante:
+
+```{r} 
+#| label: cap10-cargar-sunac-rds
+sunac_rds <- readRDS(
+  here("datos", "procesado", "ESPAC_2025", "sunac.rds")
+)
+```
+
+Verificamos que el objeto recuperado tiene las mismas dimensiones:
+
+```{r} 
+#| label: cap10-dimensiones-sunac-rds
+dim(sunac_rds)
+```
+
+Esta estrategia permite acelerar procesos posteriores, especialmente cuando trabajamos con bases de gran tamaño.
+
+## Inventario de archivos de una operación estadística
+
+Cuando una operación estadística se distribuye mediante varios módulos, resulta útil construir un inventario automático de archivos.
+
+```{r} 
+#| label: cap10-listar-archivos-sav
+archivos_sav <- list.files(
+  here("datos", "original", "ESPAC_2025", "spss"),
+  pattern = "\\.sav$",
+  full.names = TRUE
+)
+
+archivos_sav
+```
+
+También podemos crear una tabla con el nombre de cada archivo:
+
+```{r} 
+#| label: cap10-crear-inventario-archivos
+inventario <- data.frame(
+  archivo = basename(archivos_sav)
+)
+
+inventario
+```
+
+Este tipo de inventario permite documentar claramente qué archivos forman parte del proyecto y constituye una práctica recomendable cuando se trabaja con operaciones estadísticas distribuidas en varios módulos.
+
+## Importando varios módulos
+
+Una vez identificados los archivos disponibles, podríamos importar distintos módulos de la ESPAC.
+
+```{r} 
+#| label: cap10-importar-bases-complementarias
+cgnac <- read_sav(
+  here("datos", "original", "ESPAC_2025", "spss", "cgnac2025.sav")
+)
+
+eunac <- read_sav(
+  here("datos", "original", "ESPAC_2025", "spss", "eunac2025.sav")
+)
+
+glnac <- read_sav(
+  here("datos", "original", "ESPAC_2025", "spss", "glnac2025.sav")
+)
+```
+
+Podemos revisar sus dimensiones:
+
+```{r} 
+#| label: cap10-dimensiones-bases-complementarias
+dim(cgnac)
+dim(eunac)
+dim(glnac)
+```
+
+En capítulos posteriores aprenderemos a integrar estos módulos mediante variables de identificación comunes. Esta integración permitirá construir bases analíticas más completas, incorporando información sobre características del productor, uso del suelo, empleo y producción agropecuaria.
+
+## Buenas prácticas de importación
+
+Al trabajar con datos oficiales se recomienda:
+
+* Mantener intactos los archivos originales.
+* Documentar todas las transformaciones realizadas.
+* Utilizar rutas relativas dentro del proyecto.
+* Verificar dimensiones y estructura después de cada importación.
+* Almacenar versiones procesadas separadamente.
+* Conservar diccionarios de variables y documentos metodológicos.
+* Evitar modificaciones manuales sobre las bases originales.
+
+Estas prácticas constituyen la base de cualquier flujo de investigación reproducible y se encuentran alineadas con recomendaciones generales para la computación científica [@wilson2017].
+
+## Manos a la obra
+
+Importe el archivo `sunac2025.sav` y responda las siguientes preguntas:
+
+1. ¿Cuántas observaciones contiene la base?
+2. ¿Cuántas variables posee?
+3. ¿Cuáles son las primeras diez variables?
+4. ¿Cuál es la clase de la variable `su_tenencia`?
+5. ¿Qué diferencia observa entre la versión SPSS y la versión CSV?
+
+Puede utilizar el siguiente esquema:
+
+```{r}
+#| label: cap10-inspeccion-rapida-sunac
+dim(sunac)
+names(sunac)[1:10]
+class(sunac$su_tenencia)
+```
+
+Documente todas sus respuestas dentro de un archivo Quarto.
+
+## Resumen del capítulo
+
+La importación de datos constituye el primer paso operativo dentro de cualquier proceso de investigación reproducible. Una adecuada organización de archivos permite garantizar la trazabilidad de los análisis y facilita la actualización futura de los resultados.
+
+En este capítulo aprendimos a trabajar con información oficial de la ESPAC 2025 utilizando R, importando archivos SPSS y CSV, explorando su estructura y comprendiendo las características fundamentales de las bases de datos utilizadas.
+
+En el siguiente capítulo abordaremos la limpieza de datos, una etapa fundamental para garantizar la calidad y consistencia de los análisis estadísticos posteriores.

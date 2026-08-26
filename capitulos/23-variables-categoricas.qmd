@@ -1,0 +1,1076 @@
+# Variables categóricas
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar esta sección, el lector será capaz de:
+
+- Comprender qué son las variables categóricas.
+- Diferenciar variables numéricas y categóricas.
+- Entender el concepto de variable dummy.
+- Utilizar factores en R.
+- Identificar categorías de referencia.
+- Preparar variables categóricas para modelos de regresión.
+
+## Introducción
+
+Hasta ahora hemos trabajado principalmente con variables numéricas. Sin embargo, gran parte de la información utilizada en investigación corresponde a categorías.
+
+Algunos ejemplos son:
+
+```text
+Provincia
+Sexo
+Nivel educativo
+Estado civil
+Tamaño de UPA
+```
+
+Estas variables contienen información relevante para explicar fenómenos económicos, sociales y ambientales.
+
+La regresión lineal permite incorporar variables categóricas mediante procesos de codificación automática conocidos como variables dummy o indicadoras [@montgomery2021].
+
+## Cargando librerías
+
+```{r}
+#| label: reg23-cargar-librerias
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(knitr)
+library(here)
+```
+
+## Cargando la base analítica
+
+```{r}
+#| label: reg23-cargar-base
+
+base_analitica <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+## Preparación de variables
+
+```{r}
+#| label: reg23-preparar-base
+
+base_categorias <- base_analitica |>
+  mutate(
+    log_supertotal =
+      log1p(
+        supertotal
+      ),
+    provincia =
+      as.factor(
+        provincia
+      ),
+    tamano_upa =
+      as.factor(
+        tamano_upa
+      )
+  ) |>
+  select(
+    log_supertotal,
+    provincia,
+    tamano_upa,
+    fact_exp_fin
+  ) |>
+  drop_na()
+```
+
+## Identificando variables categóricas
+
+```{r}
+#| label: tbl-reg23-estructura
+
+glimpse(
+  base_categorias
+)
+```
+
+**Interpretación**
+
+Las variables `provincia` y `tamano_upa` aparecen como factores. Esto indica que R las reconocerá automáticamente como variables categóricas.
+
+## Frecuencia de categorías
+
+```{r}
+#| label: tbl-reg23-frecuencia-provincia
+
+base_categorias |>
+  count(
+    provincia
+  ) |>
+  arrange(
+    desc(n)
+  ) |>
+  kable(
+    caption = "Frecuencia de observaciones por provincia"
+  )
+```
+
+**Interpretación**
+
+La tabla muestra la distribución de observaciones entre categorías territoriales.
+
+## Visualización de categorías
+
+```{r}
+#| label: fig-reg23-frecuencia-provincia
+#| fig-cap: "Frecuencia de observaciones por provincia"
+
+ggplot(
+  base_categorias,
+  aes(
+    x = provincia
+  )
+) +
+  geom_bar(
+    fill = "steelblue"
+  ) +
+  coord_flip() +
+  theme_minimal()
+```
+
+**Interpretación**
+
+El gráfico permite identificar diferencias en el tamaño relativo de las categorías.
+
+## ¿Por qué no usar texto directamente?
+
+Los modelos matemáticos operan con números.
+
+Por esta razón, una variable como:
+
+```text
+Loja
+Pichincha
+Guayas
+```
+
+debe transformarse internamente en indicadores numéricos.
+
+R realiza este procedimiento automáticamente mediante factores.
+
+## Variables dummy
+
+Una variable dummy toma únicamente dos valores:
+
+```text
+1 = pertenece a la categoría
+
+0 = no pertenece a la categoría
+```
+
+Por ejemplo:
+
+```text
+Provincia = Loja
+```
+
+podría representarse como:
+
+```text
+Loja = 1
+
+Otra provincia = 0
+```
+
+## Ejemplo simple de dummy
+
+```{r}
+#| label: tbl-reg23-dummy-loja
+
+base_categorias |>
+  mutate(
+    dummy_loja =
+      if_else(
+        provincia == "Loja",
+        1,
+        0
+      )
+  ) |>
+  select(
+    provincia,
+    dummy_loja
+  ) |>
+  slice_head(
+    n = 10
+  ) |>
+  kable(
+    caption = "Ejemplo de variable dummy"
+  )
+```
+
+**Interpretación**
+
+La nueva variable identifica observaciones pertenecientes a la provincia de Loja.
+
+## Categoría de referencia
+
+Cuando una variable posee múltiples categorías, R selecciona automáticamente una categoría base.
+
+Por ejemplo:
+
+```text
+Loja
+Pichincha
+Guayas
+Azuay
+```
+
+Una categoría será utilizada como referencia y las demás serán comparadas contra ella.
+
+## Niveles del factor
+
+```{r}
+#| label: tbl-reg23-niveles-factor
+
+tibble(
+  Categoria =
+    levels(
+      base_categorias$provincia
+    )
+) |>
+  kable(
+    caption = "Niveles del factor provincia"
+  )
+```
+
+**Interpretación**
+
+La primera categoría suele actuar como referencia en los modelos lineales.
+
+## Cambio de categoría de referencia
+
+En ocasiones resulta conveniente seleccionar explícitamente la categoría base.
+
+```{r}
+#| label: reg23-referencia
+
+base_categorias <- base_categorias |>
+  mutate(
+    provincia =
+      relevel(
+        provincia,
+        ref = levels(
+          provincia
+        )[1]
+      )
+  )
+```
+
+## Verificación de referencia
+
+```{r}
+#| label: tbl-reg23-referencia
+
+tibble(
+  Categoria_Referencia =
+    levels(
+      base_categorias$provincia
+    )[1]
+) |>
+  kable(
+    caption = "Categoría de referencia utilizada"
+  )
+```
+
+**Interpretación**
+
+Todos los coeficientes asociados a provincia serán interpretados respecto a esta categoría.
+
+## Matriz de diseño
+
+La función `model.matrix()` permite observar la codificación interna utilizada por R.
+
+```{r}
+#| label: tbl-reg23-matriz-diseno
+
+model.matrix(
+  ~ provincia,
+  data = base_categorias
+) |>
+  as.data.frame() |>
+  slice_head(
+    n = 10
+  ) |>
+  kable(
+    caption = "Matriz de diseño para provincia"
+  )
+```
+
+**Interpretación**
+
+Cada columna representa una variable dummy generada automáticamente.
+
+## Conclusión práctica
+
+En esta primera parte aprendimos a:
+
+- Identificar variables categóricas.
+- Trabajar con factores.
+- Comprender variables dummy.
+- Interpretar categorías de referencia.
+- Visualizar la codificación utilizada por R.
+
+En la siguiente sección incorporaremos estas variables dentro de modelos de regresión y aprenderemos a interpretar correctamente los coeficientes asociados a categorías.
+
+## Introducción
+
+Una vez comprendida la lógica de las variables dummy, podemos incorporarlas directamente dentro de modelos de regresión.
+
+La principal ventaja consiste en que podemos cuantificar diferencias promedio entre grupos utilizando un único modelo estadístico [@montgomery2021].
+
+En esta sección utilizaremos la variable categórica:
+
+```text
+tamano_upa
+```
+
+para explicar variaciones en:
+
+```text
+log_supertotal
+```
+
+## Cargando librerías
+
+```{r}
+#| label: reg23-cargar-librerias-parte2
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(knitr)
+library(here)
+```
+
+## Cargando la base analítica
+
+```{r}
+#| label: reg23-cargar-base-parte2
+
+base_analitica <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+## Preparación de variables
+
+```{r}
+#| label: reg23-preparar-base-parte2
+
+base_categorias <- base_analitica |>
+  mutate(
+    log_supertotal =
+      log1p(
+        supertotal
+      ),
+    tamano_upa =
+      as.factor(
+        tamano_upa
+      )
+  ) |>
+  select(
+    log_supertotal,
+    tamano_upa
+  ) |>
+  drop_na()
+```
+
+## Exploración inicial
+
+```{r}
+#| label: tbl-reg23-resumen-grupos
+
+base_categorias |>
+  group_by(
+    tamano_upa
+  ) |>
+  summarise(
+    n = n(),
+    media =
+      mean(
+        log_supertotal
+      ),
+    .groups = "drop"
+  ) |>
+  kable(
+    digits = 3,
+    caption = "Promedio de superficie por categoría"
+  )
+```
+
+**Interpretación**
+
+Las medias sugieren diferencias entre categorías de tamaño. La regresión permitirá cuantificar estas diferencias formalmente.
+
+## Visualización preliminar
+
+```{r}
+#| label: fig-reg23-boxplot-categorias
+#| fig-cap: "Distribución de superficie según tamaño de UPA"
+
+ggplot(
+  base_categorias,
+  aes(
+    x = tamano_upa,
+    y = log_supertotal
+  )
+) +
+  geom_boxplot(
+    fill = "steelblue",
+    alpha = 0.6
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+Las diferencias observadas sugieren que el tamaño de la UPA podría estar asociado con la superficie total.
+
+## Modelo con variable categórica
+
+```{r}
+#| label: reg23-modelo-categorico
+
+modelo_cat <- lm(
+  log_supertotal ~
+    tamano_upa,
+  data = base_categorias
+)
+```
+
+## Resumen del modelo
+
+```{r}
+#| label: tbl-reg23-resumen-modelo
+
+glance(
+  modelo_cat
+) |>
+  select(
+    r.squared,
+    adj.r.squared,
+    statistic,
+    p.value
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Resumen del modelo categórico"
+  )
+```
+
+**Interpretación**
+
+El modelo evalúa si existen diferencias sistemáticas entre categorías de tamaño.
+
+## Coeficientes estimados
+
+```{r}
+#| label: tbl-reg23-coeficientes
+
+tidy(
+  modelo_cat,
+  conf.int = TRUE
+) |>
+  kable(
+    digits = 4,
+    caption = "Coeficientes del modelo"
+  )
+```
+
+**Interpretación**
+
+El intercepto representa la media esperada para la categoría de referencia.
+
+Los demás coeficientes representan diferencias respecto a dicha categoría.
+
+## Interpretación del intercepto
+
+Supongamos que la categoría de referencia es:
+
+```text
+Pequeña
+```
+
+Entonces:
+
+```text
+Intercepto
+```
+
+representa el valor promedio esperado de:
+
+```text
+log_supertotal
+```
+
+para las UPA pequeñas.
+
+## Interpretación de una categoría adicional
+
+Si observamos:
+
+```text
+tamano_upaMediana = 0.45
+```
+
+la interpretación sería:
+
+```text
+Las UPA medianas presentan en promedio
+0.45 unidades más en log_supertotal
+que las UPA pequeñas.
+```
+
+## Valores ajustados
+
+```{r}
+#| label: reg23-ajustados
+
+base_categorias <- base_categorias |>
+  mutate(
+    ajustado =
+      fitted(
+        modelo_cat
+      )
+  )
+```
+
+## Comparación observado versus ajustado
+
+```{r}
+#| label: fig-reg23-observado-ajustado
+#| fig-cap: "Valores observados y ajustados"
+
+ggplot(
+  base_categorias,
+  aes(
+    x = tamano_upa,
+    y = log_supertotal
+  )
+) +
+  geom_jitter(
+    alpha = 0.15,
+    width = 0.15
+  ) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    color = "red",
+    size = 3
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+Los puntos rojos representan las medias estimadas por el modelo para cada categoría.
+
+## Comparación mediante ANOVA
+
+Cuando todas las variables explicativas son categóricas, la regresión y ANOVA producen resultados equivalentes.
+
+```{r}
+#| label: tbl-reg23-anova
+
+anova(
+  modelo_cat
+) |>
+  kable(
+    digits = 4,
+    caption = "ANOVA del modelo categórico"
+  )
+```
+
+**Interpretación**
+
+La prueba evalúa si las medias poblacionales difieren entre categorías.
+
+La interpretación de la prueba ANOVA se basa en el **valor p** asociado al estadístico F:
+
+- Si p < 0,05, se rechaza la hipótesis nula y se concluye que el modelo es **estadísticamente significativo**, es decir, al menos una de las variables explicativas influye sobre la variable dependiente.
+- Si p ≥ 0,05, no existe evidencia suficiente para afirmar que el modelo explica la variabilidad de la variable de respuesta.
+
+## Predicciones por grupo
+
+```{r}
+#| label: tbl-reg23-predicciones-grupo
+
+nuevos_grupos <- tibble(
+  tamano_upa = factor(
+    levels(
+      base_categorias$tamano_upa
+    ),
+    levels =
+      levels(
+        base_categorias$tamano_upa
+      )
+  )
+)
+
+nuevos_grupos <- nuevos_grupos |>
+  mutate(
+    prediccion =
+      predict(
+        modelo_cat,
+        newdata = nuevos_grupos
+      )
+  )
+
+nuevos_grupos |>
+  kable(
+    digits = 3,
+    caption = "Predicciones promedio por categoría"
+  )
+```
+
+**Interpretación**
+
+Las predicciones representan los valores medios esperados para cada grupo.
+
+## Visualización de medias estimadas
+
+```{r}
+#| label: fig-reg23-medias-estimadas
+#| fig-cap: "Medias estimadas por categoría"
+
+ggplot(
+  nuevos_grupos,
+  aes(
+    x = tamano_upa,
+    y = prediccion
+  )
+) +
+  geom_col(
+    fill = "steelblue"
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+Las diferencias de altura reflejan diferencias promedio estimadas entre categorías.
+
+## Variable categórica y variable numérica
+
+En la práctica es frecuente combinar variables categóricas y numéricas.
+
+Por ejemplo:
+
+```text
+log_supertotal
+=
+fact_exp_fin
++
+tamano_upa
+```
+
+Este tipo de especificación será el punto de partida de la siguiente sección.
+
+## Conclusión práctica
+
+En esta sección aprendimos a:
+
+- Incorporar variables categóricas en regresión.
+- Interpretar categorías de referencia.
+- Interpretar coeficientes dummy.
+- Comparar medias mediante regresión.
+- Generar predicciones por grupo.
+- Relacionar regresión y ANOVA.
+
+En la siguiente sección estudiaremos variables categóricas con múltiples niveles e introduciremos interacciones básicas entre variables numéricas y categóricas.
+
+## Introducción
+
+Hasta ahora hemos incorporado variables categóricas simples dentro de modelos lineales.
+
+Sin embargo, en muchas investigaciones resulta necesario responder preguntas más complejas:
+
+```text
+¿El efecto de una variable numérica es igual para todos los grupos?
+```
+
+Por ejemplo:
+
+```text
+¿La experiencia financiera tiene el mismo efecto
+sobre la superficie total para todos los tamaños de UPA?
+```
+
+Para responder este tipo de preguntas utilizamos interacciones entre variables numéricas y categóricas [@kutner2004].
+
+## Cargando librerías
+
+```{r}
+#| label: reg23-cargar-librerias-parte3
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(knitr)
+library(here)
+```
+
+## Cargando la base analítica
+
+```{r}
+#| label: reg23-cargar-base-parte3
+
+base_analitica <- readRDS(
+  here(
+    "datos",
+    "procesado",
+    "ESPAC_2025",
+    "sunac_transformado.rds"
+  )
+)
+```
+
+## Preparación de variables
+
+```{r}
+#| label: reg23-preparar-base-parte3
+
+base_interaccion <- base_analitica |>
+  mutate(
+    log_supertotal =
+      log1p(
+        supertotal
+      ),
+    tamano_upa =
+      as.factor(
+        tamano_upa
+      )
+  ) |>
+  select(
+    log_supertotal,
+    fact_exp_fin,
+    tamano_upa
+  ) |>
+  drop_na()
+```
+
+## Modelo aditivo
+
+Comenzaremos con un modelo sin interacción.
+
+```{r}
+#| label: reg23-modelo-aditivo
+
+modelo_aditivo <- lm(
+  log_supertotal ~
+    fact_exp_fin +
+    tamano_upa,
+  data = base_interaccion
+)
+```
+
+## Resumen del modelo aditivo
+
+```{r}
+#| label: tbl-reg23-modelo-aditivo
+
+glance(
+  modelo_aditivo
+) |>
+  select(
+    r.squared,
+    adj.r.squared,
+    statistic,
+    p.value
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Resumen del modelo aditivo"
+  )
+```
+
+**Interpretación**
+
+El modelo supone que el efecto de la experiencia financiera es idéntico para todas las categorías de tamaño.
+
+## Modelo con interacción
+
+Ahora permitiremos que la pendiente cambie entre categorías.
+
+```{r}
+#| label: reg23-modelo-interaccion
+
+modelo_interaccion <- lm(
+  log_supertotal ~
+    fact_exp_fin *
+    tamano_upa,
+  data = base_interaccion
+)
+```
+
+## Resumen del modelo con interacción
+
+```{r}
+#| label: tbl-reg23-modelo-interaccion
+
+glance(
+  modelo_interaccion
+) |>
+  select(
+    r.squared,
+    adj.r.squared,
+    statistic,
+    p.value
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Resumen del modelo con interacción"
+  )
+```
+
+**Interpretación**
+
+El modelo permite que el efecto de la experiencia financiera sea diferente según el tamaño de la UPA.
+
+## Coeficientes del modelo
+
+```{r}
+#| label: tbl-reg23-coeficientes-interaccion
+
+tidy(
+  modelo_interaccion,
+  conf.int = TRUE
+) |>
+  kable(
+    digits = 4,
+    caption = "Coeficientes del modelo con interacción"
+  )
+```
+
+**Interpretación**
+
+Los términos que contienen el símbolo:
+
+```text
+:
+```
+
+representan interacciones.
+
+Estos coeficientes indican cuánto cambia la pendiente respecto a la categoría de referencia.
+
+## Comparación entre modelos
+
+```{r}
+#| label: tbl-reg23-comparacion-modelos
+
+tibble(
+  Modelo = c(
+    "Aditivo",
+    "Interacción"
+  ),
+  R2 = c(
+    summary(
+      modelo_aditivo
+    )$r.squared,
+    summary(
+      modelo_interaccion
+    )$r.squared
+  ),
+  R2_Ajustado = c(
+    summary(
+      modelo_aditivo
+    )$adj.r.squared,
+    summary(
+      modelo_interaccion
+    )$adj.r.squared
+  )
+) |>
+  kable(
+    digits = 4,
+    caption = "Comparación entre modelos"
+  )
+```
+
+**Interpretación**
+
+La comparación permite evaluar si la interacción aporta capacidad explicativa adicional.
+
+## Comparación formal mediante ANOVA
+
+```{r}
+#| label: tbl-reg23-anova-interaccion
+
+anova(
+  modelo_aditivo,
+  modelo_interaccion
+) |>
+  kable(
+    digits = 4,
+    caption = "Comparación entre modelos anidados"
+  )
+```
+
+**Interpretación**
+
+Esta prueba evalúa si incorporar la interacción mejora significativamente el ajuste.
+
+## Visualización de la interacción
+
+```{r}
+#| label: fig-reg23-interaccion
+#| fig-cap: "Interacción entre experiencia financiera y tamaño de UPA"
+
+ggplot(
+  base_interaccion,
+  aes(
+    x = fact_exp_fin,
+    y = log_supertotal,
+    color = tamano_upa
+  )
+) +
+  geom_point(
+    alpha = 0.20
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = FALSE
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+Si las pendientes son similares, la interacción es débil.
+
+Si las pendientes difieren claramente, la interacción puede resultar relevante.
+
+## Predicciones por categoría
+
+```{r}
+#| label: tbl-reg23-predicciones-interaccion
+
+nuevos_datos <- expand.grid(
+  fact_exp_fin = seq(
+    min(
+      base_interaccion$fact_exp_fin
+    ),
+    max(
+      base_interaccion$fact_exp_fin
+    ),
+    length.out = 3
+  ),
+  tamano_upa =
+    levels(
+      base_interaccion$tamano_upa
+    )
+)
+
+nuevos_datos |>
+  mutate(
+    prediccion =
+      predict(
+        modelo_interaccion,
+        newdata = nuevos_datos
+      )
+  ) |>
+  kable(
+    digits = 3,
+    caption = "Predicciones para distintos escenarios"
+  )
+```
+
+**Interpretación**
+
+Las predicciones permiten comparar escenarios manteniendo explícitamente las categorías analizadas.
+
+## Variables categóricas con muchos niveles
+
+En aplicaciones reales es frecuente encontrar variables como:
+
+```text
+Provincia
+Cantón
+Actividad económica
+Nivel educativo
+```
+
+con numerosos niveles.
+
+R genera automáticamente todas las variables dummy necesarias.
+
+El investigador únicamente debe declarar correctamente el factor.
+
+## Buenas prácticas
+
+Antes de utilizar variables categóricas:
+
+1. Revisar categorías poco frecuentes.
+2. Verificar categorías vacías.
+3. Definir adecuadamente la categoría de referencia.
+4. Interpretar coeficientes respecto a dicha referencia.
+5. Evitar categorías con muy pocas observaciones.
+
+## Flujo de trabajo recomendado
+
+```{r}
+#| label: tbl-reg23-flujo
+
+tibble(
+  Paso = 1:5,
+  Actividad = c(
+    "Convertir a factor",
+    "Definir referencia",
+    "Estimar modelo",
+    "Interpretar coeficientes",
+    "Evaluar interacciones"
+  )
+) |>
+  kable(
+    caption = "Flujo recomendado para variables categóricas"
+  )
+```
+
+**Interpretación**
+
+Este procedimiento resume el uso práctico de variables categóricas dentro de modelos lineales.
+
+## Manos a la obra
+
+1. Convierta una variable categórica en factor.
+2. Identifique su categoría de referencia.
+3. Estime una regresión con variables dummy.
+4. Interprete cada coeficiente.
+5. Compare grupos mediante predicciones.
+6. Estime un modelo con interacción.
+7. Compare ambos modelos mediante ANOVA.
+8. Visualice la interacción.
+9. Analice el cambio en R².
+10. Redacte conclusiones sustantivas.
+
+## Resumen del capítulo
+
+En este capítulo aprendimos a incorporar variables categóricas dentro de modelos lineales mediante factores y variables dummy.
+
+Posteriormente utilizamos regresiones con categorías múltiples para comparar grupos respecto a una categoría de referencia.
+
+Finalmente introdujimos interacciones entre variables numéricas y categóricas, permitiendo modelar efectos diferenciados entre grupos.
+
+Las variables categóricas constituyen una herramienta fundamental en investigación aplicada porque permiten incorporar características cualitativas dentro de modelos cuantitativos sin perder interpretabilidad.

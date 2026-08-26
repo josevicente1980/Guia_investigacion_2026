@@ -1,0 +1,17 @@
+# Prólogo
+
+La investigación científica se encuentra en un proceso de transformación permanente. La creciente disponibilidad de información, el acceso a bases de datos abiertas y el desarrollo de herramientas computacionales han generado nuevas oportunidades para producir conocimiento de manera más rigurosa, transparente y reproducible.
+
+Sin embargo, quienes se inician en el mundo de la investigación suelen enfrentar múltiples desafíos. Con frecuencia deben aprender simultáneamente aspectos metodológicos, estadísticos, tecnológicos y de redacción académica, utilizando herramientas que muchas veces se presentan de forma aislada y desarticulada.
+
+Esta realidad motivó la elaboración de la presente obra. Nuestro propósito fue construir una guía práctica que acompañe al estudiante durante todo el proceso de investigación, integrando en un único flujo de trabajo el diseño metodológico, la gestión bibliográfica, el análisis de datos, la modelación estadística y la comunicación científica.
+
+A diferencia de otros textos centrados exclusivamente en software o metodología, este libro adopta una perspectiva integradora. Las herramientas tecnológicas aquí presentadas no constituyen un fin en sí mismas, sino instrumentos que facilitan la generación de conocimiento científico de calidad.
+
+A lo largo de estas páginas el lector encontrará ejemplos prácticos, recomendaciones metodológicas y procedimientos reproducibles orientados a resolver problemas reales de investigación. Nuestro objetivo no es únicamente enseñar el uso de R o Quarto, sino contribuir al desarrollo de competencias que permitan diseñar, ejecutar y comunicar investigaciones con altos estándares académicos.
+
+Esperamos que esta obra se convierta en una herramienta útil para estudiantes, docentes e investigadores, y que contribuya a fortalecer una cultura de investigación basada en la transparencia, la reproducibilidad y la ciencia abierta.
+
+José Vicente Ordóñez Yaguache
+Yomara Karolina Ruiz Reyes
+Kevin Marlow Jiménez Villavicencio

@@ -1,0 +1,385 @@
+# Búsqueda científica, BibTeX y gestión automatizada de referencias
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+- Comprender la importancia de la búsqueda sistemática de literatura científica.
+- Identificar las principales bases de datos académicas utilizadas en investigación.
+- Diseñar estrategias de búsqueda reproducibles.
+- Utilizar BibTeX para almacenar y gestionar referencias bibliográficas.
+- Integrar bibliotecas bibliográficas dentro de proyectos Quarto.
+- Automatizar citas y referencias mediante archivos `.bib`.
+
+## Introducción
+
+La calidad de una investigación depende en gran medida de la calidad de la literatura científica que la sustenta. Un problema metodológicamente sólido puede perder relevancia si se fundamenta en información incompleta, desactualizada o poco confiable.
+
+Por esta razón, la búsqueda de literatura científica constituye una de las etapas más importantes del proceso investigativo. No se trata únicamente de encontrar artículos relacionados con un tema, sino de identificar evidencia científica rigurosa que permita comprender el estado actual del conocimiento y justificar la necesidad de nuevas investigaciones [@booth2016].
+
+La creciente producción científica mundial ha convertido esta tarea en un desafío cada vez más complejo. Miles de artículos son publicados diariamente en múltiples disciplinas, idiomas y formatos. Ante este escenario, los investigadores necesitan herramientas que les permitan localizar, organizar y gestionar grandes volúmenes de información de manera eficiente.
+
+## La búsqueda bibliográfica como proceso científico
+
+Una revisión de literatura rigurosa no consiste en buscar algunos artículos en Internet y citarlos dentro de un documento.
+
+La búsqueda científica debe desarrollarse de manera sistemática, transparente y reproducible.
+
+Kitchenham y Charters destacan que una búsqueda sistemática debe permitir identificar la evidencia relevante minimizando sesgos y maximizando la cobertura de información disponible [@kitchenham2007].
+
+Una búsqueda reproducible debería permitir responder preguntas como:
+
+- ¿Dónde se realizó la búsqueda?
+- ¿Qué términos fueron utilizados?
+- ¿Qué criterios de inclusión se aplicaron?
+- ¿Qué criterios de exclusión se utilizaron?
+- ¿Cuándo se realizó la búsqueda?
+
+Documentar estos elementos fortalece la transparencia metodológica del estudio.
+
+## Principales fuentes de información científica
+
+Actualmente existen múltiples plataformas especializadas para la búsqueda de literatura académica.
+
+### Google Scholar
+
+Google Scholar constituye uno de los motores de búsqueda académica más utilizados a nivel mundial.
+
+Permite localizar:
+
+- Artículos científicos.
+- Libros.
+- Tesis.
+- Capítulos de libro.
+- Informes técnicos.
+- Documentos institucionales.
+
+Su principal ventaja radica en su amplitud de cobertura y facilidad de acceso.
+
+No obstante, sus criterios de indexación son menos estrictos que los utilizados por bases de datos especializadas.
+
+### Scopus
+
+Scopus es una de las mayores bases de datos bibliográficas multidisciplinarias del mundo.
+
+Además de facilitar la búsqueda de literatura científica, proporciona indicadores bibliométricos relacionados con:
+
+- Autores.
+- Revistas.
+- Instituciones.
+- Redes de citación.
+
+Su cobertura internacional la convierte en una herramienta ampliamente utilizada para revisiones sistemáticas y estudios bibliométricos [@martinmartin2018].
+
+### Web of Science
+
+Web of Science constituye una de las bases de datos científicas más influyentes a nivel mundial.
+
+Su sistema de indexación se caracteriza por altos estándares de calidad editorial y rigurosos procesos de selección.
+
+Es frecuentemente utilizada para:
+
+- Revisiones sistemáticas.
+- Meta-análisis.
+- Estudios de impacto científico.
+- Evaluaciones de producción académica.
+
+### Scielo
+
+Scielo representa una de las principales iniciativas de acceso abierto en América Latina.
+
+Su importancia radica en la visibilidad que proporciona a investigaciones desarrolladas en contextos regionales frecuentemente subrepresentados en bases de datos internacionales.
+
+### Redalyc
+
+Redalyc promueve la difusión de conocimiento científico producido principalmente en Iberoamérica bajo principios de acceso abierto.
+
+Su utilización resulta especialmente relevante para investigaciones en ciencias sociales y humanidades.
+
+### Dialnet
+
+Dialnet constituye una importante fuente de literatura científica en español.
+
+Su cobertura incluye:
+
+- Artículos científicos.
+- Libros.
+- Tesis.
+- Actas de congresos.
+
+Es particularmente útil para investigaciones en educación, derecho, administración y ciencias sociales.
+
+## Construcción de estrategias de búsqueda
+
+La calidad de los resultados obtenidos depende directamente de la estrategia de búsqueda utilizada.
+
+Supongamos que un investigador desea estudiar la supervivencia empresarial.
+
+Una búsqueda simple podría ser:
+
+```{.text}
+business survival
+```
+
+Sin embargo, una búsqueda más estructurada podría incorporar operadores booleanos:
+
+```{.text}
+("business survival" OR "firm survival")
+AND
+(financial performance OR liquidity)
+```
+
+Los operadores booleanos permiten mejorar significativamente la precisión de las búsquedas [@booth2016].
+
+### Operador AND
+
+Recupera documentos que contienen simultáneamente varios términos.
+
+```{.text}
+entrepreneurship AND innovation
+```
+
+### Operador OR
+
+Recupera documentos que contienen cualquiera de los términos especificados.
+
+```{.text}
+startup OR entrepreneurship
+```
+
+### Operador NOT
+
+Excluye determinados términos.
+
+```{.text}
+poverty NOT health
+```
+
+## Evaluación de la calidad de las fuentes
+
+No toda publicación encontrada durante una búsqueda posee el mismo nivel de calidad científica.
+
+Algunas preguntas útiles para evaluar una fuente son:
+
+- ¿Se encuentra indexada en una base reconocida?
+- ¿Ha sido sometida a revisión por pares?
+- ¿Posee DOI?
+- ¿Quiénes son los autores?
+- ¿Cuál es la reputación de la revista?
+- ¿Qué nivel de citación posee?
+
+Estas consideraciones permiten seleccionar literatura más confiable para la construcción del marco teórico.
+
+## Del artículo científico a la referencia bibliográfica
+
+Una vez identificada una fuente relevante, resulta necesario almacenar su información bibliográfica.
+
+Tradicionalmente, este proceso se realizaba manualmente mediante hojas de cálculo o documentos de texto.
+
+Sin embargo, este enfoque presenta múltiples limitaciones:
+
+- Errores de transcripción.
+- Duplicación de referencias.
+- Inconsistencias de formato.
+- Dificultades para actualizar bibliografías.
+
+Por esta razón surgieron formatos estandarizados para la gestión bibliográfica automatizada.
+
+## ¿Qué es BibTeX?
+
+BibTeX es un formato diseñado para almacenar referencias bibliográficas de manera estructurada y reutilizable [@patashnik1988].
+
+Cada referencia se almacena como un registro independiente.
+
+Por ejemplo:
+
+```{.text}
+@article{peng2011,
+author = {Peng, Roger D.},
+title = {Reproducible Research in Computational Science},
+journal = {Science},
+year = {2011}
+}
+```
+
+Esta estructura permite separar la información bibliográfica del documento principal.
+
+## Ventajas de utilizar BibTeX
+
+El uso de BibTeX ofrece múltiples beneficios:
+
+- Centralización de referencias.
+- Reutilización entre proyectos.
+- Automatización de citas.
+- Reducción de errores.
+- Compatibilidad con Quarto.
+- Compatibilidad con LaTeX.
+- Facilidad de actualización.
+
+Estas ventajas resultan especialmente importantes en investigaciones que manejan grandes volúmenes de literatura científica.
+
+## Estructura de una referencia BibTeX
+
+Un registro BibTeX suele contener campos como:
+
+```{.text}
+author
+title
+journal
+year
+volume
+number
+pages
+doi
+url
+```
+
+Dependiendo del tipo de documento pueden existir campos adicionales.
+
+## Tipos de registros BibTeX
+
+### Artículo científico
+
+```{.text}
+@article{clave,
+...
+}
+```
+
+### Libro
+
+```{.text}
+@book{clave,
+...
+}
+```
+
+### Capítulo de libro
+
+```{.text}
+@incollection{clave,
+...
+}
+```
+
+### Documento institucional
+
+```{.text}
+@misc{clave,
+...
+}
+```
+
+### Tesis
+
+```{.text}
+@phdthesis{clave,
+...
+}
+```
+
+## Construyendo una biblioteca bibliográfica
+
+Dentro de nuestro proyecto utilizaremos una carpeta específica para almacenar referencias.
+
+```{.text}
+referencias/
+│
+├── referencias.bib
+└── apa.csl
+```
+
+El archivo `referencias.bib` contendrá todas las referencias utilizadas durante el proyecto.
+
+## Integrando BibTeX con Quarto
+
+La conexión entre Quarto y BibTeX se realiza mediante el archivo `_quarto.yml`.
+
+```{.yaml}
+bibliography: referencias/referencias.bib
+```
+
+Esta instrucción permite que Quarto localice automáticamente la biblioteca bibliográfica.
+
+## Citando en Quarto
+
+Una vez configurada la biblioteca, las citas pueden incorporarse directamente dentro del texto.
+
+### Cita narrativa
+
+```{.markdown}
+Según @peng2011, la reproducibilidad constituye uno de los pilares fundamentales de la ciencia moderna.
+```
+
+### Cita parentética
+
+```{.markdown}
+La reproducibilidad constituye uno de los pilares fundamentales de la ciencia moderna [@peng2011].
+```
+
+### Múltiples referencias
+
+```{.markdown}
+[@peng2011; @baker2016; @munafo2017]
+```
+
+Durante la renderización, Quarto generará automáticamente las citas y referencias correspondientes.
+
+## El archivo CSL
+
+Además de la biblioteca BibTeX, Quarto utiliza archivos CSL (*Citation Style Language*) para definir el formato de citación.
+
+Por ejemplo:
+
+```{.yaml}
+csl: referencias/apa.csl
+```
+
+Este archivo determina:
+
+- Formato de citas.
+- Orden de referencias.
+- Uso de cursivas.
+- Capitalización de títulos.
+- Normas APA, Vancouver, Chicago u otros estilos.
+
+## Bibliotecas bibliográficas reproducibles
+
+Una de las ventajas más importantes de BibTeX consiste en la posibilidad de construir bibliotecas bibliográficas reutilizables.
+
+Un investigador puede mantener una única base de datos bibliográfica y utilizarla simultáneamente en:
+
+- Artículos.
+- Tesis.
+- Libros.
+- Informes técnicos.
+- Presentaciones.
+
+Esta estrategia reduce errores y mejora la consistencia de las referencias utilizadas.
+
+## Manos a la obra
+
+Realice una búsqueda relacionada con su tema de investigación en Google Scholar, Scopus o Web of Science.
+
+Posteriormente identifique:
+
+```{.text}
+1. Cinco artículos científicos relevantes.
+2. Dos libros fundamentales.
+3. Una teoría principal asociada al problema.
+4. Un vacío de investigación identificado.
+```
+
+Finalmente incorpore las referencias encontradas dentro de su archivo:
+
+```{.text}
+referencias/referencias.bib
+```
+
+## Resumen del capítulo
+
+La búsqueda científica constituye una etapa fundamental dentro del proceso de investigación. Una revisión rigurosa de la literatura permite comprender el estado actual del conocimiento, identificar vacíos de investigación y fundamentar adecuadamente los estudios desarrollados.
+
+BibTeX proporciona una solución eficiente para almacenar, organizar y reutilizar referencias bibliográficas, mientras que Quarto permite integrar automáticamente dichas referencias dentro de documentos reproducibles.
+
+En el siguiente capítulo comenzaremos a trabajar directamente con datos y aprenderemos a importar información desde distintos formatos utilizando R.

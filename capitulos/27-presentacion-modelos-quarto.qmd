@@ -1,0 +1,393 @@
+# Presentación de modelos con Quarto
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Transformar resultados estadísticos en tablas científicas reproducibles.
+* Presentar modelos econométricos utilizando formatos profesionales.
+* Comparar múltiples modelos dentro de una misma tabla.
+* Generar gráficos de coeficientes y efectos.
+* Exportar resultados a HTML, PDF y Word utilizando Quarto.
+* Aplicar buenas prácticas de comunicación científica reproducible.
+
+## Introducción
+
+Construir un buen modelo estadístico constituye únicamente una parte del proceso de investigación. Un modelo correctamente especificado pierde valor si sus resultados no son comunicados adecuadamente.
+
+En la práctica científica moderna, la reproducibilidad exige que las tablas, figuras e interpretaciones sean generadas automáticamente a partir del código utilizado en el análisis [@xie2024].
+
+El objetivo de este capítulo consiste en mostrar cómo transformar resultados estadísticos en productos científicos listos para publicación utilizando Quarto.
+
+## Configuración inicial
+
+### Carga de librerías
+
+```{r}
+#| label: reg27-cargar-librerias
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(modelsummary)
+library(gt)
+library(broom)
+library(gapminder)
+library(knitr)
+library(here)
+```
+
+### Carga de datos
+
+Utilizaremos la base `gapminder`, ampliamente utilizada en cursos de análisis de datos y econometría aplicada.
+
+```{r}
+#| label: reg27-cargar-datos
+
+data(
+  "gapminder",
+  package = "gapminder"
+)
+
+datos_modelos <- gapminder
+```
+
+### Exploración inicial
+
+```{r}
+#| label: tbl-reg27-estructura-datos
+
+glimpse(
+  datos_modelos
+)
+```
+
+**Interpretación**
+
+La base contiene información socioeconómica de múltiples países y años, lo que permite ilustrar distintas estrategias de presentación de modelos.
+
+## De la salida de R al reporte científico
+
+### Ajustando un modelo
+
+```{r}
+#| label: reg27-modelo-base
+
+modelo_1 <- lm(
+  lifeExp ~ gdpPercap,
+  data = datos_modelos
+)
+```
+
+### Resultados básicos
+
+```{r}
+#| label: tbl-reg27-modelo-simple
+
+broom::tidy(
+  modelo_1
+) |>
+  kable(
+    digits = 4,
+    caption = "Resultados básicos del modelo"
+  )
+```
+
+**Interpretación**
+
+La tabla presenta coeficientes, errores estándar, estadísticos t y valores p. Aunque contiene toda la información necesaria, su formato todavía no corresponde al estándar utilizado en publicaciones científicas.
+
+## Tablas profesionales con modelsummary
+
+El paquete `modelsummary` permite transformar modelos en tablas listas para artículos científicos [@arelbundock2022].
+
+```{r}
+#| label: tbl-reg27-modelsummary-simple
+
+modelsummary(
+  modelo_1,
+  stars = TRUE,
+  title = "Modelo de esperanza de vida"
+)
+```
+
+**Interpretación**
+
+La tabla presenta automáticamente:
+
+* Coeficientes.
+* Errores estándar.
+* Significancia estadística.
+* Número de observaciones.
+* Estadísticos de ajuste.
+
+## Personalizando tablas
+
+```{r}
+#| label: tbl-reg27-modelsummary-personalizado
+
+modelsummary(
+  modelo_1,
+  stars = TRUE,
+  statistic = "std.error",
+  gof_omit = "IC|Log|F",
+  title = "Modelo lineal simple"
+)
+```
+
+**Interpretación**
+
+La personalización permite adaptar las tablas a los requisitos editoriales de revistas científicas.
+
+## Comparación de modelos
+
+Uno de los escenarios más frecuentes consiste en comparar especificaciones alternativas.
+
+### Construcción de modelos
+
+```{r}
+#| label: reg27-modelos-comparacion
+
+modelo_2 <- lm(
+  lifeExp ~ gdpPercap + year,
+  data = datos_modelos
+)
+
+modelo_3 <- lm(
+  lifeExp ~ gdpPercap + year + pop,
+  data = datos_modelos
+)
+```
+
+### Comparación conjunta
+
+```{r}
+#| label: tbl-reg27-comparacion-modelos
+
+modelsummary(
+  list(
+    "Modelo 1" = modelo_1,
+    "Modelo 2" = modelo_2,
+    "Modelo 3" = modelo_3
+  ),
+  stars = TRUE,
+  title = "Comparación de modelos"
+)
+```
+
+**Interpretación**
+
+La comparación simultánea permite evaluar cambios en:
+
+* Magnitud de coeficientes.
+* Significancia estadística.
+* Capacidad explicativa.
+
+## Extrayendo información para reportes
+
+En ocasiones es necesario construir tablas personalizadas.
+
+```{r}
+#| label: tbl-reg27-coeficientes
+
+broom::tidy(
+  modelo_3,
+  conf.int = TRUE
+) |>
+  kable(
+    digits = 4,
+    caption = "Coeficientes e intervalos de confianza"
+  )
+```
+
+**Interpretación**
+
+Los intervalos de confianza complementan la información proporcionada por los valores p.
+
+## Visualización de coeficientes
+
+Las tablas son útiles, pero los gráficos permiten comunicar resultados de manera más intuitiva.
+
+```{r}
+#| label: reg27-datos-coeficientes
+
+coeficientes_plot <- broom::tidy(
+  modelo_3,
+  conf.int = TRUE
+)
+```
+
+```{r}
+#| label: fig-reg27-coeficientes
+#| fig-cap: "Coeficientes estimados"
+
+ggplot(
+  coeficientes_plot |>
+    filter(
+      term != "(Intercept)"
+    ),
+  aes(
+    x = estimate,
+    y = reorder(term, estimate)
+  )
+) +
+  geom_point(
+    size = 3
+  ) +
+  geom_errorbarh(
+    aes(
+      xmin = conf.low,
+      xmax = conf.high
+    ),
+    height = 0.2
+  ) +
+  geom_vline(
+    xintercept = 0,
+    linetype = "dashed"
+  ) +
+  theme_minimal() +
+  labs(
+    x = "Coeficiente",
+    y = NULL
+  )
+```
+
+**Interpretación**
+
+El gráfico facilita la comparación visual de magnitudes e intervalos de confianza.
+
+## Predicciones para comunicar resultados
+
+La presentación moderna de resultados suele incorporar predicciones.
+
+```{r}
+#| label: reg27-predicciones
+
+predicciones <- datos_modelos |>
+  mutate(
+    prediccion = predict(
+      modelo_3
+    )
+  )
+```
+
+```{r}
+#| label: fig-reg27-observado-predicho
+#| fig-cap: "Valores observados y predichos"
+
+ggplot(
+  predicciones,
+  aes(
+    x = prediccion,
+    y = lifeExp
+  )
+) +
+  geom_point(
+    alpha = 0.4
+  ) +
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    color = "red"
+  ) +
+  theme_minimal()
+```
+
+**Interpretación**
+
+Cuanto más cercanos se encuentren los puntos a la diagonal, mejor será el ajuste del modelo.
+
+## Exportación automática con Quarto
+
+Una ventaja fundamental de Quarto consiste en que el mismo código genera múltiples formatos de salida [@allaire2024].
+
+```yaml
+format:
+  html:
+    toc: true
+
+  pdf:
+    toc: true
+
+  docx:
+    toc: true
+```
+
+**Interpretación**
+
+Un único archivo fuente permite producir simultáneamente:
+
+* Artículos web.
+* Informes PDF.
+* Documentos Word.
+
+## Tablas compatibles con Word, PDF y HTML
+
+Para maximizar compatibilidad se recomienda:
+
+```r
+kable()
+```
+
+o
+
+```r
+modelsummary()
+```
+
+Estas herramientas generan resultados estables en todos los formatos de salida.
+
+## Buenas prácticas de reporte reproducible
+
+### Recomendaciones
+
+1. No copiar tablas manualmente.
+2. Generar todas las tablas desde código.
+3. Utilizar etiquetas consistentes.
+4. Documentar cada modelo.
+5. Mantener interpretaciones junto a resultados.
+6. Evitar editar resultados fuera de Quarto.
+7. Utilizar un único flujo reproducible.
+
+## Flujo recomendado
+
+```text
+Datos
+
+↓
+
+Modelo
+
+↓
+
+Tabla
+
+↓
+
+Figura
+
+↓
+
+Interpretación
+
+↓
+
+Documento final
+```
+
+## Manos a la obra
+
+1. Ajuste un modelo lineal.
+2. Genere una tabla con modelsummary.
+3. Compare tres especificaciones alternativas.
+4. Construya un gráfico de coeficientes.
+5. Genere predicciones.
+6. Compare valores observados y predichos.
+7. Renderice el documento en HTML.
+8. Renderice el documento en PDF.
+9. Renderice el documento en Word.
+10. Verifique que los resultados sean idénticos en todos los formatos.
+
+## Resumen del capítulo
+
+En este capítulo aprendimos a transformar resultados estadísticos en productos científicos reproducibles utilizando Quarto. Se mostraron estrategias para construir tablas profesionales, comparar modelos, visualizar coeficientes y exportar resultados a múltiples formatos de salida. Estas herramientas constituyen la base para la elaboración de artículos científicos, tesis e informes técnicos reproducibles.

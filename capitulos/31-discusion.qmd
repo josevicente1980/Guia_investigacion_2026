@@ -1,0 +1,315 @@
+# Discusión
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender la función de la discusión dentro de un documento científico.
+* Diferenciar resultados y discusión.
+* Interpretar hallazgos a la luz de la literatura científica.
+* Identificar implicaciones teóricas y prácticas.
+* Redactar una discusión reproducible y argumentativamente sólida.
+
+## Introducción
+
+La discusión constituye el espacio donde el investigador interpreta los resultados obtenidos y los relaciona con el conocimiento existente.
+
+Mientras la sección de resultados responde a la pregunta "¿qué encontramos?", la discusión responde a la pregunta "¿qué significan estos hallazgos?" [@apa2020].
+
+Una buena discusión conecta los resultados con la teoría, la evidencia previa y las implicaciones derivadas del estudio [@belcher2019].
+
+## Configuración inicial
+
+### Carga de librerías
+
+```{r}
+#| label: reg31-cargar-librerias
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(gapminder)
+library(knitr)
+library(broom)
+```
+
+### Carga de datos
+
+```{r}
+#| label: reg31-cargar-datos
+
+data(
+  "gapminder",
+  package = "gapminder"
+)
+
+datos_discusion <- gapminder
+```
+
+## Recuperando resultados para discutir
+
+La discusión siempre debe construirse a partir de resultados previamente obtenidos.
+
+```{r}
+#| label: reg31-modelo-base
+
+modelo_discusion <- lm(
+  lifeExp ~ log(gdpPercap),
+  data = datos_discusion
+)
+```
+
+```{r}
+#| label: tbl-reg31-coeficientes
+
+broom::tidy(
+  modelo_discusion
+) |>
+  kable(
+    digits = 4,
+    caption = "Resultados utilizados para la discusión"
+  )
+```
+
+**Interpretación**
+
+Los coeficientes constituyen la evidencia empírica que servirá de base para la construcción de la discusión.
+
+## Del resultado a la interpretación
+
+### Resultado
+
+> El coeficiente asociado al PIB per cápita es positivo y estadísticamente significativo.
+
+### Discusión
+
+> Este resultado sugiere que mayores niveles de ingreso se encuentran asociados con una mayor esperanza de vida. El hallazgo coincide con investigaciones previas que identifican al desarrollo económico como un determinante importante del bienestar poblacional [@deaton2013].
+
+**Interpretación**
+
+La discusión no repite números. Explica el significado de los hallazgos.
+
+## Comparación con estudios previos
+
+Una función central de la discusión consiste en contrastar los resultados con la literatura existente.
+
+```{r}
+#| label: tbl-reg31-comparacion
+
+tibble(
+  Aspecto = c(
+    "Resultado propio",
+    "Literatura previa",
+    "Coincidencia"
+  ),
+  Descripcion = c(
+    "Relación positiva",
+    "Relación positiva",
+    "Sí"
+  )
+) |>
+  kable(
+    caption = "Comparación conceptual con estudios previos"
+  )
+```
+
+**Interpretación**
+
+La discusión debe indicar si los resultados respaldan, amplían o contradicen investigaciones anteriores.
+
+## Identificación de aportes
+
+Después de comparar resultados, debe explicarse la contribución específica del estudio.
+
+```{r}
+#| label: tbl-reg31-aportes
+
+tibble(
+  Tipo = c(
+    "Empírico",
+    "Metodológico",
+    "Aplicado"
+  ),
+  Descripcion = c(
+    "Genera evidencia",
+    "Aplica técnicas reproducibles",
+    "Apoya decisiones"
+  )
+) |>
+  kable(
+    caption = "Tipos de contribución científica"
+  )
+```
+
+**Interpretación**
+
+Todo estudio debe explicar explícitamente cuál es su aporte al conocimiento existente.
+
+## Implicaciones prácticas
+
+La discusión también debe identificar posibles aplicaciones de los resultados.
+
+```{r}
+#| label: tbl-reg31-implicaciones
+
+tibble(
+  Hallazgo = c(
+    "Mayor ingreso",
+    "Mayor esperanza de vida"
+  ),
+  Implicacion = c(
+    "Promoción del crecimiento económico",
+    "Mejora del bienestar"
+  )
+) |>
+  kable(
+    caption = "Ejemplo de implicaciones prácticas"
+  )
+```
+
+**Interpretación**
+
+Las implicaciones ayudan a conectar la investigación con la toma de decisiones.
+
+## Limitaciones del estudio
+
+Toda discusión debe reconocer las limitaciones existentes.
+
+```{r}
+#| label: tbl-reg31-limitaciones
+
+tibble(
+  Limitacion = c(
+    "Variables omitidas",
+    "Datos observacionales",
+    "Cobertura temporal"
+  )
+) |>
+  kable(
+    caption = "Limitaciones potenciales"
+  )
+```
+
+**Interpretación**
+
+Reconocer limitaciones fortalece la credibilidad del trabajo científico.
+
+## Propuestas para futuras investigaciones
+
+Las limitaciones identificadas suelen convertirse en oportunidades para nuevas investigaciones.
+
+```{r}
+#| label: tbl-reg31-futuras-lineas
+
+tibble(
+  Propuesta = c(
+    "Nuevas variables",
+    "Datos longitudinales",
+    "Modelos alternativos"
+  )
+) |>
+  kable(
+    caption = "Líneas futuras de investigación"
+  )
+```
+
+**Interpretación**
+
+Las investigaciones científicas generan nuevas preguntas además de responder las existentes.
+
+## Estructura recomendada para la discusión
+
+```text
+Resultado principal
+
+↓
+
+Interpretación
+
+↓
+
+Comparación con literatura
+
+↓
+
+Aporte del estudio
+
+↓
+
+Implicaciones
+
+↓
+
+Limitaciones
+
+↓
+
+Investigaciones futuras
+```
+
+## Ejemplo de redacción adecuada
+
+> Los resultados obtenidos evidencian una asociación positiva entre ingreso y esperanza de vida. Este hallazgo coincide con estudios previos que destacan el papel del desarrollo económico en la mejora de las condiciones de bienestar [@deaton2013]. La evidencia presentada amplía la comprensión de esta relación utilizando procedimientos completamente reproducibles. Desde una perspectiva aplicada, los resultados sugieren que políticas orientadas al crecimiento económico podrían contribuir indirectamente a mejorar indicadores de salud poblacional. No obstante, deben considerarse limitaciones relacionadas con la disponibilidad de variables adicionales y la naturaleza observacional de los datos utilizados.
+
+## Errores frecuentes
+
+### Incorrecto
+
+> El coeficiente fue 3.25 y el valor p fue menor que 0.05.
+
+Esto pertenece a resultados.
+
+### Correcto
+
+> La evidencia respalda la existencia de una asociación positiva entre las variables analizadas.
+
+Esto corresponde a discusión.
+
+## Lista de verificación
+
+```{r}
+#| label: tbl-reg31-checklist
+
+tibble(
+  Elemento = c(
+    "Interpretación",
+    "Literatura",
+    "Aportes",
+    "Implicaciones",
+    "Limitaciones",
+    "Investigación futura"
+  ),
+  Verificado = c(
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí"
+  )
+) |>
+  kable(
+    caption = "Lista de verificación de la discusión"
+  )
+```
+
+**Interpretación**
+
+Antes de finalizar un manuscrito es recomendable verificar que todos los componentes fundamentales de la discusión estén presentes.
+
+## Manos a la obra
+
+1. Identifique el hallazgo principal.
+2. Interprete su significado.
+3. Compare el resultado con la literatura.
+4. Explique la contribución del estudio.
+5. Analice implicaciones prácticas.
+6. Reconozca limitaciones.
+7. Proponga investigaciones futuras.
+8. Evite repetir tablas y coeficientes.
+9. Mantenga coherencia con los objetivos.
+10. Revise la lógica argumentativa.
+
+## Resumen del capítulo
+
+En este capítulo se estudió la función de la discusión dentro de un documento científico. Se mostró cómo interpretar resultados, compararlos con la literatura existente, identificar aportes, reconocer limitaciones y proponer futuras líneas de investigación. Una discusión sólida transforma resultados estadísticos en conocimiento científico útil y contextualizado.

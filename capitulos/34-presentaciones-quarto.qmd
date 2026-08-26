@@ -1,0 +1,364 @@
+# Presentaciones con Quarto
+
+## Objetivos de aprendizaje
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Crear presentaciones reproducibles con Quarto.
+* Generar diapositivas HTML mediante RevealJS.
+* Integrar tablas, figuras y resultados automáticamente.
+* Personalizar temas y diseños visuales.
+* Comunicar resultados científicos de forma profesional.
+
+## Introducción
+
+Las presentaciones constituyen uno de los mecanismos más utilizados para comunicar resultados académicos, científicos y profesionales.
+
+Tradicionalmente los resultados obtenidos en R se copian manualmente hacia PowerPoint, generando problemas de reproducibilidad, errores de actualización y duplicación de trabajo.
+
+Quarto permite generar presentaciones completamente reproducibles utilizando una única fuente de información, donde tablas, gráficos y resultados se actualizan automáticamente cada vez que cambian los datos o el análisis [@allaire2024].
+
+## Configuración inicial
+
+### Carga de librerías y datos
+
+```{r}
+#| label: reg34-cargar-librerias-datos
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(gapminder)
+library(knitr)
+
+data(
+  "gapminder",
+  package = "gapminder"
+)
+
+datos_presentacion <- gapminder
+```
+
+## ¿Qué es una presentación Quarto?
+
+Una presentación Quarto es un documento reproducible que combina texto, código, tablas, figuras y resultados en un conjunto de diapositivas HTML.
+
+La tecnología más utilizada para este propósito es RevealJS [@allaire2024].
+
+### Estructura mínima
+
+```
+---
+title: "Mi presentación"
+format: revealjs
+---
+
+# Primera diapositiva
+
+Contenido
+
+# Segunda diapositiva
+
+Contenido
+```
+
+## Creación de una presentación básica
+
+### Archivo YAML
+
+```yaml
+---
+title: "Análisis Exploratorio"
+author: "José Vicente Ordóñez"
+format:
+  revealjs:
+    theme: simple
+---
+```
+
+La opción `revealjs` indica que Quarto debe generar una presentación HTML.
+
+## Generación automática de diapositivas
+
+Cada encabezado de primer nivel crea una nueva diapositiva.
+
+### Ejemplo
+
+```markdown
+# Introducción
+
+Texto.
+
+# Objetivos
+
+Texto.
+
+# Resultados
+
+Texto.
+```
+
+## Incorporación de tablas reproducibles
+
+Las tablas se generan automáticamente a partir de los datos.
+
+```{r}
+#| label: tbl-reg34-indicadores
+#| tbl-cap: "Indicadores generales"
+
+datos_presentacion |>
+  summarise(
+    Esperanza_vida = mean(lifeExp),
+    PIB_per_capita = mean(gdpPercap)
+  ) |>
+  kable(
+    digits = 2
+  )
+```
+
+### Interpretación
+
+La tabla se actualizará automáticamente cuando cambien los datos utilizados.
+
+### Conclusión práctica
+
+No es necesario copiar tablas manualmente a PowerPoint.
+
+## Incorporación de gráficos reproducibles
+
+```{r}
+#| label: fig-reg34-dispersion
+#| fig-cap: "Ingreso y esperanza de vida"
+
+ggplot(
+  datos_presentacion,
+  aes(
+    x = gdpPercap,
+    y = lifeExp
+  )
+) +
+  geom_point(
+    alpha = 0.5
+  ) +
+  scale_x_log10() +
+  theme_minimal()
+```
+
+### Interpretación
+
+La figura se genera automáticamente utilizando los datos originales.
+
+### Conclusión práctica
+
+Los gráficos siempre estarán sincronizados con el análisis.
+
+## Selección de temas visuales
+
+RevealJS incorpora varios temas prediseñados.
+
+### Configuración
+
+```yaml
+format:
+  revealjs:
+    theme: moon
+```
+
+Temas disponibles:
+
+* simple
+* moon
+* night
+* league
+* serif
+* solarized
+
+## Numeración automática
+
+```yaml
+format:
+  revealjs:
+    slide-number: true
+```
+
+### Interpretación
+
+Facilita la navegación durante exposiciones extensas.
+
+## Tabla de contenidos
+
+```yaml
+format:
+  revealjs:
+    toc: true
+```
+
+### Interpretación
+
+Permite acceder rápidamente a cualquier sección de la presentación.
+
+## Transiciones
+
+```yaml
+format:
+  revealjs:
+    transition: fade
+```
+
+Opciones disponibles:
+
+* fade
+* slide
+* zoom
+* convex
+* concave
+
+## Diseño en columnas
+
+```markdown
+:::: {.columns}
+
+::: {.column width="50%"}
+
+Texto
+
+:::
+
+::: {.column width="50%"}
+
+Gráfico
+
+:::
+
+:::
+```
+
+### Interpretación
+
+Permite combinar explicaciones y visualizaciones en una misma diapositiva.
+
+## Estructura recomendada para una presentación científica
+
+```text
+Portada
+
+↓
+
+Problema
+
+↓
+
+Objetivos
+
+↓
+
+Metodología
+
+↓
+
+Resultados
+
+↓
+
+Discusión
+
+↓
+
+Conclusiones
+
+↓
+
+Preguntas
+```
+
+## Comparación entre PowerPoint y Quarto
+
+```{r}
+#| label: tbl-reg34-comparacion
+#| tbl-cap: "PowerPoint versus Quarto"
+
+tibble(
+  Caracteristica = c(
+    "Reproducibilidad",
+    "Automatización",
+    "Actualización automática",
+    "Integración con R"
+  ),
+  PowerPoint = c(
+    "Limitada",
+    "No",
+    "No",
+    "Parcial"
+  ),
+  Quarto = c(
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí"
+  )
+) |>
+  kable()
+```
+
+### Interpretación
+
+Quarto permite mantener coherencia entre análisis, resultados y presentación.
+
+## Renderización
+
+Desde la terminal:
+
+```bash
+quarto render presentacion.qmd
+```
+
+Desde R:
+
+```{r}
+#| eval: false
+quarto::quarto_render(
+  "presentacion.qmd"
+)
+```
+
+## Lista de verificación
+
+```{r}
+#| label: tbl-reg34-checklist
+#| tbl-cap: "Lista de verificación"
+
+tibble(
+  Elemento = c(
+    "YAML configurado",
+    "Tema seleccionado",
+    "Tablas reproducibles",
+    "Gráficos reproducibles",
+    "Numeración activada",
+    "Renderización exitosa"
+  ),
+  Estado = c(
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí"
+  )
+) |>
+  kable()
+```
+
+## Manos a la obra
+
+1. Cree un archivo `.qmd`.
+2. Configure RevealJS.
+3. Seleccione un tema.
+4. Inserte tablas reproducibles.
+5. Inserte gráficos reproducibles.
+6. Active numeración.
+7. Renderice la presentación.
+8. Verifique el resultado final.
+
+## Resumen del capítulo
+
+En este capítulo se estudió la creación de presentaciones reproducibles con Quarto y RevealJS. Se mostró cómo integrar resultados, tablas y gráficos generados en R dentro de diapositivas HTML profesionales, manteniendo la coherencia y reproducibilidad del análisis.

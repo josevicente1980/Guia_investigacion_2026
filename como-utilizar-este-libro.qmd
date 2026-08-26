@@ -1,0 +1,21 @@
+# Cómo utilizar este libro
+
+Este libro ha sido diseñado para ser utilizado de manera progresiva. Cada capítulo incorpora nuevos conceptos, herramientas y procedimientos que se apoyan en los conocimientos desarrollados previamente.
+
+No es necesario poseer experiencia en programación, análisis estadístico o redacción científica avanzada para aprovechar su contenido. Las actividades han sido estructuradas para acompañar al lector desde los fundamentos de la investigación reproducible hasta la elaboración de productos científicos completos.
+
+La obra se encuentra organizada en ocho partes. Las primeras secciones presentan los fundamentos conceptuales de la investigación y la ciencia abierta. Posteriormente se abordan aspectos relacionados con la construcción del proyecto, la gestión bibliográfica y la preparación de datos. A continuación, se desarrollan técnicas de análisis descriptivo y modelación econométrica aplicadas a problemas reales de investigación. Finalmente, se presentan herramientas para la elaboración de informes, presentaciones y productos interactivos.
+
+Se recomienda al lector desarrollar los ejemplos utilizando su propio computador y replicar cada uno de los procedimientos descritos. La mejor forma de aprender investigación reproducible consiste en construir proyectos reales mientras se avanza en la lectura.
+
+A lo largo del libro se utilizarán las siguientes convenciones:
+
+* **Conceptos clave:** explicaciones teóricas fundamentales.
+* **Ejemplos:** aplicaciones prácticas desarrolladas paso a paso.
+* **Código:** fragmentos reproducibles que pueden ejecutarse directamente.
+* **Notas metodológicas:** recomendaciones para fortalecer la calidad de la investigación.
+* **Buenas prácticas:** sugerencias orientadas a la organización y reproducibilidad del trabajo científico.
+
+La lectura secuencial permitirá comprender la lógica completa del flujo de investigación. Sin embargo, los lectores con experiencia previa podrán consultar capítulos específicos según sus necesidades particulares.
+
+No es necesario completar todo el libro antes de comenzar un proyecto real. De hecho, se recomienda avanzar construyendo simultáneamente una investigación propia.

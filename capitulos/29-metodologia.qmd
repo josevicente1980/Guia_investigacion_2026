@@ -1,0 +1,309 @@
+# Metodología
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender la función de la metodología dentro de un documento científico.
+* Identificar los componentes esenciales de una sección metodológica.
+* Documentar fuentes de datos, variables y procedimientos analíticos.
+* Integrar código reproducible dentro de Quarto.
+* Redactar metodologías transparentes y replicables.
+
+## Introducción
+
+La metodología describe cómo se desarrolló la investigación. Su propósito es permitir que otros investigadores comprendan, evalúen y reproduzcan el proceso seguido para obtener los resultados [@creswell2018].
+
+Una metodología bien redactada debe responder tres preguntas fundamentales:
+
+```text
+¿Qué datos se utilizaron?
+
+¿Cómo fueron procesados?
+
+¿Qué procedimientos analíticos se aplicaron?
+```
+
+En investigación reproducible, estas respuestas deben estar respaldadas por código ejecutable y documentación transparente [@peng2011].
+
+## Configuración inicial
+
+### Carga de librerías
+
+```{r}
+#| label: reg29-cargar-librerias
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(gapminder)
+library(knitr)
+library(here)
+```
+
+### Carga de datos
+
+```{r}
+#| label: reg29-cargar-datos
+
+data(
+  "gapminder",
+  package = "gapminder"
+)
+
+datos_metodologia <- gapminder
+```
+
+## Descripción de la fuente de datos
+
+La primera sección metodológica debe identificar claramente la fuente de información utilizada.
+
+```{r}
+#| label: tbl-reg29-fuente-datos
+
+tibble(
+  Elemento = c(
+    "Base de datos",
+    "Observaciones",
+    "Variables"
+  ),
+  Valor = c(
+    "Gapminder",
+    nrow(datos_metodologia),
+    ncol(datos_metodologia)
+  )
+) |>
+  kable(
+    caption = "Descripción general de la base de datos"
+  )
+```
+
+**Interpretación**
+
+La metodología debe permitir al lector identificar exactamente qué información fue utilizada en el análisis.
+
+## Definición de variables
+
+Las variables principales deben documentarse explícitamente.
+
+```{r}
+#| label: tbl-reg29-variables
+
+tibble(
+  Variable = c(
+    "lifeExp",
+    "gdpPercap",
+    "pop"
+  ),
+  Descripcion = c(
+    "Esperanza de vida",
+    "PIB per cápita",
+    "Población"
+  )
+) |>
+  kable(
+    caption = "Variables utilizadas"
+  )
+```
+
+**Interpretación**
+
+La descripción de variables facilita la comprensión del análisis y mejora la transparencia metodológica.
+
+## Preparación de los datos
+
+Antes de cualquier análisis es necesario preparar la base de datos.
+
+```{r}
+#| label: reg29-transformacion
+
+datos_modelo <- datos_metodologia |>
+  mutate(
+    log_gdp = log(
+      gdpPercap
+    )
+  )
+```
+
+## Verificación de datos faltantes
+
+```{r}
+#| label: tbl-reg29-faltantes
+
+datos_modelo |>
+  summarise(
+    across(
+      everything(),
+      ~sum(is.na(.))
+    )
+  ) |>
+  pivot_longer(
+    everything(),
+    names_to = "Variable",
+    values_to = "Faltantes"
+  ) |>
+  kable(
+    caption = "Datos faltantes por variable"
+  )
+```
+
+**Interpretación**
+
+La metodología debe indicar explícitamente si existen observaciones faltantes y cómo fueron tratadas.
+
+## Diseño analítico
+
+Una metodología debe describir claramente la estrategia analítica.
+
+En este ejemplo se utilizará una regresión lineal para analizar la relación entre esperanza de vida y PIB per cápita.
+
+```{r}
+#| label: reg29-modelo
+
+modelo_metodologico <- lm(
+  lifeExp ~ log_gdp,
+  data = datos_modelo
+)
+```
+
+## Resumen del modelo
+
+```{r}
+#| label: tbl-reg29-modelo
+
+broom::tidy(
+  modelo_metodologico
+) |>
+  kable(
+    digits = 4,
+    caption = "Modelo utilizado en el análisis"
+  )
+```
+
+**Interpretación**
+
+La metodología debe documentar claramente qué procedimiento estadístico fue utilizado.
+
+## Representación gráfica del proceso metodológico
+
+```{r}
+#| label: fig-reg29-flujo-metodologico
+#| fig-cap: "Flujo metodológico"
+
+flujo <- tibble(
+  Paso = factor(
+    c(
+      "Datos",
+      "Limpieza",
+      "Transformación",
+      "Modelo",
+      "Resultados"
+    ),
+    levels = c(
+      "Datos",
+      "Limpieza",
+      "Transformación",
+      "Modelo",
+      "Resultados"
+    )
+  ),
+  Orden = 1:5
+)
+
+ggplot(
+  flujo,
+  aes(
+    x = Orden,
+    y = 1
+  )
+) +
+  geom_point(
+    size = 6
+  ) +
+  geom_line() +
+  geom_text(
+    aes(
+      label = Paso
+    ),
+    vjust = -1
+  ) +
+  theme_void()
+```
+
+**Interpretación**
+
+El flujo metodológico resume las etapas principales desarrolladas durante la investigación.
+
+## Redacción reproducible de la metodología
+
+Un ejemplo de redacción metodológica podría ser:
+
+> Se utilizó la base de datos Gapminder, que contiene información socioeconómica de múltiples países. Los datos fueron procesados mediante R y Quarto. Posteriormente se aplicó una transformación logarítmica al PIB per cápita y se estimó un modelo de regresión lineal para analizar su relación con la esperanza de vida.
+
+## Buenas prácticas
+
+### Recomendaciones
+
+* Describir claramente la fuente de datos.
+* Documentar las transformaciones realizadas.
+* Especificar software y versiones utilizadas.
+* Definir todas las variables relevantes.
+* Presentar el procedimiento analítico completo.
+
+### Errores frecuentes
+
+* Omitir la fuente de información.
+* No documentar transformaciones.
+* Describir procedimientos de forma ambigua.
+* No reportar criterios de selección de datos.
+* Presentar resultados dentro de la metodología.
+
+## Lista de verificación
+
+```{r}
+#| label: tbl-reg29-checklist
+
+tibble(
+  Elemento = c(
+    "Fuente de datos",
+    "Variables",
+    "Transformaciones",
+    "Modelo",
+    "Software",
+    "Reproducibilidad"
+  ),
+  Verificado = c(
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí"
+  )
+) |>
+  kable(
+    caption = "Lista de verificación metodológica"
+  )
+```
+
+**Interpretación**
+
+Antes de finalizar un documento científico conviene verificar que todos los componentes metodológicos estén documentados.
+
+## Manos a la obra
+
+1. Identifique la fuente de datos.
+2. Describa la unidad de análisis.
+3. Defina las variables principales.
+4. Documente las transformaciones realizadas.
+5. Revise la existencia de datos faltantes.
+6. Justifique la técnica analítica utilizada.
+7. Presente el flujo metodológico.
+8. Redacte la metodología en lenguaje académico.
+9. Integre código reproducible.
+10. Renderice el documento en Quarto.
+
+## Resumen del capítulo
+
+En este capítulo se presentó la estructura fundamental de una metodología reproducible. Se mostró cómo documentar datos, variables, transformaciones y procedimientos analíticos utilizando Quarto. Una metodología correctamente redactada permite que los resultados sean transparentes, verificables y replicables por otros investigadores.
+

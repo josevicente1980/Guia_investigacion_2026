@@ -1,0 +1,296 @@
+# Conclusiones y Recomendaciones
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender la función de las conclusiones dentro de un documento científico.
+* Diferenciar conclusiones, discusión y recomendaciones.
+* Elaborar conclusiones alineadas con los objetivos de investigación.
+* Formular recomendaciones fundamentadas en evidencia.
+* Redactar conclusiones y recomendaciones reproducibles utilizando Quarto.
+
+## Introducción
+
+Las conclusiones representan el cierre formal de una investigación. Su función consiste en sintetizar los principales hallazgos y responder explícitamente a los objetivos planteados al inicio del estudio.
+
+Las recomendaciones, por su parte, proponen acciones derivadas de la evidencia obtenida y pueden dirigirse a tomadores de decisiones, organizaciones, investigadores o responsables de políticas públicas [@apa2020].
+
+Una buena conclusión no introduce resultados nuevos. Su propósito es integrar y sintetizar el conocimiento generado.
+
+## Configuración inicial
+
+### Carga de librerías
+
+```{r}
+#| label: reg32-cargar-librerias
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(gapminder)
+library(knitr)
+library(broom)
+```
+
+### Carga de datos
+
+```{r}
+#| label: reg32-cargar-datos
+
+data(
+  "gapminder",
+  package = "gapminder"
+)
+
+datos_conclusiones <- gapminder
+```
+
+## Relación entre objetivos y conclusiones
+
+Las conclusiones deben responder directamente a los objetivos formulados en la investigación.
+
+```{r}
+#| label: tbl-reg32-objetivos-conclusiones
+
+tibble(
+  Objetivo = c(
+    "Analizar relación entre ingreso y esperanza de vida",
+    "Evaluar asociación estadística"
+  ),
+  Conclusion = c(
+    "Existe una asociación positiva",
+    "La relación es significativa"
+  )
+) |>
+  kable(
+    caption = "Relación entre objetivos y conclusiones"
+  )
+```
+
+**Interpretación**
+
+Cada conclusión debe corresponder claramente a uno o varios objetivos de investigación.
+
+## Recuperación de resultados principales
+
+Las conclusiones se construyen a partir de los hallazgos obtenidos.
+
+```{r}
+#| label: reg32-modelo-base
+
+modelo_conclusion <- lm(
+  lifeExp ~ log(gdpPercap),
+  data = datos_conclusiones
+)
+```
+
+```{r}
+#| label: tbl-reg32-coeficientes
+
+broom::tidy(
+  modelo_conclusion
+) |>
+  kable(
+    digits = 4,
+    caption = "Resultados utilizados para elaborar conclusiones"
+  )
+```
+
+**Interpretación**
+
+Los resultados constituyen la evidencia que sustenta las conclusiones del estudio.
+
+## De los resultados a las conclusiones
+
+### Resultado
+
+> Se encontró una relación positiva y significativa entre ingreso y esperanza de vida.
+
+### Conclusión
+
+> Los países con mayores niveles de ingreso tienden a presentar mayores niveles de esperanza de vida.
+
+**Interpretación**
+
+La conclusión sintetiza el hallazgo principal en lenguaje académico y comprensible.
+
+## Construcción de conclusiones
+
+Una conclusión efectiva suele contener tres elementos:
+
+```{r}
+#| label: tbl-reg32-componentes-conclusion
+
+tibble(
+  Componente = c(
+    "Hallazgo",
+    "Significado",
+    "Respuesta al objetivo"
+  )
+) |>
+  kable(
+    caption = "Componentes de una conclusión"
+  )
+```
+
+**Interpretación**
+
+Las conclusiones deben sintetizar evidencia y responder explícitamente a las preguntas de investigación.
+
+## Formulación de recomendaciones
+
+Las recomendaciones deben derivarse de los hallazgos obtenidos.
+
+```{r}
+#| label: tbl-reg32-recomendaciones
+
+tibble(
+  Hallazgo = c(
+    "Ingreso asociado a bienestar",
+    "Desigualdades entre países"
+  ),
+  Recomendacion = c(
+    "Promover crecimiento inclusivo",
+    "Fortalecer políticas sociales"
+  )
+) |>
+  kable(
+    caption = "Ejemplo de recomendaciones derivadas de resultados"
+  )
+```
+
+**Interpretación**
+
+Las recomendaciones deben estar sustentadas por evidencia y no por opiniones personales.
+
+## Tipos de recomendaciones
+
+```{r}
+#| label: tbl-reg32-tipos-recomendacion
+
+tibble(
+  Tipo = c(
+    "Política pública",
+    "Gestión organizacional",
+    "Investigación futura"
+  ),
+  Aplicacion = c(
+    "Gobiernos",
+    "Empresas",
+    "Academia"
+  )
+) |>
+  kable(
+    caption = "Tipos de recomendaciones"
+  )
+```
+
+**Interpretación**
+
+Las recomendaciones pueden dirigirse a distintos actores dependiendo del propósito del estudio.
+
+## Estructura recomendada
+
+```text
+Conclusión principal
+
+↓
+
+Conclusiones específicas
+
+↓
+
+Implicaciones
+
+↓
+
+Recomendaciones
+
+↓
+
+Investigaciones futuras
+```
+
+## Ejemplo de conclusión adecuada
+
+> Los resultados obtenidos permiten concluir que existe una relación positiva entre ingreso y esperanza de vida. La evidencia sugiere que los países con mayores niveles de desarrollo económico tienden a registrar mejores indicadores de bienestar. Estos hallazgos respaldan investigaciones previas y contribuyen a la comprensión de los determinantes socioeconómicos de la salud poblacional.
+
+## Ejemplo de recomendación adecuada
+
+> Se recomienda fortalecer políticas orientadas al crecimiento económico sostenible y a la reducción de desigualdades, considerando la relación observada entre ingreso y bienestar.
+
+## Errores frecuentes
+
+### Incorrecto
+
+> El coeficiente estimado fue 4.12 y el valor p fue menor a 0.05.
+
+Esto corresponde a resultados.
+
+### Correcto
+
+> La evidencia respalda una asociación positiva entre ingreso y esperanza de vida.
+
+Esto corresponde a una conclusión.
+
+### Incorrecto
+
+> Se recomienda invertir más porque creemos que es importante.
+
+La recomendación carece de evidencia.
+
+### Correcto
+
+> Se recomienda fortalecer estrategias de desarrollo económico debido a la asociación observada entre ingreso y bienestar.
+
+La recomendación está sustentada en resultados.
+
+## Lista de verificación
+
+```{r}
+#| label: tbl-reg32-checklist
+
+tibble(
+  Elemento = c(
+    "Responde objetivos",
+    "Sintetiza hallazgos",
+    "No repite resultados",
+    "Incluye recomendaciones",
+    "Tiene respaldo empírico",
+    "Mantiene coherencia"
+  ),
+  Verificado = c(
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí",
+    "Sí"
+  )
+) |>
+  kable(
+    caption = "Lista de verificación para conclusiones y recomendaciones"
+  )
+```
+
+**Interpretación**
+
+Antes de finalizar un documento científico es recomendable verificar que las conclusiones y recomendaciones mantengan coherencia con todo el proceso de investigación.
+
+## Manos a la obra
+
+1. Revise los objetivos de investigación.
+2. Identifique los hallazgos principales.
+3. Redacte una conclusión general.
+4. Elabore conclusiones específicas.
+5. Evite repetir tablas y coeficientes.
+6. Relacione las conclusiones con la evidencia.
+7. Formule recomendaciones fundamentadas.
+8. Proponga líneas futuras de investigación.
+9. Verifique coherencia interna.
+10. Renderice el documento en Quarto.
+
+## Resumen del capítulo
+
+En este capítulo se presentó la estructura de las conclusiones y recomendaciones dentro de un documento científico reproducible. Se mostró cómo sintetizar hallazgos, responder objetivos de investigación y formular recomendaciones basadas en evidencia. Una buena conclusión integra el conocimiento generado y orienta futuras acciones e investigaciones.

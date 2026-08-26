@@ -1,0 +1,240 @@
+# Introducción
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+* Comprender la función de la introducción dentro de un artículo científico.
+* Identificar los componentes esenciales de una introducción académica.
+* Construir una narrativa científica basada en evidencia.
+* Incorporar referencias bibliográficas mediante BibTeX y Quarto.
+* Redactar una introducción reproducible y coherente con los objetivos de investigación.
+
+## Introducción
+
+La introducción constituye una de las secciones más importantes de cualquier trabajo científico. Su propósito es explicar al lector qué problema será estudiado, por qué es relevante y cuál es la contribución esperada de la investigación [@swales2004].
+
+Una buena introducción debe conducir progresivamente desde el contexto general hacia el problema específico de investigación. El lector debe comprender claramente qué se conoce sobre el tema, qué vacíos existen en la literatura y cómo el estudio pretende contribuir a cerrar dichos vacíos [@creswell2018].
+
+## Configuración inicial
+
+### Carga de librerías
+
+```{r}
+#| label: reg28-cargar-librerias
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(knitr)
+library(bibliometrix)
+```
+
+## La estructura de una introducción científica
+
+Una introducción suele organizarse en cinco componentes fundamentales:
+
+1. Contexto general.
+2. Problema de investigación.
+3. Estado del arte.
+4. Vacío de conocimiento.
+5. Objetivo y contribución.
+
+La lógica puede representarse de la siguiente manera:
+
+```text
+Tema general
+
+↓
+
+Problema
+
+↓
+
+Literatura previa
+
+↓
+
+Vacío de investigación
+
+↓
+
+Objetivo del estudio
+```
+
+## Identificando los componentes de una introducción
+
+### Ejemplo estructurado
+
+```{r}
+#| label: tbl-reg28-estructura-introduccion
+
+estructura_introduccion <- tibble(
+  Componente = c(
+    "Contexto",
+    "Problema",
+    "Literatura",
+    "Vacío",
+    "Objetivo"
+  ),
+  Pregunta = c(
+    "¿De qué trata el tema?",
+    "¿Cuál es el problema?",
+    "¿Qué se sabe actualmente?",
+    "¿Qué falta conocer?",
+    "¿Qué hará este estudio?"
+  )
+)
+
+kable(
+  estructura_introduccion,
+  caption = "Componentes de una introducción científica"
+)
+```
+
+**Interpretación**
+
+La introducción debe responder progresivamente estas cinco preguntas para construir una narrativa lógica y convincente.
+
+## Construcción del contexto
+
+El contexto permite ubicar al lector dentro del fenómeno estudiado.
+
+Ejemplo:
+
+> La transformación digital ha modificado profundamente los procesos productivos, educativos y organizacionales durante las últimas décadas.
+
+El contexto debe ser amplio pero directamente relacionado con el problema investigado.
+
+## Formulación del problema
+
+Una vez presentado el contexto, debe explicarse la situación específica que motiva la investigación.
+
+Ejemplo:
+
+> A pesar del crecimiento de la digitalización, persisten diferencias significativas en la adopción tecnológica entre organizaciones de distintos tamaños.
+
+**Interpretación**
+
+El problema constituye el puente entre el contexto general y la pregunta de investigación.
+
+## Incorporación de literatura científica
+
+Quarto permite integrar citas bibliográficas de manera reproducible.
+
+Ejemplo:
+
+```text
+La adopción tecnológica se ha convertido en un factor clave para mejorar la productividad empresarial [@brynjolfsson2014].
+```
+
+Al renderizar el documento, Quarto genera automáticamente la referencia correspondiente.
+
+## Ejemplo de citas múltiples
+
+```text
+Diversos estudios han documentado los efectos de la innovación sobre el crecimiento económico [@acemoglu2012; @brynjolfsson2014].
+```
+
+**Interpretación**
+
+Las citas deben respaldar afirmaciones empíricas y conceptuales realizadas en la introducción.
+
+## Identificación del vacío de investigación
+
+Una introducción científica no debe limitarse a resumir literatura existente.
+
+Debe identificar claramente qué aspecto permanece insuficientemente estudiado.
+
+Ejemplo:
+
+> Aunque existe abundante evidencia sobre transformación digital en economías desarrolladas, los estudios aplicados al contexto latinoamericano continúan siendo limitados.
+
+## Formulación del objetivo
+
+El objetivo debe derivarse naturalmente del vacío identificado.
+
+Ejemplo:
+
+> El objetivo de este estudio es analizar la relación entre adopción tecnológica y productividad empresarial utilizando información de empresas latinoamericanas.
+
+## Evaluación de coherencia
+
+La coherencia entre problema, vacío y objetivo puede verificarse mediante una matriz simple.
+
+```{r}
+#| label: tbl-reg28-coherencia
+
+coherencia <- tibble(
+  Elemento = c(
+    "Problema",
+    "Vacío",
+    "Objetivo"
+  ),
+  Función = c(
+    "Describe la situación",
+    "Identifica lo desconocido",
+    "Define la contribución"
+  )
+)
+
+kable(
+  coherencia,
+  caption = "Coherencia interna de la introducción"
+)
+```
+
+**Interpretación**
+
+Cuando estos tres elementos están alineados, la introducción adquiere mayor claridad y consistencia argumentativa.
+
+## Plantilla básica para redactar una introducción
+
+```text
+1. Presentar el contexto general.
+
+2. Describir el problema específico.
+
+3. Revisar evidencia relevante.
+
+4. Identificar el vacío existente.
+
+5. Formular el objetivo del estudio.
+
+6. Resumir la contribución esperada.
+```
+
+## Buenas prácticas
+
+### Recomendaciones
+
+* Utilizar literatura reciente.
+* Priorizar artículos científicos revisados por pares.
+* Evitar afirmaciones sin evidencia.
+* Mantener coherencia argumentativa.
+* Conectar explícitamente problema y objetivo.
+
+### Errores frecuentes
+
+* Introducciones excesivamente largas.
+* Ausencia de un problema claro.
+* Falta de referencias académicas.
+* Objetivos desconectados del problema.
+* Revisiones bibliográficas descriptivas sin análisis crítico.
+
+## Manos a la obra
+
+1. Defina el tema general de investigación.
+2. Describa el problema específico.
+3. Identifique cinco artículos relevantes.
+4. Resuma los principales hallazgos.
+5. Determine qué vacíos persisten.
+6. Formule el objetivo del estudio.
+7. Redacte una contribución potencial.
+8. Verifique la coherencia entre todos los elementos.
+9. Incorpore las citas mediante BibTeX.
+10. Renderice el documento en Quarto.
+
+## Resumen del capítulo
+
+En este capítulo se estudiaron los componentes fundamentales de una introducción científica. Se mostró cómo construir una narrativa académica basada en contexto, problema, literatura, vacío de investigación y objetivo. Además, se presentó el uso de citas reproducibles mediante Quarto y BibTeX, elementos esenciales para la elaboración de artículos científicos modernos.

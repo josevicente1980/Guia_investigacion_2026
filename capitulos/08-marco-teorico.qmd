@@ -1,0 +1,275 @@
+# Construcción del marco teórico
+
+## Objetivos de aprendizaje {.unnumbered}
+
+Al finalizar este capítulo, el lector será capaz de:
+
+- Comprender la función del marco teórico dentro de una investigación científica.
+- Diferenciar entre antecedentes, teoría, conceptos y evidencia empírica.
+- Identificar fuentes científicas relevantes para la construcción del marco teórico.
+- Organizar la literatura científica de manera lógica y coherente.
+- Elaborar un marco teórico alineado con el problema, la pregunta y los objetivos de investigación.
+
+## Introducción
+
+Toda investigación científica se desarrolla sobre una base de conocimiento previamente construida. Ningún estudio surge en el vacío. Cada problema de investigación se encuentra relacionado con teorías, conceptos, resultados empíricos y debates científicos acumulados a lo largo del tiempo.
+
+Por esta razón, una de las etapas más importantes del proceso investigativo consiste en identificar, analizar y organizar la literatura científica existente sobre el fenómeno estudiado [@booth2016].
+
+El marco teórico cumple precisamente esta función. Su propósito es proporcionar los fundamentos conceptuales y empíricos que justifican la investigación y permiten interpretar adecuadamente sus resultados.
+
+## ¿Qué es el marco teórico?
+
+El marco teórico es la integración sistemática de teorías, conceptos, antecedentes y evidencias científicas relacionadas con el problema de investigación [@hernandezsampieri2018].
+
+Su función principal consiste en situar la investigación dentro del conocimiento existente y demostrar cómo el estudio contribuye a ampliar, contrastar o complementar dicho conocimiento.
+
+Un marco teórico bien construido permite responder preguntas como:
+
+- ¿Qué se conoce actualmente sobre el fenómeno?
+- ¿Qué teorías explican el problema estudiado?
+- ¿Qué resultados han encontrado investigaciones previas?
+- ¿Qué vacíos de conocimiento permanecen sin resolver?
+- ¿Cómo se relaciona la investigación con estudios anteriores?
+
+## ¿Por qué es importante el marco teórico?
+
+La construcción del marco teórico cumple múltiples funciones dentro de una investigación.
+
+Entre las más importantes destacan:
+
+- Fundamentar científicamente el problema de investigación.
+- Identificar teorías relevantes.
+- Evitar la duplicación innecesaria de estudios.
+- Justificar la importancia de la investigación.
+- Facilitar la formulación de hipótesis.
+- Orientar la selección de variables.
+- Proporcionar criterios para interpretar resultados [@creswell2018].
+
+Sin un marco teórico sólido resulta difícil demostrar la relevancia académica de una investigación.
+
+## Componentes del marco teórico
+
+Aunque la estructura puede variar según la disciplina, la mayoría de marcos teóricos incluyen los siguientes componentes.
+
+### Antecedentes de investigación
+
+Los antecedentes corresponden a investigaciones previas relacionadas con el problema estudiado.
+
+Su análisis permite identificar:
+
+- Resultados encontrados por otros investigadores.
+- Métodos utilizados.
+- Variables consideradas.
+- Limitaciones existentes.
+- Oportunidades de investigación futuras.
+
+Por ejemplo, si se investiga la supervivencia empresarial, resulta indispensable revisar estudios previos sobre emprendimiento, fracaso empresarial y desempeño financiero.
+
+### Bases teóricas
+
+Las bases teóricas incluyen las teorías que explican el fenómeno estudiado.
+
+Las teorías cumplen un papel fundamental porque proporcionan explicaciones sistemáticas sobre las relaciones entre variables y fenómenos [@kerlinger2002].
+
+Por ejemplo:
+
+- Teoría del capital humano.
+- Teoría de recursos y capacidades.
+- Teoría institucional.
+- Teoría de la elección racional.
+- Teoría del comportamiento planificado.
+
+La selección dependerá del problema investigado.
+
+### Marco conceptual
+
+El marco conceptual define los principales conceptos utilizados en la investigación.
+
+Por ejemplo, en un estudio sobre pobreza podrían definirse conceptos como:
+
+- Pobreza monetaria.
+- Pobreza multidimensional.
+- Vulnerabilidad social.
+- Exclusión económica.
+
+Estas definiciones permiten asegurar que todos los lectores comprendan los términos utilizados de la misma manera.
+
+## La revisión de literatura científica
+
+La construcción del marco teórico requiere una búsqueda sistemática de literatura científica.
+
+Esta búsqueda debe realizarse utilizando fuentes académicas confiables y verificables [@booth2016].
+
+Entre las plataformas más utilizadas destacan:
+
+- Google Scholar.
+- Scopus.
+- Web of Science.
+- Scielo.
+- Redalyc.
+- Dialnet.
+
+La revisión de literatura no consiste únicamente en recopilar artículos. Su objetivo es analizar críticamente la evidencia disponible para identificar patrones, coincidencias, contradicciones y vacíos de conocimiento.
+
+## De la acumulación de citas a la construcción de argumentos
+
+Uno de los errores más frecuentes en estudiantes e investigadores noveles consiste en convertir el marco teórico en una colección de resúmenes de artículos.
+
+Por ejemplo:
+
+```{.text}
+Autor A encontró X.
+
+Autor B encontró Y.
+
+Autor C encontró Z.
+```
+
+Este enfoque genera textos fragmentados y poco analíticos.
+
+Un marco teórico debe construir argumentos científicos.
+
+Por ejemplo:
+
+```{.text}
+Diversos estudios sugieren que la disponibilidad de recursos financieros constituye un factor determinante para la supervivencia empresarial. Mientras algunos autores destacan la importancia de la liquidez, otros enfatizan el papel del acceso al crédito y la capacidad de inversión.
+```
+
+En este caso la literatura se integra para construir una explicación coherente.
+
+## El uso de literatura reciente
+
+La ciencia evoluciona constantemente. Por esta razón, se recomienda incorporar literatura reciente que refleje el estado actual del conocimiento.
+
+Aunque no existe una regla universal, muchas revistas científicas sugieren que una proporción importante de las referencias utilizadas provenga de los últimos cinco años [@creswell2018].
+
+No obstante, las obras clásicas continúan siendo indispensables cuando constituyen la base teórica del estudio.
+
+## Del problema al marco teórico
+
+La construcción del marco teórico debe mantener una relación directa con la pregunta de investigación.
+
+Por ejemplo:
+
+### Problema
+
+```{.text}
+Alta mortalidad de microempresas durante sus primeros años de operación.
+```
+
+### Pregunta
+
+```{.text}
+¿Qué factores financieros influyen en la supervivencia de las microempresas ecuatorianas?
+```
+
+### Marco teórico
+
+Posibles secciones:
+
+```{.text}
+1. Emprendimiento y supervivencia empresarial.
+2. Teoría de recursos y capacidades.
+3. Indicadores financieros y desempeño empresarial.
+4. Evidencia empírica sobre mortalidad empresarial.
+5. Estudios previos en América Latina.
+```
+
+Obsérvese que la estructura del marco teórico deriva directamente del problema planteado.
+
+## Organización del marco teórico
+
+Una estrategia útil consiste en avanzar desde lo general hacia lo específico.
+
+```{.text}
+Tema general
+      ↓
+Teorías principales
+      ↓
+Conceptos clave
+      ↓
+Evidencia empírica
+      ↓
+Vacíos de investigación
+      ↓
+Problema específico
+```
+
+Esta lógica facilita la comprensión del lector y fortalece la coherencia del documento.
+
+## Identificación de vacíos de investigación
+
+Uno de los principales objetivos de la revisión de literatura consiste en identificar vacíos de conocimiento.
+
+Los vacíos pueden surgir cuando:
+
+- Existen pocos estudios sobre un fenómeno.
+- Los resultados previos son contradictorios.
+- No existen investigaciones en determinados contextos geográficos.
+- Se han utilizado metodologías limitadas.
+- Han surgido nuevos fenómenos aún poco estudiados.
+
+Identificar estos vacíos permite justificar la necesidad de la investigación [@booth2016].
+
+## Marco teórico y construcción de hipótesis
+
+En investigaciones cuantitativas, las hipótesis suelen derivarse directamente del marco teórico.
+
+Por ejemplo:
+
+### Teoría
+
+```{.text}
+Las empresas con mayores recursos poseen ventajas competitivas sostenibles.
+```
+
+### Hipótesis
+
+```{.text}
+Las microempresas con mayores niveles de liquidez presentan una mayor probabilidad de supervivencia.
+```
+
+De esta manera, las hipótesis dejan de ser simples intuiciones y se convierten en proposiciones fundamentadas científicamente [@kerlinger2002].
+
+## Errores frecuentes en la elaboración del marco teórico
+
+Entre los errores más comunes destacan:
+
+- Limitarse a copiar definiciones.
+- Utilizar fuentes no científicas.
+- Elaborar resúmenes sin análisis crítico.
+- Incorporar información no relacionada con el problema.
+- Utilizar literatura desactualizada.
+- No establecer conexiones entre autores.
+- Confundir antecedentes con teoría.
+
+Evitar estos errores fortalece significativamente la calidad del trabajo académico.
+
+## Manos a la obra
+
+Utilizando la pregunta de investigación desarrollada en capítulos anteriores, complete el siguiente esquema:
+
+```{.text}
+Problema:
+
+Pregunta:
+
+Teoría principal:
+
+Conceptos clave:
+
+Antecedentes relevantes:
+
+Vacío de investigación identificado:
+```
+
+Posteriormente elabore un esquema preliminar de secciones para su futuro marco teórico.
+
+## Resumen del capítulo
+
+El marco teórico constituye el fundamento científico de toda investigación. Su construcción permite comprender el estado actual del conocimiento, identificar teorías relevantes, analizar evidencia empírica previa y detectar vacíos de investigación que justifican nuevos estudios.
+
+Un marco teórico sólido no se limita a recopilar información. Su propósito consiste en construir una explicación coherente que permita comprender el problema investigado y fundamentar las decisiones metodológicas adoptadas durante el estudio.
+
+En el siguiente capítulo aprenderemos a realizar búsquedas científicas sistemáticas y a gestionar referencias bibliográficas mediante BibTeX, construyendo así una biblioteca científica reproducible para nuestros proyectos de investigación.
