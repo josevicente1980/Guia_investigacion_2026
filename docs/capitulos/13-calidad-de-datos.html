@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>16&nbsp; Calidad de los datos – Investigación reproducible con R y Quarto</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../capitulos/14-estadistica-descriptiva.html" rel="next">
+<link href="../capitulos/12-transformacion-de-datos.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-12eeb4b20e9f5a2b0bfc604bfaf942bb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/10-importacion-de-datos.html">Parte IV. Gestión y preparación de datos con R</a></li><li class="breadcrumb-item"><a href="../capitulos/13-calidad-de-datos.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Calidad de los datos</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Investigación reproducible con R y Quarto</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Presentación</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prologo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prólogo</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../como-utilizar-este-libro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cómo utilizar este libro</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I. Fundamentos de la investigación reproducible</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/01-investigacion-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Investigación reproducible: construyendo confianza en la ciencia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/02-ciencia-abierta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La ciencia abierta como ecosistema de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/03-r-y-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R y Quarto: una plataforma integrada para la investigación reproducible</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II. Preparando el proyecto de investigación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/04-organizacion-del-proyecto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Organización del proyecto de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/05-primer-libro-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Construyendo nuestro primer libro en Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte III. Construcción de la investigación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/06-problema-de-investigacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Del problema de investigación a la pregunta de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/07-objetivos-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objetivos e hipótesis de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/08-marco-teorico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Construcción del marco teórico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/09-busqueda-cientifica-bibtex-apa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Búsqueda científica, BibTeX y gestión automatizada de referencias</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte IV. Gestión y preparación de datos con R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/10-importacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Importación de datos con R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/11-limpieza-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Limpieza de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/12-transformacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transformación de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/13-calidad-de-datos.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Calidad de los datos</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte V. Estadística descriptiva y visualización</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/14-estadistica-descriptiva.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Estadística descriptiva</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/15-tablas-descriptivas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Tablas descriptivas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/16-visualizacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Visualización de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/17-graficos-cientificos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Gráficos científicos</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VI. Modelación econométrica aplicada</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/18-del-analisis-descriptivo-a-la-modelacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Del análisis descriptivo a la modelación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/19-correlacion-asociacion-causalidad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Correlación, asociación y causalidad</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/20-regresion-lineal-simple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Regresión lineal simple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/21-regresion-lineal-multiple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Regresión lineal múltiple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/22-diagnostico-del-modelo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Diagnóstico del modelo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/23-variables-categoricas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Variables categóricas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/24-modelos-logit-probit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Modelos Logit y Probit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/25-datos-de-panel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Datos de panel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/26-modelos-espaciales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Modelos espaciales y extensiones modernas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/27-presentacion-modelos-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Presentación de modelos con Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VII. Redacción científica del informe</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/28-introduccion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/29-metodologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Metodología</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/30-resultados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Resultados</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/31-discusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Discusión</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/32-conclusiones-recomendaciones.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Conclusiones y Recomendaciones</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VIII. Difusión y comunicación científica</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/33-generacion-word-pdf-html.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Generación de documentos Word, PDF y HTML</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/34-presentaciones-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Presentaciones con Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/35-dashboard-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Dashboards con Shiny y Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bibliografia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Bibliografía</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#objetivos-de-aprendizaje" id="toc-objetivos-de-aprendizaje" class="nav-link active" data-scroll-target="#objetivos-de-aprendizaje">Objetivos de aprendizaje</a></li>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link" data-scroll-target="#introducción"><span class="header-section-number">16.1</span> Introducción</a></li>
+  <li><a href="#qué-entendemos-por-calidad-de-datos" id="toc-qué-entendemos-por-calidad-de-datos" class="nav-link" data-scroll-target="#qué-entendemos-por-calidad-de-datos"><span class="header-section-number">16.2</span> ¿Qué entendemos por calidad de datos?</a></li>
+  <li><a href="#calidad-de-datos-e-investigación-reproducible" id="toc-calidad-de-datos-e-investigación-reproducible" class="nav-link" data-scroll-target="#calidad-de-datos-e-investigación-reproducible"><span class="header-section-number">16.3</span> Calidad de datos e investigación reproducible</a></li>
+  <li><a href="#principales-dimensiones-de-calidad" id="toc-principales-dimensiones-de-calidad" class="nav-link" data-scroll-target="#principales-dimensiones-de-calidad"><span class="header-section-number">16.4</span> Principales dimensiones de calidad</a>
+  <ul class="collapse">
+  <li><a href="#completitud" id="toc-completitud" class="nav-link" data-scroll-target="#completitud"><span class="header-section-number">16.4.1</span> Completitud</a></li>
+  <li><a href="#unicidad" id="toc-unicidad" class="nav-link" data-scroll-target="#unicidad"><span class="header-section-number">16.4.2</span> Unicidad</a></li>
+  <li><a href="#consistencia" id="toc-consistencia" class="nav-link" data-scroll-target="#consistencia"><span class="header-section-number">16.4.3</span> Consistencia</a></li>
+  <li><a href="#validez" id="toc-validez" class="nav-link" data-scroll-target="#validez"><span class="header-section-number">16.4.4</span> Validez</a></li>
+  <li><a href="#exactitud" id="toc-exactitud" class="nav-link" data-scroll-target="#exactitud"><span class="header-section-number">16.4.5</span> Exactitud</a></li>
+  </ul></li>
+  <li><a href="#cargando-la-base-de-trabajo" id="toc-cargando-la-base-de-trabajo" class="nav-link" data-scroll-target="#cargando-la-base-de-trabajo"><span class="header-section-number">16.5</span> Cargando la base de trabajo</a></li>
+  <li><a href="#evaluación-inicial-de-la-base" id="toc-evaluación-inicial-de-la-base" class="nav-link" data-scroll-target="#evaluación-inicial-de-la-base"><span class="header-section-number">16.6</span> Evaluación inicial de la base</a></li>
+  <li><a href="#explorando-la-estructura-de-los-datos" id="toc-explorando-la-estructura-de-los-datos" class="nav-link" data-scroll-target="#explorando-la-estructura-de-los-datos"><span class="header-section-number">16.7</span> Explorando la estructura de los datos</a></li>
+  <li><a href="#perfil-general-de-calidad" id="toc-perfil-general-de-calidad" class="nav-link" data-scroll-target="#perfil-general-de-calidad"><span class="header-section-number">16.8</span> Perfil general de calidad</a></li>
+  <li><a href="#evaluando-la-unicidad-de-los-registros" id="toc-evaluando-la-unicidad-de-los-registros" class="nav-link" data-scroll-target="#evaluando-la-unicidad-de-los-registros"><span class="header-section-number">16.9</span> Evaluando la unicidad de los registros</a></li>
+  <li><a href="#frecuencia-de-registros-por-identificador" id="toc-frecuencia-de-registros-por-identificador" class="nav-link" data-scroll-target="#frecuencia-de-registros-por-identificador"><span class="header-section-number">16.10</span> Frecuencia de registros por identificador</a></li>
+  <li><a href="#interpretación-de-los-resultados" id="toc-interpretación-de-los-resultados" class="nav-link" data-scroll-target="#interpretación-de-los-resultados"><span class="header-section-number">16.11</span> Interpretación de los resultados</a></li>
+  <li><a href="#evaluando-la-completitud-de-los-datos" id="toc-evaluando-la-completitud-de-los-datos" class="nav-link" data-scroll-target="#evaluando-la-completitud-de-los-datos"><span class="header-section-number">16.12</span> Evaluando la completitud de los datos</a></li>
+  <li><a href="#cuantificando-valores-perdidos" id="toc-cuantificando-valores-perdidos" class="nav-link" data-scroll-target="#cuantificando-valores-perdidos"><span class="header-section-number">16.13</span> Cuantificando valores perdidos</a></li>
+  <li><a href="#porcentaje-de-valores-perdidos" id="toc-porcentaje-de-valores-perdidos" class="nav-link" data-scroll-target="#porcentaje-de-valores-perdidos"><span class="header-section-number">16.14</span> Porcentaje de valores perdidos</a></li>
+  <li><a href="#visualizando-la-completitud" id="toc-visualizando-la-completitud" class="nav-link" data-scroll-target="#visualizando-la-completitud"><span class="header-section-number">16.15</span> Visualizando la completitud</a></li>
+  <li><a href="#interpretando-los-valores-perdidos" id="toc-interpretando-los-valores-perdidos" class="nav-link" data-scroll-target="#interpretando-los-valores-perdidos"><span class="header-section-number">16.16</span> Interpretando los valores perdidos</a></li>
+  <li><a href="#evaluando-la-consistencia-de-los-datos" id="toc-evaluando-la-consistencia-de-los-datos" class="nav-link" data-scroll-target="#evaluando-la-consistencia-de-los-datos"><span class="header-section-number">16.17</span> Evaluando la consistencia de los datos</a></li>
+  <li><a href="#verificando-consistencia-de-superficies" id="toc-verificando-consistencia-de-superficies" class="nav-link" data-scroll-target="#verificando-consistencia-de-superficies"><span class="header-section-number">16.18</span> Verificando consistencia de superficies</a></li>
+  <li><a href="#verificando-porcentajes-inválidos" id="toc-verificando-porcentajes-inválidos" class="nav-link" data-scroll-target="#verificando-porcentajes-inválidos"><span class="header-section-number">16.19</span> Verificando porcentajes inválidos</a></li>
+  <li><a href="#distribución-de-la-superficie-total" id="toc-distribución-de-la-superficie-total" class="nav-link" data-scroll-target="#distribución-de-la-superficie-total"><span class="header-section-number">16.20</span> Distribución de la superficie total</a></li>
+  <li><a href="#evaluación-de-valores-extremos" id="toc-evaluación-de-valores-extremos" class="nav-link" data-scroll-target="#evaluación-de-valores-extremos"><span class="header-section-number">16.21</span> Evaluación de valores extremos</a></li>
+  <li><a href="#perfil-de-completitud-de-la-base" id="toc-perfil-de-completitud-de-la-base" class="nav-link" data-scroll-target="#perfil-de-completitud-de-la-base"><span class="header-section-number">16.22</span> Perfil de completitud de la base</a></li>
+  <li><a href="#interpretación-de-los-resultados-1" id="toc-interpretación-de-los-resultados-1" class="nav-link" data-scroll-target="#interpretación-de-los-resultados-1"><span class="header-section-number">16.23</span> Interpretación de los resultados</a></li>
+  <li><a href="#construcción-de-indicadores-integrales-de-calidad" id="toc-construcción-de-indicadores-integrales-de-calidad" class="nav-link" data-scroll-target="#construcción-de-indicadores-integrales-de-calidad"><span class="header-section-number">16.24</span> Construcción de indicadores integrales de calidad</a></li>
+  <li><a href="#resumen-general-de-calidad" id="toc-resumen-general-de-calidad" class="nav-link" data-scroll-target="#resumen-general-de-calidad"><span class="header-section-number">16.25</span> Resumen general de calidad</a></li>
+  <li><a href="#calidad-de-variables-clave" id="toc-calidad-de-variables-clave" class="nav-link" data-scroll-target="#calidad-de-variables-clave"><span class="header-section-number">16.26</span> Calidad de variables clave</a></li>
+  <li><a href="#detección-de-registros-incompletos" id="toc-detección-de-registros-incompletos" class="nav-link" data-scroll-target="#detección-de-registros-incompletos"><span class="header-section-number">16.27</span> Detección de registros incompletos</a></li>
+  <li><a href="#distribución-de-valores-faltantes-por-registro" id="toc-distribución-de-valores-faltantes-por-registro" class="nav-link" data-scroll-target="#distribución-de-valores-faltantes-por-registro"><span class="header-section-number">16.28</span> Distribución de valores faltantes por registro</a></li>
+  <li><a href="#evaluación-de-duplicados" id="toc-evaluación-de-duplicados" class="nav-link" data-scroll-target="#evaluación-de-duplicados"><span class="header-section-number">16.29</span> Evaluación de duplicados</a></li>
+  <li><a href="#verificación-de-identificadores-faltantes" id="toc-verificación-de-identificadores-faltantes" class="nav-link" data-scroll-target="#verificación-de-identificadores-faltantes"><span class="header-section-number">16.30</span> Verificación de identificadores faltantes</a></li>
+  <li><a href="#construcción-de-un-reporte-de-calidad-reproducible" id="toc-construcción-de-un-reporte-de-calidad-reproducible" class="nav-link" data-scroll-target="#construcción-de-un-reporte-de-calidad-reproducible"><span class="header-section-number">16.31</span> Construcción de un reporte de calidad reproducible</a></li>
+  <li><a href="#buenas-prácticas-para-garantizar-calidad-de-datos" id="toc-buenas-prácticas-para-garantizar-calidad-de-datos" class="nav-link" data-scroll-target="#buenas-prácticas-para-garantizar-calidad-de-datos"><span class="header-section-number">16.32</span> Buenas prácticas para garantizar calidad de datos</a></li>
+  <li><a href="#calidad-de-datos-y-toma-de-decisiones" id="toc-calidad-de-datos-y-toma-de-decisiones" class="nav-link" data-scroll-target="#calidad-de-datos-y-toma-de-decisiones"><span class="header-section-number">16.33</span> Calidad de datos y toma de decisiones</a></li>
+  <li><a href="#manos-a-la-obra" id="toc-manos-a-la-obra" class="nav-link" data-scroll-target="#manos-a-la-obra"><span class="header-section-number">16.34</span> Manos a la obra</a></li>
+  <li><a href="#resumen-del-capítulo" id="toc-resumen-del-capítulo" class="nav-link" data-scroll-target="#resumen-del-capítulo"><span class="header-section-number">16.35</span> Resumen del capítulo</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/10-importacion-de-datos.html">Parte IV. Gestión y preparación de datos con R</a></li><li class="breadcrumb-item"><a href="../capitulos/13-calidad-de-datos.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Calidad de los datos</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Calidad de los datos</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="objetivos-de-aprendizaje" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<p>Al finalizar este capítulo, el lector será capaz de:</p>
+<ul>
+<li>Comprender el concepto de calidad de datos dentro de la investigación reproducible.</li>
+<li>Identificar las principales dimensiones de calidad utilizadas en la literatura científica.</li>
+<li>Evaluar la completitud, unicidad y consistencia de una base de datos.</li>
+<li>Diagnosticar problemas potenciales de calidad utilizando R.</li>
+<li>Construir indicadores básicos de calidad para una operación estadística.</li>
+<li>Interpretar métricas de calidad utilizando información real de la ESPAC 2025.</li>
+</ul>
+</section>
+<section id="introducción" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">16.1</span> Introducción</h2>
+<p>Toda investigación científica depende de la calidad de los datos utilizados para producir evidencia. La calidad de los datos constituye uno de los pilares fundamentales de toda investigación reproducible. Un análisis estadístico sofisticado no puede compensar deficiencias importantes en la información de entrada. Por esta razón, la evaluación de la calidad de los datos constituye una etapa fundamental dentro del proceso de investigación reproducible <span class="citation" data-cites="wang1996 pipino2002">(<a href="../bibliografia.html#ref-pipino2002" role="doc-biblioref">Pipino et&nbsp;al., 2002</a>; <a href="../bibliografia.html#ref-wang1996" role="doc-biblioref">Wang &amp; Strong, 1996</a>)</span>.</p>
+<p>En términos generales, la calidad de los datos hace referencia al grado en que la información resulta adecuada para el propósito para el cual será utilizada. Un conjunto de datos puede ser técnicamente correcto y, sin embargo, no ser suficientemente completo, consistente o preciso para responder determinadas preguntas de investigación <span class="citation" data-cites="redman1998">(<a href="../bibliografia.html#ref-redman1998" role="doc-biblioref">Redman, 1998</a>)</span>.</p>
+<p>En la práctica, los investigadores deben evaluar sistemáticamente la calidad de sus datos antes de realizar análisis descriptivos, construir indicadores o estimar modelos estadísticos. Esta evaluación permite detectar problemas potenciales y documentar adecuadamente las limitaciones de la información disponible.</p>
+<p>En este capítulo utilizaremos nuevamente la base de datos de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC) 2025 para ilustrar procedimientos de evaluación de calidad de datos mediante R.</p>
+</section>
+<section id="qué-entendemos-por-calidad-de-datos" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="qué-entendemos-por-calidad-de-datos"><span class="header-section-number">16.2</span> ¿Qué entendemos por calidad de datos?</h2>
+<p>La literatura especializada reconoce que la calidad de los datos es un concepto multidimensional. No existe una única característica que determine si una base de datos es de alta o baja calidad. Más bien, diferentes dimensiones deben evaluarse conjuntamente para comprender las fortalezas y limitaciones de la información disponible <span class="citation" data-cites="wang1996">(<a href="../bibliografia.html#ref-wang1996" role="doc-biblioref">Wang &amp; Strong, 1996</a>)</span>.</p>
+<p>Desde una perspectiva aplicada, una base de datos de calidad debe:</p>
+<ul>
+<li>Contener información suficiente.</li>
+<li>Presentar registros coherentes.</li>
+<li>Mantener estructuras consistentes.</li>
+<li>Permitir la identificación adecuada de las unidades de análisis.</li>
+<li>Representar adecuadamente el fenómeno estudiado.</li>
+</ul>
+<p>La calidad de los datos no es una característica absoluta. Depende del contexto de uso y de los objetivos específicos de investigación <span class="citation" data-cites="pipino2002">(<a href="../bibliografia.html#ref-pipino2002" role="doc-biblioref">Pipino et&nbsp;al., 2002</a>)</span>.</p>
+</section>
+<section id="calidad-de-datos-e-investigación-reproducible" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="calidad-de-datos-e-investigación-reproducible"><span class="header-section-number">16.3</span> Calidad de datos e investigación reproducible</h2>
+<p>La investigación reproducible exige que los resultados puedan ser reconstruidos utilizando los mismos datos y procedimientos <span class="citation" data-cites="peng2011 gandrud2015">(<a href="../bibliografia.html#ref-gandrud2015" role="doc-biblioref">Gandrud, 2015</a>; <a href="../bibliografia.html#ref-peng2011" role="doc-biblioref">Peng, 2011</a>)</span>.</p>
+<p>Sin embargo, la reproducibilidad no garantiza por sí misma que los datos sean de alta calidad.</p>
+<p>Un estudio puede ser completamente reproducible y aun así presentar problemas derivados de:</p>
+<ul>
+<li>Valores perdidos.</li>
+<li>Registros duplicados.</li>
+<li>Errores de codificación.</li>
+<li>Inconsistencias lógicas.</li>
+<li>Datos incompletos.</li>
+</ul>
+<p>Por esta razón, la evaluación de calidad constituye un complemento indispensable de la reproducibilidad científica.</p>
+</section>
+<section id="principales-dimensiones-de-calidad" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="principales-dimensiones-de-calidad"><span class="header-section-number">16.4</span> Principales dimensiones de calidad</h2>
+<p>Diversos autores han propuesto marcos conceptuales para evaluar la calidad de los datos <span class="citation" data-cites="wang1996 pipino2002 redman1998">(<a href="../bibliografia.html#ref-pipino2002" role="doc-biblioref">Pipino et&nbsp;al., 2002</a>; <a href="../bibliografia.html#ref-redman1998" role="doc-biblioref">Redman, 1998</a>; <a href="../bibliografia.html#ref-wang1996" role="doc-biblioref">Wang &amp; Strong, 1996</a>)</span>.</p>
+<p>En este libro trabajaremos con cinco dimensiones fundamentales:</p>
+<section id="completitud" class="level3" data-number="16.4.1">
+<h3 data-number="16.4.1" class="anchored" data-anchor-id="completitud"><span class="header-section-number">16.4.1</span> Completitud</h3>
+<p>La completitud evalúa la presencia de información necesaria para el análisis.</p>
+<p>Una variable presenta problemas de completitud cuando contiene una elevada proporción de valores faltantes.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>Ingreso mensual = NA
+Edad = NA
+Provincia = NA</code></pre>
+<p>Una base con numerosos valores faltantes puede limitar la capacidad analítica del investigador.</p>
+</section>
+<section id="unicidad" class="level3" data-number="16.4.2">
+<h3 data-number="16.4.2" class="anchored" data-anchor-id="unicidad"><span class="header-section-number">16.4.2</span> Unicidad</h3>
+<p>La unicidad hace referencia a la ausencia de registros duplicados.</p>
+<p>Idealmente, cada unidad de análisis debería estar representada una única vez dentro de una base de datos.</p>
+<p>La existencia de duplicados puede generar sesgos en estimaciones descriptivas y modelos estadísticos.</p>
+</section>
+<section id="consistencia" class="level3" data-number="16.4.3">
+<h3 data-number="16.4.3" class="anchored" data-anchor-id="consistencia"><span class="header-section-number">16.4.3</span> Consistencia</h3>
+<p>La consistencia evalúa si los datos respetan reglas lógicas y relaciones esperadas entre variables.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>Superficie de bosque &gt; Superficie total</code></pre>
+<p>Esta situación sería inconsistente desde un punto de vista lógico.</p>
+</section>
+<section id="validez" class="level3" data-number="16.4.4">
+<h3 data-number="16.4.4" class="anchored" data-anchor-id="validez"><span class="header-section-number">16.4.4</span> Validez</h3>
+<p>La validez verifica que los valores observados se encuentren dentro de rangos permitidos.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>Porcentaje de bosque = 150%</code></pre>
+<p>Este valor sería inválido porque supera el límite teórico de 100%.</p>
+</section>
+<section id="exactitud" class="level3" data-number="16.4.5">
+<h3 data-number="16.4.5" class="anchored" data-anchor-id="exactitud"><span class="header-section-number">16.4.5</span> Exactitud</h3>
+<p>La exactitud evalúa el grado en que los datos representan correctamente la realidad observada.</p>
+<p>Esta dimensión suele ser la más difícil de evaluar debido a que requiere contrastar la información con fuentes externas o procedimientos de validación independientes <span class="citation" data-cites="redman1998">(<a href="../bibliografia.html#ref-redman1998" role="doc-biblioref">Redman, 1998</a>)</span>.</p>
+</section>
+</section>
+<section id="cargando-la-base-de-trabajo" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="cargando-la-base-de-trabajo"><span class="header-section-number">16.5</span> Cargando la base de trabajo</h2>
+<p>Para evaluar la calidad de los datos utilizaremos la base transformada construida en el capítulo anterior.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>sunac <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"datos"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"procesado"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ESPAC_2025"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sunac_transformado.rds"</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="evaluación-inicial-de-la-base" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="evaluación-inicial-de-la-base"><span class="header-section-number">16.6</span> Evaluación inicial de la base</h2>
+<p>Antes de analizar dimensiones específicas de calidad es conveniente obtener una visión general de la información disponible.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Registros =</span> <span class="fu">nrow</span>(sunac),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variables =</span> <span class="fu">ncol</span>(sunac)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Dimensiones generales de la base analítica"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-dimensiones-base" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-dimensiones-base-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.1: Dimensiones generales de la base analítica
+</figcaption>
+<div aria-describedby="tbl-ch13-dimensiones-base-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Registros</th>
+<th style="text-align: right;">Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">84538</td>
+<td style="text-align: right;">10</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>La tabla presenta el número total de observaciones y variables disponibles para el análisis.</p>
+<p>Estos indicadores permiten verificar rápidamente que la base fue cargada correctamente y facilitan la documentación del proyecto.</p>
+</section>
+<section id="explorando-la-estructura-de-los-datos" class="level2" data-number="16.7">
+<h2 data-number="16.7" class="anchored" data-anchor-id="explorando-la-estructura-de-los-datos"><span class="header-section-number">16.7</span> Explorando la estructura de los datos</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(sunac)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 84,538
+Columns: 10
+$ Identificador      &lt;chr&gt; "01135101000330001", "01135101000330001", "01135101…
+$ provincia          &lt;fct&gt;  AZUAY,  AZUAY,  AZUAY,  AZUAY,  AZUAY,  AZUAY,  AZ…
+$ su_tenencia        &lt;fct&gt; DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, DU…
+$ tamano_upa         &lt;chr&gt; "Pequeña", "Micro", "Mediana", "Micro", "Pequeña", …
+$ grupo_tamano       &lt;chr&gt; "Pequeños productores", "Pequeños productores", "Me…
+$ tiene_bosque       &lt;chr&gt; "Sí", "Sí", "No", "No", "No", "Sí", "No", "Sí", "No…
+$ tiene_transitorios &lt;chr&gt; "No", "No", "No", "No", "No", "No", "No", "No", "No…
+$ pct_bosque         &lt;dbl&gt; 100, 100, NA, NA, NA, 100, NA, 100, NA, NA, NA, NA,…
+$ supertotal         &lt;dbl&gt; 2.7616, 0.7581, 5.1941, 0.2862, 2.5763, 0.8191, 3.3…
+$ fact_exp_fin       &lt;dbl&gt; 66.37009, 66.37009, 66.37009, 66.37009, 66.37009, 6…</code></pre>
+</div>
+</div>
+<p>La función <code>glimpse()</code> permite identificar:</p>
+<ul>
+<li>Variables disponibles.</li>
+<li>Tipos de datos.</li>
+<li>Variables categóricas.</li>
+<li>Variables numéricas.</li>
+<li>Variables derivadas construidas durante el proceso de transformación.</li>
+</ul>
+<p>Esta inspección inicial constituye una práctica recomendada antes de iniciar cualquier análisis formal <span class="citation" data-cites="wickham2014">(<a href="../bibliografia.html#ref-wickham2014" role="doc-biblioref">Wickham, 2014</a>)</span>.</p>
+</section>
+<section id="perfil-general-de-calidad" class="level2" data-number="16.8">
+<h2 data-number="16.8" class="anchored" data-anchor-id="perfil-general-de-calidad"><span class="header-section-number">16.8</span> Perfil general de calidad</h2>
+<p>Podemos construir un primer resumen de calidad.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>perfil_calidad <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">registros =</span> <span class="fu">nrow</span>(sunac),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">ncol</span>(sunac),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">identificadores_unicos =</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>(<span class="fu">unique</span>(sunac<span class="sc">$</span>Identificador))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>perfil_calidad <span class="sc">|&gt;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Perfil general de calidad de la base"</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-perfil-general" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-perfil-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.2: Perfil general de calidad de la base
+</figcaption>
+<div aria-describedby="tbl-ch13-perfil-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">registros</th>
+<th style="text-align: right;">variables</th>
+<th style="text-align: right;">identificadores_unicos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">84538</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">38228</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>La tabla resume algunos indicadores básicos que permiten comprender la estructura general de la información disponible.</p>
+</section>
+<section id="evaluando-la-unicidad-de-los-registros" class="level2" data-number="16.9">
+<h2 data-number="16.9" class="anchored" data-anchor-id="evaluando-la-unicidad-de-los-registros"><span class="header-section-number">16.9</span> Evaluando la unicidad de los registros</h2>
+<p>Una pregunta importante consiste en determinar si existe correspondencia entre el número de registros y el número de identificadores únicos.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">registros_totales =</span> <span class="fu">nrow</span>(sunac),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">identificadores_unicos =</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>(<span class="fu">unique</span>(sunac<span class="sc">$</span>Identificador))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Evaluación de unicidad de identificadores"</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-unicidad" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-unicidad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.3: Evaluación de unicidad de identificadores
+</figcaption>
+<div aria-describedby="tbl-ch13-unicidad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">registros_totales</th>
+<th style="text-align: right;">identificadores_unicos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">84538</td>
+<td style="text-align: right;">38228</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>La diferencia entre ambas cantidades no necesariamente representa un problema.</p>
+<p>En la ESPAC, una misma unidad productiva puede generar múltiples registros debido a la estructura de captura de información.</p>
+<p>Por esta razón, la evaluación de calidad siempre debe realizarse considerando el diseño metodológico de la operación estadística <span class="citation" data-cites="groves2009">(<a href="../bibliografia.html#ref-groves2009" role="doc-biblioref">Groves et&nbsp;al., 2009</a>)</span>.</p>
+</section>
+<section id="frecuencia-de-registros-por-identificador" class="level2" data-number="16.10">
+<h2 data-number="16.10" class="anchored" data-anchor-id="frecuencia-de-registros-por-identificador"><span class="header-section-number">16.10</span> Frecuencia de registros por identificador</h2>
+<p>Podemos identificar productores con múltiples registros.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Identificador) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Identificadores con mayor número de registros"</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-frecuencia-identificador" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-frecuencia-identificador-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.4: Identificadores con mayor número de registros
+</figcaption>
+<div aria-describedby="tbl-ch13-frecuencia-identificador-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Identificador</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">06065004000940022</td>
+<td style="text-align: right;">51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">21045160000990001</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">21015802011420001</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">17015463000993667</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">08056060000990008</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">06035004000430001</td>
+<td style="text-align: right;">22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">08055760000990086</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">01015103004380004</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">04016101050450002</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">18015501047960004</td>
+<td style="text-align: right;">20</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>La tabla permite comprender cómo se distribuyen los registros dentro de la base de datos.</p>
+</section>
+<section id="interpretación-de-los-resultados" class="level2" data-number="16.11">
+<h2 data-number="16.11" class="anchored" data-anchor-id="interpretación-de-los-resultados"><span class="header-section-number">16.11</span> Interpretación de los resultados</h2>
+<p>Hasta este punto hemos realizado una evaluación preliminar de calidad.</p>
+<p>Los resultados muestran:</p>
+<ul>
+<li>La dimensión general de la base.</li>
+<li>La estructura de variables disponibles.</li>
+<li>El número de identificadores únicos.</li>
+<li>La distribución de registros por unidad de análisis.</li>
+</ul>
+<p>En la siguiente sección profundizaremos en la evaluación de completitud mediante el análisis de valores perdidos y construiremos indicadores cuantitativos de calidad para cada variable.</p>
+</section>
+<section id="evaluando-la-completitud-de-los-datos" class="level2" data-number="16.12">
+<h2 data-number="16.12" class="anchored" data-anchor-id="evaluando-la-completitud-de-los-datos"><span class="header-section-number">16.12</span> Evaluando la completitud de los datos</h2>
+<p>La completitud constituye una de las dimensiones más importantes de la calidad de los datos. Una base de datos incompleta puede limitar la capacidad de análisis y afectar la validez de los resultados obtenidos <span class="citation" data-cites="wang1996 pipino2002">(<a href="../bibliografia.html#ref-pipino2002" role="doc-biblioref">Pipino et&nbsp;al., 2002</a>; <a href="../bibliografia.html#ref-wang1996" role="doc-biblioref">Wang &amp; Strong, 1996</a>)</span>.</p>
+<p>En términos prácticos, la completitud se evalúa mediante la identificación de valores faltantes.</p>
+<p>En R, los valores perdidos se representan mediante el símbolo:</p>
+<pre class="text"><code>NA</code></pre>
+<p>Sin embargo, no todos los valores perdidos representan errores. En muchas operaciones estadísticas existen preguntas que únicamente aplican a determinados grupos de observación.</p>
+<p>Por esta razón, antes de eliminar o imputar valores faltantes es necesario comprender el contexto metodológico de la información <span class="citation" data-cites="little2019 vanbuuren2018">(<a href="../bibliografia.html#ref-little2019" role="doc-biblioref">Little &amp; Rubin, 2019</a>; <a href="../bibliografia.html#ref-vanbuuren2018" role="doc-biblioref">Van Buuren, 2018</a>)</span>.</p>
+</section>
+<section id="cuantificando-valores-perdidos" class="level2" data-number="16.13">
+<h2 data-number="16.13" class="anchored" data-anchor-id="cuantificando-valores-perdidos"><span class="header-section-number">16.13</span> Cuantificando valores perdidos</h2>
+<p>Podemos calcular la cantidad de valores faltantes para cada variable.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>na_variables <span class="ot">&lt;-</span> <span class="fu">colSums</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">is.na</span>(sunac)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">variable =</span> <span class="fu">names</span>(na_variables),</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">valores_perdidos =</span> <span class="fu">as.numeric</span>(na_variables)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">desc</span>(valores_perdidos)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Variables con mayor número de valores perdidos"</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-valores-perdidos" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-valores-perdidos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.5: Variables con mayor número de valores perdidos
+</figcaption>
+<div aria-describedby="tbl-ch13-valores-perdidos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">variable</th>
+<th style="text-align: right;">valores_perdidos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pct_bosque</td>
+<td style="text-align: right;">72324</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Identificador</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">provincia</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">su_tenencia</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tamano_upa</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">grupo_tamano</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tiene_bosque</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tiene_transitorios</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">supertotal</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fact_exp_fin</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>La tabla permite identificar rápidamente las variables con menor nivel de completitud.</p>
+</section>
+<section id="porcentaje-de-valores-perdidos" class="level2" data-number="16.14">
+<h2 data-number="16.14" class="anchored" data-anchor-id="porcentaje-de-valores-perdidos"><span class="header-section-number">16.14</span> Porcentaje de valores perdidos</h2>
+<p>La cantidad absoluta de valores faltantes puede resultar difícil de interpretar.</p>
+<p>Por esta razón, suele ser más útil calcular porcentajes.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>porcentaje_na <span class="ot">&lt;-</span> <span class="fu">round</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colMeans</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">is.na</span>(sunac)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">variable =</span> <span class="fu">names</span>(porcentaje_na),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">porcentaje_na =</span> <span class="fu">as.numeric</span>(</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    porcentaje_na</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">desc</span>(porcentaje_na)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Variables con mayor porcentaje de valores perdidos"</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-porcentaje-na" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-porcentaje-na-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.6: Variables con mayor porcentaje de valores perdidos
+</figcaption>
+<div aria-describedby="tbl-ch13-porcentaje-na-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">variable</th>
+<th style="text-align: right;">porcentaje_na</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pct_bosque</td>
+<td style="text-align: right;">85.55</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Identificador</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">provincia</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">su_tenencia</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tamano_upa</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">grupo_tamano</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tiene_bosque</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tiene_transitorios</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">supertotal</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fact_exp_fin</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Los porcentajes permiten comparar variables independientemente del tamaño de la base de datos.</p>
+</section>
+<section id="visualizando-la-completitud" class="level2" data-number="16.15">
+<h2 data-number="16.15" class="anchored" data-anchor-id="visualizando-la-completitud"><span class="header-section-number">16.15</span> Visualizando la completitud</h2>
+<p>Las representaciones gráficas facilitan la interpretación de los resultados.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>porcentaje_na <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">decreasing =</span> <span class="cn">TRUE</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">barplot</span>(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">las =</span> <span class="dv">2</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Porcentaje"</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Valores perdidos"</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch13-completitud-top10" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch13-completitud-top10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="13-calidad-de-datos_files/figure-html/fig-ch13-completitud-top10-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch13-completitud-top10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;16.1: Porcentaje de valores perdidos en las diez variables más incompletas
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La figura permite identificar visualmente cuáles son las variables que requieren mayor atención durante el análisis.</p>
+</section>
+<section id="interpretando-los-valores-perdidos" class="level2" data-number="16.16">
+<h2 data-number="16.16" class="anchored" data-anchor-id="interpretando-los-valores-perdidos"><span class="header-section-number">16.16</span> Interpretando los valores perdidos</h2>
+<p>La presencia de valores perdidos no implica necesariamente problemas de calidad.</p>
+<p>Por ejemplo, muchas variables relacionadas con bosques, cultivos específicos o actividades pecuarias únicamente aplican a ciertos productores.</p>
+<p>Esto significa que numerosos valores faltantes representan ausencia legítima de información y no errores de captura.</p>
+<p>Por esta razón, la interpretación de los NA siempre debe realizarse conjuntamente con la documentación metodológica de la encuesta <span class="citation" data-cites="groves2009">(<a href="../bibliografia.html#ref-groves2009" role="doc-biblioref">Groves et&nbsp;al., 2009</a>)</span>.</p>
+</section>
+<section id="evaluando-la-consistencia-de-los-datos" class="level2" data-number="16.17">
+<h2 data-number="16.17" class="anchored" data-anchor-id="evaluando-la-consistencia-de-los-datos"><span class="header-section-number">16.17</span> Evaluando la consistencia de los datos</h2>
+<p>La consistencia se refiere al cumplimiento de relaciones lógicas entre variables <span class="citation" data-cites="redman1998">(<a href="../bibliografia.html#ref-redman1998" role="doc-biblioref">Redman, 1998</a>)</span>.</p>
+<p>Un dato inconsistente no necesariamente es un valor faltante. Puede tratarse de un valor existente que contradice reglas conceptuales o matemáticas.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>Superficie de bosque &gt; Superficie total</code></pre>
+<p>Esta situación sería inconsistente porque una parte no puede ser mayor que el todo.</p>
+</section>
+<section id="verificando-consistencia-de-superficies" class="level2" data-number="16.18">
+<h2 data-number="16.18" class="anchored" data-anchor-id="verificando-consistencia-de-superficies"><span class="header-section-number">16.18</span> Verificando consistencia de superficies</h2>
+<p>Podemos evaluar esta condición dentro de la ESPAC.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>inconsistencias_bosque <span class="ot">&lt;-</span> <span class="fu">sum</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  sunac<span class="sc">$</span>us_montesha <span class="sc">&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    sunac<span class="sc">$</span>supertotal,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">inconsistencias =</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    inconsistencias_bosque</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Registros con superficie de bosque superior a la superficie total"</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-consistencia-bosque" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-consistencia-bosque-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.7: Registros con superficie de bosque superior a la superficie total
+</figcaption>
+<div aria-describedby="tbl-ch13-consistencia-bosque-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">inconsistencias</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Idealmente el número de inconsistencias debería ser igual a cero.</p>
+</section>
+<section id="verificando-porcentajes-inválidos" class="level2" data-number="16.19">
+<h2 data-number="16.19" class="anchored" data-anchor-id="verificando-porcentajes-inválidos"><span class="header-section-number">16.19</span> Verificando porcentajes inválidos</h2>
+<p>En el capítulo anterior construimos una variable denominada:</p>
+<pre class="text"><code>pct_bosque</code></pre>
+<p>Dado que representa un porcentaje, sus valores deberían encontrarse entre 0 y 100.</p>
+<p>Podemos verificar esta condición.</p>
+<div id="tbl-ch13-validacion-porcentajes" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-ch13-validacion-porcentajes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.8
+</figcaption>
+<div aria-describedby="tbl-ch13-validacion-porcentajes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  sunac<span class="sc">$</span>pct_bosque <span class="sc">&gt;</span> <span class="dv">100</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</figure>
+</div>
+<p>Si el resultado es mayor que cero, existirían observaciones que requieren revisión.</p>
+</section>
+<section id="distribución-de-la-superficie-total" class="level2" data-number="16.20">
+<h2 data-number="16.20" class="anchored" data-anchor-id="distribución-de-la-superficie-total"><span class="header-section-number">16.20</span> Distribución de la superficie total</h2>
+<p>Otra estrategia útil consiste en analizar distribuciones.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  sunac<span class="sc">$</span>supertotal,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="dv">50</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Superficie total"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Hectáreas"</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch13-distribucion-superficie" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch13-distribucion-superficie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="13-calidad-de-datos_files/figure-html/fig-ch13-distribucion-superficie-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch13-distribucion-superficie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;16.2: Distribución de la superficie total
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La distribución permite identificar posibles anomalías y valores extremos.</p>
+</section>
+<section id="evaluación-de-valores-extremos" class="level2" data-number="16.21">
+<h2 data-number="16.21" class="anchored" data-anchor-id="evaluación-de-valores-extremos"><span class="header-section-number">16.21</span> Evaluación de valores extremos</h2>
+<p>Los valores extremos pueden representar:</p>
+<ul>
+<li>Errores de captura.</li>
+<li>Unidades de análisis excepcionales.</li>
+<li>Características reales del fenómeno estudiado.</li>
+</ul>
+<p>Por esta razón, no deben eliminarse automáticamente <span class="citation" data-cites="wilson2017">(<a href="../bibliografia.html#ref-wilson2017" role="doc-biblioref">Wilson et&nbsp;al., 2017</a>)</span>.</p>
+<p>Podemos identificar las observaciones con mayor superficie.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">desc</span>(supertotal)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    Identificador,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    supertotal</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Observaciones con mayor superficie total"</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-mayores-superficies" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-mayores-superficies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.9: Observaciones con mayor superficie total
+</figcaption>
+<div aria-describedby="tbl-ch13-mayores-superficies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Identificador</th>
+<th style="text-align: right;">supertotal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">09105056000993426</td>
+<td style="text-align: right;">21468.92</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">09235056000993424</td>
+<td style="text-align: right;">17214.49</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">14045264000994192</td>
+<td style="text-align: right;">16000.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">12015552000990149</td>
+<td style="text-align: right;">11030.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">21045160000990001</td>
+<td style="text-align: right;">6635.94</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">14015364000991633</td>
+<td style="text-align: right;">6000.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">08055460000990006</td>
+<td style="text-align: right;">5876.99</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">03045056000993427</td>
+<td style="text-align: right;">5874.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">08055760000990004</td>
+<td style="text-align: right;">4500.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10015056000993442</td>
+<td style="text-align: right;">3953.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>La revisión de estos registros permite determinar si los valores observados son plausibles.</p>
+</section>
+<section id="perfil-de-completitud-de-la-base" class="level2" data-number="16.22">
+<h2 data-number="16.22" class="anchored" data-anchor-id="perfil-de-completitud-de-la-base"><span class="header-section-number">16.22</span> Perfil de completitud de la base</h2>
+<p>Podemos construir un indicador agregado de completitud.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>indice_completitud <span class="ot">&lt;-</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!</span><span class="fu">is.na</span>(</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as.matrix</span>(sunac)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">completitud =</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    indice_completitud</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Índice general de completitud de la base"</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-indice-completitud" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-indice-completitud-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.10: Índice general de completitud de la base
+</figcaption>
+<div aria-describedby="tbl-ch13-indice-completitud-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">completitud</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">91.44</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Este indicador resume el porcentaje de celdas que contienen información disponible.</p>
+</section>
+<section id="interpretación-de-los-resultados-1" class="level2" data-number="16.23">
+<h2 data-number="16.23" class="anchored" data-anchor-id="interpretación-de-los-resultados-1"><span class="header-section-number">16.23</span> Interpretación de los resultados</h2>
+<p>La evaluación realizada hasta este punto permite responder varias preguntas importantes:</p>
+<ul>
+<li>¿Qué tan completa es la base?</li>
+<li>¿Qué variables presentan mayores niveles de ausencia de información?</li>
+<li>¿Existen inconsistencias lógicas?</li>
+<li>¿Se observan valores potencialmente anómalos?</li>
+<li>¿Qué tan confiable parece la información para análisis posteriores?</li>
+</ul>
+<p>La respuesta a estas preguntas constituye el primer paso para construir un reporte formal de calidad de datos.</p>
+<p>En la siguiente sección construiremos indicadores integrales de calidad y elaboraremos un informe reproducible de diagnóstico de la ESPAC 2025.</p>
+</section>
+<section id="construcción-de-indicadores-integrales-de-calidad" class="level2" data-number="16.24">
+<h2 data-number="16.24" class="anchored" data-anchor-id="construcción-de-indicadores-integrales-de-calidad"><span class="header-section-number">16.24</span> Construcción de indicadores integrales de calidad</h2>
+<p>Hasta este punto hemos evaluado distintas dimensiones de calidad por separado.</p>
+<p>Sin embargo, en proyectos reales suele ser útil construir indicadores resumidos que permitan obtener una visión global del estado de una base de datos.</p>
+<p>Estos indicadores facilitan la documentación metodológica y permiten monitorear la evolución de la calidad a lo largo del tiempo <span class="citation" data-cites="wang1996 pipino2002">(<a href="../bibliografia.html#ref-pipino2002" role="doc-biblioref">Pipino et&nbsp;al., 2002</a>; <a href="../bibliografia.html#ref-wang1996" role="doc-biblioref">Wang &amp; Strong, 1996</a>)</span>.</p>
+</section>
+<section id="resumen-general-de-calidad" class="level2" data-number="16.25">
+<h2 data-number="16.25" class="anchored" data-anchor-id="resumen-general-de-calidad"><span class="header-section-number">16.25</span> Resumen general de calidad</h2>
+<p>Podemos construir una tabla que sintetice algunos indicadores fundamentales.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>indicadores_calidad <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">registros =</span> <span class="fu">nrow</span>(sunac),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">ncol</span>(sunac),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">identificadores_unicos =</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>(<span class="fu">unique</span>(sunac<span class="sc">$</span>Identificador)),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">completitud_porcentaje =</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mean</span>(</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="sc">!</span><span class="fu">is.na</span>(</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">as.matrix</span>(sunac)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>      <span class="dv">2</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>indicadores_calidad <span class="sc">|&gt;</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Indicadores generales de calidad de datos"</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-resumen-calidad" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-resumen-calidad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.11: Indicadores generales de calidad de datos
+</figcaption>
+<div aria-describedby="tbl-ch13-resumen-calidad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">registros</th>
+<th style="text-align: right;">variables</th>
+<th style="text-align: right;">identificadores_unicos</th>
+<th style="text-align: right;">completitud_porcentaje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">84538</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">38228</td>
+<td style="text-align: right;">91.44</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>La tabla resume las principales características de la base y constituye un primer diagnóstico general.</p>
+</section>
+<section id="calidad-de-variables-clave" class="level2" data-number="16.26">
+<h2 data-number="16.26" class="anchored" data-anchor-id="calidad-de-variables-clave"><span class="header-section-number">16.26</span> Calidad de variables clave</h2>
+<p>En muchos estudios no todas las variables tienen la misma importancia.</p>
+<p>Por ello resulta conveniente evaluar específicamente aquellas variables que serán utilizadas posteriormente en el análisis.</p>
+<p>En nuestro caso seleccionaremos:</p>
+<ul>
+<li><code>supertotal</code></li>
+<li><code>tamano_upa</code></li>
+<li><code>tiene_bosque</code></li>
+<li><code>pct_bosque</code></li>
+<li><code>fact_exp_fin</code></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>variables_clave <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"supertotal"</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tamano_upa"</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tiene_bosque"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"pct_bosque"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"fact_exp_fin"</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">variable =</span> variables_clave,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">porcentaje_na =</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">colMeans</span>(</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">is.na</span>(</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>          sunac[</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>            variables_clave</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>          ]</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>      <span class="dv">2</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Porcentaje de valores perdidos en variables clave"</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-calidad-variables-clave" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-calidad-variables-clave-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.12: Porcentaje de valores perdidos en variables clave
+</figcaption>
+<div aria-describedby="tbl-ch13-calidad-variables-clave-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">variable</th>
+<th style="text-align: right;">porcentaje_na</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">supertotal</td>
+<td style="text-align: left;">supertotal</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tamano_upa</td>
+<td style="text-align: left;">tamano_upa</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tiene_bosque</td>
+<td style="text-align: left;">tiene_bosque</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pct_bosque</td>
+<td style="text-align: left;">pct_bosque</td>
+<td style="text-align: right;">85.55</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fact_exp_fin</td>
+<td style="text-align: left;">fact_exp_fin</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>La calidad de estas variables es especialmente relevante porque serán utilizadas en capítulos posteriores.</p>
+</section>
+<section id="detección-de-registros-incompletos" class="level2" data-number="16.27">
+<h2 data-number="16.27" class="anchored" data-anchor-id="detección-de-registros-incompletos"><span class="header-section-number">16.27</span> Detección de registros incompletos</h2>
+<p>Otra medida útil consiste en identificar observaciones con múltiples valores faltantes.</p>
+<div id="tbl-ch13-registros-incompletos" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-ch13-registros-incompletos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.13
+</figcaption>
+<div aria-describedby="tbl-ch13-registros-incompletos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>na_por_fila <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">is.na</span>(sunac)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  na_por_fila</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  1.0000  1.0000  0.8555  1.0000  1.0000 </code></pre>
+</div>
+</div>
+</figure>
+</div>
+<p>Este resumen muestra cuántos valores faltantes existen por observación.</p>
+</section>
+<section id="distribución-de-valores-faltantes-por-registro" class="level2" data-number="16.28">
+<h2 data-number="16.28" class="anchored" data-anchor-id="distribución-de-valores-faltantes-por-registro"><span class="header-section-number">16.28</span> Distribución de valores faltantes por registro</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  na_por_fila,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="dv">30</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Valores faltantes por registro"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Cantidad de valores faltantes"</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch13-na-por-fila" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch13-na-por-fila-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="13-calidad-de-datos_files/figure-html/fig-ch13-na-por-fila-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch13-na-por-fila-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;16.3: Distribución de valores faltantes por observación
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La figura permite identificar si existen observaciones particularmente problemáticas.</p>
+</section>
+<section id="evaluación-de-duplicados" class="level2" data-number="16.29">
+<h2 data-number="16.29" class="anchored" data-anchor-id="evaluación-de-duplicados"><span class="header-section-number">16.29</span> Evaluación de duplicados</h2>
+<p>Los registros duplicados representan una fuente frecuente de problemas en bases de datos.</p>
+<p>Podemos verificar si existen filas completamente repetidas.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>duplicados <span class="ot">&lt;-</span> <span class="fu">sum</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">duplicated</span>(sunac)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">registros_duplicados =</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    duplicados</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Registros completamente duplicados"</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-duplicados" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-duplicados-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.14: Registros completamente duplicados
+</figcaption>
+<div aria-describedby="tbl-ch13-duplicados-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">registros_duplicados</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">150</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Idealmente el resultado debería ser cero.</p>
+</section>
+<section id="verificación-de-identificadores-faltantes" class="level2" data-number="16.30">
+<h2 data-number="16.30" class="anchored" data-anchor-id="verificación-de-identificadores-faltantes"><span class="header-section-number">16.30</span> Verificación de identificadores faltantes</h2>
+<p>Los identificadores constituyen la columna vertebral de cualquier base de datos.</p>
+<div id="tbl-ch13-id-faltantes" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-ch13-id-faltantes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.15
+</figcaption>
+<div aria-describedby="tbl-ch13-id-faltantes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">is.na</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    sunac<span class="sc">$</span>Identificador</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</figure>
+</div>
+<p>La ausencia de identificadores puede dificultar procesos de agregación, seguimiento y validación.</p>
+</section>
+<section id="construcción-de-un-reporte-de-calidad-reproducible" class="level2" data-number="16.31">
+<h2 data-number="16.31" class="anchored" data-anchor-id="construcción-de-un-reporte-de-calidad-reproducible"><span class="header-section-number">16.31</span> Construcción de un reporte de calidad reproducible</h2>
+<p>Una de las ventajas de R y Quarto consiste en que los reportes de calidad pueden generarse automáticamente.</p>
+<p>Por ejemplo, podemos crear una tabla consolidada.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>reporte_calidad <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Indicador =</span> <span class="fu">c</span>(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Número de registros"</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Número de variables"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Identificadores únicos"</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Duplicados"</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Completitud (%)"</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Valor =</span> <span class="fu">c</span>(</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>(sunac),</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ncol</span>(sunac),</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>(<span class="fu">unique</span>(sunac<span class="sc">$</span>Identificador)),</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">duplicated</span>(sunac)),</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mean</span>(</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>        <span class="sc">!</span><span class="fu">is.na</span>(</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>          <span class="fu">as.matrix</span>(sunac)</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>      <span class="dv">2</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>reporte_calidad <span class="sc">|&gt;</span></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Reporte resumido de calidad de datos"</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch13-reporte-calidad" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch13-reporte-calidad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;16.16: Reporte resumido de calidad de datos
+</figcaption>
+<div aria-describedby="tbl-ch13-reporte-calidad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Indicador</th>
+<th style="text-align: right;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Número de registros</td>
+<td style="text-align: right;">84538.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Número de variables</td>
+<td style="text-align: right;">10.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Identificadores únicos</td>
+<td style="text-align: right;">38228.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Duplicados</td>
+<td style="text-align: right;">150.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Completitud (%)</td>
+<td style="text-align: right;">91.44</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Este tipo de reportes resulta especialmente útil para auditorías, documentación técnica y proyectos colaborativos.</p>
+</section>
+<section id="buenas-prácticas-para-garantizar-calidad-de-datos" class="level2" data-number="16.32">
+<h2 data-number="16.32" class="anchored" data-anchor-id="buenas-prácticas-para-garantizar-calidad-de-datos"><span class="header-section-number">16.32</span> Buenas prácticas para garantizar calidad de datos</h2>
+<p>La calidad de los datos no debe evaluarse únicamente al final de un proyecto.</p>
+<p>La literatura recomienda incorporar mecanismos de control durante todo el ciclo de vida de la investigación <span class="citation" data-cites="wilson2017 marwick2018">(<a href="../bibliografia.html#ref-marwick2018" role="doc-biblioref"><span class="nocase">Marwick et&nbsp;al.</span>, 2018</a>; <a href="../bibliografia.html#ref-wilson2017" role="doc-biblioref">Wilson et&nbsp;al., 2017</a>)</span>.</p>
+<p>Entre las principales recomendaciones se encuentran:</p>
+<ul>
+<li>Mantener copias intactas de los datos originales.</li>
+<li>Documentar todas las transformaciones realizadas.</li>
+<li>Utilizar identificadores únicos.</li>
+<li>Verificar sistemáticamente valores faltantes.</li>
+<li>Revisar rangos válidos de las variables.</li>
+<li>Automatizar controles mediante scripts reproducibles.</li>
+<li>Mantener diccionarios de variables actualizados.</li>
+</ul>
+<p>Estas prácticas reducen errores y mejoran la transparencia del proceso científico.</p>
+</section>
+<section id="calidad-de-datos-y-toma-de-decisiones" class="level2" data-number="16.33">
+<h2 data-number="16.33" class="anchored" data-anchor-id="calidad-de-datos-y-toma-de-decisiones"><span class="header-section-number">16.33</span> Calidad de datos y toma de decisiones</h2>
+<p>La calidad de los datos tiene implicaciones directas sobre la calidad de las decisiones derivadas de la investigación.</p>
+<p>Indicadores mal construidos, variables inconsistentes o registros incompletos pueden conducir a conclusiones incorrectas y recomendaciones poco confiables <span class="citation" data-cites="redman1998">(<a href="../bibliografia.html#ref-redman1998" role="doc-biblioref">Redman, 1998</a>)</span>.</p>
+<p>Por esta razón, la evaluación de calidad debe considerarse una actividad permanente y no un procedimiento aislado.</p>
+</section>
+<section id="manos-a-la-obra" class="level2" data-number="16.34">
+<h2 data-number="16.34" class="anchored" data-anchor-id="manos-a-la-obra"><span class="header-section-number">16.34</span> Manos a la obra</h2>
+<p>Utilizando la base <code>sunac_transformado.rds</code>:</p>
+<ol type="1">
+<li>Calcule la cantidad de valores faltantes por variable.</li>
+<li>Identifique las cinco variables con menor completitud.</li>
+<li>Calcule el porcentaje general de completitud de la base.</li>
+<li>Verifique si existen registros duplicados.</li>
+<li>Evalúe la existencia de inconsistencias entre superficie total y superficie de bosque.</li>
+<li>Construya una tabla resumen de indicadores de calidad.</li>
+<li>Interprete los resultados obtenidos.</li>
+<li>Documente todas las verificaciones realizadas.</li>
+</ol>
+</section>
+<section id="resumen-del-capítulo" class="level2" data-number="16.35">
+<h2 data-number="16.35" class="anchored" data-anchor-id="resumen-del-capítulo"><span class="header-section-number">16.35</span> Resumen del capítulo</h2>
+<p>La calidad de los datos constituye un componente fundamental de la investigación reproducible.</p>
+<p>Durante este capítulo aprendimos a evaluar dimensiones clave como completitud, unicidad, consistencia y validez utilizando información real de la ESPAC 2025.</p>
+<p>Asimismo, construimos indicadores cuantitativos de calidad, identificamos posibles problemas de información y desarrollamos reportes reproducibles para documentar el estado de una base de datos.</p>
+<p>La evaluación sistemática de la calidad permite aumentar la confiabilidad de los análisis estadísticos y fortalece la credibilidad de los resultados obtenidos.</p>
+<p>En el siguiente capítulo comenzaremos el análisis estadístico propiamente dicho mediante técnicas de estadística descriptiva que nos permitirán resumir, explorar e interpretar la información contenida en nuestras bases de datos.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-gandrud2015" class="csl-entry" role="listitem">
+Gandrud, C. (2015). <em>Reproducible Research with R and R Studio</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-groves2009" class="csl-entry" role="listitem">
+Groves, R. M., Fowler, F. J., Couper, M. P., Lepkowski, J. M., Singer, E., &amp; Tourangeau, R. (2009). <em>Survey Methodology</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-little2019" class="csl-entry" role="listitem">
+Little, R. J. A., &amp; Rubin, D. B. (2019). <em>Statistical Analysis with Missing Data</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-marwick2018" class="csl-entry" role="listitem">
+<span class="nocase">Marwick, B. et&nbsp;al.</span> (2018). Packaging Data Analytical Work Reproducibly Using R (and Friends). <em>The American Statistician</em>, <em>72</em>(1), 80-88.
+</div>
+<div id="ref-peng2011" class="csl-entry" role="listitem">
+Peng, R. D. (2011). Reproducible Research in Computational Science. <em>Science</em>, <em>334</em>(6060), 1226-1227. <a href="https://doi.org/10.1126/science.1213847">https://doi.org/10.1126/science.1213847</a>
+</div>
+<div id="ref-pipino2002" class="csl-entry" role="listitem">
+Pipino, L. L., Lee, Y. W., &amp; Wang, R. Y. (2002). Data Quality Assessment. <em>Communications of the ACM</em>, <em>45</em>(4), 211-218.
+</div>
+<div id="ref-redman1998" class="csl-entry" role="listitem">
+Redman, T. C. (1998). The Impact of Poor Data Quality on the Typical Enterprise. <em>Communications of the ACM</em>, <em>41</em>(2), 79-82.
+</div>
+<div id="ref-vanbuuren2018" class="csl-entry" role="listitem">
+Van Buuren, S. (2018). <em>Flexible Imputation of Missing Data</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-wang1996" class="csl-entry" role="listitem">
+Wang, R. Y., &amp; Strong, D. M. (1996). Beyond Accuracy: What Data Quality Means to Data Consumers. <em>Journal of Management Information Systems</em>, <em>12</em>(4), 5-33.
+</div>
+<div id="ref-wickham2014" class="csl-entry" role="listitem">
+Wickham, H. (2014). Tidy Data. <em>Journal of Statistical Software</em>, <em>59</em>(10), 1-23.
+</div>
+<div id="ref-wilson2017" class="csl-entry" role="listitem">
+Wilson, G., Bryan, J., Cranston, K., Kitzes, J., Nederbragt, L., &amp; Teal, T. K. (2017). Good enough practices in scientific computing. <em>PLoS Computational Biology</em>, <em>13</em>(6), e1005510.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../capitulos/12-transformacion-de-datos.html" class="pagination-link" aria-label="Transformación de datos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transformación de datos</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../capitulos/14-estadistica-descriptiva.html" class="pagination-link" aria-label="Estadística descriptiva">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Estadística descriptiva</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

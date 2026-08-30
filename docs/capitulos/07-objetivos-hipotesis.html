@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>10&nbsp; Objetivos e hipótesis de investigación – Investigación reproducible con R y Quarto</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../capitulos/08-marco-teorico.html" rel="next">
+<link href="../capitulos/06-problema-de-investigacion.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-12eeb4b20e9f5a2b0bfc604bfaf942bb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/06-problema-de-investigacion.html">Parte III. Construcción de la investigación</a></li><li class="breadcrumb-item"><a href="../capitulos/07-objetivos-hipotesis.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objetivos e hipótesis de investigación</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Investigación reproducible con R y Quarto</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Presentación</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prologo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prólogo</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../como-utilizar-este-libro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cómo utilizar este libro</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I. Fundamentos de la investigación reproducible</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/01-investigacion-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Investigación reproducible: construyendo confianza en la ciencia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/02-ciencia-abierta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La ciencia abierta como ecosistema de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/03-r-y-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R y Quarto: una plataforma integrada para la investigación reproducible</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II. Preparando el proyecto de investigación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/04-organizacion-del-proyecto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Organización del proyecto de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/05-primer-libro-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Construyendo nuestro primer libro en Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte III. Construcción de la investigación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/06-problema-de-investigacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Del problema de investigación a la pregunta de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/07-objetivos-hipotesis.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objetivos e hipótesis de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/08-marco-teorico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Construcción del marco teórico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/09-busqueda-cientifica-bibtex-apa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Búsqueda científica, BibTeX y gestión automatizada de referencias</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte IV. Gestión y preparación de datos con R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/10-importacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Importación de datos con R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/11-limpieza-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Limpieza de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/12-transformacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transformación de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/13-calidad-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Calidad de los datos</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte V. Estadística descriptiva y visualización</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/14-estadistica-descriptiva.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Estadística descriptiva</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/15-tablas-descriptivas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Tablas descriptivas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/16-visualizacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Visualización de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/17-graficos-cientificos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Gráficos científicos</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VI. Modelación econométrica aplicada</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/18-del-analisis-descriptivo-a-la-modelacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Del análisis descriptivo a la modelación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/19-correlacion-asociacion-causalidad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Correlación, asociación y causalidad</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/20-regresion-lineal-simple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Regresión lineal simple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/21-regresion-lineal-multiple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Regresión lineal múltiple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/22-diagnostico-del-modelo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Diagnóstico del modelo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/23-variables-categoricas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Variables categóricas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/24-modelos-logit-probit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Modelos Logit y Probit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/25-datos-de-panel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Datos de panel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/26-modelos-espaciales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Modelos espaciales y extensiones modernas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/27-presentacion-modelos-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Presentación de modelos con Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VII. Redacción científica del informe</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/28-introduccion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/29-metodologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Metodología</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/30-resultados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Resultados</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/31-discusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Discusión</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/32-conclusiones-recomendaciones.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Conclusiones y Recomendaciones</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VIII. Difusión y comunicación científica</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/33-generacion-word-pdf-html.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Generación de documentos Word, PDF y HTML</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/34-presentaciones-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Presentaciones con Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/35-dashboard-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Dashboards con Shiny y Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bibliografia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Bibliografía</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#objetivos-de-aprendizaje" id="toc-objetivos-de-aprendizaje" class="nav-link active" data-scroll-target="#objetivos-de-aprendizaje">Objetivos de aprendizaje</a></li>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link" data-scroll-target="#introducción"><span class="header-section-number">10.1</span> Introducción</a></li>
+  <li><a href="#qué-son-los-objetivos-de-investigación" id="toc-qué-son-los-objetivos-de-investigación" class="nav-link" data-scroll-target="#qué-son-los-objetivos-de-investigación"><span class="header-section-number">10.2</span> ¿Qué son los objetivos de investigación?</a></li>
+  <li><a href="#el-objetivo-general" id="toc-el-objetivo-general" class="nav-link" data-scroll-target="#el-objetivo-general"><span class="header-section-number">10.3</span> El objetivo general</a></li>
+  <li><a href="#características-de-un-buen-objetivo-general" id="toc-características-de-un-buen-objetivo-general" class="nav-link" data-scroll-target="#características-de-un-buen-objetivo-general"><span class="header-section-number">10.4</span> Características de un buen objetivo general</a></li>
+  <li><a href="#los-objetivos-específicos" id="toc-los-objetivos-específicos" class="nav-link" data-scroll-target="#los-objetivos-específicos"><span class="header-section-number">10.5</span> Los objetivos específicos</a>
+  <ul class="collapse">
+  <li><a href="#objetivo-general" id="toc-objetivo-general" class="nav-link" data-scroll-target="#objetivo-general"><span class="header-section-number">10.5.1</span> Objetivo general</a></li>
+  <li><a href="#objetivos-específicos" id="toc-objetivos-específicos" class="nav-link" data-scroll-target="#objetivos-específicos"><span class="header-section-number">10.5.2</span> Objetivos específicos</a></li>
+  </ul></li>
+  <li><a href="#la-lógica-de-los-objetivos" id="toc-la-lógica-de-los-objetivos" class="nav-link" data-scroll-target="#la-lógica-de-los-objetivos"><span class="header-section-number">10.6</span> La lógica de los objetivos</a></li>
+  <li><a href="#errores-frecuentes-en-la-formulación-de-objetivos" id="toc-errores-frecuentes-en-la-formulación-de-objetivos" class="nav-link" data-scroll-target="#errores-frecuentes-en-la-formulación-de-objetivos"><span class="header-section-number">10.7</span> Errores frecuentes en la formulación de objetivos</a>
+  <ul class="collapse">
+  <li><a href="#objetivos-excesivamente-amplios" id="toc-objetivos-excesivamente-amplios" class="nav-link" data-scroll-target="#objetivos-excesivamente-amplios"><span class="header-section-number">10.7.1</span> Objetivos excesivamente amplios</a></li>
+  <li><a href="#objetivos-ambiguos" id="toc-objetivos-ambiguos" class="nav-link" data-scroll-target="#objetivos-ambiguos"><span class="header-section-number">10.7.2</span> Objetivos ambiguos</a></li>
+  <li><a href="#objetivos-que-describen-actividades" id="toc-objetivos-que-describen-actividades" class="nav-link" data-scroll-target="#objetivos-que-describen-actividades"><span class="header-section-number">10.7.3</span> Objetivos que describen actividades</a></li>
+  <li><a href="#objetivos-desconectados-de-la-pregunta" id="toc-objetivos-desconectados-de-la-pregunta" class="nav-link" data-scroll-target="#objetivos-desconectados-de-la-pregunta"><span class="header-section-number">10.7.4</span> Objetivos desconectados de la pregunta</a></li>
+  </ul></li>
+  <li><a href="#qué-es-una-hipótesis" id="toc-qué-es-una-hipótesis" class="nav-link" data-scroll-target="#qué-es-una-hipótesis"><span class="header-section-number">10.8</span> ¿Qué es una hipótesis?</a></li>
+  <li><a href="#el-papel-de-las-hipótesis-en-la-investigación-científica" id="toc-el-papel-de-las-hipótesis-en-la-investigación-científica" class="nav-link" data-scroll-target="#el-papel-de-las-hipótesis-en-la-investigación-científica"><span class="header-section-number">10.9</span> El papel de las hipótesis en la investigación científica</a></li>
+  <li><a href="#tipos-de-hipótesis" id="toc-tipos-de-hipótesis" class="nav-link" data-scroll-target="#tipos-de-hipótesis"><span class="header-section-number">10.10</span> Tipos de hipótesis</a>
+  <ul class="collapse">
+  <li><a href="#hipótesis-descriptivas" id="toc-hipótesis-descriptivas" class="nav-link" data-scroll-target="#hipótesis-descriptivas"><span class="header-section-number">10.10.1</span> Hipótesis descriptivas</a></li>
+  <li><a href="#hipótesis-correlacionales" id="toc-hipótesis-correlacionales" class="nav-link" data-scroll-target="#hipótesis-correlacionales"><span class="header-section-number">10.10.2</span> Hipótesis correlacionales</a></li>
+  <li><a href="#hipótesis-causales" id="toc-hipótesis-causales" class="nav-link" data-scroll-target="#hipótesis-causales"><span class="header-section-number">10.10.3</span> Hipótesis causales</a></li>
+  <li><a href="#hipótesis-comparativas" id="toc-hipótesis-comparativas" class="nav-link" data-scroll-target="#hipótesis-comparativas"><span class="header-section-number">10.10.4</span> Hipótesis comparativas</a></li>
+  </ul></li>
+  <li><a href="#hipótesis-nula-e-hipótesis-alternativa" id="toc-hipótesis-nula-e-hipótesis-alternativa" class="nav-link" data-scroll-target="#hipótesis-nula-e-hipótesis-alternativa"><span class="header-section-number">10.11</span> Hipótesis nula e hipótesis alternativa</a>
+  <ul class="collapse">
+  <li><a href="#hipótesis-nula" id="toc-hipótesis-nula" class="nav-link" data-scroll-target="#hipótesis-nula"><span class="header-section-number">10.11.1</span> Hipótesis nula</a></li>
+  <li><a href="#hipótesis-alternativa" id="toc-hipótesis-alternativa" class="nav-link" data-scroll-target="#hipótesis-alternativa"><span class="header-section-number">10.11.2</span> Hipótesis alternativa</a></li>
+  </ul></li>
+  <li><a href="#relación-entre-teoría-e-hipótesis" id="toc-relación-entre-teoría-e-hipótesis" class="nav-link" data-scroll-target="#relación-entre-teoría-e-hipótesis"><span class="header-section-number">10.12</span> Relación entre teoría e hipótesis</a></li>
+  <li><a href="#ejemplo-integrador" id="toc-ejemplo-integrador" class="nav-link" data-scroll-target="#ejemplo-integrador"><span class="header-section-number">10.13</span> Ejemplo integrador</a>
+  <ul class="collapse">
+  <li><a href="#problema" id="toc-problema" class="nav-link" data-scroll-target="#problema"><span class="header-section-number">10.13.1</span> Problema</a></li>
+  <li><a href="#pregunta" id="toc-pregunta" class="nav-link" data-scroll-target="#pregunta"><span class="header-section-number">10.13.2</span> Pregunta</a></li>
+  <li><a href="#objetivo-general-1" id="toc-objetivo-general-1" class="nav-link" data-scroll-target="#objetivo-general-1"><span class="header-section-number">10.13.3</span> Objetivo general</a></li>
+  <li><a href="#hipótesis" id="toc-hipótesis" class="nav-link" data-scroll-target="#hipótesis"><span class="header-section-number">10.13.4</span> Hipótesis</a></li>
+  </ul></li>
+  <li><a href="#manos-a-la-obra" id="toc-manos-a-la-obra" class="nav-link" data-scroll-target="#manos-a-la-obra"><span class="header-section-number">10.14</span> Manos a la obra</a></li>
+  <li><a href="#resumen-del-capítulo" id="toc-resumen-del-capítulo" class="nav-link" data-scroll-target="#resumen-del-capítulo"><span class="header-section-number">10.15</span> Resumen del capítulo</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/06-problema-de-investigacion.html">Parte III. Construcción de la investigación</a></li><li class="breadcrumb-item"><a href="../capitulos/07-objetivos-hipotesis.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objetivos e hipótesis de investigación</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objetivos e hipótesis de investigación</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="objetivos-de-aprendizaje" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<p>Al finalizar este capítulo, el lector será capaz de:</p>
+<ul>
+<li>Comprender la función de los objetivos dentro de una investigación científica.</li>
+<li>Diferenciar entre objetivo general y objetivos específicos.</li>
+<li>Formular objetivos coherentes con el problema y la pregunta de investigación.</li>
+<li>Comprender el papel de las hipótesis en la investigación cuantitativa.</li>
+<li>Construir hipótesis verificables y metodológicamente consistentes.</li>
+</ul>
+</section>
+<section id="introducción" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">10.1</span> Introducción</h2>
+<p>Una vez identificado el problema y formulada la pregunta de investigación, el siguiente paso consiste en establecer con precisión qué se pretende lograr mediante el estudio.</p>
+<p>Los objetivos representan la traducción operativa de la pregunta de investigación. Mientras la pregunta expresa una interrogante, los objetivos describen las acciones que permitirán responderla <span class="citation" data-cites="hernandezsampieri2018">(<a href="../bibliografia.html#ref-hernandezsampieri2018" role="doc-biblioref">Hernández-Sampieri &amp; Mendoza, 2018</a>)</span>.</p>
+<p>Por su parte, las hipótesis constituyen proposiciones tentativas acerca de las relaciones esperadas entre variables y desempeñan un papel central en numerosos estudios cuantitativos <span class="citation" data-cites="creswell2018">(<a href="../bibliografia.html#ref-creswell2018" role="doc-biblioref">Creswell &amp; Creswell, 2018</a>)</span>.</p>
+<p>La correcta formulación de objetivos e hipótesis resulta fundamental para garantizar la coherencia metodológica de toda investigación.</p>
+</section>
+<section id="qué-son-los-objetivos-de-investigación" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="qué-son-los-objetivos-de-investigación"><span class="header-section-number">10.2</span> ¿Qué son los objetivos de investigación?</h2>
+<p>Los objetivos de investigación son enunciados que describen los propósitos que persigue un estudio.</p>
+<p>Indican qué pretende alcanzar el investigador y orientan las decisiones metodológicas que se adoptarán durante el desarrollo del proyecto <span class="citation" data-cites="arias2012">(<a href="../bibliografia.html#ref-arias2012" role="doc-biblioref">Arias, 2012</a>)</span>.</p>
+<p>Los objetivos permiten:</p>
+<ul>
+<li>Delimitar el alcance de la investigación.</li>
+<li>Guiar la selección de métodos y técnicas.</li>
+<li>Definir las variables de estudio.</li>
+<li>Organizar el análisis de resultados.</li>
+<li>Evaluar el cumplimiento del proyecto.</li>
+</ul>
+<p>En términos prácticos, los objetivos constituyen una hoja de ruta para el proceso de investigación.</p>
+</section>
+<section id="el-objetivo-general" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="el-objetivo-general"><span class="header-section-number">10.3</span> El objetivo general</h2>
+<p>El objetivo general expresa el propósito principal de la investigación.</p>
+<p>Debe encontrarse directamente relacionado con la pregunta de investigación y describir el resultado central que se espera alcanzar.</p>
+<p>Por ejemplo, si la pregunta es:</p>
+<pre class="text"><code>¿Qué factores financieros influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación?</code></pre>
+<p>El objetivo general podría formularse como:</p>
+<pre class="text"><code>Analizar los factores financieros que influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.</code></pre>
+<p>Obsérvese que el objetivo transforma la pregunta en una acción concreta.</p>
+</section>
+<section id="características-de-un-buen-objetivo-general" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="características-de-un-buen-objetivo-general"><span class="header-section-number">10.4</span> Características de un buen objetivo general</h2>
+<p>Un objetivo general debe ser:</p>
+<ul>
+<li>Claro.</li>
+<li>Preciso.</li>
+<li>Coherente con la pregunta.</li>
+<li>Alcanzable.</li>
+<li>Medible.</li>
+<li>Delimitado en espacio y tiempo.</li>
+</ul>
+<p>Asimismo, debe comenzar con un verbo en infinitivo que describa una acción concreta.</p>
+<p>Algunos verbos frecuentemente utilizados son:</p>
+<ul>
+<li>Analizar.</li>
+<li>Determinar.</li>
+<li>Evaluar.</li>
+<li>Identificar.</li>
+<li>Explicar.</li>
+<li>Comparar.</li>
+<li>Estimar.</li>
+<li>Describir.</li>
+<li>Examinar.</li>
+<li>Caracterizar.</li>
+</ul>
+</section>
+<section id="los-objetivos-específicos" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="los-objetivos-específicos"><span class="header-section-number">10.5</span> Los objetivos específicos</h2>
+<p>Los objetivos específicos representan las etapas necesarias para alcanzar el objetivo general.</p>
+<p>Descomponen el propósito principal en tareas más concretas y operativas.</p>
+<p>Continuando con el ejemplo anterior:</p>
+<section id="objetivo-general" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="objetivo-general"><span class="header-section-number">10.5.1</span> Objetivo general</h3>
+<pre class="text"><code>Analizar los factores financieros que influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.</code></pre>
+</section>
+<section id="objetivos-específicos" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="objetivos-específicos"><span class="header-section-number">10.5.2</span> Objetivos específicos</h3>
+<pre class="text"><code>1. Caracterizar el perfil financiero de las microempresas analizadas.
+
+2. Identificar los principales indicadores financieros asociados con la supervivencia empresarial.
+
+3. Estimar la influencia de dichos indicadores sobre la probabilidad de permanencia de las empresas.
+
+4. Comparar los resultados obtenidos entre distintos sectores económicos.</code></pre>
+<p>Cada objetivo específico contribuye al cumplimiento del objetivo general.</p>
+</section>
+</section>
+<section id="la-lógica-de-los-objetivos" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="la-lógica-de-los-objetivos"><span class="header-section-number">10.6</span> La lógica de los objetivos</h2>
+<p>La relación entre pregunta y objetivos puede representarse mediante el siguiente esquema:</p>
+<pre class="text"><code>Problema
+    ↓
+Pregunta de investigación
+    ↓
+Objetivo general
+    ↓
+Objetivos específicos
+    ↓
+Metodología</code></pre>
+<p>La coherencia entre estos elementos constituye uno de los principales criterios utilizados para evaluar la calidad metodológica de una investigación <span class="citation" data-cites="maxwell2013">(<a href="../bibliografia.html#ref-maxwell2013" role="doc-biblioref">Maxwell, 2013</a>)</span>.</p>
+</section>
+<section id="errores-frecuentes-en-la-formulación-de-objetivos" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="errores-frecuentes-en-la-formulación-de-objetivos"><span class="header-section-number">10.7</span> Errores frecuentes en la formulación de objetivos</h2>
+<p>Entre los errores más comunes destacan:</p>
+<section id="objetivos-excesivamente-amplios" class="level3" data-number="10.7.1">
+<h3 data-number="10.7.1" class="anchored" data-anchor-id="objetivos-excesivamente-amplios"><span class="header-section-number">10.7.1</span> Objetivos excesivamente amplios</h3>
+<pre class="text"><code>Analizar todos los factores que afectan la economía ecuatoriana.</code></pre>
+</section>
+<section id="objetivos-ambiguos" class="level3" data-number="10.7.2">
+<h3 data-number="10.7.2" class="anchored" data-anchor-id="objetivos-ambiguos"><span class="header-section-number">10.7.2</span> Objetivos ambiguos</h3>
+<pre class="text"><code>Estudiar algunos aspectos relacionados con la educación.</code></pre>
+</section>
+<section id="objetivos-que-describen-actividades" class="level3" data-number="10.7.3">
+<h3 data-number="10.7.3" class="anchored" data-anchor-id="objetivos-que-describen-actividades"><span class="header-section-number">10.7.3</span> Objetivos que describen actividades</h3>
+<pre class="text"><code>Aplicar encuestas a los estudiantes.</code></pre>
+<p>Aplicar encuestas es una actividad metodológica, no un objetivo de investigación.</p>
+</section>
+<section id="objetivos-desconectados-de-la-pregunta" class="level3" data-number="10.7.4">
+<h3 data-number="10.7.4" class="anchored" data-anchor-id="objetivos-desconectados-de-la-pregunta"><span class="header-section-number">10.7.4</span> Objetivos desconectados de la pregunta</h3>
+<p>Cuando los objetivos no responden directamente a la pregunta planteada, la investigación pierde coherencia interna.</p>
+</section>
+</section>
+<section id="qué-es-una-hipótesis" class="level2" data-number="10.8">
+<h2 data-number="10.8" class="anchored" data-anchor-id="qué-es-una-hipótesis"><span class="header-section-number">10.8</span> ¿Qué es una hipótesis?</h2>
+<p>Las hipótesis son explicaciones tentativas acerca de las relaciones existentes entre variables o fenómenos <span class="citation" data-cites="kerlinger2002">(<a href="../bibliografia.html#ref-kerlinger2002" role="doc-biblioref">Kerlinger &amp; Lee, 2002</a>)</span>.</p>
+<p>Una hipótesis representa una afirmación que será contrastada mediante evidencia empírica.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>El acceso al crédito incrementa la probabilidad de supervivencia de las microempresas.</code></pre>
+<p>Esta afirmación puede ser evaluada mediante datos y técnicas estadísticas.</p>
+</section>
+<section id="el-papel-de-las-hipótesis-en-la-investigación-científica" class="level2" data-number="10.9">
+<h2 data-number="10.9" class="anchored" data-anchor-id="el-papel-de-las-hipótesis-en-la-investigación-científica"><span class="header-section-number">10.9</span> El papel de las hipótesis en la investigación científica</h2>
+<p>Las hipótesis cumplen varias funciones importantes:</p>
+<ul>
+<li>Orientan la recolección de datos.</li>
+<li>Facilitan la selección de variables.</li>
+<li>Guián el análisis estadístico.</li>
+<li>Permiten contrastar teorías existentes.</li>
+<li>Favorecen la interpretación de resultados.</li>
+</ul>
+<p>En investigaciones cuantitativas suelen ocupar un papel central, mientras que en muchos estudios cualitativos pueden no ser necesarias <span class="citation" data-cites="creswell2018">(<a href="../bibliografia.html#ref-creswell2018" role="doc-biblioref">Creswell &amp; Creswell, 2018</a>)</span>.</p>
+</section>
+<section id="tipos-de-hipótesis" class="level2" data-number="10.10">
+<h2 data-number="10.10" class="anchored" data-anchor-id="tipos-de-hipótesis"><span class="header-section-number">10.10</span> Tipos de hipótesis</h2>
+<section id="hipótesis-descriptivas" class="level3" data-number="10.10.1">
+<h3 data-number="10.10.1" class="anchored" data-anchor-id="hipótesis-descriptivas"><span class="header-section-number">10.10.1</span> Hipótesis descriptivas</h3>
+<p>Plantean características esperadas de un fenómeno.</p>
+<p>Ejemplo:</p>
+<pre class="text"><code>La mayoría de los emprendedores rurales posee educación secundaria completa.</code></pre>
+</section>
+<section id="hipótesis-correlacionales" class="level3" data-number="10.10.2">
+<h3 data-number="10.10.2" class="anchored" data-anchor-id="hipótesis-correlacionales"><span class="header-section-number">10.10.2</span> Hipótesis correlacionales</h3>
+<p>Proponen asociaciones entre variables.</p>
+<p>Ejemplo:</p>
+<pre class="text"><code>Existe una relación positiva entre educación e ingreso laboral.</code></pre>
+</section>
+<section id="hipótesis-causales" class="level3" data-number="10.10.3">
+<h3 data-number="10.10.3" class="anchored" data-anchor-id="hipótesis-causales"><span class="header-section-number">10.10.3</span> Hipótesis causales</h3>
+<p>Proponen relaciones de causa y efecto.</p>
+<p>Ejemplo:</p>
+<pre class="text"><code>La capacitación empresarial incrementa la productividad de las microempresas.</code></pre>
+</section>
+<section id="hipótesis-comparativas" class="level3" data-number="10.10.4">
+<h3 data-number="10.10.4" class="anchored" data-anchor-id="hipótesis-comparativas"><span class="header-section-number">10.10.4</span> Hipótesis comparativas</h3>
+<p>Plantean diferencias entre grupos.</p>
+<p>Ejemplo:</p>
+<pre class="text"><code>Los estudiantes que utilizan tutorías académicas presentan un rendimiento superior al de quienes no las utilizan.</code></pre>
+</section>
+</section>
+<section id="hipótesis-nula-e-hipótesis-alternativa" class="level2" data-number="10.11">
+<h2 data-number="10.11" class="anchored" data-anchor-id="hipótesis-nula-e-hipótesis-alternativa"><span class="header-section-number">10.11</span> Hipótesis nula e hipótesis alternativa</h2>
+<p>En investigación cuantitativa es frecuente trabajar con dos hipótesis complementarias.</p>
+<section id="hipótesis-nula" class="level3" data-number="10.11.1">
+<h3 data-number="10.11.1" class="anchored" data-anchor-id="hipótesis-nula"><span class="header-section-number">10.11.1</span> Hipótesis nula</h3>
+<p>Representa la ausencia de efecto o relación.</p>
+<pre class="text"><code>H₀: La capacitación empresarial no influye en la productividad de las microempresas.</code></pre>
+</section>
+<section id="hipótesis-alternativa" class="level3" data-number="10.11.2">
+<h3 data-number="10.11.2" class="anchored" data-anchor-id="hipótesis-alternativa"><span class="header-section-number">10.11.2</span> Hipótesis alternativa</h3>
+<p>Representa la existencia del efecto esperado.</p>
+<pre class="text"><code>H₁: La capacitación empresarial influye positivamente en la productividad de las microempresas.</code></pre>
+<p>Los procedimientos estadísticos permiten evaluar cuál de estas hipótesis recibe mayor respaldo empírico <span class="citation" data-cites="wooldridge2020">(<a href="../bibliografia.html#ref-wooldridge2020" role="doc-biblioref">Wooldridge, 2020</a>)</span>.</p>
+</section>
+</section>
+<section id="relación-entre-teoría-e-hipótesis" class="level2" data-number="10.12">
+<h2 data-number="10.12" class="anchored" data-anchor-id="relación-entre-teoría-e-hipótesis"><span class="header-section-number">10.12</span> Relación entre teoría e hipótesis</h2>
+<p>Las hipótesis no deben formularse arbitrariamente.</p>
+<p>Deben derivarse de:</p>
+<ul>
+<li>Teorías existentes.</li>
+<li>Evidencia empírica previa.</li>
+<li>Revisiones de literatura.</li>
+<li>Resultados encontrados en investigaciones anteriores.</li>
+</ul>
+<p>Por esta razón, la construcción del marco teórico desempeña un papel fundamental en el desarrollo de hipótesis científicamente fundamentadas <span class="citation" data-cites="booth2016">(<a href="../bibliografia.html#ref-booth2016" role="doc-biblioref">Booth et&nbsp;al., 2016</a>)</span>.</p>
+</section>
+<section id="ejemplo-integrador" class="level2" data-number="10.13">
+<h2 data-number="10.13" class="anchored" data-anchor-id="ejemplo-integrador"><span class="header-section-number">10.13</span> Ejemplo integrador</h2>
+<section id="problema" class="level3" data-number="10.13.1">
+<h3 data-number="10.13.1" class="anchored" data-anchor-id="problema"><span class="header-section-number">10.13.1</span> Problema</h3>
+<p>Elevada mortalidad de microempresas durante sus primeros años de operación.</p>
+</section>
+<section id="pregunta" class="level3" data-number="10.13.2">
+<h3 data-number="10.13.2" class="anchored" data-anchor-id="pregunta"><span class="header-section-number">10.13.2</span> Pregunta</h3>
+<pre class="text"><code>¿Qué factores financieros influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación?</code></pre>
+</section>
+<section id="objetivo-general-1" class="level3" data-number="10.13.3">
+<h3 data-number="10.13.3" class="anchored" data-anchor-id="objetivo-general-1"><span class="header-section-number">10.13.3</span> Objetivo general</h3>
+<pre class="text"><code>Analizar los factores financieros que influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.</code></pre>
+</section>
+<section id="hipótesis" class="level3" data-number="10.13.4">
+<h3 data-number="10.13.4" class="anchored" data-anchor-id="hipótesis"><span class="header-section-number">10.13.4</span> Hipótesis</h3>
+<pre class="text"><code>Las microempresas con mayores niveles de liquidez presentan una mayor probabilidad de supervivencia durante sus primeros tres años de operación.</code></pre>
+<p>Obsérvese cómo problema, pregunta, objetivo e hipótesis mantienen una relación lógica y coherente.</p>
+</section>
+</section>
+<section id="manos-a-la-obra" class="level2" data-number="10.14">
+<h2 data-number="10.14" class="anchored" data-anchor-id="manos-a-la-obra"><span class="header-section-number">10.14</span> Manos a la obra</h2>
+<p>Utilizando la pregunta formulada en el capítulo anterior, complete el siguiente esquema:</p>
+<pre class="text"><code>Pregunta de investigación:
+
+Objetivo general:
+
+Objetivo específico 1:
+
+Objetivo específico 2:
+
+Objetivo específico 3:
+
+Hipótesis principal:</code></pre>
+<p>Verifique posteriormente que todos los elementos mantienen coherencia lógica entre sí.</p>
+</section>
+<section id="resumen-del-capítulo" class="level2" data-number="10.15">
+<h2 data-number="10.15" class="anchored" data-anchor-id="resumen-del-capítulo"><span class="header-section-number">10.15</span> Resumen del capítulo</h2>
+<p>Los objetivos constituyen la traducción operativa de la pregunta de investigación y orientan todas las actividades desarrolladas durante el estudio. Por su parte, las hipótesis representan explicaciones tentativas que permiten contrastar teorías y relaciones entre variables mediante evidencia empírica.</p>
+<p>La coherencia entre problema, pregunta, objetivos e hipótesis constituye uno de los pilares fundamentales de una investigación rigurosa y metodológicamente sólida.</p>
+<p>En el siguiente capítulo abordaremos la construcción del marco teórico y aprenderemos cómo utilizar la literatura científica para fundamentar nuestras investigaciones.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-arias2012" class="csl-entry" role="listitem">
+Arias, F. G. (2012). <em>El proyecto de investigación: Introducción a la metodología científica</em>. Episteme.
+</div>
+<div id="ref-booth2016" class="csl-entry" role="listitem">
+Booth, W. C., Colomb, G. G., Williams, J. M., Bizup, J., &amp; FitzGerald, W. T. (2016). <em>The Craft of Research</em>. University of Chicago Press.
+</div>
+<div id="ref-creswell2018" class="csl-entry" role="listitem">
+Creswell, J. W., &amp; Creswell, J. D. (2018). <em>Research Design: Qualitative, Quantitative, and Mixed Methods Approaches</em> (5.ª ed.). SAGE Publications.
+</div>
+<div id="ref-hernandezsampieri2018" class="csl-entry" role="listitem">
+Hernández-Sampieri, R., &amp; Mendoza, C. (2018). <em>Metodología de la investigación: Las rutas cuantitativa, cualitativa y mixta</em>. McGraw-Hill Education.
+</div>
+<div id="ref-kerlinger2002" class="csl-entry" role="listitem">
+Kerlinger, F. N., &amp; Lee, H. B. (2002). <em>Investigación del comportamiento: Métodos de investigación en ciencias sociales</em>. McGraw-Hill.
+</div>
+<div id="ref-maxwell2013" class="csl-entry" role="listitem">
+Maxwell, J. A. (2013). <em>Qualitative Research Design: An Interactive Approach</em>. SAGE Publications.
+</div>
+<div id="ref-wooldridge2020" class="csl-entry" role="listitem">
+Wooldridge, J. M. (2020). <em>Introductory Econometrics: A Modern Approach</em>. Cengage Learning.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../capitulos/06-problema-de-investigacion.html" class="pagination-link" aria-label="Del problema de investigación a la pregunta de investigación">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Del problema de investigación a la pregunta de investigación</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../capitulos/08-marco-teorico.html" class="pagination-link" aria-label="Construcción del marco teórico">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Construcción del marco teórico</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

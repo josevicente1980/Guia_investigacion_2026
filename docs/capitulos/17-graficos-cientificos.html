@@ -1,0 +1,2618 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>20&nbsp; Gráficos científicos – Investigación reproducible con R y Quarto</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../capitulos/18-del-analisis-descriptivo-a-la-modelacion.html" rel="next">
+<link href="../capitulos/16-visualizacion-de-datos.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-12eeb4b20e9f5a2b0bfc604bfaf942bb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/14-estadistica-descriptiva.html">Parte V. Estadística descriptiva y visualización</a></li><li class="breadcrumb-item"><a href="../capitulos/17-graficos-cientificos.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Gráficos científicos</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Investigación reproducible con R y Quarto</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Presentación</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prologo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prólogo</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../como-utilizar-este-libro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cómo utilizar este libro</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I. Fundamentos de la investigación reproducible</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/01-investigacion-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Investigación reproducible: construyendo confianza en la ciencia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/02-ciencia-abierta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La ciencia abierta como ecosistema de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/03-r-y-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R y Quarto: una plataforma integrada para la investigación reproducible</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II. Preparando el proyecto de investigación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/04-organizacion-del-proyecto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Organización del proyecto de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/05-primer-libro-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Construyendo nuestro primer libro en Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte III. Construcción de la investigación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/06-problema-de-investigacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Del problema de investigación a la pregunta de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/07-objetivos-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objetivos e hipótesis de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/08-marco-teorico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Construcción del marco teórico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/09-busqueda-cientifica-bibtex-apa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Búsqueda científica, BibTeX y gestión automatizada de referencias</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte IV. Gestión y preparación de datos con R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/10-importacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Importación de datos con R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/11-limpieza-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Limpieza de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/12-transformacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transformación de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/13-calidad-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Calidad de los datos</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte V. Estadística descriptiva y visualización</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/14-estadistica-descriptiva.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Estadística descriptiva</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/15-tablas-descriptivas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Tablas descriptivas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/16-visualizacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Visualización de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/17-graficos-cientificos.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Gráficos científicos</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VI. Modelación econométrica aplicada</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/18-del-analisis-descriptivo-a-la-modelacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Del análisis descriptivo a la modelación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/19-correlacion-asociacion-causalidad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Correlación, asociación y causalidad</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/20-regresion-lineal-simple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Regresión lineal simple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/21-regresion-lineal-multiple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Regresión lineal múltiple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/22-diagnostico-del-modelo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Diagnóstico del modelo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/23-variables-categoricas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Variables categóricas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/24-modelos-logit-probit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Modelos Logit y Probit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/25-datos-de-panel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Datos de panel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/26-modelos-espaciales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Modelos espaciales y extensiones modernas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/27-presentacion-modelos-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Presentación de modelos con Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VII. Redacción científica del informe</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/28-introduccion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/29-metodologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Metodología</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/30-resultados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Resultados</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/31-discusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Discusión</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/32-conclusiones-recomendaciones.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Conclusiones y Recomendaciones</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VIII. Difusión y comunicación científica</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/33-generacion-word-pdf-html.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Generación de documentos Word, PDF y HTML</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/34-presentaciones-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Presentaciones con Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/35-dashboard-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Dashboards con Shiny y Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bibliografia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Bibliografía</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#objetivos-de-aprendizaje" id="toc-objetivos-de-aprendizaje" class="nav-link active" data-scroll-target="#objetivos-de-aprendizaje">Objetivos de aprendizaje</a></li>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link" data-scroll-target="#introducción"><span class="header-section-number">20.1</span> Introducción</a></li>
+  <li><a href="#cargando-paquetes" id="toc-cargando-paquetes" class="nav-link" data-scroll-target="#cargando-paquetes"><span class="header-section-number">20.2</span> Cargando paquetes</a></li>
+  <li><a href="#cargando-la-base-analítica" id="toc-cargando-la-base-analítica" class="nav-link" data-scroll-target="#cargando-la-base-analítica"><span class="header-section-number">20.3</span> Cargando la base analítica</a></li>
+  <li><a href="#preparando-variables-para-visualización" id="toc-preparando-variables-para-visualización" class="nav-link" data-scroll-target="#preparando-variables-para-visualización"><span class="header-section-number">20.4</span> Preparando variables para visualización</a></li>
+  <li><a href="#qué-diferencia-un-gráfico-exploratorio-de-un-gráfico-científico" id="toc-qué-diferencia-un-gráfico-exploratorio-de-un-gráfico-científico" class="nav-link" data-scroll-target="#qué-diferencia-un-gráfico-exploratorio-de-un-gráfico-científico"><span class="header-section-number">20.5</span> ¿Qué diferencia un gráfico exploratorio de un gráfico científico?</a></li>
+  <li><a href="#el-principio-de-la-tinta-de-datos" id="toc-el-principio-de-la-tinta-de-datos" class="nav-link" data-scroll-target="#el-principio-de-la-tinta-de-datos"><span class="header-section-number">20.6</span> El principio de la tinta de datos</a></li>
+  <li><a href="#ejemplo-de-gráfico-básico" id="toc-ejemplo-de-gráfico-básico" class="nav-link" data-scroll-target="#ejemplo-de-gráfico-básico"><span class="header-section-number">20.7</span> Ejemplo de gráfico básico</a></li>
+  <li><a href="#mejorando-la-presentación" id="toc-mejorando-la-presentación" class="nav-link" data-scroll-target="#mejorando-la-presentación"><span class="header-section-number">20.8</span> Mejorando la presentación</a></li>
+  <li><a href="#temas-en-ggplot2" id="toc-temas-en-ggplot2" class="nav-link" data-scroll-target="#temas-en-ggplot2"><span class="header-section-number">20.9</span> Temas en ggplot2</a></li>
+  <li><a href="#comparación-de-temas" id="toc-comparación-de-temas" class="nav-link" data-scroll-target="#comparación-de-temas"><span class="header-section-number">20.10</span> Comparación de temas</a>
+  <ul class="collapse">
+  <li><a href="#tema-clásico" id="toc-tema-clásico" class="nav-link" data-scroll-target="#tema-clásico"><span class="header-section-number">20.10.1</span> Tema clásico</a></li>
+  <li><a href="#tema-minimalista" id="toc-tema-minimalista" class="nav-link" data-scroll-target="#tema-minimalista"><span class="header-section-number">20.10.2</span> Tema minimalista</a></li>
+  </ul></li>
+  <li><a href="#el-uso-científico-del-color" id="toc-el-uso-científico-del-color" class="nav-link" data-scroll-target="#el-uso-científico-del-color"><span class="header-section-number">20.11</span> El uso científico del color</a></li>
+  <li><a href="#paletas-perceptualmente-uniformes" id="toc-paletas-perceptualmente-uniformes" class="nav-link" data-scroll-target="#paletas-perceptualmente-uniformes"><span class="header-section-number">20.12</span> Paletas perceptualmente uniformes</a></li>
+  <li><a href="#ejemplo-utilizando-viridis" id="toc-ejemplo-utilizando-viridis" class="nav-link" data-scroll-target="#ejemplo-utilizando-viridis"><span class="header-section-number">20.13</span> Ejemplo utilizando Viridis</a></li>
+  <li><a href="#evitando-gráficos-engañosos" id="toc-evitando-gráficos-engañosos" class="nav-link" data-scroll-target="#evitando-gráficos-engañosos"><span class="header-section-number">20.14</span> Evitando gráficos engañosos</a></li>
+  <li><a href="#ejemplo-de-mala-práctica" id="toc-ejemplo-de-mala-práctica" class="nav-link" data-scroll-target="#ejemplo-de-mala-práctica"><span class="header-section-number">20.15</span> Ejemplo de mala práctica</a></li>
+  <li><a href="#ejemplo-corregido" id="toc-ejemplo-corregido" class="nav-link" data-scroll-target="#ejemplo-corregido"><span class="header-section-number">20.16</span> Ejemplo corregido</a></li>
+  <li><a href="#construyendo-un-estilo-gráfico-reproducible" id="toc-construyendo-un-estilo-gráfico-reproducible" class="nav-link" data-scroll-target="#construyendo-un-estilo-gráfico-reproducible"><span class="header-section-number">20.17</span> Construyendo un estilo gráfico reproducible</a></li>
+  <li><a href="#aplicando-el-tema-científico" id="toc-aplicando-el-tema-científico" class="nav-link" data-scroll-target="#aplicando-el-tema-científico"><span class="header-section-number">20.18</span> Aplicando el tema científico</a></li>
+  <li><a href="#recomendaciones-para-publicaciones-científicas" id="toc-recomendaciones-para-publicaciones-científicas" class="nav-link" data-scroll-target="#recomendaciones-para-publicaciones-científicas"><span class="header-section-number">20.19</span> Recomendaciones para publicaciones científicas</a></li>
+  <li><a href="#manos-a-la-obra" id="toc-manos-a-la-obra" class="nav-link" data-scroll-target="#manos-a-la-obra"><span class="header-section-number">20.20</span> Manos a la obra</a></li>
+  <li><a href="#parte-2.-gráficos-científicos-para-tesis-informes-y-artículos" id="toc-parte-2.-gráficos-científicos-para-tesis-informes-y-artículos" class="nav-link" data-scroll-target="#parte-2.-gráficos-científicos-para-tesis-informes-y-artículos"><span class="header-section-number">21</span> Parte 2. Gráficos científicos para tesis, informes y artículos</a>
+  <ul class="collapse">
+  <li><a href="#introducción-1" id="toc-introducción-1" class="nav-link" data-scroll-target="#introducción-1"><span class="header-section-number">21.1</span> Introducción</a></li>
+  <li><a href="#histograma-publicable" id="toc-histograma-publicable" class="nav-link" data-scroll-target="#histograma-publicable"><span class="header-section-number">21.2</span> Histograma publicable</a></li>
+  <li><a href="#histograma-con-densidad" id="toc-histograma-con-densidad" class="nav-link" data-scroll-target="#histograma-con-densidad"><span class="header-section-number">21.3</span> Histograma con densidad</a></li>
+  <li><a href="#comparaciones-mediante-diagramas-de-caja" id="toc-comparaciones-mediante-diagramas-de-caja" class="nav-link" data-scroll-target="#comparaciones-mediante-diagramas-de-caja"><span class="header-section-number">21.4</span> Comparaciones mediante diagramas de caja</a></li>
+  <li><a href="#gráficos-de-violín" id="toc-gráficos-de-violín" class="nav-link" data-scroll-target="#gráficos-de-violín"><span class="header-section-number">21.5</span> Gráficos de violín</a></li>
+  <li><a href="#barras-con-intervalos-de-confianza" id="toc-barras-con-intervalos-de-confianza" class="nav-link" data-scroll-target="#barras-con-intervalos-de-confianza"><span class="header-section-number">21.6</span> Barras con intervalos de confianza</a></li>
+  <li><a href="#barras-con-intervalos" id="toc-barras-con-intervalos" class="nav-link" data-scroll-target="#barras-con-intervalos"><span class="header-section-number">21.7</span> Barras con intervalos</a></li>
+  <li><a href="#gráficos-de-dispersión-para-publicaciones" id="toc-gráficos-de-dispersión-para-publicaciones" class="nav-link" data-scroll-target="#gráficos-de-dispersión-para-publicaciones"><span class="header-section-number">21.8</span> Gráficos de dispersión para publicaciones</a></li>
+  <li><a href="#facetas-científicas" id="toc-facetas-científicas" class="nav-link" data-scroll-target="#facetas-científicas"><span class="header-section-number">21.9</span> Facetas científicas</a></li>
+  <li><a href="#importancia-de-las-etiquetas" id="toc-importancia-de-las-etiquetas" class="nav-link" data-scroll-target="#importancia-de-las-etiquetas"><span class="header-section-number">21.10</span> Importancia de las etiquetas</a></li>
+  <li><a href="#ejemplo-de-etiquetado-profesional" id="toc-ejemplo-de-etiquetado-profesional" class="nav-link" data-scroll-target="#ejemplo-de-etiquetado-profesional"><span class="header-section-number">21.11</span> Ejemplo de etiquetado profesional</a></li>
+  <li><a href="#escalas-y-formatos-numéricos" id="toc-escalas-y-formatos-numéricos" class="nav-link" data-scroll-target="#escalas-y-formatos-numéricos"><span class="header-section-number">21.12</span> Escalas y formatos numéricos</a></li>
+  <li><a href="#leyendas-y-consistencia-gráfica" id="toc-leyendas-y-consistencia-gráfica" class="nav-link" data-scroll-target="#leyendas-y-consistencia-gráfica"><span class="header-section-number">21.13</span> Leyendas y consistencia gráfica</a></li>
+  <li><a href="#recomendaciones-para-tesis-y-artículos" id="toc-recomendaciones-para-tesis-y-artículos" class="nav-link" data-scroll-target="#recomendaciones-para-tesis-y-artículos"><span class="header-section-number">21.14</span> Recomendaciones para tesis y artículos</a></li>
+  <li><a href="#manos-a-la-obra-1" id="toc-manos-a-la-obra-1" class="nav-link" data-scroll-target="#manos-a-la-obra-1"><span class="header-section-number">21.15</span> Manos a la obra</a></li>
+  </ul></li>
+  <li><a href="#parte-3.-figuras-avanzadas-para-publicaciones-científicas" id="toc-parte-3.-figuras-avanzadas-para-publicaciones-científicas" class="nav-link" data-scroll-target="#parte-3.-figuras-avanzadas-para-publicaciones-científicas"><span class="header-section-number">22</span> Parte 3. Figuras avanzadas para publicaciones científicas</a>
+  <ul class="collapse">
+  <li><a href="#introducción-2" id="toc-introducción-2" class="nav-link" data-scroll-target="#introducción-2"><span class="header-section-number">22.1</span> Introducción</a></li>
+  <li><a href="#qué-es-una-figura-científica-avanzada" id="toc-qué-es-una-figura-científica-avanzada" class="nav-link" data-scroll-target="#qué-es-una-figura-científica-avanzada"><span class="header-section-number">22.2</span> ¿Qué es una figura científica avanzada?</a></li>
+  <li><a href="#construyendo-una-colección-de-gráficos" id="toc-construyendo-una-colección-de-gráficos" class="nav-link" data-scroll-target="#construyendo-una-colección-de-gráficos"><span class="header-section-number">22.3</span> Construyendo una colección de gráficos</a>
+  <ul class="collapse">
+  <li><a href="#distribución-de-superficie" id="toc-distribución-de-superficie" class="nav-link" data-scroll-target="#distribución-de-superficie"><span class="header-section-number">22.3.1</span> Distribución de superficie</a></li>
+  <li><a href="#comparación-por-tamaño-de-upa" id="toc-comparación-por-tamaño-de-upa" class="nav-link" data-scroll-target="#comparación-por-tamaño-de-upa"><span class="header-section-number">22.3.2</span> Comparación por tamaño de UPA</a></li>
+  <li><a href="#relación-entre-variables" id="toc-relación-entre-variables" class="nav-link" data-scroll-target="#relación-entre-variables"><span class="header-section-number">22.3.3</span> Relación entre variables</a></li>
+  </ul></li>
+  <li><a href="#figuras-multipanel" id="toc-figuras-multipanel" class="nav-link" data-scroll-target="#figuras-multipanel"><span class="header-section-number">22.4</span> Figuras multipanel</a></li>
+  <li><a href="#construcción-de-una-figura-compuesta" id="toc-construcción-de-una-figura-compuesta" class="nav-link" data-scroll-target="#construcción-de-una-figura-compuesta"><span class="header-section-number">22.5</span> Construcción de una figura compuesta</a></li>
+  <li><a href="#organización-visual-de-paneles" id="toc-organización-visual-de-paneles" class="nav-link" data-scroll-target="#organización-visual-de-paneles"><span class="header-section-number">22.6</span> Organización visual de paneles</a></li>
+  <li><a href="#etiquetado-automático-de-paneles" id="toc-etiquetado-automático-de-paneles" class="nav-link" data-scroll-target="#etiquetado-automático-de-paneles"><span class="header-section-number">22.7</span> Etiquetado automático de paneles</a></li>
+  <li><a href="#tamaño-de-figuras-para-publicación" id="toc-tamaño-de-figuras-para-publicación" class="nav-link" data-scroll-target="#tamaño-de-figuras-para-publicación"><span class="header-section-number">22.8</span> Tamaño de figuras para publicación</a></li>
+  <li><a href="#resolución-y-calidad-gráfica" id="toc-resolución-y-calidad-gráfica" class="nav-link" data-scroll-target="#resolución-y-calidad-gráfica"><span class="header-section-number">22.9</span> Resolución y calidad gráfica</a></li>
+  <li><a href="#exportación-en-formato-png" id="toc-exportación-en-formato-png" class="nav-link" data-scroll-target="#exportación-en-formato-png"><span class="header-section-number">22.10</span> Exportación en formato PNG</a></li>
+  <li><a href="#exportación-en-formato-pdf" id="toc-exportación-en-formato-pdf" class="nav-link" data-scroll-target="#exportación-en-formato-pdf"><span class="header-section-number">22.11</span> Exportación en formato PDF</a></li>
+  <li><a href="#exportación-en-formato-tiff" id="toc-exportación-en-formato-tiff" class="nav-link" data-scroll-target="#exportación-en-formato-tiff"><span class="header-section-number">22.12</span> Exportación en formato TIFF</a></li>
+  <li><a href="#integración-con-quarto" id="toc-integración-con-quarto" class="nav-link" data-scroll-target="#integración-con-quarto"><span class="header-section-number">22.13</span> Integración con Quarto</a></li>
+  <li><a href="#reproducibilidad-gráfica" id="toc-reproducibilidad-gráfica" class="nav-link" data-scroll-target="#reproducibilidad-gráfica"><span class="header-section-number">22.14</span> Reproducibilidad gráfica</a></li>
+  <li><a href="#lista-de-verificación-para-publicaciones" id="toc-lista-de-verificación-para-publicaciones" class="nav-link" data-scroll-target="#lista-de-verificación-para-publicaciones"><span class="header-section-number">22.15</span> Lista de verificación para publicaciones</a></li>
+  <li><a href="#errores-frecuentes" id="toc-errores-frecuentes" class="nav-link" data-scroll-target="#errores-frecuentes"><span class="header-section-number">22.16</span> Errores frecuentes</a></li>
+  <li><a href="#flujo-recomendado-para-producción-científica" id="toc-flujo-recomendado-para-producción-científica" class="nav-link" data-scroll-target="#flujo-recomendado-para-producción-científica"><span class="header-section-number">22.17</span> Flujo recomendado para producción científica</a></li>
+  <li><a href="#manos-a-la-obra-2" id="toc-manos-a-la-obra-2" class="nav-link" data-scroll-target="#manos-a-la-obra-2"><span class="header-section-number">22.18</span> Manos a la obra</a></li>
+  <li><a href="#resumen-del-capítulo" id="toc-resumen-del-capítulo" class="nav-link" data-scroll-target="#resumen-del-capítulo"><span class="header-section-number">22.19</span> Resumen del capítulo</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/14-estadistica-descriptiva.html">Parte V. Estadística descriptiva y visualización</a></li><li class="breadcrumb-item"><a href="../capitulos/17-graficos-cientificos.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Gráficos científicos</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Gráficos científicos</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="objetivos-de-aprendizaje" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<p>Al finalizar este capítulo, el lector será capaz de:</p>
+<ul>
+<li>Comprender los principios fundamentales de la comunicación visual científica.</li>
+<li>Diferenciar entre gráficos exploratorios y gráficos destinados a publicación.</li>
+<li>Aplicar criterios de diseño orientados a la claridad y reproducibilidad.</li>
+<li>Utilizar temas y escalas apropiadas para artículos científicos, tesis e informes técnicos.</li>
+<li>Construir gráficos científicamente sólidos utilizando <code>ggplot2</code>.</li>
+<li>Reconocer errores frecuentes en la comunicación visual de resultados.</li>
+</ul>
+</section>
+<section id="introducción" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">20.1</span> Introducción</h2>
+<p>La visualización constituye una de las etapas más importantes del análisis estadístico. Un gráfico bien diseñado puede comunicar en segundos patrones que requerirían varias páginas de texto para ser explicados. Sin embargo, no todos los gráficos cumplen el mismo propósito.</p>
+<p>Durante las primeras etapas de una investigación suelen utilizarse gráficos exploratorios destinados a comprender los datos. En cambio, cuando los resultados se presentan en una tesis, un informe técnico o un artículo científico, los gráficos deben cumplir estándares adicionales de claridad, precisión y reproducibilidad <span class="citation" data-cites="wilkinson2005 healy2018">(<a href="../bibliografia.html#ref-healy2018" role="doc-biblioref">Healy, 2018</a>; <a href="../bibliografia.html#ref-wilkinson2005" role="doc-biblioref">Wilkinson, 2005</a>)</span>.</p>
+<p>La visualización científica busca maximizar la comunicación de la información minimizando los elementos innecesarios. Este principio fue ampliamente desarrollado por Tufte <span class="citation" data-cites="tufte2001">(<a href="../bibliografia.html#ref-tufte2001" role="doc-biblioref">Tufte, 2001</a>)</span>, quien argumenta que los gráficos deben enfatizar los datos y reducir los componentes decorativos que no aportan significado analítico.</p>
+<p>En este capítulo utilizaremos la base analítica construida a partir de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC 2025) para ilustrar los principios de diseño gráfico científico.</p>
+</section>
+<section id="cargando-paquetes" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="cargando-paquetes"><span class="header-section-number">20.2</span> Cargando paquetes</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="cargando-la-base-analítica" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="cargando-la-base-analítica"><span class="header-section-number">20.3</span> Cargando la base analítica</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>base_analitica <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  here<span class="sc">::</span><span class="fu">here</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"datos"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"procesado"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ESPAC_2025"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sunac_transformado.rds"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="preparando-variables-para-visualización" class="level2" data-number="20.4">
+<h2 data-number="20.4" class="anchored" data-anchor-id="preparando-variables-para-visualización"><span class="header-section-number">20.4</span> Preparando variables para visualización</h2>
+<p>Tal como se observó en el capítulo anterior, la variable <code>supertotal</code> presenta una distribución altamente asimétrica. Por esta razón construiremos una transformación logarítmica que facilite la visualización.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>base_analitica <span class="ot">&lt;-</span> base_analitica <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_supertotal =</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">log1p</span>(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        supertotal</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="qué-diferencia-un-gráfico-exploratorio-de-un-gráfico-científico" class="level2" data-number="20.5">
+<h2 data-number="20.5" class="anchored" data-anchor-id="qué-diferencia-un-gráfico-exploratorio-de-un-gráfico-científico"><span class="header-section-number">20.5</span> ¿Qué diferencia un gráfico exploratorio de un gráfico científico?</h2>
+<p>Los gráficos exploratorios se utilizan durante el análisis para comprender los datos.</p>
+<p>Los gráficos científicos tienen un propósito diferente:</p>
+<ul>
+<li>Comunicar resultados.</li>
+<li>Facilitar la interpretación.</li>
+<li>Reducir ambigüedades.</li>
+<li>Mantener consistencia visual.</li>
+<li>Garantizar reproducibilidad.</li>
+<li>Cumplir estándares editoriales.</li>
+</ul>
+<p>La siguiente tabla resume las diferencias principales.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>comparacion_graficos <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Caracteristica =</span> <span class="fu">c</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Objetivo"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Audiencia"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Diseño"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Nivel de detalle"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Uso principal"</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Exploratorio =</span> <span class="fu">c</span>(</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Descubrir patrones"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Investigador"</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Flexible"</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Alto"</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Análisis"</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">Cientifico =</span> <span class="fu">c</span>(</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Comunicar evidencia"</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Lectores"</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Estandarizado"</span>,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Controlado"</span>,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Publicación"</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>comparacion_graficos <span class="sc">|&gt;</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Comparación entre gráficos exploratorios y científicos"</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch17-exploratorio-vs-cientifico" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch17-exploratorio-vs-cientifico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;20.1: Comparación entre gráficos exploratorios y científicos
+</figcaption>
+<div aria-describedby="tbl-ch17-exploratorio-vs-cientifico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Caracteristica</th>
+<th style="text-align: left;">Exploratorio</th>
+<th style="text-align: left;">Cientifico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Objetivo</td>
+<td style="text-align: left;">Descubrir patrones</td>
+<td style="text-align: left;">Comunicar evidencia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Audiencia</td>
+<td style="text-align: left;">Investigador</td>
+<td style="text-align: left;">Lectores</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Diseño</td>
+<td style="text-align: left;">Flexible</td>
+<td style="text-align: left;">Estandarizado</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nivel de detalle</td>
+<td style="text-align: left;">Alto</td>
+<td style="text-align: left;">Controlado</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Uso principal</td>
+<td style="text-align: left;">Análisis</td>
+<td style="text-align: left;">Publicación</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>Los gráficos científicos no sustituyen al análisis exploratorio. Ambos cumplen funciones complementarias dentro del proceso de investigación.</p>
+</section>
+<section id="el-principio-de-la-tinta-de-datos" class="level2" data-number="20.6">
+<h2 data-number="20.6" class="anchored" data-anchor-id="el-principio-de-la-tinta-de-datos"><span class="header-section-number">20.6</span> El principio de la tinta de datos</h2>
+<p>Tufte <span class="citation" data-cites="tufte2001">(<a href="../bibliografia.html#ref-tufte2001" role="doc-biblioref">Tufte, 2001</a>)</span> propone que la mayor parte de la tinta utilizada en un gráfico debe estar dedicada a representar información relevante.</p>
+<p>Esto implica:</p>
+<ul>
+<li>Reducir adornos innecesarios.</li>
+<li>Eliminar fondos excesivos.</li>
+<li>Evitar efectos tridimensionales.</li>
+<li>Simplificar rejillas.</li>
+<li>Destacar los datos.</li>
+</ul>
+</section>
+<section id="ejemplo-de-gráfico-básico" class="level2" data-number="20.7">
+<h2 data-number="20.7" class="anchored" data-anchor-id="ejemplo-de-gráfico-básico"><span class="header-section-number">20.7</span> Ejemplo de gráfico básico</h2>
+<p>Comenzaremos con un histograma sencillo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> log_supertotal</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">30</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-histograma-basico" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-histograma-basico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-histograma-basico-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-histograma-basico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;20.1: Histograma básico de la superficie transformada
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>Aunque el gráfico comunica la distribución de la variable, todavía puede mejorarse desde el punto de vista científico.</p>
+</section>
+<section id="mejorando-la-presentación" class="level2" data-number="20.8">
+<h2 data-number="20.8" class="anchored" data-anchor-id="mejorando-la-presentación"><span class="header-section-number">20.8</span> Mejorando la presentación</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> log_supertotal</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">30</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Logaritmo de la superficie total"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia"</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-histograma-mejorado" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-histograma-mejorado-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-histograma-mejorado-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-histograma-mejorado-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;20.2: Histograma mejorado para comunicación científica
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La versión mejorada reduce el ruido visual y facilita la lectura del gráfico.</p>
+</section>
+<section id="temas-en-ggplot2" class="level2" data-number="20.9">
+<h2 data-number="20.9" class="anchored" data-anchor-id="temas-en-ggplot2"><span class="header-section-number">20.9</span> Temas en ggplot2</h2>
+<p>Los temas controlan la apariencia general de los gráficos.</p>
+<p>Algunos de los más utilizados son:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>temas_ggplot <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Tema =</span> <span class="fu">c</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"theme_gray()"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"theme_bw()"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"theme_classic()"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"theme_light()"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"theme_minimal()"</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Uso =</span> <span class="fu">c</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Predeterminado"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Artículos"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Publicaciones"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Informes"</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Visualización moderna"</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>temas_ggplot <span class="sc">|&gt;</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Temas comunes en ggplot2"</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch17-temas-ggplot" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch17-temas-ggplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;20.2: Temas comunes en ggplot2
+</figcaption>
+<div aria-describedby="tbl-ch17-temas-ggplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tema</th>
+<th style="text-align: left;">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">theme_gray()</td>
+<td style="text-align: left;">Predeterminado</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">theme_bw()</td>
+<td style="text-align: left;">Artículos</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">theme_classic()</td>
+<td style="text-align: left;">Publicaciones</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">theme_light()</td>
+<td style="text-align: left;">Informes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">theme_minimal()</td>
+<td style="text-align: left;">Visualización moderna</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>No existe un único tema correcto. La elección depende del contexto de publicación y de los requisitos editoriales.</p>
+</section>
+<section id="comparación-de-temas" class="level2" data-number="20.10">
+<h2 data-number="20.10" class="anchored" data-anchor-id="comparación-de-temas"><span class="header-section-number">20.10</span> Comparación de temas</h2>
+<section id="tema-clásico" class="level3" data-number="20.10.1">
+<h3 data-number="20.10.1" class="anchored" data-anchor-id="tema-clásico"><span class="header-section-number">20.10.1</span> Tema clásico</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> log_supertotal</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">30</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"steelblue"</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-theme-classic" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-theme-classic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-theme-classic-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-theme-classic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;20.3: Histograma utilizando theme_classic()
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="tema-minimalista" class="level3" data-number="20.10.2">
+<h3 data-number="20.10.2" class="anchored" data-anchor-id="tema-minimalista"><span class="header-section-number">20.10.2</span> Tema minimalista</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> log_supertotal</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">30</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"steelblue"</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-theme-minimal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-theme-minimal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-theme-minimal-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-theme-minimal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;20.4: Histograma utilizando theme_minimal()
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>Ambos gráficos contienen exactamente la misma información. La diferencia radica únicamente en la forma de presentación.</p>
+</section>
+</section>
+<section id="el-uso-científico-del-color" class="level2" data-number="20.11">
+<h2 data-number="20.11" class="anchored" data-anchor-id="el-uso-científico-del-color"><span class="header-section-number">20.11</span> El uso científico del color</h2>
+<p>El color debe utilizarse para comunicar información y no solamente para decorar.</p>
+<p>Un uso adecuado del color permite:</p>
+<ul>
+<li>Diferenciar categorías.</li>
+<li>Resaltar patrones.</li>
+<li>Facilitar comparaciones.</li>
+<li>Mejorar accesibilidad.</li>
+</ul>
+</section>
+<section id="paletas-perceptualmente-uniformes" class="level2" data-number="20.12">
+<h2 data-number="20.12" class="anchored" data-anchor-id="paletas-perceptualmente-uniformes"><span class="header-section-number">20.12</span> Paletas perceptualmente uniformes</h2>
+<p>Las paletas Viridis fueron diseñadas específicamente para visualización científica <span class="citation" data-cites="garnier2024">(<a href="../bibliografia.html#ref-garnier2024" role="doc-biblioref">Garnier, 2024</a>)</span>.</p>
+<p>Sus ventajas incluyen:</p>
+<ul>
+<li>Compatibilidad con impresión.</li>
+<li>Compatibilidad con escalas de grises.</li>
+<li>Legibilidad para personas con daltonismo.</li>
+<li>Gradientes perceptualmente uniformes.</li>
+</ul>
+</section>
+<section id="ejemplo-utilizando-viridis" class="level2" data-number="20.13">
+<h2 data-number="20.13" class="anchored" data-anchor-id="ejemplo-utilizando-viridis"><span class="header-section-number">20.13</span> Ejemplo utilizando Viridis</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> tamano_upa,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> tamano_upa</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tamaño de UPA"</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Tamaño"</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-viridis" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-viridis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-viridis-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-viridis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;20.5: Gráfico utilizando una paleta científica
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La paleta mantiene contraste adecuado entre categorías y conserva una apariencia profesional.</p>
+</section>
+<section id="evitando-gráficos-engañosos" class="level2" data-number="20.14">
+<h2 data-number="20.14" class="anchored" data-anchor-id="evitando-gráficos-engañosos"><span class="header-section-number">20.14</span> Evitando gráficos engañosos</h2>
+<p>Los gráficos pueden inducir interpretaciones erróneas cuando:</p>
+<ul>
+<li>Se modifican escalas de manera inapropiada.</li>
+<li>Se utilizan ejes truncados sin justificación.</li>
+<li>Se exageran diferencias pequeñas.</li>
+<li>Se utilizan efectos tridimensionales.</li>
+</ul>
+<p>La comunicación científica exige representar los datos de forma honesta y transparente <span class="citation" data-cites="cairo2016">(<a href="../bibliografia.html#ref-cairo2016" role="doc-biblioref">Cairo, 2016</a>)</span>.</p>
+</section>
+<section id="ejemplo-de-mala-práctica" class="level2" data-number="20.15">
+<h2 data-number="20.15" class="anchored" data-anchor-id="ejemplo-de-mala-práctica"><span class="header-section-number">20.15</span> Ejemplo de mala práctica</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>datos_ejemplo <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">grupo =</span> <span class="fu">c</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"B"</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">valor =</span> <span class="fu">c</span>(</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">105</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  datos_ejemplo,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> grupo,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> valor</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"firebrick"</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>      <span class="dv">95</span>,</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>      <span class="dv">106</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-mala-practica" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-mala-practica-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-mala-practica-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-mala-practica-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;20.6: Ejemplo ilustrativo de eje truncado
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>El gráfico exagera visualmente una diferencia relativamente pequeña. Este tipo de prácticas debe evitarse en publicaciones científicas.</p>
+</section>
+<section id="ejemplo-corregido" class="level2" data-number="20.16">
+<h2 data-number="20.16" class="anchored" data-anchor-id="ejemplo-corregido"><span class="header-section-number">20.16</span> Ejemplo corregido</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  datos_ejemplo,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> grupo,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> valor</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"steelblue"</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-buena-practica" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-buena-practica-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-buena-practica-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-buena-practica-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;20.7: Representación adecuada de la misma información
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La representación correcta permite apreciar la verdadera magnitud de la diferencia observada.</p>
+</section>
+<section id="construyendo-un-estilo-gráfico-reproducible" class="level2" data-number="20.17">
+<h2 data-number="20.17" class="anchored" data-anchor-id="construyendo-un-estilo-gráfico-reproducible"><span class="header-section-number">20.17</span> Construyendo un estilo gráfico reproducible</h2>
+<p>Una práctica recomendable consiste en definir un estilo gráfico común para toda la investigación.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tema_cientifico <span class="ot">&lt;-</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">element_text</span>(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">face =</span> <span class="st">"bold"</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">element_text</span>(</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">face =</span> <span class="st">"bold"</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">element_text</span>(</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">face =</span> <span class="st">"bold"</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="aplicando-el-tema-científico" class="level2" data-number="20.18">
+<h2 data-number="20.18" class="anchored" data-anchor-id="aplicando-el-tema-científico"><span class="header-section-number">20.18</span> Aplicando el tema científico</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> log_supertotal</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">30</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la superficie total transformada"</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Logaritmo de la superficie total"</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia"</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-tema-cientifico" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-tema-cientifico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-tema-cientifico-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-tema-cientifico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;20.8: Aplicación de un tema reproducible
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La estandarización visual mejora la consistencia entre figuras y facilita la comunicación de resultados.</p>
+</section>
+<section id="recomendaciones-para-publicaciones-científicas" class="level2" data-number="20.19">
+<h2 data-number="20.19" class="anchored" data-anchor-id="recomendaciones-para-publicaciones-científicas"><span class="header-section-number">20.19</span> Recomendaciones para publicaciones científicas</h2>
+<p>Al construir figuras destinadas a publicaciones se recomienda:</p>
+<ul>
+<li>Mantener consistencia visual.</li>
+<li>Utilizar tipografías legibles.</li>
+<li>Evitar colores innecesarios.</li>
+<li>Reducir ruido visual.</li>
+<li>Incluir títulos y etiquetas claras.</li>
+<li>Garantizar reproducibilidad.</li>
+<li>Conservar una misma línea gráfica en todo el documento.</li>
+</ul>
+</section>
+<section id="manos-a-la-obra" class="level2" data-number="20.20">
+<h2 data-number="20.20" class="anchored" data-anchor-id="manos-a-la-obra"><span class="header-section-number">20.20</span> Manos a la obra</h2>
+<p>Utilizando la base <code>base_analitica</code>:</p>
+<ol type="1">
+<li>Construya un histograma básico de <code>log_supertotal</code>.</li>
+<li>Mejore el gráfico utilizando <code>theme_minimal()</code>.</li>
+<li>Compare distintos temas disponibles en <code>ggplot2</code>.</li>
+<li>Construya un gráfico de barras para <code>tamano_upa</code>.</li>
+<li>Aplique una paleta Viridis.</li>
+<li>Diseñe un tema científico personalizado.</li>
+<li>Replique el mismo estilo en al menos tres gráficos diferentes.</li>
+<li>Identifique ejemplos de ruido visual.</li>
+<li>Explique la diferencia entre un gráfico exploratorio y uno científico.</li>
+<li>Justifique la importancia de la reproducibilidad gráfica.</li>
+</ol>
+</section>
+<section id="parte-2.-gráficos-científicos-para-tesis-informes-y-artículos" class="level1" data-number="21">
+<h1 data-number="21"><span class="header-section-number">21</span> Parte 2. Gráficos científicos para tesis, informes y artículos</h1>
+<section id="introducción-1" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="introducción-1"><span class="header-section-number">21.1</span> Introducción</h2>
+<p>En la sección anterior aprendimos los principios fundamentales de la comunicación visual científica. Sin embargo, la calidad de una figura no depende únicamente de su apariencia estética. Los gráficos utilizados en tesis, artículos científicos e informes técnicos deben facilitar la interpretación estadística de los resultados y comunicar evidencia de manera clara y precisa <span class="citation" data-cites="tufte2001 cairo2016">(<a href="../bibliografia.html#ref-cairo2016" role="doc-biblioref">Cairo, 2016</a>; <a href="../bibliografia.html#ref-tufte2001" role="doc-biblioref">Tufte, 2001</a>)</span>.</p>
+<p>En esta sección construiremos figuras que suelen encontrarse en publicaciones académicas, incorporando criterios de presentación utilizados habitualmente en revistas científicas.</p>
+</section>
+<section id="histograma-publicable" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="histograma-publicable"><span class="header-section-number">21.2</span> Histograma publicable</h2>
+<p>Comenzaremos construyendo una versión mejorada del histograma de superficie transformada.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> log_supertotal</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">35</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#2C7FB8"</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la superficie total"</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Variable transformada mediante logaritmo natural"</span>,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Logaritmo de la superficie total"</span>,</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia"</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-histograma-publicable" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-histograma-publicable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-histograma-publicable-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-histograma-publicable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;21.1: Distribución de la superficie total transformada
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La transformación logarítmica mejora significativamente la capacidad de visualizar la distribución de la superficie agrícola, reduciendo la influencia de observaciones extremadamente grandes.</p>
+</section>
+<section id="histograma-con-densidad" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="histograma-con-densidad"><span class="header-section-number">21.3</span> Histograma con densidad</h2>
+<p>En muchas publicaciones científicas se recomienda complementar el histograma con una curva de densidad.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> log_supertotal</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">after_stat</span>(density)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">35</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"gray80"</span>,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#08519C"</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Logaritmo de la superficie total"</span>,</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Densidad"</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-histograma-densidad-publicable" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-histograma-densidad-publicable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-histograma-densidad-publicable-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-histograma-densidad-publicable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;21.2: Histograma y densidad de la superficie total transformada
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La curva de densidad permite identificar de forma más clara la forma general de la distribución y posibles concentraciones de observaciones.</p>
+</section>
+<section id="comparaciones-mediante-diagramas-de-caja" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="comparaciones-mediante-diagramas-de-caja"><span class="header-section-number">21.4</span> Comparaciones mediante diagramas de caja</h2>
+<p>Los diagramas de caja constituyen una de las herramientas más utilizadas para comparar distribuciones entre grupos.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> tamano_upa,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> log_supertotal,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> tamano_upa</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.8</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tamaño de UPA"</span>,</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Logaritmo de la superficie total"</span>,</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Tamaño"</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-boxplot-publicable" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-boxplot-publicable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-boxplot-publicable-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-boxplot-publicable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;21.3: Distribución de la superficie transformada según tamaño de UPA
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>Las diferencias observadas entre cajas sugieren heterogeneidad en la distribución de la superficie según el tamaño de la unidad productiva.</p>
+</section>
+<section id="gráficos-de-violín" class="level2" data-number="21.5">
+<h2 data-number="21.5" class="anchored" data-anchor-id="gráficos-de-violín"><span class="header-section-number">21.5</span> Gráficos de violín</h2>
+<p>Los gráficos de violín combinan características de los diagramas de caja y de las curvas de densidad.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> tamano_upa,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> log_supertotal,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> tamano_upa</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.8</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tamaño de UPA"</span>,</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Logaritmo de la superficie total"</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-violin-publicable" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-violin-publicable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-violin-publicable-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-violin-publicable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;21.4: Distribución de superficie mediante gráficos de violín
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La anchura de cada violín representa la concentración relativa de observaciones en distintos niveles de la variable.</p>
+</section>
+<section id="barras-con-intervalos-de-confianza" class="level2" data-number="21.6">
+<h2 data-number="21.6" class="anchored" data-anchor-id="barras-con-intervalos-de-confianza"><span class="header-section-number">21.6</span> Barras con intervalos de confianza</h2>
+<p>Los artículos científicos suelen presentar estimaciones acompañadas por medidas de incertidumbre.</p>
+<p>Primero calcularemos la superficie promedio por categoría.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>resumen_tamano <span class="ot">&lt;-</span> base_analitica <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    tamano_upa</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">media =</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mean</span>(</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        log_supertotal,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sd</span>(</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        log_supertotal,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">n</span>(),</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>      sd <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">li =</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>      media <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se,</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">ls =</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>      media <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se,</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>resumen_tamano <span class="sc">|&gt;</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Estadísticos descriptivos por tamaño de UPA"</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch17-resumen-tamano-upa" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch17-resumen-tamano-upa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;21.1: Estadísticos descriptivos por tamaño de UPA
+</figcaption>
+<div aria-describedby="tbl-ch17-resumen-tamano-upa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">tamano_upa</th>
+<th style="text-align: right;">media</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">se</th>
+<th style="text-align: right;">li</th>
+<th style="text-align: right;">ls</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Grande</td>
+<td style="text-align: right;">4.210</td>
+<td style="text-align: right;">1.011</td>
+<td style="text-align: right;">3106</td>
+<td style="text-align: right;">0.018</td>
+<td style="text-align: right;">4.174</td>
+<td style="text-align: right;">4.245</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mediana</td>
+<td style="text-align: right;">2.270</td>
+<td style="text-align: right;">0.335</td>
+<td style="text-align: right;">6846</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">2.262</td>
+<td style="text-align: right;">2.278</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Micro</td>
+<td style="text-align: right;">0.200</td>
+<td style="text-align: right;">0.190</td>
+<td style="text-align: right;">56572</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0.199</td>
+<td style="text-align: right;">0.202</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pequeña</td>
+<td style="text-align: right;">1.137</td>
+<td style="text-align: right;">0.314</td>
+<td style="text-align: right;">18014</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">1.132</td>
+<td style="text-align: right;">1.142</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La tabla resume medias, errores estándar e intervalos de confianza aproximados para cada categoría.</p>
+</section>
+<section id="barras-con-intervalos" class="level2" data-number="21.7">
+<h2 data-number="21.7" class="anchored" data-anchor-id="barras-con-intervalos"><span class="header-section-number">21.7</span> Barras con intervalos</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  resumen_tamano,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> tamano_upa,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> media</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#2C7FB8"</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">ymin =</span> li,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">ymax =</span> ls</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="fl">0.15</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tamaño de UPA"</span>,</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Media de log_supertotal"</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-barras-ic" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-barras-ic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-barras-ic-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-barras-ic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;21.5: Media e intervalo de confianza por tamaño de UPA
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>Los intervalos de confianza proporcionan información sobre la incertidumbre asociada a las estimaciones promedio.</p>
+</section>
+<section id="gráficos-de-dispersión-para-publicaciones" class="level2" data-number="21.8">
+<h2 data-number="21.8" class="anchored" data-anchor-id="gráficos-de-dispersión-para-publicaciones"><span class="header-section-number">21.8</span> Gráficos de dispersión para publicaciones</h2>
+<p>Los gráficos de dispersión suelen utilizarse para explorar asociaciones entre variables cuantitativas.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> log_supertotal,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> fact_exp_fin</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.25</span>,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#2C7FB8"</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#D95F0E"</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">1</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Logaritmo de la superficie total"</span>,</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Factor de expansión"</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-dispersion-publicable" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-dispersion-publicable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-dispersion-publicable-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-dispersion-publicable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;21.6: Relación entre superficie transformada y factor de expansión
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La línea ajustada permite visualizar la tendencia promedio observada entre ambas variables.</p>
+</section>
+<section id="facetas-científicas" class="level2" data-number="21.9">
+<h2 data-number="21.9" class="anchored" data-anchor-id="facetas-científicas"><span class="header-section-number">21.9</span> Facetas científicas</h2>
+<p>Las facetas permiten dividir la información en paneles comparables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> log_supertotal</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">20</span>,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#2C7FB8"</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> provincia</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Logaritmo de la superficie total"</span>,</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia"</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-facetas-cientificas" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-facetas-cientificas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-facetas-cientificas-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-facetas-cientificas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;21.7: Distribución de superficie por provincia
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>Las facetas permiten comparar distribuciones territoriales manteniendo la misma escala visual.</p>
+</section>
+<section id="importancia-de-las-etiquetas" class="level2" data-number="21.10">
+<h2 data-number="21.10" class="anchored" data-anchor-id="importancia-de-las-etiquetas"><span class="header-section-number">21.10</span> Importancia de las etiquetas</h2>
+<p>Un gráfico científico debe ser comprensible sin necesidad de consultar el texto principal.</p>
+<p>Las etiquetas deben:</p>
+<ul>
+<li>Describir claramente las variables.</li>
+<li>Utilizar unidades cuando corresponda.</li>
+<li>Evitar abreviaturas ambiguas.</li>
+<li>Mantener consistencia terminológica.</li>
+</ul>
+</section>
+<section id="ejemplo-de-etiquetado-profesional" class="level2" data-number="21.11">
+<h2 data-number="21.11" class="anchored" data-anchor-id="ejemplo-de-etiquetado-profesional"><span class="header-section-number">21.11</span> Ejemplo de etiquetado profesional</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> log_supertotal</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">30</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#2C7FB8"</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la superficie agrícola"</span>,</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"ESPAC 2025"</span>,</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Logaritmo natural de la superficie total (ha)"</span>,</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Número de observaciones"</span>,</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Fuente: ESPAC 2025"</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-etiquetado-profesional" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-etiquetado-profesional-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-etiquetado-profesional-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-etiquetado-profesional-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;21.8: Ejemplo de etiquetado profesional
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>Los títulos, subtítulos y etiquetas ayudan al lector a comprender el contenido de la figura sin necesidad de información adicional.</p>
+</section>
+<section id="escalas-y-formatos-numéricos" class="level2" data-number="21.12">
+<h2 data-number="21.12" class="anchored" data-anchor-id="escalas-y-formatos-numéricos"><span class="header-section-number">21.12</span> Escalas y formatos numéricos</h2>
+<p>Los gráficos científicos deben utilizar formatos numéricos consistentes.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  resumen_tamano,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> tamano_upa,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> media</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#2C7FB8"</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>(</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">accuracy =</span> <span class="fl">0.01</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tamaño de UPA"</span>,</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Media"</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-escala-numerica" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-escala-numerica-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-escala-numerica-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-escala-numerica-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;21.9: Formato numérico aplicado a los ejes
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La estandarización de escalas mejora la consistencia visual y facilita comparaciones entre figuras.</p>
+</section>
+<section id="leyendas-y-consistencia-gráfica" class="level2" data-number="21.13">
+<h2 data-number="21.13" class="anchored" data-anchor-id="leyendas-y-consistencia-gráfica"><span class="header-section-number">21.13</span> Leyendas y consistencia gráfica</h2>
+<p>Las leyendas deben mantenerse simples y claras.</p>
+<p>Se recomienda:</p>
+<ul>
+<li>Utilizar el mismo esquema de colores en todo el documento.</li>
+<li>Mantener la misma tipografía.</li>
+<li>Evitar leyendas redundantes.</li>
+<li>Utilizar títulos descriptivos.</li>
+</ul>
+</section>
+<section id="recomendaciones-para-tesis-y-artículos" class="level2" data-number="21.14">
+<h2 data-number="21.14" class="anchored" data-anchor-id="recomendaciones-para-tesis-y-artículos"><span class="header-section-number">21.14</span> Recomendaciones para tesis y artículos</h2>
+<p>Al preparar figuras para publicaciones se recomienda:</p>
+<ul>
+<li>Utilizar resoluciones altas.</li>
+<li>Mantener consistencia visual.</li>
+<li>Evitar exceso de colores.</li>
+<li>Utilizar escalas apropiadas.</li>
+<li>Revisar accesibilidad.</li>
+<li>Exportar figuras reproduciblemente.</li>
+<li>Documentar completamente el código utilizado.</li>
+</ul>
+</section>
+<section id="manos-a-la-obra-1" class="level2" data-number="21.15">
+<h2 data-number="21.15" class="anchored" data-anchor-id="manos-a-la-obra-1"><span class="header-section-number">21.15</span> Manos a la obra</h2>
+<p>Utilizando la base <code>base_analitica</code>:</p>
+<ol type="1">
+<li>Construya un histograma publicable.</li>
+<li>Añada una curva de densidad.</li>
+<li>Elabore un diagrama de caja por tamaño de UPA.</li>
+<li>Construya un gráfico de violín.</li>
+<li>Calcule medias e intervalos de confianza.</li>
+<li>Genere un gráfico de barras con intervalos.</li>
+<li>Construya un gráfico de dispersión con línea de tendencia.</li>
+<li>Utilice facetas para comparar provincias.</li>
+<li>Mejore el etiquetado de una figura.</li>
+<li>Evalúe cuáles figuras serían apropiadas para una tesis.</li>
+</ol>
+</section>
+</section>
+<section id="parte-3.-figuras-avanzadas-para-publicaciones-científicas" class="level1" data-number="22">
+<h1 data-number="22"><span class="header-section-number">22</span> Parte 3. Figuras avanzadas para publicaciones científicas</h1>
+<section id="introducción-2" class="level2" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="introducción-2"><span class="header-section-number">22.1</span> Introducción</h2>
+<p>Los artículos científicos, tesis doctorales, informes técnicos y documentos institucionales suelen requerir figuras más complejas que las utilizadas durante el análisis exploratorio. En estos contextos, no basta con construir gráficos individuales; es necesario diseñar figuras coherentes, comparables y reproducibles que comuniquen múltiples resultados de manera integrada <span class="citation" data-cites="wilkinson2005 tufte2001">(<a href="../bibliografia.html#ref-tufte2001" role="doc-biblioref">Tufte, 2001</a>; <a href="../bibliografia.html#ref-wilkinson2005" role="doc-biblioref">Wilkinson, 2005</a>)</span>.</p>
+<p>En esta sección aprenderemos a construir figuras multipanel, preparar gráficos para revistas científicas y exportar resultados utilizando estándares reproducibles.</p>
+</section>
+<section id="qué-es-una-figura-científica-avanzada" class="level2" data-number="22.2">
+<h2 data-number="22.2" class="anchored" data-anchor-id="qué-es-una-figura-científica-avanzada"><span class="header-section-number">22.2</span> ¿Qué es una figura científica avanzada?</h2>
+<p>Una figura científica avanzada suele presentar:</p>
+<ul>
+<li>Varias visualizaciones relacionadas.</li>
+<li>Una narrativa gráfica coherente.</li>
+<li>Comparaciones simultáneas.</li>
+<li>Escalas consistentes.</li>
+<li>Diseño uniforme.</li>
+<li>Preparación para publicación.</li>
+</ul>
+<p>La Figura compuesta es uno de los formatos más utilizados en artículos científicos.</p>
+</section>
+<section id="construyendo-una-colección-de-gráficos" class="level2" data-number="22.3">
+<h2 data-number="22.3" class="anchored" data-anchor-id="construyendo-una-colección-de-gráficos"><span class="header-section-number">22.3</span> Construyendo una colección de gráficos</h2>
+<p>Primero construiremos varios gráficos que posteriormente integraremos en una figura compuesta.</p>
+<section id="distribución-de-superficie" class="level3" data-number="22.3.1">
+<h3 data-number="22.3.1" class="anchored" data-anchor-id="distribución-de-superficie"><span class="header-section-number">22.3.1</span> Distribución de superficie</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>grafico_histograma <span class="ot">&lt;-</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    base_analitica,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> log_supertotal</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">30</span>,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#2C7FB8"</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución"</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>grafico_histograma</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-panel-histograma" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-panel-histograma-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-panel-histograma-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-panel-histograma-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;22.1: Distribución de superficie
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>Este gráfico resume la distribución de la superficie agrícola transformada.</p>
+</section>
+<section id="comparación-por-tamaño-de-upa" class="level3" data-number="22.3.2">
+<h3 data-number="22.3.2" class="anchored" data-anchor-id="comparación-por-tamaño-de-upa"><span class="header-section-number">22.3.2</span> Comparación por tamaño de UPA</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>grafico_boxplot <span class="ot">&lt;-</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    base_analitica,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> tamano_upa,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> log_supertotal,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">fill =</span> tamano_upa</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Comparación entre grupos"</span>,</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>grafico_boxplot</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-panel-boxplot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-panel-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-panel-boxplot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-panel-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;22.2: Comparación por tamaño de UPA
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>El gráfico permite comparar la distribución de la superficie entre categorías de tamaño.</p>
+</section>
+<section id="relación-entre-variables" class="level3" data-number="22.3.3">
+<h3 data-number="22.3.3" class="anchored" data-anchor-id="relación-entre-variables"><span class="header-section-number">22.3.3</span> Relación entre variables</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>grafico_dispersion <span class="ot">&lt;-</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    base_analitica,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> log_supertotal,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> fact_exp_fin</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.20</span>,</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#2C7FB8"</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#D95F0E"</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>  tema_cientifico <span class="sc">+</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Relación entre variables"</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>grafico_dispersion</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-panel-dispersion" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-panel-dispersion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-panel-dispersion-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-panel-dispersion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;22.3: Relación entre superficie y expansión
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La figura resume visualmente la asociación observada entre ambas variables.</p>
+</section>
+</section>
+<section id="figuras-multipanel" class="level2" data-number="22.4">
+<h2 data-number="22.4" class="anchored" data-anchor-id="figuras-multipanel"><span class="header-section-number">22.4</span> Figuras multipanel</h2>
+<p>Los artículos científicos suelen combinar múltiples gráficos dentro de una misma figura.</p>
+<p>Para ello utilizaremos el paquete <code>patchwork</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="construcción-de-una-figura-compuesta" class="level2" data-number="22.5">
+<h2 data-number="22.5" class="anchored" data-anchor-id="construcción-de-una-figura-compuesta"><span class="header-section-number">22.5</span> Construcción de una figura compuesta</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  grafico_histograma <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  grafico_boxplot</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">/</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  grafico_dispersion</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-figura-compuesta" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-figura-compuesta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-figura-compuesta-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-figura-compuesta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;22.4: Figura compuesta para publicación científica
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La figura integra diferentes perspectivas del mismo fenómeno, facilitando la comparación visual y reduciendo el número de imágenes necesarias en un artículo.</p>
+</section>
+<section id="organización-visual-de-paneles" class="level2" data-number="22.6">
+<h2 data-number="22.6" class="anchored" data-anchor-id="organización-visual-de-paneles"><span class="header-section-number">22.6</span> Organización visual de paneles</h2>
+<p>Las figuras multipanel permiten:</p>
+<ul>
+<li>Reducir espacio.</li>
+<li>Comparar resultados.</li>
+<li>Mostrar evidencia complementaria.</li>
+<li>Mejorar la narrativa gráfica.</li>
+</ul>
+<p>Este tipo de figuras es particularmente frecuente en revistas indexadas.</p>
+</section>
+<section id="etiquetado-automático-de-paneles" class="level2" data-number="22.7">
+<h2 data-number="22.7" class="anchored" data-anchor-id="etiquetado-automático-de-paneles"><span class="header-section-number">22.7</span> Etiquetado automático de paneles</h2>
+<p>Muchas revistas solicitan identificar paneles mediante letras.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  grafico_histograma <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  grafico_boxplot <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  grafico_dispersion</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">tag_levels =</span> <span class="st">"A"</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ch17-paneles-etiquetados" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch17-paneles-etiquetados-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="17-graficos-cientificos_files/figure-html/fig-ch17-paneles-etiquetados-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch17-paneles-etiquetados-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;22.5: Figura multipanel con etiquetas
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>Las etiquetas facilitan la referencia cruzada dentro del texto del artículo.</p>
+</section>
+<section id="tamaño-de-figuras-para-publicación" class="level2" data-number="22.8">
+<h2 data-number="22.8" class="anchored" data-anchor-id="tamaño-de-figuras-para-publicación"><span class="header-section-number">22.8</span> Tamaño de figuras para publicación</h2>
+<p>Las revistas científicas suelen especificar dimensiones máximas para las figuras.</p>
+<p>La siguiente tabla resume tamaños habituales.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>dimensiones_revistas <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Tipo =</span> <span class="fu">c</span>(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Columna simple"</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Media página"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Página completa"</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ancho_cm =</span> <span class="fu">c</span>(</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">8</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">12</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">17</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">Alto_cm =</span> <span class="fu">c</span>(</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="dv">6</span>,</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="dv">8</span>,</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    <span class="dv">12</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>dimensiones_revistas <span class="sc">|&gt;</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Dimensiones habituales para figuras científicas"</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch17-dimensiones-publicacion" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch17-dimensiones-publicacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;22.1: Dimensiones habituales para figuras científicas
+</figcaption>
+<div aria-describedby="tbl-ch17-dimensiones-publicacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: right;">Ancho_cm</th>
+<th style="text-align: right;">Alto_cm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Columna simple</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Media página</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Página completa</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">12</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>Las dimensiones pueden variar entre revistas, pero la tabla proporciona valores de referencia útiles.</p>
+</section>
+<section id="resolución-y-calidad-gráfica" class="level2" data-number="22.9">
+<h2 data-number="22.9" class="anchored" data-anchor-id="resolución-y-calidad-gráfica"><span class="header-section-number">22.9</span> Resolución y calidad gráfica</h2>
+<p>La calidad de una figura depende de:</p>
+<ul>
+<li>Resolución.</li>
+<li>Formato.</li>
+<li>Tamaño físico.</li>
+<li>Legibilidad.</li>
+</ul>
+<p>Las revistas científicas suelen solicitar resoluciones entre 300 y 600 dpi <span class="citation" data-cites="wilke2019">(<a href="../bibliografia.html#ref-wilke2019" role="doc-biblioref">Wilke, 2019</a>)</span>.</p>
+</section>
+<section id="exportación-en-formato-png" class="level2" data-number="22.10">
+<h2 data-number="22.10" class="anchored" data-anchor-id="exportación-en-formato-png"><span class="header-section-number">22.10</span> Exportación en formato PNG</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename =</span> <span class="st">"figura_publicacion.png"</span>,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> grafico_dispersion,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">16</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">10</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">units =</span> <span class="st">"cm"</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exportación-en-formato-pdf" class="level2" data-number="22.11">
+<h2 data-number="22.11" class="anchored" data-anchor-id="exportación-en-formato-pdf"><span class="header-section-number">22.11</span> Exportación en formato PDF</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename =</span> <span class="st">"figura_publicacion.pdf"</span>,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> grafico_dispersion,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">16</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">10</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">units =</span> <span class="st">"cm"</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exportación-en-formato-tiff" class="level2" data-number="22.12">
+<h2 data-number="22.12" class="anchored" data-anchor-id="exportación-en-formato-tiff"><span class="header-section-number">22.12</span> Exportación en formato TIFF</h2>
+<p>Muchas revistas siguen solicitando TIFF para las figuras finales.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename =</span> <span class="st">"figura_publicacion.tiff"</span>,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> grafico_dispersion,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">16</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">10</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">units =</span> <span class="st">"cm"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">600</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="integración-con-quarto" class="level2" data-number="22.13">
+<h2 data-number="22.13" class="anchored" data-anchor-id="integración-con-quarto"><span class="header-section-number">22.13</span> Integración con Quarto</h2>
+<p>Una ventaja importante de Quarto es que las figuras se generan automáticamente durante el proceso de renderización.</p>
+<p>Esto permite:</p>
+<ul>
+<li>Reproducibilidad completa.</li>
+<li>Actualización automática.</li>
+<li>Consistencia visual.</li>
+<li>Menor riesgo de errores.</li>
+</ul>
+</section>
+<section id="reproducibilidad-gráfica" class="level2" data-number="22.14">
+<h2 data-number="22.14" class="anchored" data-anchor-id="reproducibilidad-gráfica"><span class="header-section-number">22.14</span> Reproducibilidad gráfica</h2>
+<p>La reproducibilidad implica que cualquier investigador pueda reconstruir exactamente la misma figura utilizando:</p>
+<ul>
+<li>Los mismos datos.</li>
+<li>El mismo código.</li>
+<li>El mismo entorno analítico.</li>
+</ul>
+<p>La visualización reproducible constituye un componente esencial de la ciencia abierta <span class="citation" data-cites="peng2011">(<a href="../bibliografia.html#ref-peng2011" role="doc-biblioref">Peng, 2011</a>)</span>.</p>
+</section>
+<section id="lista-de-verificación-para-publicaciones" class="level2" data-number="22.15">
+<h2 data-number="22.15" class="anchored" data-anchor-id="lista-de-verificación-para-publicaciones"><span class="header-section-number">22.15</span> Lista de verificación para publicaciones</h2>
+<p>Antes de enviar una figura a una revista científica conviene verificar:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>checklist_figuras <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Criterio =</span> <span class="fu">c</span>(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Título claro"</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Etiquetas completas"</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Escalas correctas"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Leyendas legibles"</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Colores adecuados"</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Resolución suficiente"</span>,</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Código reproducible"</span>,</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Formato requerido"</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>checklist_figuras <span class="sc">|&gt;</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Lista de verificación para figuras científicas"</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-ch17-checklist-figuras" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch17-checklist-figuras-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;22.2: Lista de verificación para figuras científicas
+</figcaption>
+<div aria-describedby="tbl-ch17-checklist-figuras-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Criterio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Título claro</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Etiquetas completas</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Escalas correctas</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Leyendas legibles</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Colores adecuados</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Resolución suficiente</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Código reproducible</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Formato requerido</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>Interpretación</strong></p>
+<p>La lista permite revisar sistemáticamente la calidad de las figuras antes de su publicación.</p>
+</section>
+<section id="errores-frecuentes" class="level2" data-number="22.16">
+<h2 data-number="22.16" class="anchored" data-anchor-id="errores-frecuentes"><span class="header-section-number">22.16</span> Errores frecuentes</h2>
+<p>Entre los errores más comunes se encuentran:</p>
+<ul>
+<li>Uso excesivo de colores.</li>
+<li>Texto demasiado pequeño.</li>
+<li>Escalas inconsistentes.</li>
+<li>Gráficos tridimensionales innecesarios.</li>
+<li>Exportación en baja resolución.</li>
+<li>Falta de reproducibilidad.</li>
+</ul>
+</section>
+<section id="flujo-recomendado-para-producción-científica" class="level2" data-number="22.17">
+<h2 data-number="22.17" class="anchored" data-anchor-id="flujo-recomendado-para-producción-científica"><span class="header-section-number">22.17</span> Flujo recomendado para producción científica</h2>
+<pre class="text"><code>Datos
+↓
+Análisis exploratorio
+↓
+Gráficos preliminares
+↓
+Diseño científico
+↓
+Figura multipanel
+↓
+Exportación
+↓
+Publicación</code></pre>
+</section>
+<section id="manos-a-la-obra-2" class="level2" data-number="22.18">
+<h2 data-number="22.18" class="anchored" data-anchor-id="manos-a-la-obra-2"><span class="header-section-number">22.18</span> Manos a la obra</h2>
+<p>Utilizando la base <code>base_analitica</code>:</p>
+<ol type="1">
+<li>Construya tres gráficos científicos diferentes.</li>
+<li>Cree una figura multipanel utilizando <code>patchwork</code>.</li>
+<li>Añada etiquetas automáticas a los paneles.</li>
+<li>Diseñe una figura orientada a una revista científica.</li>
+<li>Exporte una figura en formato PNG.</li>
+<li>Exporte una figura en formato PDF.</li>
+<li>Exporte una figura en formato TIFF.</li>
+<li>Evalúe la calidad visual de las figuras generadas.</li>
+<li>Verifique la reproducibilidad del proceso.</li>
+<li>Documente completamente el flujo de generación gráfica.</li>
+</ol>
+</section>
+<section id="resumen-del-capítulo" class="level2" data-number="22.19">
+<h2 data-number="22.19" class="anchored" data-anchor-id="resumen-del-capítulo"><span class="header-section-number">22.19</span> Resumen del capítulo</h2>
+<p>La visualización científica constituye una herramienta fundamental para comunicar resultados de investigación de manera clara, rigurosa y reproducible.</p>
+<p>En la primera parte se estudiaron los principios fundamentales de la comunicación visual científica, incluyendo el uso adecuado del color, los temas gráficos y la reducción del ruido visual.</p>
+<p>En la segunda parte se desarrollaron figuras orientadas a tesis, informes y artículos científicos mediante histogramas, diagramas de caja, gráficos de violín, intervalos de confianza y facetas.</p>
+<p>Finalmente, en esta tercera parte se abordó la construcción de figuras multipanel, la preparación de gráficos para publicación, la exportación en distintos formatos y la integración de las visualizaciones dentro de flujos reproducibles.</p>
+<p>Las herramientas desarrolladas en este capítulo proporcionan la base necesaria para comunicar evidencia estadística de manera efectiva y profesional dentro de contextos académicos y científicos.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-cairo2016" class="csl-entry" role="listitem">
+Cairo, A. (2016). <em>The Truthful Art: Data, Charts, and Maps for Communication</em>. New Riders.
+</div>
+<div id="ref-garnier2024" class="csl-entry" role="listitem">
+Garnier, S. (2024). <em>viridis: Colorblind-Friendly Color Maps for <span>R</span></em>.
+</div>
+<div id="ref-healy2018" class="csl-entry" role="listitem">
+Healy, K. (2018). <em>Data Visualization: A Practical Introduction</em>. Princeton University Press.
+</div>
+<div id="ref-peng2011" class="csl-entry" role="listitem">
+Peng, R. D. (2011). Reproducible Research in Computational Science. <em>Science</em>, <em>334</em>(6060), 1226-1227. <a href="https://doi.org/10.1126/science.1213847">https://doi.org/10.1126/science.1213847</a>
+</div>
+<div id="ref-tufte2001" class="csl-entry" role="listitem">
+Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press.
+</div>
+<div id="ref-wilke2019" class="csl-entry" role="listitem">
+Wilke, C. O. (2019). <em>Fundamentals of Data Visualization</em>. O’Reilly Media.
+</div>
+<div id="ref-wilkinson2005" class="csl-entry" role="listitem">
+Wilkinson, L. (2005). <em>The Grammar of Graphics</em>. Springer.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../capitulos/16-visualizacion-de-datos.html" class="pagination-link" aria-label="Visualización de datos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Visualización de datos</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../capitulos/18-del-analisis-descriptivo-a-la-modelacion.html" class="pagination-link" aria-label="Del análisis descriptivo a la modelación">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Del análisis descriptivo a la modelación</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

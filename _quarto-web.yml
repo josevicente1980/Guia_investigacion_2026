@@ -1,0 +1,7 @@
+﻿project:
+  output-dir: docs
+
+book:
+  output-file: index.html
+
+format: html

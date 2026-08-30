@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>15&nbsp; Transformación de datos – Investigación reproducible con R y Quarto</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../capitulos/13-calidad-de-datos.html" rel="next">
+<link href="../capitulos/11-limpieza-de-datos.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-12eeb4b20e9f5a2b0bfc604bfaf942bb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/10-importacion-de-datos.html">Parte IV. Gestión y preparación de datos con R</a></li><li class="breadcrumb-item"><a href="../capitulos/12-transformacion-de-datos.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transformación de datos</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Investigación reproducible con R y Quarto</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Presentación</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prologo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prólogo</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../como-utilizar-este-libro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cómo utilizar este libro</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I. Fundamentos de la investigación reproducible</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/01-investigacion-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Investigación reproducible: construyendo confianza en la ciencia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/02-ciencia-abierta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La ciencia abierta como ecosistema de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/03-r-y-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R y Quarto: una plataforma integrada para la investigación reproducible</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II. Preparando el proyecto de investigación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/04-organizacion-del-proyecto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Organización del proyecto de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/05-primer-libro-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Construyendo nuestro primer libro en Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte III. Construcción de la investigación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/06-problema-de-investigacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Del problema de investigación a la pregunta de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/07-objetivos-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objetivos e hipótesis de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/08-marco-teorico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Construcción del marco teórico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/09-busqueda-cientifica-bibtex-apa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Búsqueda científica, BibTeX y gestión automatizada de referencias</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte IV. Gestión y preparación de datos con R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/10-importacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Importación de datos con R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/11-limpieza-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Limpieza de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/12-transformacion-de-datos.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transformación de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/13-calidad-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Calidad de los datos</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte V. Estadística descriptiva y visualización</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/14-estadistica-descriptiva.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Estadística descriptiva</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/15-tablas-descriptivas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Tablas descriptivas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/16-visualizacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Visualización de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/17-graficos-cientificos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Gráficos científicos</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VI. Modelación econométrica aplicada</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/18-del-analisis-descriptivo-a-la-modelacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Del análisis descriptivo a la modelación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/19-correlacion-asociacion-causalidad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Correlación, asociación y causalidad</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/20-regresion-lineal-simple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Regresión lineal simple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/21-regresion-lineal-multiple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Regresión lineal múltiple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/22-diagnostico-del-modelo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Diagnóstico del modelo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/23-variables-categoricas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Variables categóricas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/24-modelos-logit-probit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Modelos Logit y Probit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/25-datos-de-panel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Datos de panel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/26-modelos-espaciales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Modelos espaciales y extensiones modernas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/27-presentacion-modelos-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Presentación de modelos con Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VII. Redacción científica del informe</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/28-introduccion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/29-metodologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Metodología</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/30-resultados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Resultados</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/31-discusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Discusión</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/32-conclusiones-recomendaciones.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Conclusiones y Recomendaciones</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VIII. Difusión y comunicación científica</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/33-generacion-word-pdf-html.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Generación de documentos Word, PDF y HTML</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/34-presentaciones-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Presentaciones con Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/35-dashboard-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Dashboards con Shiny y Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bibliografia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Bibliografía</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#objetivos-de-aprendizaje" id="toc-objetivos-de-aprendizaje" class="nav-link active" data-scroll-target="#objetivos-de-aprendizaje">Objetivos de aprendizaje</a></li>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link" data-scroll-target="#introducción"><span class="header-section-number">15.1</span> Introducción</a></li>
+  <li><a href="#qué-significa-transformar-datos" id="toc-qué-significa-transformar-datos" class="nav-link" data-scroll-target="#qué-significa-transformar-datos"><span class="header-section-number">15.2</span> ¿Qué significa transformar datos?</a></li>
+  <li><a href="#cargando-la-base-procesada" id="toc-cargando-la-base-procesada" class="nav-link" data-scroll-target="#cargando-la-base-procesada"><span class="header-section-number">15.3</span> Cargando la base procesada</a></li>
+  <li><a href="#conociendo-la-base-de-trabajo" id="toc-conociendo-la-base-de-trabajo" class="nav-link" data-scroll-target="#conociendo-la-base-de-trabajo"><span class="header-section-number">15.4</span> Conociendo la base de trabajo</a></li>
+  <li><a href="#de-datos-originales-a-variables-analíticas" id="toc-de-datos-originales-a-variables-analíticas" class="nav-link" data-scroll-target="#de-datos-originales-a-variables-analíticas"><span class="header-section-number">15.5</span> De datos originales a variables analíticas</a></li>
+  <li><a href="#selección-de-variables-relevantes" id="toc-selección-de-variables-relevantes" class="nav-link" data-scroll-target="#selección-de-variables-relevantes"><span class="header-section-number">15.6</span> Selección de variables relevantes</a></li>
+  <li><a href="#renombrando-variables" id="toc-renombrando-variables" class="nav-link" data-scroll-target="#renombrando-variables"><span class="header-section-number">15.7</span> Renombrando variables</a></li>
+  <li><a href="#transformación-de-variables-etiquetadas" id="toc-transformación-de-variables-etiquetadas" class="nav-link" data-scroll-target="#transformación-de-variables-etiquetadas"><span class="header-section-number">15.8</span> Transformación de variables etiquetadas</a></li>
+  <li><a href="#explorando-las-categorías-transformadas" id="toc-explorando-las-categorías-transformadas" class="nav-link" data-scroll-target="#explorando-las-categorías-transformadas"><span class="header-section-number">15.9</span> Explorando las categorías transformadas</a></li>
+  <li><a href="#transformación-de-variables-geográficas" id="toc-transformación-de-variables-geográficas" class="nav-link" data-scroll-target="#transformación-de-variables-geográficas"><span class="header-section-number">15.10</span> Transformación de variables geográficas</a></li>
+  <li><a href="#creación-de-nuevas-variables" id="toc-creación-de-nuevas-variables" class="nav-link" data-scroll-target="#creación-de-nuevas-variables"><span class="header-section-number">15.11</span> Creación de nuevas variables</a></li>
+  <li><a href="#construcción-de-categorías-de-tamaño-de-explotación" id="toc-construcción-de-categorías-de-tamaño-de-explotación" class="nav-link" data-scroll-target="#construcción-de-categorías-de-tamaño-de-explotación"><span class="header-section-number">15.12</span> Construcción de categorías de tamaño de explotación</a></li>
+  <li><a href="#visualizando-el-tamaño-de-las-explotaciones" id="toc-visualizando-el-tamaño-de-las-explotaciones" class="nav-link" data-scroll-target="#visualizando-el-tamaño-de-las-explotaciones"><span class="header-section-number">15.13</span> Visualizando el tamaño de las explotaciones</a></li>
+  <li><a href="#construcción-de-variables-binarias" id="toc-construcción-de-variables-binarias" class="nav-link" data-scroll-target="#construcción-de-variables-binarias"><span class="header-section-number">15.14</span> Construcción de variables binarias</a></li>
+  <li><a href="#indicador-de-presencia-de-bosque" id="toc-indicador-de-presencia-de-bosque" class="nav-link" data-scroll-target="#indicador-de-presencia-de-bosque"><span class="header-section-number">15.15</span> Indicador de presencia de bosque</a></li>
+  <li><a href="#indicador-de-cultivos-transitorios" id="toc-indicador-de-cultivos-transitorios" class="nav-link" data-scroll-target="#indicador-de-cultivos-transitorios"><span class="header-section-number">15.16</span> Indicador de cultivos transitorios</a></li>
+  <li><a href="#construcción-de-indicadores-porcentuales" id="toc-construcción-de-indicadores-porcentuales" class="nav-link" data-scroll-target="#construcción-de-indicadores-porcentuales"><span class="header-section-number">15.17</span> Construcción de indicadores porcentuales</a></li>
+  <li><a href="#visualizando-indicadores-porcentuales" id="toc-visualizando-indicadores-porcentuales" class="nav-link" data-scroll-target="#visualizando-indicadores-porcentuales"><span class="header-section-number">15.18</span> Visualizando indicadores porcentuales</a></li>
+  <li><a href="#transformaciones-mediante-reglas-de-clasificación" id="toc-transformaciones-mediante-reglas-de-clasificación" class="nav-link" data-scroll-target="#transformaciones-mediante-reglas-de-clasificación"><span class="header-section-number">15.19</span> Transformaciones mediante reglas de clasificación</a></li>
+  <li><a href="#explorando-variables-derivadas" id="toc-explorando-variables-derivadas" class="nav-link" data-scroll-target="#explorando-variables-derivadas"><span class="header-section-number">15.20</span> Explorando variables derivadas</a></li>
+  <li><a href="#construcción-de-indicadores-para-análisis-posteriores" id="toc-construcción-de-indicadores-para-análisis-posteriores" class="nav-link" data-scroll-target="#construcción-de-indicadores-para-análisis-posteriores"><span class="header-section-number">15.21</span> Construcción de indicadores para análisis posteriores</a></li>
+  <li><a href="#importancia-de-las-transformaciones-reproducibles" id="toc-importancia-de-las-transformaciones-reproducibles" class="nav-link" data-scroll-target="#importancia-de-las-transformaciones-reproducibles"><span class="header-section-number">15.22</span> Importancia de las transformaciones reproducibles</a></li>
+  <li><a href="#buenas-prácticas-durante-la-transformación" id="toc-buenas-prácticas-durante-la-transformación" class="nav-link" data-scroll-target="#buenas-prácticas-durante-la-transformación"><span class="header-section-number">15.23</span> Buenas prácticas durante la transformación</a></li>
+  <li><a href="#agregación-de-información" id="toc-agregación-de-información" class="nav-link" data-scroll-target="#agregación-de-información"><span class="header-section-number">15.24</span> Agregación de información</a></li>
+  <li><a href="#construcción-de-una-base-agregada-por-productor" id="toc-construcción-de-una-base-agregada-por-productor" class="nav-link" data-scroll-target="#construcción-de-una-base-agregada-por-productor"><span class="header-section-number">15.25</span> Construcción de una base agregada por productor</a></li>
+  <li><a href="#explorando-la-base-agregada" id="toc-explorando-la-base-agregada" class="nav-link" data-scroll-target="#explorando-la-base-agregada"><span class="header-section-number">15.26</span> Explorando la base agregada</a></li>
+  <li><a href="#construcción-de-indicadores-agregados" id="toc-construcción-de-indicadores-agregados" class="nav-link" data-scroll-target="#construcción-de-indicadores-agregados"><span class="header-section-number">15.27</span> Construcción de indicadores agregados</a></li>
+  <li><a href="#clasificación-de-productores-según-tamaño" id="toc-clasificación-de-productores-según-tamaño" class="nav-link" data-scroll-target="#clasificación-de-productores-según-tamaño"><span class="header-section-number">15.28</span> Clasificación de productores según tamaño</a></li>
+  <li><a href="#construcción-de-una-base-analítica" id="toc-construcción-de-una-base-analítica" class="nav-link" data-scroll-target="#construcción-de-una-base-analítica"><span class="header-section-number">15.29</span> Construcción de una base analítica</a></li>
+  <li><a href="#explorando-la-base-analítica" id="toc-explorando-la-base-analítica" class="nav-link" data-scroll-target="#explorando-la-base-analítica"><span class="header-section-number">15.30</span> Explorando la base analítica</a></li>
+  <li><a href="#guardando-los-resultados" id="toc-guardando-los-resultados" class="nav-link" data-scroll-target="#guardando-los-resultados"><span class="header-section-number">15.31</span> Guardando los resultados</a></li>
+  <li><a href="#trazabilidad-de-las-transformaciones" id="toc-trazabilidad-de-las-transformaciones" class="nav-link" data-scroll-target="#trazabilidad-de-las-transformaciones"><span class="header-section-number">15.32</span> Trazabilidad de las transformaciones</a></li>
+  <li><a href="#validación-de-resultados" id="toc-validación-de-resultados" class="nav-link" data-scroll-target="#validación-de-resultados"><span class="header-section-number">15.33</span> Validación de resultados</a></li>
+  <li><a href="#transformación-de-datos-y-análisis-estadístico" id="toc-transformación-de-datos-y-análisis-estadístico" class="nav-link" data-scroll-target="#transformación-de-datos-y-análisis-estadístico"><span class="header-section-number">15.34</span> Transformación de datos y análisis estadístico</a></li>
+  <li><a href="#manos-a-la-obra" id="toc-manos-a-la-obra" class="nav-link" data-scroll-target="#manos-a-la-obra"><span class="header-section-number">15.35</span> Manos a la obra</a></li>
+  <li><a href="#resumen-del-capítulo" id="toc-resumen-del-capítulo" class="nav-link" data-scroll-target="#resumen-del-capítulo"><span class="header-section-number">15.36</span> Resumen del capítulo</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/10-importacion-de-datos.html">Parte IV. Gestión y preparación de datos con R</a></li><li class="breadcrumb-item"><a href="../capitulos/12-transformacion-de-datos.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transformación de datos</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transformación de datos</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="objetivos-de-aprendizaje" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<p>Al finalizar este capítulo, el lector será capaz de:</p>
+<ul>
+<li>Comprender el papel de la transformación de datos dentro de la investigación reproducible.</li>
+<li>Diferenciar entre datos originales y variables analíticas.</li>
+<li>Seleccionar variables relevantes para el análisis.</li>
+<li>Transformar variables etiquetadas provenientes de SPSS.</li>
+<li>Crear nuevas variables mediante reglas de investigación.</li>
+<li>Construir indicadores derivados.</li>
+<li>Generar una base analítica lista para análisis estadístico y econométrico.</li>
+<li>Documentar adecuadamente las transformaciones realizadas.</li>
+</ul>
+</section>
+<section id="introducción" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">15.1</span> Introducción</h2>
+<p>Una vez que los datos han sido importados y limpiados, el siguiente paso consiste en transformarlos en información útil para responder preguntas de investigación.</p>
+<p>Las bases de datos originales suelen contener variables diseñadas para procesos de captura, validación y almacenamiento de información. Sin embargo, estas variables no siempre resultan adecuadas para el análisis estadístico o econométrico.</p>
+<p>La transformación de datos constituye el proceso mediante el cual los datos originales se convierten en variables analíticas capaces de describir fenómenos, construir indicadores, contrastar hipótesis y estimar modelos estadísticos <span class="citation" data-cites="wickham2014 peng2020">(<a href="../bibliografia.html#ref-peng2020" role="doc-biblioref">Peng, 2020</a>; <a href="../bibliografia.html#ref-wickham2014" role="doc-biblioref">Wickham, 2014</a>)</span>.</p>
+<p>En investigación reproducible todas las transformaciones deben realizarse mediante código documentado, evitando modificaciones manuales sobre los archivos originales <span class="citation" data-cites="peng2011 gandrud2015">(<a href="../bibliografia.html#ref-gandrud2015" role="doc-biblioref">Gandrud, 2015</a>; <a href="../bibliografia.html#ref-peng2011" role="doc-biblioref">Peng, 2011</a>)</span>.</p>
+<p>Durante este capítulo trabajaremos con información real de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC) 2025.</p>
+</section>
+<section id="qué-significa-transformar-datos" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="qué-significa-transformar-datos"><span class="header-section-number">15.2</span> ¿Qué significa transformar datos?</h2>
+<p>Transformar datos implica modificar la estructura, formato o contenido de una variable para facilitar su interpretación y análisis.</p>
+<p>En términos prácticos, transformar datos puede significar:</p>
+<ul>
+<li>Cambiar el tipo de una variable.</li>
+<li>Recodificar categorías.</li>
+<li>Crear indicadores.</li>
+<li>Construir índices.</li>
+<li>Agregar registros.</li>
+<li>Generar nuevas variables derivadas.</li>
+</ul>
+<p>La transformación constituye el puente entre la preparación de datos y el análisis estadístico.</p>
+<p>Mientras la limpieza busca identificar y corregir problemas potenciales de calidad, la transformación busca convertir los datos en variables útiles para responder preguntas de investigación.</p>
+</section>
+<section id="cargando-la-base-procesada" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="cargando-la-base-procesada"><span class="header-section-number">15.3</span> Cargando la base procesada</h2>
+<p>Trabajaremos con la base generada en el capítulo anterior.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sunac <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"datos"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"procesado"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ESPAC_2025"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sunac_limpio.rds"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="conociendo-la-base-de-trabajo" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="conociendo-la-base-de-trabajo"><span class="header-section-number">15.4</span> Conociendo la base de trabajo</h2>
+<p>Antes de realizar cualquier transformación es recomendable recordar las dimensiones de la información disponible.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Registros =</span> <span class="fu">nrow</span>(sunac),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variables =</span> <span class="fu">ncol</span>(sunac)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Registros</th>
+<th style="text-align: right;">Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">84538</td>
+<td style="text-align: right;">30</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>La salida muestra la cantidad de observaciones y variables disponibles para el análisis.</p>
+<p>En el caso de la ESPAC observamos una base de gran tamaño que contiene información sobre uso del suelo, superficie, tenencia y características territoriales.</p>
+<p>También podemos visualizar rápidamente la estructura general de la base.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(sunac)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 84,538
+Columns: 30
+$ Identificador &lt;chr&gt; "01135101000330001", "01135101000330001", "0113510100033…
+$ ual_prov      &lt;chr+lbl&gt; "01", "01", "01", "01", "01", "01", "01", "01", "01"…
+$ ual_estr      &lt;chr&gt; "01", "01", "01", "01", "01", "01", "01", "01", "01", "0…
+$ ual_segm      &lt;chr&gt; "00033", "00033", "00033", "00033", "00103", "00103", "0…
+$ al_ncues      &lt;chr&gt; "0001", "0001", "0001", "9999", "0001", "0001", "0002", …
+$ su_numl       &lt;dbl&gt; 1, 2, 3, 1, 1, 2, 1, 2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1…
+$ rc_clacul     &lt;dbl+lbl&gt; 958, 958, 962, 962, 410, 958, 410, 958, 478, 751, 78…
+$ su_numt       &lt;dbl&gt; 1, 2, 3, 1, 1, 2, 1, 2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1…
+$ su_k202ha     &lt;dbl&gt; 9.00, 9.00, 9.00, 0.40, 5.50, 1.50, 4.00, 3.00, 0.19, 0.…
+$ su_categoria  &lt;dbl+lbl&gt;  8,  8, 10, 10,  1,  8,  1,  8,  1,  5,  5,  5,  5, …
+$ su_tenencia   &lt;fct&gt; DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, …
+$ ual_trs       &lt;dbl+lbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ ual_trc       &lt;dbl+lbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ ual_tro       &lt;dbl+lbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ ual_znd       &lt;dbl+lbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ ual_tn        &lt;dbl+lbl&gt; 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4…
+$ us_k301ha     &lt;dbl&gt; NA, NA, NA, NA, 2.5763, NA, 3.3235, NA, 0.1819, NA, NA, …
+$ us_k302ha     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ us_k303ha     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ us_k304ha     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ us_k305ha     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, 0.0932, 0.0921, 0.04…
+$ us_k306ha     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ us_k307ha     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ us_k308ha     &lt;dbl&gt; 2.7616, 0.7581, NA, NA, NA, 0.8191, NA, 2.2811, NA, NA, …
+$ us_k309ha     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ us_k310ha     &lt;dbl&gt; NA, NA, 5.1941, 0.2862, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ us_transiha   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ us_montesha   &lt;dbl&gt; 2.7616, 0.7581, NA, NA, NA, 0.8191, NA, 2.2811, NA, NA, …
+$ supertotal    &lt;dbl&gt; 2.7616, 0.7581, 5.1941, 0.2862, 2.5763, 0.8191, 3.3235, …
+$ fact_exp_fin  &lt;dbl&gt; 66.37009, 66.37009, 66.37009, 66.37009, 66.37009, 66.370…</code></pre>
+</div>
+</div>
+<p>La función <code>glimpse()</code> permite identificar los nombres de las variables, sus tipos de datos y algunos ejemplos de valores observados.</p>
+</section>
+<section id="de-datos-originales-a-variables-analíticas" class="level2" data-number="15.5">
+<h2 data-number="15.5" class="anchored" data-anchor-id="de-datos-originales-a-variables-analíticas"><span class="header-section-number">15.5</span> De datos originales a variables analíticas</h2>
+<p>Considere la variable:</p>
+<pre class="text"><code>su_tenencia</code></pre>
+<p>Esta variable almacena la forma de tenencia de la tierra.</p>
+<p>Originalmente se encuentra codificada mediante valores numéricos etiquetados.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sunac<span class="sc">$</span>su_tenencia)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+</div>
+<p>La salida muestra que la variable fue importada como:</p>
+<pre class="text"><code>haven_labelled</code></pre>
+<p>Este formato es adecuado para preservar la información original del archivo SPSS, pero no siempre resulta conveniente para análisis posteriores.</p>
+<p>Por esta razón, uno de los primeros pasos de transformación consiste en convertir variables etiquetadas a factores.</p>
+</section>
+<section id="selección-de-variables-relevantes" class="level2" data-number="15.6">
+<h2 data-number="15.6" class="anchored" data-anchor-id="selección-de-variables-relevantes"><span class="header-section-number">15.6</span> Selección de variables relevantes</h2>
+<p>Las bases oficiales suelen contener decenas o incluso cientos de variables.</p>
+<p>Sin embargo, no todas son necesarias para responder una pregunta específica de investigación.</p>
+<p>Supongamos que deseamos analizar la relación entre superficie, tenencia y territorio.</p>
+<p>Podemos construir una base reducida.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sunac_reducido <span class="ot">&lt;-</span> sunac <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    Identificador,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    ual_prov,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    su_tenencia,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    su_categoria,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    supertotal,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    fact_exp_fin</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(sunac_reducido)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 84,538
+Columns: 6
+$ Identificador &lt;chr&gt; "01135101000330001", "01135101000330001", "0113510100033…
+$ ual_prov      &lt;chr+lbl&gt; "01", "01", "01", "01", "01", "01", "01", "01", "01"…
+$ su_tenencia   &lt;fct&gt; DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, …
+$ su_categoria  &lt;dbl+lbl&gt;  8,  8, 10, 10,  1,  8,  1,  8,  1,  5,  5,  5,  5, …
+$ supertotal    &lt;dbl&gt; 2.7616, 0.7581, 5.1941, 0.2862, 2.5763, 0.8191, 3.3235, …
+$ fact_exp_fin  &lt;dbl&gt; 66.37009, 66.37009, 66.37009, 66.37009, 66.37009, 66.370…</code></pre>
+</div>
+</div>
+<p>La selección de variables facilita el trabajo analítico y mejora la legibilidad del código.</p>
+<p>Además, reduce el consumo de memoria cuando se trabaja con bases de gran tamaño <span class="citation" data-cites="peng2020">(<a href="../bibliografia.html#ref-peng2020" role="doc-biblioref">Peng, 2020</a>)</span>.</p>
+</section>
+<section id="renombrando-variables" class="level2" data-number="15.7">
+<h2 data-number="15.7" class="anchored" data-anchor-id="renombrando-variables"><span class="header-section-number">15.7</span> Renombrando variables</h2>
+<p>Muchas operaciones estadísticas utilizan nombres abreviados difíciles de interpretar.</p>
+<p>Por esta razón, es recomendable utilizar nombres descriptivos.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sunac_reducido <span class="ot">&lt;-</span> sunac_reducido <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">provincia =</span> ual_prov,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">tenencia =</span> su_tenencia,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">categoria =</span> su_categoria,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">superficie_total =</span> supertotal</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sunac_reducido)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Identificador"    "provincia"        "tenencia"         "categoria"       
+[5] "superficie_total" "fact_exp_fin"    </code></pre>
+</div>
+</div>
+<p>Observe cómo los nombres resultan ahora más intuitivos.</p>
+<p>Esta práctica facilita la lectura del código y reduce errores durante etapas posteriores <span class="citation" data-cites="wilson2017">(<a href="../bibliografia.html#ref-wilson2017" role="doc-biblioref">Wilson et&nbsp;al., 2017</a>)</span>.</p>
+</section>
+<section id="transformación-de-variables-etiquetadas" class="level2" data-number="15.8">
+<h2 data-number="15.8" class="anchored" data-anchor-id="transformación-de-variables-etiquetadas"><span class="header-section-number">15.8</span> Transformación de variables etiquetadas</h2>
+<p>Las variables provenientes de SPSS conservan etiquetas originales.</p>
+<p>Podemos examinarlas mediante:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(sunac<span class="sc">$</span>su_tenencia)<span class="sc">$</span>labels</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+</div>
+<p>Las categorías corresponden a distintas formas de tenencia de la tierra registradas por el INEC.</p>
+<p>Para facilitar el análisis transformaremos la variable en un factor.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="ot">&lt;-</span> sunac <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">su_tenencia =</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>      haven<span class="sc">::</span><span class="fu">as_factor</span>(su_tenencia),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">su_categoria =</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>      haven<span class="sc">::</span><span class="fu">as_factor</span>(su_categoria)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Verificamos el resultado:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sunac<span class="sc">$</span>su_tenencia)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sunac<span class="sc">$</span>su_categoria)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+</div>
+<p>Ahora ambas variables pueden utilizarse directamente en tablas, gráficos y modelos estadísticos.</p>
+</section>
+<section id="explorando-las-categorías-transformadas" class="level2" data-number="15.9">
+<h2 data-number="15.9" class="anchored" data-anchor-id="explorando-las-categorías-transformadas"><span class="header-section-number">15.9</span> Explorando las categorías transformadas</h2>
+<p>Una vez realizada la transformación podemos observar la distribución de frecuencias.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(su_tenencia) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   su_tenencia               n
+   &lt;fct&gt;                 &lt;int&gt;
+ 1 DUEÑO                 71391
+ 2 HERENCIA               5695
+ 3 ARRENDATARIO           2815
+ 4 USUFRUCTO              1150
+ 5 COMUNERO               1038
+ 6 OTRO                   1020
+ 7 APARCERÍA O AL PARTIR   789
+ 8 LITIGIO                 286
+ 9 POSECIÓN                222
+10 INVASIÓN                132</code></pre>
+</div>
+</div>
+<p>La tabla muestra la cantidad de observaciones registradas para cada forma de tenencia.</p>
+<p>La interpretación de esta distribución resulta mucho más sencilla que trabajar con códigos numéricos.</p>
+</section>
+<section id="transformación-de-variables-geográficas" class="level2" data-number="15.10">
+<h2 data-number="15.10" class="anchored" data-anchor-id="transformación-de-variables-geográficas"><span class="header-section-number">15.10</span> Transformación de variables geográficas</h2>
+<p>La variable <code>ual_prov</code> contiene códigos provinciales.</p>
+<p>Si la base conserva etiquetas podemos transformarla directamente.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="ot">&lt;-</span> sunac <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">provincia =</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>      haven<span class="sc">::</span><span class="fu">as_factor</span>(ual_prov)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Podemos verificar el resultado.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sunac<span class="sc">$</span>provincia)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+</div>
+<p>La nueva variable permitirá realizar análisis territoriales utilizando nombres de provincias en lugar de códigos numéricos.</p>
+</section>
+<section id="creación-de-nuevas-variables" class="level2" data-number="15.11">
+<h2 data-number="15.11" class="anchored" data-anchor-id="creación-de-nuevas-variables"><span class="header-section-number">15.11</span> Creación de nuevas variables</h2>
+<p>Uno de los principales objetivos de la transformación consiste en construir variables que no existen originalmente en la base de datos.</p>
+<p>Estas nuevas variables permiten representar conceptos analíticos que facilitan la interpretación de los resultados y responden de manera más directa a las preguntas de investigación.</p>
+<p>Por ejemplo, la variable <code>supertotal</code> registra la superficie total observada en cada registro.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sunac<span class="sc">$</span>supertotal)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.000e+00 8.160e-02 3.739e-01 6.984e+00 1.649e+00 2.147e+04 </code></pre>
+</div>
+</div>
+<p>Aunque esta variable es informativa, en muchos casos resulta más útil trabajar con categorías de tamaño.</p>
+</section>
+<section id="construcción-de-categorías-de-tamaño-de-explotación" class="level2" data-number="15.12">
+<h2 data-number="15.12" class="anchored" data-anchor-id="construcción-de-categorías-de-tamaño-de-explotación"><span class="header-section-number">15.12</span> Construcción de categorías de tamaño de explotación</h2>
+<p>La clasificación de explotaciones agropecuarias por tamaño constituye una práctica habitual en estudios agrícolas y rurales.</p>
+<p>Podemos crear una nueva variable denominada <code>tamano_upa</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="ot">&lt;-</span> sunac <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">tamano_upa =</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">case_when</span>(</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        supertotal <span class="sc">&lt;</span> <span class="dv">1</span>  <span class="sc">~</span> <span class="st">"Micro"</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        supertotal <span class="sc">&lt;</span> <span class="dv">5</span>  <span class="sc">~</span> <span class="st">"Pequeña"</span>,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        supertotal <span class="sc">&lt;</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"Mediana"</span>,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span>            <span class="sc">~</span> <span class="st">"Grande"</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Verifiquemos la distribución de la nueva variable.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(tamano_upa) <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  tamano_upa     n
+  &lt;chr&gt;      &lt;int&gt;
+1 Micro      56572
+2 Pequeña    18014
+3 Mediana     6846
+4 Grande      3106</code></pre>
+</div>
+</div>
+<p>La tabla permite identificar la estructura productiva observada en la encuesta.</p>
+<p>Esta transformación convierte una variable continua en una categoría fácilmente interpretable.</p>
+</section>
+<section id="visualizando-el-tamaño-de-las-explotaciones" class="level2" data-number="15.13">
+<h2 data-number="15.13" class="anchored" data-anchor-id="visualizando-el-tamaño-de-las-explotaciones"><span class="header-section-number">15.13</span> Visualizando el tamaño de las explotaciones</h2>
+<p>Podemos representar gráficamente la distribución de las categorías creadas.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(tamano_upa) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">reorder</span>(tamano_upa, n),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> n</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tamaño de UPA"</span>,</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia"</span>,</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de explotaciones por tamaño"</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-cap12-distribucion-tamano-upa" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cap12-distribucion-tamano-upa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12-transformacion-de-datos_files/figure-html/fig-cap12-distribucion-tamano-upa-1.png" id="fig-cap12-distribucion-tamano-upa" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-cap12-distribucion-tamano-upa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;15.1
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La visualización facilita la comprensión de la estructura de la población estudiada.</p>
+</section>
+<section id="construcción-de-variables-binarias" class="level2" data-number="15.14">
+<h2 data-number="15.14" class="anchored" data-anchor-id="construcción-de-variables-binarias"><span class="header-section-number">15.14</span> Construcción de variables binarias</h2>
+<p>Las variables binarias resultan extremadamente útiles en análisis descriptivos y econométricos.</p>
+<p>Estas variables representan únicamente dos categorías.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>Sí / No
+Presencia / Ausencia
+1 / 0</code></pre>
+<p>Una variable interesante en la ESPAC es:</p>
+<pre class="text"><code>us_montesha</code></pre>
+<p>que representa superficie de monte o bosque.</p>
+</section>
+<section id="indicador-de-presencia-de-bosque" class="level2" data-number="15.15">
+<h2 data-number="15.15" class="anchored" data-anchor-id="indicador-de-presencia-de-bosque"><span class="header-section-number">15.15</span> Indicador de presencia de bosque</h2>
+<p>Podemos construir una variable que indique si existe o no bosque en el registro.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="ot">&lt;-</span> sunac <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">tiene_bosque =</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">if_else</span>(</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>        us_montesha <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Sí"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"No"</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">missing =</span> <span class="st">"No"</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Analicemos la distribución resultante.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sunac<span class="sc">$</span>tiene_bosque)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   No    Sí 
+72324 12214 </code></pre>
+</div>
+</div>
+<p>La nueva variable simplifica considerablemente la interpretación.</p>
+<p>En lugar de analizar hectáreas específicas, podemos distinguir rápidamente entre productores con y sin cobertura boscosa.</p>
+</section>
+<section id="indicador-de-cultivos-transitorios" class="level2" data-number="15.16">
+<h2 data-number="15.16" class="anchored" data-anchor-id="indicador-de-cultivos-transitorios"><span class="header-section-number">15.16</span> Indicador de cultivos transitorios</h2>
+<p>También podemos crear una variable relacionada con actividades agrícolas.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="ot">&lt;-</span> sunac <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">tiene_transitorios =</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">if_else</span>(</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>        us_transiha <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Sí"</span>,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"No"</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">missing =</span> <span class="st">"No"</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Verificamos el resultado.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sunac<span class="sc">$</span>tiene_transitorios)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   No    Sí 
+72965 11573 </code></pre>
+</div>
+</div>
+<p>Este tipo de indicadores resulta especialmente útil en análisis comparativos.</p>
+</section>
+<section id="construcción-de-indicadores-porcentuales" class="level2" data-number="15.17">
+<h2 data-number="15.17" class="anchored" data-anchor-id="construcción-de-indicadores-porcentuales"><span class="header-section-number">15.17</span> Construcción de indicadores porcentuales</h2>
+<p>En investigación aplicada suele ser más informativo trabajar con proporciones que con valores absolutos.</p>
+<p>Por ejemplo, una explotación con 5 hectáreas de bosque puede ser muy diferente según su superficie total.</p>
+<p>Podemos construir un indicador porcentual.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="ot">&lt;-</span> sunac <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_bosque =</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>      (us_montesha <span class="sc">/</span> supertotal) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Analizamos su distribución.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sunac<span class="sc">$</span>pct_bosque)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs 
+    100     100     100     100     100     100   72324 </code></pre>
+</div>
+</div>
+<p>Este indicador permite comparar explotaciones de distinto tamaño utilizando una misma escala.</p>
+</section>
+<section id="visualizando-indicadores-porcentuales" class="level2" data-number="15.18">
+<h2 data-number="15.18" class="anchored" data-anchor-id="visualizando-indicadores-porcentuales"><span class="header-section-number">15.18</span> Visualizando indicadores porcentuales</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  sunac<span class="sc">$</span>pct_bosque,</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Porcentaje de bosque"</span>,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Porcentaje"</span>,</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="dv">30</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-cap12-histograma-porcentaje-bosque" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cap12-histograma-porcentaje-bosque-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12-transformacion-de-datos_files/figure-html/fig-cap12-histograma-porcentaje-bosque-1.png" id="fig-cap12-histograma-porcentaje-bosque" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-cap12-histograma-porcentaje-bosque-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;15.2
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La visualización facilita la identificación de patrones de distribución.</p>
+</section>
+<section id="transformaciones-mediante-reglas-de-clasificación" class="level2" data-number="15.19">
+<h2 data-number="15.19" class="anchored" data-anchor-id="transformaciones-mediante-reglas-de-clasificación"><span class="header-section-number">15.19</span> Transformaciones mediante reglas de clasificación</h2>
+<p>Las transformaciones frecuentemente responden a necesidades específicas de investigación.</p>
+<p>Supongamos que queremos diferenciar entre pequeños productores y el resto.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="ot">&lt;-</span> sunac <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">grupo_tamano =</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">case_when</span>(</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>        supertotal <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Pequeños productores"</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Medianos y grandes productores"</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Analizamos la distribución.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sunac<span class="sc">$</span>grupo_tamano)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Medianos y grandes productores           Pequeños productores 
+                          9952                          74586 </code></pre>
+</div>
+</div>
+<p>Las categorías agregadas permiten simplificar la interpretación cuando existen demasiados grupos.</p>
+</section>
+<section id="explorando-variables-derivadas" class="level2" data-number="15.20">
+<h2 data-number="15.20" class="anchored" data-anchor-id="explorando-variables-derivadas"><span class="header-section-number">15.20</span> Explorando variables derivadas</h2>
+<p>Una buena práctica consiste en verificar inmediatamente los resultados de cada transformación.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    supertotal,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    tamano_upa,</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    grupo_tamano</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   supertotal tamano_upa grupo_tamano                  
+        &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;                         
+ 1     2.76   Pequeña    Pequeños productores          
+ 2     0.758  Micro      Pequeños productores          
+ 3     5.19   Mediana    Medianos y grandes productores
+ 4     0.286  Micro      Pequeños productores          
+ 5     2.58   Pequeña    Pequeños productores          
+ 6     0.819  Micro      Pequeños productores          
+ 7     3.32   Pequeña    Pequeños productores          
+ 8     2.28   Pequeña    Pequeños productores          
+ 9     0.182  Micro      Pequeños productores          
+10     0.0932 Micro      Pequeños productores          </code></pre>
+</div>
+</div>
+<p>Esta inspección permite validar que las reglas aplicadas generan resultados coherentes.</p>
+</section>
+<section id="construcción-de-indicadores-para-análisis-posteriores" class="level2" data-number="15.21">
+<h2 data-number="15.21" class="anchored" data-anchor-id="construcción-de-indicadores-para-análisis-posteriores"><span class="header-section-number">15.21</span> Construcción de indicadores para análisis posteriores</h2>
+<p>Una vez transformadas las variables podemos generar una tabla resumen.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>sunac <span class="sc">|&gt;</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    tamano_upa,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    tiene_bosque,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    tiene_transitorios</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     tamano_upa       tiene_bosque   tiene_transitorios
+ Length   :84538   Length   :84538   Length   :84538   
+ N.unique :    4   N.unique :    2   N.unique :    2   
+ N.blank  :    0   N.blank  :    0   N.blank  :    0   
+ Min.nchar:    5   Min.nchar:    2   Min.nchar:    2   
+ Max.nchar:    7   Max.nchar:    2   Max.nchar:    2   </code></pre>
+</div>
+</div>
+<p>Observe cómo ahora disponemos de variables listas para análisis descriptivos, visualizaciones y modelos estadísticos.</p>
+</section>
+<section id="importancia-de-las-transformaciones-reproducibles" class="level2" data-number="15.22">
+<h2 data-number="15.22" class="anchored" data-anchor-id="importancia-de-las-transformaciones-reproducibles"><span class="header-section-number">15.22</span> Importancia de las transformaciones reproducibles</h2>
+<p>Todas las transformaciones realizadas hasta este punto han sido ejecutadas mediante código.</p>
+<p>Esto significa que cualquier investigador puede reproducir exactamente los mismos resultados utilizando la misma base de datos.</p>
+<p>La reproducibilidad constituye una condición esencial para garantizar transparencia y credibilidad científica <span class="citation" data-cites="peng2011 gandrud2015">(<a href="../bibliografia.html#ref-gandrud2015" role="doc-biblioref">Gandrud, 2015</a>; <a href="../bibliografia.html#ref-peng2011" role="doc-biblioref">Peng, 2011</a>)</span>.</p>
+</section>
+<section id="buenas-prácticas-durante-la-transformación" class="level2" data-number="15.23">
+<h2 data-number="15.23" class="anchored" data-anchor-id="buenas-prácticas-durante-la-transformación"><span class="header-section-number">15.23</span> Buenas prácticas durante la transformación</h2>
+<p>Durante el proceso de transformación se recomienda:</p>
+<ul>
+<li>Crear nuevas variables en lugar de sobrescribir variables originales.</li>
+<li>Utilizar nombres descriptivos.</li>
+<li>Documentar cada decisión tomada.</li>
+<li>Verificar resultados inmediatamente después de cada transformación.</li>
+<li>Conservar versiones intermedias de trabajo.</li>
+<li>Mantener intactos los datos originales.</li>
+</ul>
+<p>Estas prácticas facilitan la trazabilidad y reducen errores analíticos.</p>
+</section>
+<section id="agregación-de-información" class="level2" data-number="15.24">
+<h2 data-number="15.24" class="anchored" data-anchor-id="agregación-de-información"><span class="header-section-number">15.24</span> Agregación de información</h2>
+<p>Hasta este momento hemos trabajado a nivel de registros individuales.</p>
+<p>Sin embargo, durante el capítulo anterior identificamos que la base contiene más registros que identificadores únicos.</p>
+<p>Esto significa que una misma unidad de producción agropecuaria puede aparecer varias veces dentro del archivo.</p>
+<p>Verifiquemos nuevamente esta situación.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(sunac)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 84538</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(sunac<span class="sc">$</span>Identificador))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 38228</code></pre>
+</div>
+</div>
+<p>La diferencia entre ambas cifras indica que existen múltiples registros asociados a un mismo productor o unidad productiva.</p>
+<p>En muchos análisis será necesario trabajar a nivel de productor y no a nivel de registro.</p>
+</section>
+<section id="construcción-de-una-base-agregada-por-productor" class="level2" data-number="15.25">
+<h2 data-number="15.25" class="anchored" data-anchor-id="construcción-de-una-base-agregada-por-productor"><span class="header-section-number">15.25</span> Construcción de una base agregada por productor</h2>
+<p>Podemos resumir la información utilizando el identificador único.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>upa <span class="ot">&lt;-</span> sunac <span class="sc">|&gt;</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Identificador) <span class="sc">|&gt;</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">superficie_total =</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sum</span>(</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>        supertotal,</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">superficie_bosque =</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sum</span>(</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>        us_montesha,</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">superficie_transitorios =</span></span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sum</span>(</span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>        us_transiha,</span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Analicemos las dimensiones de la nueva base.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Registros =</span> <span class="fu">nrow</span>(upa),</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variables =</span> <span class="fu">ncol</span>(upa)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Registros</th>
+<th style="text-align: right;">Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">38228</td>
+<td style="text-align: right;">4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Observe que ahora cada fila representa una unidad productiva única.</p>
+<p>Esta transformación cambia completamente la unidad de análisis.</p>
+</section>
+<section id="explorando-la-base-agregada" class="level2" data-number="15.26">
+<h2 data-number="15.26" class="anchored" data-anchor-id="explorando-la-base-agregada"><span class="header-section-number">15.26</span> Explorando la base agregada</h2>
+<p>Podemos visualizar los primeros registros.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(upa)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  Identificador     superficie_total superficie_bosque superficie_transitorios
+  &lt;chr&gt;                        &lt;dbl&gt;             &lt;dbl&gt;                   &lt;dbl&gt;
+1 01015101094420001            2.40                  0                   0.296
+2 01015101094420002            2.05                  0                   0.512
+3 01015101094420003            2.66                  0                   0.295
+4 01015101094420004            0.693                 0                   0    
+5 01015101094420005            0.411                 0                   0.19 
+6 01015101094420006            0.617                 0                   0.192</code></pre>
+</div>
+</div>
+<p>Ahora cada observación resume la información disponible para un productor específico.</p>
+<p>La agregación constituye una de las transformaciones más frecuentes en investigación aplicada, especialmente cuando se trabaja con encuestas complejas y registros múltiples <span class="citation" data-cites="wickham2014">(<a href="../bibliografia.html#ref-wickham2014" role="doc-biblioref">Wickham, 2014</a>)</span>.</p>
+</section>
+<section id="construcción-de-indicadores-agregados" class="level2" data-number="15.27">
+<h2 data-number="15.27" class="anchored" data-anchor-id="construcción-de-indicadores-agregados"><span class="header-section-number">15.27</span> Construcción de indicadores agregados</h2>
+<p>A partir de las variables resumidas podemos generar nuevos indicadores.</p>
+<p>Por ejemplo, el porcentaje de bosque por unidad productiva.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>upa <span class="ot">&lt;-</span> upa <span class="sc">|&gt;</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_bosque =</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>      (superficie_bosque <span class="sc">/</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>         superficie_total) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Analizamos su comportamiento.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(upa<span class="sc">$</span>pct_bosque)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00    0.00    0.00   16.23    4.00  100.00 </code></pre>
+</div>
+</div>
+<p>Este indicador permite comparar productores independientemente de su tamaño.</p>
+</section>
+<section id="clasificación-de-productores-según-tamaño" class="level2" data-number="15.28">
+<h2 data-number="15.28" class="anchored" data-anchor-id="clasificación-de-productores-según-tamaño"><span class="header-section-number">15.28</span> Clasificación de productores según tamaño</h2>
+<p>También podemos clasificar las unidades productivas agregadas.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>upa <span class="ot">&lt;-</span> upa <span class="sc">|&gt;</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">tamano_upa =</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">case_when</span>(</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>        superficie_total <span class="sc">&lt;</span> <span class="dv">1</span>  <span class="sc">~</span> <span class="st">"Micro"</span>,</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>        superficie_total <span class="sc">&lt;</span> <span class="dv">5</span>  <span class="sc">~</span> <span class="st">"Pequeña"</span>,</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>        superficie_total <span class="sc">&lt;</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"Mediana"</span>,</span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span>                  <span class="sc">~</span> <span class="st">"Grande"</span></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Verificamos la distribución.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>upa <span class="sc">|&gt;</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(tamano_upa) <span class="sc">|&gt;</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  tamano_upa     n
+  &lt;chr&gt;      &lt;int&gt;
+1 Micro      18477
+2 Pequeña    10648
+3 Mediana     6206
+4 Grande      2897</code></pre>
+</div>
+</div>
+<p>Esta clasificación será útil en análisis posteriores relacionados con estructura productiva.</p>
+</section>
+<section id="construcción-de-una-base-analítica" class="level2" data-number="15.29">
+<h2 data-number="15.29" class="anchored" data-anchor-id="construcción-de-una-base-analítica"><span class="header-section-number">15.29</span> Construcción de una base analítica</h2>
+<p>Una vez realizadas las transformaciones necesarias podemos construir una base diseñada específicamente para el análisis.</p>
+<p>El objetivo consiste en conservar únicamente las variables relevantes para responder nuestras preguntas de investigación.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>base_analitica <span class="ot">&lt;-</span> sunac <span class="sc">|&gt;</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>    Identificador,</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>    provincia,</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>    su_tenencia,</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>    tamano_upa,</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>    grupo_tamano,</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>    tiene_bosque,</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>    tiene_transitorios,</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>    pct_bosque,</span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>    supertotal,</span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>    fact_exp_fin</span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Verificamos su estructura.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(base_analitica)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 84,538
+Columns: 10
+$ Identificador      &lt;chr&gt; "01135101000330001", "01135101000330001", "01135101…
+$ provincia          &lt;fct&gt;  AZUAY,  AZUAY,  AZUAY,  AZUAY,  AZUAY,  AZUAY,  AZ…
+$ su_tenencia        &lt;fct&gt; DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, DUEÑO, DU…
+$ tamano_upa         &lt;chr&gt; "Pequeña", "Micro", "Mediana", "Micro", "Pequeña", …
+$ grupo_tamano       &lt;chr&gt; "Pequeños productores", "Pequeños productores", "Me…
+$ tiene_bosque       &lt;chr&gt; "Sí", "Sí", "No", "No", "No", "Sí", "No", "Sí", "No…
+$ tiene_transitorios &lt;chr&gt; "No", "No", "No", "No", "No", "No", "No", "No", "No…
+$ pct_bosque         &lt;dbl&gt; 100, 100, NA, NA, NA, 100, NA, 100, NA, NA, NA, NA,…
+$ supertotal         &lt;dbl&gt; 2.7616, 0.7581, 5.1941, 0.2862, 2.5763, 0.8191, 3.3…
+$ fact_exp_fin       &lt;dbl&gt; 66.37009, 66.37009, 66.37009, 66.37009, 66.37009, 6…</code></pre>
+</div>
+</div>
+<p>La nueva base contiene variables interpretables y listas para análisis descriptivos y econométricos.</p>
+</section>
+<section id="explorando-la-base-analítica" class="level2" data-number="15.30">
+<h2 data-number="15.30" class="anchored" data-anchor-id="explorando-la-base-analítica"><span class="header-section-number">15.30</span> Explorando la base analítica</h2>
+<p>Podemos visualizar las primeras observaciones.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(base_analitica)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 10
+  Identificador     provincia su_tenencia tamano_upa grupo_tamano   tiene_bosque
+  &lt;chr&gt;             &lt;fct&gt;     &lt;fct&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;       
+1 01135101000330001 " AZUAY"  DUEÑO       Pequeña    Pequeños prod… Sí          
+2 01135101000330001 " AZUAY"  DUEÑO       Micro      Pequeños prod… Sí          
+3 01135101000330001 " AZUAY"  DUEÑO       Mediana    Medianos y gr… No          
+4 01135101000339999 " AZUAY"  DUEÑO       Micro      Pequeños prod… No          
+5 01015701001030001 " AZUAY"  DUEÑO       Pequeña    Pequeños prod… No          
+6 01015701001030001 " AZUAY"  DUEÑO       Micro      Pequeños prod… Sí          
+# ℹ 4 more variables: tiene_transitorios &lt;chr&gt;, pct_bosque &lt;dbl&gt;,
+#   supertotal &lt;dbl&gt;, fact_exp_fin &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Observe cómo las variables transformadas permiten comprender la información con mucha mayor facilidad que las variables originales codificadas.</p>
+</section>
+<section id="guardando-los-resultados" class="level2" data-number="15.31">
+<h2 data-number="15.31" class="anchored" data-anchor-id="guardando-los-resultados"><span class="header-section-number">15.31</span> Guardando los resultados</h2>
+<p>Una vez finalizado el proceso de transformación es recomendable almacenar la base resultante.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  base_analitica,</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"datos"</span>,</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"procesado"</span>,</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ESPAC_2025"</span>,</span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sunac_transformado.rds"</span></span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El formato RDS conserva tipos de datos, factores y atributos propios de R.</p>
+<p>Posteriormente podremos recuperar la información mediante:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>base_analitica <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"datos"</span>,</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"procesado"</span>,</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ESPAC_2025"</span>,</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sunac_transformado.rds"</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Verificamos que la carga fue exitosa.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(base_analitica)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 84538    10</code></pre>
+</div>
+</div>
+</section>
+<section id="trazabilidad-de-las-transformaciones" class="level2" data-number="15.32">
+<h2 data-number="15.32" class="anchored" data-anchor-id="trazabilidad-de-las-transformaciones"><span class="header-section-number">15.32</span> Trazabilidad de las transformaciones</h2>
+<p>Uno de los principios fundamentales de la investigación reproducible consiste en que todas las transformaciones puedan reconstruirse completamente.</p>
+<p>Las operaciones realizadas durante este capítulo incluyen:</p>
+<ul>
+<li>Selección de variables.</li>
+<li>Renombramiento de variables.</li>
+<li>Conversión de variables etiquetadas.</li>
+<li>Construcción de categorías.</li>
+<li>Creación de indicadores binarios.</li>
+<li>Generación de porcentajes.</li>
+<li>Agregación de registros.</li>
+<li>Construcción de bases analíticas.</li>
+</ul>
+<p>Gracias al uso de scripts, cualquier investigador puede reproducir exactamente el mismo flujo de trabajo <span class="citation" data-cites="peng2011 gandrud2015">(<a href="../bibliografia.html#ref-gandrud2015" role="doc-biblioref">Gandrud, 2015</a>; <a href="../bibliografia.html#ref-peng2011" role="doc-biblioref">Peng, 2011</a>)</span>.</p>
+</section>
+<section id="validación-de-resultados" class="level2" data-number="15.33">
+<h2 data-number="15.33" class="anchored" data-anchor-id="validación-de-resultados"><span class="header-section-number">15.33</span> Validación de resultados</h2>
+<p>Antes de continuar con el análisis es recomendable verificar que las transformaciones producen resultados coherentes.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_analitica<span class="sc">$</span>supertotal)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.000e+00 8.160e-02 3.739e-01 6.984e+00 1.649e+00 2.147e+04 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_analitica<span class="sc">$</span>pct_bosque)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs 
+    100     100     100     100     100     100   72324 </code></pre>
+</div>
+</div>
+<p>También podemos revisar distribuciones.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(base_analitica<span class="sc">$</span>tamano_upa)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Grande Mediana   Micro Pequeña 
+   3106    6846   56572   18014 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(base_analitica<span class="sc">$</span>tiene_bosque)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   No    Sí 
+72324 12214 </code></pre>
+</div>
+</div>
+<p>Estas verificaciones permiten detectar errores tempranamente.</p>
+</section>
+<section id="transformación-de-datos-y-análisis-estadístico" class="level2" data-number="15.34">
+<h2 data-number="15.34" class="anchored" data-anchor-id="transformación-de-datos-y-análisis-estadístico"><span class="header-section-number">15.34</span> Transformación de datos y análisis estadístico</h2>
+<p>La calidad de cualquier análisis depende directamente de la calidad de las transformaciones realizadas previamente.</p>
+<p>Variables mal definidas pueden conducir a interpretaciones erróneas y modelos estadísticos incorrectos.</p>
+<p>Por esta razón, la etapa de transformación debe considerarse una parte fundamental del proceso científico y no una simple tarea operativa <span class="citation" data-cites="marwick2018 lowndes2017">(<a href="../bibliografia.html#ref-lowndes2017" role="doc-biblioref"><span class="nocase">Lowndes et&nbsp;al.</span>, 2017</a>; <a href="../bibliografia.html#ref-marwick2018" role="doc-biblioref"><span class="nocase">Marwick et&nbsp;al.</span>, 2018</a>)</span>.</p>
+</section>
+<section id="manos-a-la-obra" class="level2" data-number="15.35">
+<h2 data-number="15.35" class="anchored" data-anchor-id="manos-a-la-obra"><span class="header-section-number">15.35</span> Manos a la obra</h2>
+<p>Utilizando la base <code>sunac_limpio.rds</code>:</p>
+<ol type="1">
+<li>Convierta las variables etiquetadas a factores.</li>
+<li>Cree una variable de tamaño de explotación.</li>
+<li>Construya un indicador de presencia de bosque.</li>
+<li>Calcule el porcentaje de bosque respecto a la superficie total.</li>
+<li>Agregue la información por productor.</li>
+<li>Construya una base analítica.</li>
+<li>Guarde la base transformada en formato RDS.</li>
+<li>Documente todas las transformaciones realizadas.</li>
+</ol>
+</section>
+<section id="resumen-del-capítulo" class="level2" data-number="15.36">
+<h2 data-number="15.36" class="anchored" data-anchor-id="resumen-del-capítulo"><span class="header-section-number">15.36</span> Resumen del capítulo</h2>
+<p>La transformación de datos constituye el proceso mediante el cual los datos originales se convierten en variables analíticas útiles para responder preguntas de investigación.</p>
+<p>Durante este capítulo aprendimos a seleccionar variables, renombrarlas, transformar variables etiquetadas provenientes de SPSS, construir indicadores, generar categorías analíticas, agregar información y crear una base lista para análisis posteriores.</p>
+<p>Todas estas transformaciones fueron realizadas mediante código reproducible, garantizando transparencia y trazabilidad en el flujo de trabajo.</p>
+<p>En el siguiente capítulo abordaremos la evaluación de la calidad de los datos, donde aprenderemos a medir consistencia, integridad y confiabilidad de la información antes de iniciar análisis descriptivos y modelos estadísticos.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-gandrud2015" class="csl-entry" role="listitem">
+Gandrud, C. (2015). <em>Reproducible Research with R and R Studio</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-lowndes2017" class="csl-entry" role="listitem">
+<span class="nocase">Lowndes, J. S. S. et&nbsp;al.</span> (2017). Our Path to Better Science in Less Time Using Open Data Science Tools. <em>Nature Ecology and Evolution</em>, <em>1</em>, 0160.
+</div>
+<div id="ref-marwick2018" class="csl-entry" role="listitem">
+<span class="nocase">Marwick, B. et&nbsp;al.</span> (2018). Packaging Data Analytical Work Reproducibly Using R (and Friends). <em>The American Statistician</em>, <em>72</em>(1), 80-88.
+</div>
+<div id="ref-peng2011" class="csl-entry" role="listitem">
+Peng, R. D. (2011). Reproducible Research in Computational Science. <em>Science</em>, <em>334</em>(6060), 1226-1227. <a href="https://doi.org/10.1126/science.1213847">https://doi.org/10.1126/science.1213847</a>
+</div>
+<div id="ref-peng2020" class="csl-entry" role="listitem">
+Peng, R. D. (2020). <em>R Programming for Data Science</em>. Leanpub.
+</div>
+<div id="ref-wickham2014" class="csl-entry" role="listitem">
+Wickham, H. (2014). Tidy Data. <em>Journal of Statistical Software</em>, <em>59</em>(10), 1-23.
+</div>
+<div id="ref-wilson2017" class="csl-entry" role="listitem">
+Wilson, G., Bryan, J., Cranston, K., Kitzes, J., Nederbragt, L., &amp; Teal, T. K. (2017). Good enough practices in scientific computing. <em>PLoS Computational Biology</em>, <em>13</em>(6), e1005510.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../capitulos/11-limpieza-de-datos.html" class="pagination-link" aria-label="Limpieza de datos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Limpieza de datos</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../capitulos/13-calidad-de-datos.html" class="pagination-link" aria-label="Calidad de los datos">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Calidad de los datos</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

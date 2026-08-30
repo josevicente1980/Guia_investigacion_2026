@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>11&nbsp; Construcción del marco teórico – Investigación reproducible con R y Quarto</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../capitulos/09-busqueda-cientifica-bibtex-apa.html" rel="next">
+<link href="../capitulos/07-objetivos-hipotesis.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-12eeb4b20e9f5a2b0bfc604bfaf942bb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/06-problema-de-investigacion.html">Parte III. Construcción de la investigación</a></li><li class="breadcrumb-item"><a href="../capitulos/08-marco-teorico.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Construcción del marco teórico</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Investigación reproducible con R y Quarto</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Presentación</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prologo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prólogo</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../como-utilizar-este-libro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cómo utilizar este libro</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I. Fundamentos de la investigación reproducible</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/01-investigacion-reproducible.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Investigación reproducible: construyendo confianza en la ciencia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/02-ciencia-abierta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">La ciencia abierta como ecosistema de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/03-r-y-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R y Quarto: una plataforma integrada para la investigación reproducible</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II. Preparando el proyecto de investigación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/04-organizacion-del-proyecto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Organización del proyecto de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/05-primer-libro-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Construyendo nuestro primer libro en Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte III. Construcción de la investigación</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/06-problema-de-investigacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Del problema de investigación a la pregunta de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/07-objetivos-hipotesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objetivos e hipótesis de investigación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/08-marco-teorico.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Construcción del marco teórico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/09-busqueda-cientifica-bibtex-apa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Búsqueda científica, BibTeX y gestión automatizada de referencias</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte IV. Gestión y preparación de datos con R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/10-importacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Importación de datos con R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/11-limpieza-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Limpieza de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/12-transformacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transformación de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/13-calidad-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Calidad de los datos</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte V. Estadística descriptiva y visualización</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/14-estadistica-descriptiva.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Estadística descriptiva</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/15-tablas-descriptivas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Tablas descriptivas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/16-visualizacion-de-datos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Visualización de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/17-graficos-cientificos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Gráficos científicos</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VI. Modelación econométrica aplicada</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/18-del-analisis-descriptivo-a-la-modelacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Del análisis descriptivo a la modelación</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/19-correlacion-asociacion-causalidad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Correlación, asociación y causalidad</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/20-regresion-lineal-simple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Regresión lineal simple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/21-regresion-lineal-multiple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Regresión lineal múltiple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/22-diagnostico-del-modelo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Diagnóstico del modelo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/23-variables-categoricas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Variables categóricas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/24-modelos-logit-probit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Modelos Logit y Probit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/25-datos-de-panel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Datos de panel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/26-modelos-espaciales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Modelos espaciales y extensiones modernas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/27-presentacion-modelos-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Presentación de modelos con Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VII. Redacción científica del informe</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/28-introduccion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/29-metodologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Metodología</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/30-resultados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Resultados</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/31-discusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Discusión</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/32-conclusiones-recomendaciones.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Conclusiones y Recomendaciones</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte VIII. Difusión y comunicación científica</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/33-generacion-word-pdf-html.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Generación de documentos Word, PDF y HTML</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/34-presentaciones-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Presentaciones con Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/35-dashboard-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Dashboards con Shiny y Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bibliografia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Bibliografía</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#objetivos-de-aprendizaje" id="toc-objetivos-de-aprendizaje" class="nav-link active" data-scroll-target="#objetivos-de-aprendizaje">Objetivos de aprendizaje</a></li>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link" data-scroll-target="#introducción"><span class="header-section-number">11.1</span> Introducción</a></li>
+  <li><a href="#qué-es-el-marco-teórico" id="toc-qué-es-el-marco-teórico" class="nav-link" data-scroll-target="#qué-es-el-marco-teórico"><span class="header-section-number">11.2</span> ¿Qué es el marco teórico?</a></li>
+  <li><a href="#por-qué-es-importante-el-marco-teórico" id="toc-por-qué-es-importante-el-marco-teórico" class="nav-link" data-scroll-target="#por-qué-es-importante-el-marco-teórico"><span class="header-section-number">11.3</span> ¿Por qué es importante el marco teórico?</a></li>
+  <li><a href="#componentes-del-marco-teórico" id="toc-componentes-del-marco-teórico" class="nav-link" data-scroll-target="#componentes-del-marco-teórico"><span class="header-section-number">11.4</span> Componentes del marco teórico</a>
+  <ul class="collapse">
+  <li><a href="#antecedentes-de-investigación" id="toc-antecedentes-de-investigación" class="nav-link" data-scroll-target="#antecedentes-de-investigación"><span class="header-section-number">11.4.1</span> Antecedentes de investigación</a></li>
+  <li><a href="#bases-teóricas" id="toc-bases-teóricas" class="nav-link" data-scroll-target="#bases-teóricas"><span class="header-section-number">11.4.2</span> Bases teóricas</a></li>
+  <li><a href="#marco-conceptual" id="toc-marco-conceptual" class="nav-link" data-scroll-target="#marco-conceptual"><span class="header-section-number">11.4.3</span> Marco conceptual</a></li>
+  </ul></li>
+  <li><a href="#la-revisión-de-literatura-científica" id="toc-la-revisión-de-literatura-científica" class="nav-link" data-scroll-target="#la-revisión-de-literatura-científica"><span class="header-section-number">11.5</span> La revisión de literatura científica</a></li>
+  <li><a href="#de-la-acumulación-de-citas-a-la-construcción-de-argumentos" id="toc-de-la-acumulación-de-citas-a-la-construcción-de-argumentos" class="nav-link" data-scroll-target="#de-la-acumulación-de-citas-a-la-construcción-de-argumentos"><span class="header-section-number">11.6</span> De la acumulación de citas a la construcción de argumentos</a></li>
+  <li><a href="#el-uso-de-literatura-reciente" id="toc-el-uso-de-literatura-reciente" class="nav-link" data-scroll-target="#el-uso-de-literatura-reciente"><span class="header-section-number">11.7</span> El uso de literatura reciente</a></li>
+  <li><a href="#del-problema-al-marco-teórico" id="toc-del-problema-al-marco-teórico" class="nav-link" data-scroll-target="#del-problema-al-marco-teórico"><span class="header-section-number">11.8</span> Del problema al marco teórico</a>
+  <ul class="collapse">
+  <li><a href="#problema" id="toc-problema" class="nav-link" data-scroll-target="#problema"><span class="header-section-number">11.8.1</span> Problema</a></li>
+  <li><a href="#pregunta" id="toc-pregunta" class="nav-link" data-scroll-target="#pregunta"><span class="header-section-number">11.8.2</span> Pregunta</a></li>
+  <li><a href="#marco-teórico" id="toc-marco-teórico" class="nav-link" data-scroll-target="#marco-teórico"><span class="header-section-number">11.8.3</span> Marco teórico</a></li>
+  </ul></li>
+  <li><a href="#organización-del-marco-teórico" id="toc-organización-del-marco-teórico" class="nav-link" data-scroll-target="#organización-del-marco-teórico"><span class="header-section-number">11.9</span> Organización del marco teórico</a></li>
+  <li><a href="#identificación-de-vacíos-de-investigación" id="toc-identificación-de-vacíos-de-investigación" class="nav-link" data-scroll-target="#identificación-de-vacíos-de-investigación"><span class="header-section-number">11.10</span> Identificación de vacíos de investigación</a></li>
+  <li><a href="#marco-teórico-y-construcción-de-hipótesis" id="toc-marco-teórico-y-construcción-de-hipótesis" class="nav-link" data-scroll-target="#marco-teórico-y-construcción-de-hipótesis"><span class="header-section-number">11.11</span> Marco teórico y construcción de hipótesis</a>
+  <ul class="collapse">
+  <li><a href="#teoría" id="toc-teoría" class="nav-link" data-scroll-target="#teoría"><span class="header-section-number">11.11.1</span> Teoría</a></li>
+  <li><a href="#hipótesis" id="toc-hipótesis" class="nav-link" data-scroll-target="#hipótesis"><span class="header-section-number">11.11.2</span> Hipótesis</a></li>
+  </ul></li>
+  <li><a href="#errores-frecuentes-en-la-elaboración-del-marco-teórico" id="toc-errores-frecuentes-en-la-elaboración-del-marco-teórico" class="nav-link" data-scroll-target="#errores-frecuentes-en-la-elaboración-del-marco-teórico"><span class="header-section-number">11.12</span> Errores frecuentes en la elaboración del marco teórico</a></li>
+  <li><a href="#manos-a-la-obra" id="toc-manos-a-la-obra" class="nav-link" data-scroll-target="#manos-a-la-obra"><span class="header-section-number">11.13</span> Manos a la obra</a></li>
+  <li><a href="#resumen-del-capítulo" id="toc-resumen-del-capítulo" class="nav-link" data-scroll-target="#resumen-del-capítulo"><span class="header-section-number">11.14</span> Resumen del capítulo</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/06-problema-de-investigacion.html">Parte III. Construcción de la investigación</a></li><li class="breadcrumb-item"><a href="../capitulos/08-marco-teorico.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Construcción del marco teórico</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Construcción del marco teórico</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="objetivos-de-aprendizaje" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<p>Al finalizar este capítulo, el lector será capaz de:</p>
+<ul>
+<li>Comprender la función del marco teórico dentro de una investigación científica.</li>
+<li>Diferenciar entre antecedentes, teoría, conceptos y evidencia empírica.</li>
+<li>Identificar fuentes científicas relevantes para la construcción del marco teórico.</li>
+<li>Organizar la literatura científica de manera lógica y coherente.</li>
+<li>Elaborar un marco teórico alineado con el problema, la pregunta y los objetivos de investigación.</li>
+</ul>
+</section>
+<section id="introducción" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">11.1</span> Introducción</h2>
+<p>Toda investigación científica se desarrolla sobre una base de conocimiento previamente construida. Ningún estudio surge en el vacío. Cada problema de investigación se encuentra relacionado con teorías, conceptos, resultados empíricos y debates científicos acumulados a lo largo del tiempo.</p>
+<p>Por esta razón, una de las etapas más importantes del proceso investigativo consiste en identificar, analizar y organizar la literatura científica existente sobre el fenómeno estudiado <span class="citation" data-cites="booth2016">(<a href="../bibliografia.html#ref-booth2016" role="doc-biblioref">Booth et&nbsp;al., 2016</a>)</span>.</p>
+<p>El marco teórico cumple precisamente esta función. Su propósito es proporcionar los fundamentos conceptuales y empíricos que justifican la investigación y permiten interpretar adecuadamente sus resultados.</p>
+</section>
+<section id="qué-es-el-marco-teórico" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="qué-es-el-marco-teórico"><span class="header-section-number">11.2</span> ¿Qué es el marco teórico?</h2>
+<p>El marco teórico es la integración sistemática de teorías, conceptos, antecedentes y evidencias científicas relacionadas con el problema de investigación <span class="citation" data-cites="hernandezsampieri2018">(<a href="../bibliografia.html#ref-hernandezsampieri2018" role="doc-biblioref">Hernández-Sampieri &amp; Mendoza, 2018</a>)</span>.</p>
+<p>Su función principal consiste en situar la investigación dentro del conocimiento existente y demostrar cómo el estudio contribuye a ampliar, contrastar o complementar dicho conocimiento.</p>
+<p>Un marco teórico bien construido permite responder preguntas como:</p>
+<ul>
+<li>¿Qué se conoce actualmente sobre el fenómeno?</li>
+<li>¿Qué teorías explican el problema estudiado?</li>
+<li>¿Qué resultados han encontrado investigaciones previas?</li>
+<li>¿Qué vacíos de conocimiento permanecen sin resolver?</li>
+<li>¿Cómo se relaciona la investigación con estudios anteriores?</li>
+</ul>
+</section>
+<section id="por-qué-es-importante-el-marco-teórico" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="por-qué-es-importante-el-marco-teórico"><span class="header-section-number">11.3</span> ¿Por qué es importante el marco teórico?</h2>
+<p>La construcción del marco teórico cumple múltiples funciones dentro de una investigación.</p>
+<p>Entre las más importantes destacan:</p>
+<ul>
+<li>Fundamentar científicamente el problema de investigación.</li>
+<li>Identificar teorías relevantes.</li>
+<li>Evitar la duplicación innecesaria de estudios.</li>
+<li>Justificar la importancia de la investigación.</li>
+<li>Facilitar la formulación de hipótesis.</li>
+<li>Orientar la selección de variables.</li>
+<li>Proporcionar criterios para interpretar resultados <span class="citation" data-cites="creswell2018">(<a href="../bibliografia.html#ref-creswell2018" role="doc-biblioref">Creswell &amp; Creswell, 2018</a>)</span>.</li>
+</ul>
+<p>Sin un marco teórico sólido resulta difícil demostrar la relevancia académica de una investigación.</p>
+</section>
+<section id="componentes-del-marco-teórico" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="componentes-del-marco-teórico"><span class="header-section-number">11.4</span> Componentes del marco teórico</h2>
+<p>Aunque la estructura puede variar según la disciplina, la mayoría de marcos teóricos incluyen los siguientes componentes.</p>
+<section id="antecedentes-de-investigación" class="level3" data-number="11.4.1">
+<h3 data-number="11.4.1" class="anchored" data-anchor-id="antecedentes-de-investigación"><span class="header-section-number">11.4.1</span> Antecedentes de investigación</h3>
+<p>Los antecedentes corresponden a investigaciones previas relacionadas con el problema estudiado.</p>
+<p>Su análisis permite identificar:</p>
+<ul>
+<li>Resultados encontrados por otros investigadores.</li>
+<li>Métodos utilizados.</li>
+<li>Variables consideradas.</li>
+<li>Limitaciones existentes.</li>
+<li>Oportunidades de investigación futuras.</li>
+</ul>
+<p>Por ejemplo, si se investiga la supervivencia empresarial, resulta indispensable revisar estudios previos sobre emprendimiento, fracaso empresarial y desempeño financiero.</p>
+</section>
+<section id="bases-teóricas" class="level3" data-number="11.4.2">
+<h3 data-number="11.4.2" class="anchored" data-anchor-id="bases-teóricas"><span class="header-section-number">11.4.2</span> Bases teóricas</h3>
+<p>Las bases teóricas incluyen las teorías que explican el fenómeno estudiado.</p>
+<p>Las teorías cumplen un papel fundamental porque proporcionan explicaciones sistemáticas sobre las relaciones entre variables y fenómenos <span class="citation" data-cites="kerlinger2002">(<a href="../bibliografia.html#ref-kerlinger2002" role="doc-biblioref">Kerlinger &amp; Lee, 2002</a>)</span>.</p>
+<p>Por ejemplo:</p>
+<ul>
+<li>Teoría del capital humano.</li>
+<li>Teoría de recursos y capacidades.</li>
+<li>Teoría institucional.</li>
+<li>Teoría de la elección racional.</li>
+<li>Teoría del comportamiento planificado.</li>
+</ul>
+<p>La selección dependerá del problema investigado.</p>
+</section>
+<section id="marco-conceptual" class="level3" data-number="11.4.3">
+<h3 data-number="11.4.3" class="anchored" data-anchor-id="marco-conceptual"><span class="header-section-number">11.4.3</span> Marco conceptual</h3>
+<p>El marco conceptual define los principales conceptos utilizados en la investigación.</p>
+<p>Por ejemplo, en un estudio sobre pobreza podrían definirse conceptos como:</p>
+<ul>
+<li>Pobreza monetaria.</li>
+<li>Pobreza multidimensional.</li>
+<li>Vulnerabilidad social.</li>
+<li>Exclusión económica.</li>
+</ul>
+<p>Estas definiciones permiten asegurar que todos los lectores comprendan los términos utilizados de la misma manera.</p>
+</section>
+</section>
+<section id="la-revisión-de-literatura-científica" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="la-revisión-de-literatura-científica"><span class="header-section-number">11.5</span> La revisión de literatura científica</h2>
+<p>La construcción del marco teórico requiere una búsqueda sistemática de literatura científica.</p>
+<p>Esta búsqueda debe realizarse utilizando fuentes académicas confiables y verificables <span class="citation" data-cites="booth2016">(<a href="../bibliografia.html#ref-booth2016" role="doc-biblioref">Booth et&nbsp;al., 2016</a>)</span>.</p>
+<p>Entre las plataformas más utilizadas destacan:</p>
+<ul>
+<li>Google Scholar.</li>
+<li>Scopus.</li>
+<li>Web of Science.</li>
+<li>Scielo.</li>
+<li>Redalyc.</li>
+<li>Dialnet.</li>
+</ul>
+<p>La revisión de literatura no consiste únicamente en recopilar artículos. Su objetivo es analizar críticamente la evidencia disponible para identificar patrones, coincidencias, contradicciones y vacíos de conocimiento.</p>
+</section>
+<section id="de-la-acumulación-de-citas-a-la-construcción-de-argumentos" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="de-la-acumulación-de-citas-a-la-construcción-de-argumentos"><span class="header-section-number">11.6</span> De la acumulación de citas a la construcción de argumentos</h2>
+<p>Uno de los errores más frecuentes en estudiantes e investigadores noveles consiste en convertir el marco teórico en una colección de resúmenes de artículos.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>Autor A encontró X.
+
+Autor B encontró Y.
+
+Autor C encontró Z.</code></pre>
+<p>Este enfoque genera textos fragmentados y poco analíticos.</p>
+<p>Un marco teórico debe construir argumentos científicos.</p>
+<p>Por ejemplo:</p>
+<pre class="text"><code>Diversos estudios sugieren que la disponibilidad de recursos financieros constituye un factor determinante para la supervivencia empresarial. Mientras algunos autores destacan la importancia de la liquidez, otros enfatizan el papel del acceso al crédito y la capacidad de inversión.</code></pre>
+<p>En este caso la literatura se integra para construir una explicación coherente.</p>
+</section>
+<section id="el-uso-de-literatura-reciente" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="el-uso-de-literatura-reciente"><span class="header-section-number">11.7</span> El uso de literatura reciente</h2>
+<p>La ciencia evoluciona constantemente. Por esta razón, se recomienda incorporar literatura reciente que refleje el estado actual del conocimiento.</p>
+<p>Aunque no existe una regla universal, muchas revistas científicas sugieren que una proporción importante de las referencias utilizadas provenga de los últimos cinco años <span class="citation" data-cites="creswell2018">(<a href="../bibliografia.html#ref-creswell2018" role="doc-biblioref">Creswell &amp; Creswell, 2018</a>)</span>.</p>
+<p>No obstante, las obras clásicas continúan siendo indispensables cuando constituyen la base teórica del estudio.</p>
+</section>
+<section id="del-problema-al-marco-teórico" class="level2" data-number="11.8">
+<h2 data-number="11.8" class="anchored" data-anchor-id="del-problema-al-marco-teórico"><span class="header-section-number">11.8</span> Del problema al marco teórico</h2>
+<p>La construcción del marco teórico debe mantener una relación directa con la pregunta de investigación.</p>
+<p>Por ejemplo:</p>
+<section id="problema" class="level3" data-number="11.8.1">
+<h3 data-number="11.8.1" class="anchored" data-anchor-id="problema"><span class="header-section-number">11.8.1</span> Problema</h3>
+<pre class="text"><code>Alta mortalidad de microempresas durante sus primeros años de operación.</code></pre>
+</section>
+<section id="pregunta" class="level3" data-number="11.8.2">
+<h3 data-number="11.8.2" class="anchored" data-anchor-id="pregunta"><span class="header-section-number">11.8.2</span> Pregunta</h3>
+<pre class="text"><code>¿Qué factores financieros influyen en la supervivencia de las microempresas ecuatorianas?</code></pre>
+</section>
+<section id="marco-teórico" class="level3" data-number="11.8.3">
+<h3 data-number="11.8.3" class="anchored" data-anchor-id="marco-teórico"><span class="header-section-number">11.8.3</span> Marco teórico</h3>
+<p>Posibles secciones:</p>
+<pre class="text"><code>1. Emprendimiento y supervivencia empresarial.
+2. Teoría de recursos y capacidades.
+3. Indicadores financieros y desempeño empresarial.
+4. Evidencia empírica sobre mortalidad empresarial.
+5. Estudios previos en América Latina.</code></pre>
+<p>Obsérvese que la estructura del marco teórico deriva directamente del problema planteado.</p>
+</section>
+</section>
+<section id="organización-del-marco-teórico" class="level2" data-number="11.9">
+<h2 data-number="11.9" class="anchored" data-anchor-id="organización-del-marco-teórico"><span class="header-section-number">11.9</span> Organización del marco teórico</h2>
+<p>Una estrategia útil consiste en avanzar desde lo general hacia lo específico.</p>
+<pre class="text"><code>Tema general
+      ↓
+Teorías principales
+      ↓
+Conceptos clave
+      ↓
+Evidencia empírica
+      ↓
+Vacíos de investigación
+      ↓
+Problema específico</code></pre>
+<p>Esta lógica facilita la comprensión del lector y fortalece la coherencia del documento.</p>
+</section>
+<section id="identificación-de-vacíos-de-investigación" class="level2" data-number="11.10">
+<h2 data-number="11.10" class="anchored" data-anchor-id="identificación-de-vacíos-de-investigación"><span class="header-section-number">11.10</span> Identificación de vacíos de investigación</h2>
+<p>Uno de los principales objetivos de la revisión de literatura consiste en identificar vacíos de conocimiento.</p>
+<p>Los vacíos pueden surgir cuando:</p>
+<ul>
+<li>Existen pocos estudios sobre un fenómeno.</li>
+<li>Los resultados previos son contradictorios.</li>
+<li>No existen investigaciones en determinados contextos geográficos.</li>
+<li>Se han utilizado metodologías limitadas.</li>
+<li>Han surgido nuevos fenómenos aún poco estudiados.</li>
+</ul>
+<p>Identificar estos vacíos permite justificar la necesidad de la investigación <span class="citation" data-cites="booth2016">(<a href="../bibliografia.html#ref-booth2016" role="doc-biblioref">Booth et&nbsp;al., 2016</a>)</span>.</p>
+</section>
+<section id="marco-teórico-y-construcción-de-hipótesis" class="level2" data-number="11.11">
+<h2 data-number="11.11" class="anchored" data-anchor-id="marco-teórico-y-construcción-de-hipótesis"><span class="header-section-number">11.11</span> Marco teórico y construcción de hipótesis</h2>
+<p>En investigaciones cuantitativas, las hipótesis suelen derivarse directamente del marco teórico.</p>
+<p>Por ejemplo:</p>
+<section id="teoría" class="level3" data-number="11.11.1">
+<h3 data-number="11.11.1" class="anchored" data-anchor-id="teoría"><span class="header-section-number">11.11.1</span> Teoría</h3>
+<pre class="text"><code>Las empresas con mayores recursos poseen ventajas competitivas sostenibles.</code></pre>
+</section>
+<section id="hipótesis" class="level3" data-number="11.11.2">
+<h3 data-number="11.11.2" class="anchored" data-anchor-id="hipótesis"><span class="header-section-number">11.11.2</span> Hipótesis</h3>
+<pre class="text"><code>Las microempresas con mayores niveles de liquidez presentan una mayor probabilidad de supervivencia.</code></pre>
+<p>De esta manera, las hipótesis dejan de ser simples intuiciones y se convierten en proposiciones fundamentadas científicamente <span class="citation" data-cites="kerlinger2002">(<a href="../bibliografia.html#ref-kerlinger2002" role="doc-biblioref">Kerlinger &amp; Lee, 2002</a>)</span>.</p>
+</section>
+</section>
+<section id="errores-frecuentes-en-la-elaboración-del-marco-teórico" class="level2" data-number="11.12">
+<h2 data-number="11.12" class="anchored" data-anchor-id="errores-frecuentes-en-la-elaboración-del-marco-teórico"><span class="header-section-number">11.12</span> Errores frecuentes en la elaboración del marco teórico</h2>
+<p>Entre los errores más comunes destacan:</p>
+<ul>
+<li>Limitarse a copiar definiciones.</li>
+<li>Utilizar fuentes no científicas.</li>
+<li>Elaborar resúmenes sin análisis crítico.</li>
+<li>Incorporar información no relacionada con el problema.</li>
+<li>Utilizar literatura desactualizada.</li>
+<li>No establecer conexiones entre autores.</li>
+<li>Confundir antecedentes con teoría.</li>
+</ul>
+<p>Evitar estos errores fortalece significativamente la calidad del trabajo académico.</p>
+</section>
+<section id="manos-a-la-obra" class="level2" data-number="11.13">
+<h2 data-number="11.13" class="anchored" data-anchor-id="manos-a-la-obra"><span class="header-section-number">11.13</span> Manos a la obra</h2>
+<p>Utilizando la pregunta de investigación desarrollada en capítulos anteriores, complete el siguiente esquema:</p>
+<pre class="text"><code>Problema:
+
+Pregunta:
+
+Teoría principal:
+
+Conceptos clave:
+
+Antecedentes relevantes:
+
+Vacío de investigación identificado:</code></pre>
+<p>Posteriormente elabore un esquema preliminar de secciones para su futuro marco teórico.</p>
+</section>
+<section id="resumen-del-capítulo" class="level2" data-number="11.14">
+<h2 data-number="11.14" class="anchored" data-anchor-id="resumen-del-capítulo"><span class="header-section-number">11.14</span> Resumen del capítulo</h2>
+<p>El marco teórico constituye el fundamento científico de toda investigación. Su construcción permite comprender el estado actual del conocimiento, identificar teorías relevantes, analizar evidencia empírica previa y detectar vacíos de investigación que justifican nuevos estudios.</p>
+<p>Un marco teórico sólido no se limita a recopilar información. Su propósito consiste en construir una explicación coherente que permita comprender el problema investigado y fundamentar las decisiones metodológicas adoptadas durante el estudio.</p>
+<p>En el siguiente capítulo aprenderemos a realizar búsquedas científicas sistemáticas y a gestionar referencias bibliográficas mediante BibTeX, construyendo así una biblioteca científica reproducible para nuestros proyectos de investigación.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-booth2016" class="csl-entry" role="listitem">
+Booth, W. C., Colomb, G. G., Williams, J. M., Bizup, J., &amp; FitzGerald, W. T. (2016). <em>The Craft of Research</em>. University of Chicago Press.
+</div>
+<div id="ref-creswell2018" class="csl-entry" role="listitem">
+Creswell, J. W., &amp; Creswell, J. D. (2018). <em>Research Design: Qualitative, Quantitative, and Mixed Methods Approaches</em> (5.ª ed.). SAGE Publications.
+</div>
+<div id="ref-hernandezsampieri2018" class="csl-entry" role="listitem">
+Hernández-Sampieri, R., &amp; Mendoza, C. (2018). <em>Metodología de la investigación: Las rutas cuantitativa, cualitativa y mixta</em>. McGraw-Hill Education.
+</div>
+<div id="ref-kerlinger2002" class="csl-entry" role="listitem">
+Kerlinger, F. N., &amp; Lee, H. B. (2002). <em>Investigación del comportamiento: Métodos de investigación en ciencias sociales</em>. McGraw-Hill.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../capitulos/07-objetivos-hipotesis.html" class="pagination-link" aria-label="Objetivos e hipótesis de investigación">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Objetivos e hipótesis de investigación</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../capitulos/09-busqueda-cientifica-bibtex-apa.html" class="pagination-link" aria-label="Búsqueda científica, BibTeX y gestión automatizada de referencias">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Búsqueda científica, BibTeX y gestión automatizada de referencias</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
