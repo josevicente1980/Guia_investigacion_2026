@@ -1,6 +1,6 @@
 # Presentaciones con Quarto
 
-## Objetivos de aprendizaje
+## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar este capítulo, el lector será capaz de:
 

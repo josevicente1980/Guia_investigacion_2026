@@ -89,11 +89,11 @@ La variable dependiente será `log_supertotal`, mientras que `fact_exp_fin`, `ta
 
 La regresión lineal simple se expresa como:
 
-:contentReference[oaicite:0]{index=0}
+$$Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i$$
 
 La regresión múltiple amplía esta estructura:
 
-:contentReference[oaicite:1]{index=1}
+$$Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + \varepsilon_i$$
 
 Ahora cada coeficiente mide el efecto parcial de una variable manteniendo constantes las demás.
 

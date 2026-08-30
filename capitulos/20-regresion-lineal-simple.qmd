@@ -72,15 +72,15 @@ La regresión lineal simple modela la relación entre una variable dependiente y
 
 La forma general del modelo es:
 
-:contentReference[oaicite:0]{index=0}
+$$Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i$$
 
 donde:
 
-- \(Y\) es la variable dependiente.
-- \(X\) es la variable explicativa.
-- \(\beta_0\) es el intercepto.
-- \(\beta_1\) es la pendiente.
-- \(\varepsilon\) representa el error aleatorio.
+- $Y_i$ es la variable dependiente para la observación $i$.
+- $X_i$ es la variable explicativa para la observación $i$.
+- $\beta_0$ es el intercepto de la recta de regresión.
+- $\beta_1$ es la pendiente, que indica el cambio esperado en $Y$ por cada incremento unitario en $X$.
+- $\varepsilon_i$ representa el error aleatorio para la observación $i$.
 
 ## Variables del modelo
 
@@ -383,9 +383,7 @@ Su valor oscila entre:
 
 Formalmente:
 
-:contentReference[oaicite:0]{index=0}
-
-## Extracción del R²
+$$R^2 = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}$$
 
 ```{r}
 #| label: tbl-reg20-r2
@@ -779,7 +777,7 @@ Los residuos representan la diferencia entre el valor observado y el valor predi
 
 Formalmente:
 
-:contentReference[oaicite:0]{index=0}
+$$e_i = y_i - \hat{y}_i$$
 
 donde:
 

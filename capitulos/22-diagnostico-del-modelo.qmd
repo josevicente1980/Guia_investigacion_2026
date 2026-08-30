@@ -121,7 +121,7 @@ Los residuos representan la diferencia entre los valores observados y los valore
 
 Formalmente:
 
-:contentReference[oaicite:0]{index=0}
+$$e_i = y_i - \hat{y}_i$$
 
 Un buen modelo produce residuos pequeños y sin patrones sistemáticos.
 

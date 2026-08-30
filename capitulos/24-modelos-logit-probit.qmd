@@ -155,7 +155,7 @@ mediante una función logística [@hosmer2013].
 
 La forma general es:
 
-:contentReference[oaicite:0]{index=0}
+$$P(Y_i = 1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_i)}}$$
 
 ## Exploración inicial
 
@@ -414,7 +414,7 @@ UPA grande
 
 Los odds representan la razón entre la probabilidad de ocurrencia y la probabilidad de no ocurrencia.
 
-:contentReference[oaicite:0]{index=0}
+$$\text{Odds} = \frac{P(Y=1)}{1 - P(Y=1)}$$
 
 Por ejemplo:
 
@@ -461,7 +461,7 @@ Los odds aumentan rápidamente cuando la probabilidad se aproxima a uno.
 
 El modelo Logit realmente estima:
 
-:contentReference[oaicite:1]{index=1}
+$$\text{logit}(P) = \log\left(\frac{P(Y=1)}{1 - P(Y=1)}\right) = \beta_0 + \beta_1 X_i$$
 
 Esta transformación permite modelar probabilidades mediante una combinación lineal de variables explicativas.
 

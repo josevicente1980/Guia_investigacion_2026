@@ -1,4 +1,4 @@
-## Parte 2. Correlación entre variables
+# Correlación, asociación y causalidad
 
 ## Introducción
 
