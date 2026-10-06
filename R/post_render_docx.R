@@ -1,7 +1,7 @@
 # Post-render DOCX: ajustes visuales seguros para Word.
 # 1) código alineado a la izquierda;
-# 2) tablas académicas legibles, con columnas equilibradas y encabezados visibles;
-# 3) reconstrucción ZIP compatible con OOXML (rutas internas con /).
+# 2) no altera las propiedades OOXML de las tablas;
+# 3) reconstrucción ZIP compatible con OOXML.
 
 archivo_docx <- file.path(
   "reportes",
@@ -88,124 +88,16 @@ if (m_source[1] >= 0) {
 }
 
 # -------------------------------------------------------------------------
-# 2. Estilo de tablas: sobrio, académico y sin rejilla vertical pesada.
+# 2. Tablas
 # -------------------------------------------------------------------------
-
-patron_tabla <- paste0(
-  "(?s)<w:style\\b[^>]*",
-  "w:styleId=\"Table\"",
-  "[^>]*>.*?</w:style>"
-)
-
-m_tabla <- regexpr(
-  patron_tabla,
-  xml_estilos,
-  perl = TRUE
-)
-
-if (m_tabla[1] >= 0) {
-  bloque_tabla <- regmatches(xml_estilos, m_tabla)
-
-  # Elimina reglas firstRow/lastRow previas para evitar estilos contradictorios.
-  bloque_tabla <- gsub(
-    "(?s)<w:tblStylePr\\b[^>]*w:type=\"(?:firstRow|lastRow)\"[^>]*>.*?</w:tblStylePr>",
-    "",
-    bloque_tabla,
-    perl = TRUE
-  )
-
-  estilo_filas <- paste0(
-    "<w:tblStylePr w:type=\"firstRow\">",
-      "<w:tcPr>",
-        "<w:shd w:val=\"clear\" w:fill=\"EDEDED\"/>",
-        "<w:tcBorders>",
-          "<w:top w:val=\"single\" w:sz=\"8\" w:space=\"0\" w:color=\"666666\"/>",
-          "<w:bottom w:val=\"single\" w:sz=\"8\" w:space=\"0\" w:color=\"666666\"/>",
-        "</w:tcBorders>",
-      "</w:tcPr>",
-      "<w:rPr><w:b/></w:rPr>",
-    "</w:tblStylePr>",
-    "<w:tblStylePr w:type=\"lastRow\">",
-      "<w:tcPr><w:tcBorders>",
-        "<w:bottom w:val=\"single\" w:sz=\"8\" w:space=\"0\" w:color=\"666666\"/>",
-      "</w:tcBorders></w:tcPr>",
-    "</w:tblStylePr>"
-  )
-
-  bloque_tabla <- sub(
-    "</w:style>$",
-    paste0(estilo_filas, "</w:style>"),
-    bloque_tabla,
-    perl = TRUE
-  )
-
-  regmatches(xml_estilos, m_tabla) <- bloque_tabla
-}
-
-writeLines(
-  xml_estilos,
-  archivo_estilos,
-  useBytes = TRUE
-)
-
-# -------------------------------------------------------------------------
-# 3. Columnas: corrige anchos extremos generados por Pandoc/Word.
-#    Solo se modifican tablas con dos o más columnas.
-# -------------------------------------------------------------------------
-
-xml_documento <- leer_xml(archivo_documento)
-
-patron_grid <- "(?s)<w:tblGrid>.*?</w:tblGrid>"
-m_grid <- gregexpr(
-  patron_grid,
-  xml_documento,
-  perl = TRUE
-)
-
-grids <- regmatches(
-  xml_documento,
-  m_grid
-)[[1]]
-
-if (length(grids) > 0 && !identical(grids, character(0))) {
-  grids_nuevos <- vapply(
-    grids,
-    function(g) {
-      cols <- gregexpr(
-        "<w:gridCol\\b[^>]*/>",
-        g,
-        perl = TRUE
-      )[[1]]
-
-      n <- if (cols[1] < 0) 0L else length(cols)
-
-      if (n < 2L) {
-        return(g)
-      }
-
-      ancho <- floor(7920 / n)
-
-      gsub(
-        "(<w:gridCol\\b[^>]*w:w=\")[0-9]+(\"[^>]*/>)",
-        paste0("\\1", ancho, "\\2"),
-        g,
-        perl = TRUE
-      )
-    },
-    character(1)
-  )
-
-  regmatches(
-    xml_documento,
-    m_grid
-  ) <- list(grids_nuevos)
-}
-
-writeLines(
-  xml_documento,
-  archivo_documento,
-  useBytes = TRUE
-)
+# No se modifica OOXML de tablas después del render.
+#
+# Razón: Word valida de forma estricta las propiedades de tabla. Las
+# modificaciones globales de tblStylePr/tblGrid pueden producir documentos
+# que Word abre únicamente después de una reparación. El formato tabular
+# debe resolverse antes de que Pandoc cree el DOCX (en Quarto/R) o mediante
+# una plantilla Word válida, nunca reescribiendo las propiedades de cada
+# tabla en el archivo ya generado.
 
 # -------------------------------------------------------------------------
 # 4. Reconstrucción del DOCX con rutas ZIP válidas.
@@ -292,7 +184,7 @@ if (!ok) {
 message(
   paste(
     "Post-render DOCX: código a la izquierda;",
-    "tablas con encabezado académico y columnas equilibradas;",
+    "propiedades de tablas preservadas;",
     "archivo OOXML reconstruido correctamente."
   )
 )
