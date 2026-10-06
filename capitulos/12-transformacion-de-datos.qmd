@@ -550,11 +550,11 @@ La diferencia entre ambas cifras indica que existen múltiples registros asociad
 
 En muchos análisis será necesario trabajar a nivel de productor y no a nivel de registro.
 
-### Construcción de una base agregada por productor
+### Decisión sobre la agregación
 
-Antes de agregar es necesario clasificar cada variable según su nivel de medición. Una variable registrada a nivel de UPA y repetida en varias filas **no debe sumarse**, mientras que una variable que represente componentes mutuamente excluyentes puede ser aditiva. Esta decisión debe sustentarse en la documentación de la fuente y verificarse con los propios datos.
+Antes de resumir registros por identificador es necesario comprobar qué representa cada fila y cuál es el nivel de medición de cada variable. Una variable repetida entre registros no debe sumarse; una variable que representa componentes distintos solo puede agregarse cuando la documentación de la fuente confirma que esos componentes son aditivos.
 
-Primero comprobamos si `supertotal` es constante dentro de cada identificador:
+Primero verificamos si `supertotal` mantiene un único valor dentro de cada identificador:
 
 ```{r}
 #| label: cap12-verificar-supertotal-por-upa
@@ -569,109 +569,29 @@ verificacion_supertotal <- sunac |>
 max(verificacion_supertotal$valores_distintos)
 ```
 
-Si el máximo es 1, `supertotal` se comporta como una variable de nivel UPA repetida entre registros y no debe sumarse. Si aparecen varios valores por identificador, la agregación debe detenerse hasta revisar la definición de la variable y la estructura del módulo.
+Si el resultado es mayor que 1, `Identificador` por sí solo no permite resumir `supertotal` mediante una regla simple de valor único. En ese caso, la agregación debe detenerse hasta revisar la documentación oficial, identificar la clave correcta y establecer qué variables son aditivas, repetidas o específicas de cada registro.
 
-Para ilustrar una agregación segura, podemos construir una función que solo acepte un valor único por UPA:
+En este libro mantendremos la base al nivel de registro para los ejercicios posteriores. Esto evita imponer una agregación no demostrada y conserva la estructura original necesaria para auditar las transformaciones.
+
+Cuando una investigación requiera una base a nivel de UPA, la regla debe definirse explícitamente antes de ejecutar el código. Por ejemplo:
 
 ```{r}
-#| label: cap12-agregar-indicadores-por-upa
+#| label: cap12-ejemplo-agregacion-segura
+#| eval: false
 
-valor_unico <- function(x) {
-  y <- unique(x[!is.na(x)])
-  if (length(y) == 0) return(NA_real_)
-  if (length(y) > 1) stop("La variable no es constante dentro del identificador.")
-  y
-}
+# Ejemplo conceptual: usar solo después de verificar
+# la unidad de análisis y la definición de cada variable.
 
 upa <- sunac |>
-  group_by(Identificador) |>
+  group_by(clave_upa_verificada) |>
   summarise(
-    superficie_total = valor_unico(supertotal),
+    variable_aditiva = sum(variable_aditiva, na.rm = TRUE),
+    variable_repetida = first(variable_repetida),
     .groups = "drop"
   )
 ```
 
-Las superficies parciales, como bosque o cultivos transitorios, solo deben agregarse después de confirmar en la documentación de la ESPAC que cada registro representa componentes sumables y no valores repetidos.
-
-Analicemos las dimensiones de la nueva base.
-
-```{r} 
-#| label: tab-cap12-resumen-dimensiones-upa
-data.frame(
-  Registros = nrow(upa),
-  Variables = ncol(upa)
-) |>
-  knitr::kable()
-```
-
-Observe que ahora cada fila representa una unidad productiva única. La agregación cambia la unidad de análisis y, por tanto, también cambia el significado de las variables y de cualquier estadístico posterior.
-
-### Explorando la base agregada
-
-Podemos visualizar los primeros registros.
-
-```{r} 
-#| label: tab-cap12-primeras-observaciones-upa
-head(upa)
-```
-
-Ahora cada observación resume la información disponible para un productor específico.
-
-La agregación constituye una de las transformaciones más frecuentes en investigación aplicada, especialmente cuando se trabaja con encuestas complejas y registros múltiples [@wickham2014].
-
-### Construcción de indicadores agregados
-
-A partir de las variables resumidas podemos generar nuevos indicadores.
-
-Por ejemplo, el porcentaje de bosque por unidad productiva.
-
-```{r} 
-#| label: cap12-calcular-porcentaje-bosque-upa
-upa <- upa |>
-  mutate(
-    pct_bosque =
-      (superficie_bosque /
-         superficie_total) * 100
-  )
-```
-
-Analizamos su comportamiento.
-
-```{r} 
-#| label: cap12-resumen-porcentaje-bosque-upa
-summary(upa$pct_bosque)
-```
-
-Este indicador permite comparar productores independientemente de su tamaño.
-
-### Clasificación de productores según tamaño
-
-También podemos clasificar las unidades productivas agregadas.
-
-```{r} 
-#| label: cap12-crear-tamano-upa-agregado
-upa <- upa |>
-  mutate(
-    tamano_upa =
-      case_when(
-        superficie_total < 1  ~ "Micro",
-        superficie_total < 5  ~ "Pequeña",
-        superficie_total < 20 ~ "Mediana",
-        TRUE                  ~ "Grande"
-      )
-  )
-```
-
-Verificamos la distribución.
-
-```{r} 
-#| label: tab-cap12-distribucion-tamano-upa-agregado
-upa |>
-  count(tamano_upa) |>
-  arrange(desc(n))
-```
-
-Esta clasificación será útil en análisis posteriores relacionados con estructura productiva.
+La elección entre `sum()`, `first()`, `max()` u otra regla no es una decisión de programación: es una decisión metodológica que debe justificarse a partir del diseño de la fuente.
 
 ## Base analítica y trazabilidad
 
@@ -770,7 +690,6 @@ Las operaciones realizadas durante este capítulo incluyen:
 * Construcción de categorías.
 * Creación de indicadores binarios.
 * Generación de porcentajes.
-* Agregación de registros.
 * Construcción de bases analíticas.
 
 Gracias al uso de scripts, cualquier investigador puede reproducir exactamente el mismo flujo de trabajo [@peng2011; @gandrud2015].
@@ -824,7 +743,7 @@ Utilizando la base `sunac_limpio.rds`:
 
 La transformación de datos constituye el proceso mediante el cual los datos originales se convierten en variables analíticas útiles para responder preguntas de investigación.
 
-Durante este capítulo aprendimos a seleccionar variables, renombrarlas, transformar variables etiquetadas provenientes de SPSS, construir indicadores, generar categorías analíticas, agregar información y crear una base lista para análisis posteriores.
+Durante este capítulo aprendimos a seleccionar variables, renombrarlas, transformar variables etiquetadas provenientes de SPSS, construir indicadores, generar categorías analíticas y preparar una base lista para análisis posteriores. También mostramos por qué cualquier agregación debe partir de una unidad de análisis previamente verificada.
 
 Todas estas transformaciones fueron realizadas mediante código reproducible, garantizando transparencia y trazabilidad en el flujo de trabajo.
 
