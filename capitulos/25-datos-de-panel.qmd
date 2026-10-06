@@ -1,5 +1,16 @@
 # Datos de panel
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("comunicacion", extra = c("plm"))
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar esta sección, el lector será capaz de:
@@ -69,10 +80,9 @@ Los datos de panel permiten:
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(plm)
-library(broom)
-library(knitr)
+
+
+
 ```
 
 ### Cargando la base de datos
@@ -298,10 +308,9 @@ Cada uno realiza supuestos distintos sobre la heterogeneidad existente entre ind
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(plm)
-library(broom)
-library(knitr)
+
+
+
 ```
 
 ### Cargando la base Grunfeld
@@ -740,10 +749,9 @@ En esta sección utilizaremos pruebas formales para seleccionar el modelo más a
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(plm)
-library(broom)
-library(knitr)
+
+
+
 ```
 
 ### Cargando la base de datos

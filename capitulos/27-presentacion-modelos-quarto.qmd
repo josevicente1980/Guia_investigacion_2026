@@ -1,5 +1,16 @@
 # Presentación de modelos con Quarto
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("comunicacion", extra = c("modelsummary", "gt", "gapminder"))
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar este capítulo, el lector será capaz de:
@@ -28,13 +39,12 @@ El objetivo de este capítulo consiste en mostrar cómo transformar resultados e
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(modelsummary)
-library(gt)
-library(broom)
-library(gapminder)
-library(knitr)
-library(here)
+
+
+
+
+
+
 ```
 
 ### Carga de datos

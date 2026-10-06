@@ -1,5 +1,16 @@
 # Modelos espaciales y extensiones modernas
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("comunicacion", extra = c("sf", "spdep", "spatialreg", "spData", "lme4", "mlmRev", "broom.mixed", "frontier"))
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar esta sección, el lector será capaz de:
@@ -55,12 +66,11 @@ Este principio es conocido como la Primera Ley de la Geografía de Tobler.
 #| warning: false
 #| message: false
 
-library(sf)
-library(spdep)
-library(spatialreg)
-library(spData)
-library(tidyverse)
-library(knitr)
+
+
+
+
+
 ```
 
 ### Cargando la base espacial
@@ -290,11 +300,10 @@ La idea central consiste en reconocer que observaciones pertenecientes al mismo 
 #| warning: false
 #| message: false
 
-library(lme4)
-library(mlmRev)
-library(tidyverse)
-library(broom.mixed)
-library(knitr)
+
+
+
+
 ```
 
 ### Cargando la base de datos
@@ -623,10 +632,9 @@ Los modelos de frontera estocástica permiten estimar eficiencia técnica compar
 #| warning: false
 #| message: false
 
-library(frontier)
-library(tidyverse)
-library(knitr)
-library(broom)
+
+
+
 ```
 
 ### Creación de base simulada reproducible

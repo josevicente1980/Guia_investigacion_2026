@@ -1,5 +1,16 @@
 # Introducción
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("comunicacion", extra = c("bibliometrix"))
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar este capítulo, el lector será capaz de:
@@ -25,9 +36,8 @@ Una buena introducción debe conducir progresivamente desde el contexto general 
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(knitr)
-library(bibliometrix)
+
+
 ```
 
 ## La estructura de una introducción científica
