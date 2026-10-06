@@ -104,7 +104,7 @@ vecinos <- col.gal.nb
 ### Explorando la base
 
 ```{r}
-#| label: tbl-reg26-estructura
+#| label: out-reg26-estructura
 
 glimpse(
   columbus_sf
@@ -183,7 +183,7 @@ pesos <- nb2listw(
 El índice de Moran evalúa autocorrelación espacial.
 
 ```{r}
-#| label: tbl-reg26-moran
+#| label: out-reg26-moran
 
 moran.test(
   columbus_sf$CRIME,
@@ -324,7 +324,7 @@ datos_exam <- Exam
 ### Explorando la base
 
 ```{r}
-#| label: tbl-reg26-estructura-exam
+#| label: out-reg26-estructura-exam
 
 glimpse(
   datos_exam
@@ -687,7 +687,7 @@ datos_sfa <- tibble(
 ### Explorando la base
 
 ```{r}
-#| label: tbl-reg26-estructura-sfa
+#| label: out-reg26-estructura-sfa
 
 glimpse(
   datos_sfa
@@ -804,7 +804,7 @@ modelo_sfa <- frontier::sfa(
 ### Resultados del modelo SFA
 
 ```{r}
-#| label: tbl-reg26-sfa
+#| label: out-reg26-sfa
 
 summary(
   modelo_sfa

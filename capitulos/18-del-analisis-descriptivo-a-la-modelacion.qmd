@@ -142,7 +142,7 @@ La matriz analítica debe:
 ### Construcción de la matriz analítica
 
 ```{r}
-#| label: tbl-ch18-matriz-analitica
+#| label: out-ch18-matriz-analitica
 
 matriz_modelo <- base_analitica |>
   select(
@@ -163,7 +163,7 @@ La matriz contiene las variables que utilizaremos para ilustrar los conceptos b�
 ### Exploración inicial de la matriz
 
 ```{r}
-#| label: tbl-ch18-resumen-matriz
+#| label: out-ch18-resumen-matriz
 
 summary(
   matriz_modelo
@@ -490,7 +490,7 @@ modelo_simple <- lm(
 ### Resultados del modelo
 
 ```{r}
-#| label: tbl-ch18-resumen-modelo-simple
+#| label: out-ch18-resumen-modelo-simple
 
 summary(
   modelo_simple

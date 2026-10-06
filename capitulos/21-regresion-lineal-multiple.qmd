@@ -79,7 +79,7 @@ base_modelo <- base_analitica |>
 ### Estructura de la base
 
 ```{r}
-#| label: tbl-reg21-estructura-base
+#| label: out-reg21-estructura-base
 
 glimpse(
   base_modelo

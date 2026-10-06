@@ -103,7 +103,7 @@ panel_datos <- Grunfeld
 ### Explorando la estructura
 
 ```{r}
-#| label: tbl-reg25-estructura
+#| label: out-reg25-estructura
 
 glimpse(
   panel_datos
@@ -829,7 +829,7 @@ Los valores de R² permiten evaluar la capacidad explicativa de cada especificac
 Antes de comparar efectos fijos y aleatorios conviene verificar si la estructura panel aporta información adicional respecto al modelo pooled.
 
 ```{r}
-#| label: tbl-reg25-breusch-pagan
+#| label: out-reg25-breusch-pagan
 
 plmtest(
   modelo_pooled,
@@ -850,7 +850,7 @@ Un valor p pequeño aporta evidencia contra la ausencia de efectos individuales 
 ### Prueba F para efectos fijos
 
 ```{r}
-#| label: tbl-reg25-test-fijos
+#| label: out-reg25-test-fijos
 
 pFtest(
   modelo_fe,
@@ -879,7 +879,7 @@ En otras palabras, analiza si las características propias de cada unidad —emp
 **Efectos aleatorios:** cada unidad del panel tiene características propias aleatorias que no están correlacionadas con las variables explicativas del modelo.
 
 ```{r}
-#| label: tbl-reg25-hausman
+#| label: out-reg25-hausman
 
 phtest(
   modelo_fe,

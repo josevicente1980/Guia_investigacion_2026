@@ -95,7 +95,7 @@ base_categorias <- base_analitica |>
 ## Identificando variables categóricas
 
 ```{r}
-#| label: tbl-reg23-estructura
+#| label: out-reg23-estructura
 
 glimpse(
   base_categorias

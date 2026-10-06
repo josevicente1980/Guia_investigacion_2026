@@ -147,7 +147,7 @@ modelo_simple <- lm(
 ### Resumen del modelo
 
 ```{r}
-#| label: tbl-reg20-resumen-modelo
+#| label: out-reg20-resumen-modelo
 
 summary(
   modelo_simple

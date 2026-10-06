@@ -65,7 +65,7 @@ base_correlacion <- base_analitica |>
 ### Estructura de la base
 
 ```{r}
-#| label: tbl-ch19-estructura-correlacion
+#| label: out-ch19-estructura-correlacion
 
 glimpse(
   base_correlacion
