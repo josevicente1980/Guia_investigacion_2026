@@ -238,98 +238,84 @@ Tabla de detalle
 
 ## Plantilla de dashboard Shiny en Quarto
 
-El siguiente código debe guardarse como un archivo independiente, por ejemplo:
+El dashboard debe mantenerse en un archivo independiente del libro, por ejemplo:
 
 ```text
 dashboard-gapminder.qmd
 ```
 
-No debe ejecutarse dentro del libro completo si también se renderiza a PDF o Word.
+Un documento Quarto con Shiny requiere distinguir entre la interfaz que ve el usuario y el código que se ejecuta en el servidor. El siguiente ejemplo muestra esa separación mínima:
+
+~~~markdown
+---
+title: "Dashboard Gapminder"
+format: html
+server: shiny
+---
 
 ```{r}
-#| label: reg35-plantilla-dashboard
-#| eval: false
-
-# ---
-# title: "Dashboard Gapminder"
-# format:
-#   html:
-#     theme: cosmo
-# server: shiny
-# ---
-
-
-
-
-
-data(
-  "gapminder",
-  package = "gapminder"
-)
+library(dplyr)
+library(ggplot2)
+library(gapminder)
+library(shiny)
+library(plotly)
+library(DT)
 
 datos_dashboard <- gapminder
 
 selectInput(
-  inputId = "continente",
-  label = "Seleccione un continente:",
+  "continente",
+  "Seleccione un continente:",
   choices = unique(datos_dashboard$continent),
   selected = "Europe"
 )
 
+textOutput("promedio")
+plotlyOutput("grafico")
+DTOutput("tabla")
+```
+
+```{r}
+#| context: server
+
 datos_filtrados <- reactive({
-
   datos_dashboard |>
-    filter(
-      continent == input$continente
-    )
-
+    filter(continent == input$continente)
 })
 
-renderText({
-
-  round(
-    mean(
-      datos_filtrados()$lifeExp
-    ),
-    2
+output$promedio <- renderText({
+  paste(
+    "Esperanza de vida promedio:",
+    round(mean(datos_filtrados()$lifeExp), 2)
   )
-
 })
 
-renderPlotly({
-
+output$grafico <- renderPlotly({
   grafico <- ggplot(
     datos_filtrados(),
-    aes(
-      x = gdpPercap,
-      y = lifeExp
-    )
+    aes(x = gdpPercap, y = lifeExp)
   ) +
     geom_point() +
     scale_x_log10() +
     theme_minimal()
 
-  ggplotly(
-    grafico
-  )
-
+  ggplotly(grafico)
 })
 
-renderDT({
-
+output$tabla <- renderDT({
   datatable(
     datos_filtrados(),
-    options = list(
-      pageLength = 10
-    )
+    options = list(pageLength = 10)
   )
-
 })
 ```
+~~~
+
+La interfaz declara los controles y salidas; el chunk con `context: server` contiene la lógica reactiva. Esta separación evita ejecutar código de servidor durante el render estático del libro.
 
 **Interpretación**
 
-Esta plantilla contiene los elementos mínimos de un dashboard Shiny: filtro, datos reactivos, indicador, gráfico interactivo y tabla dinámica.
+La plantilla integra filtro, indicador, gráfico interactivo y tabla dinámica sin mezclar el runtime de Shiny con el documento principal.
 
 ### ¿Por qué separar el dashboard del libro?
 
@@ -347,7 +333,7 @@ tibble(
   ),
   Formatos = c(
     "HTML, PDF y Word",
-    "HTML interactivo"
+    "Aplicación web con runtime Shiny"
   )
 ) |>
   kable(
@@ -369,11 +355,7 @@ quarto::quarto_preview(
 )
 ```
 
-Para generar el HTML:
-
-```bash
-quarto render dashboard-gapminder.qmd
-```
+El archivo puede previsualizarse localmente con `quarto_preview()`. Al utilizar `server: shiny`, el resultado requiere un entorno capaz de ejecutar Shiny; no debe tratarse como un HTML estático autosuficiente. La publicación debe realizarse en una infraestructura compatible con aplicaciones Shiny.
 
 ### Errores frecuentes
 
@@ -437,7 +419,7 @@ tibble(
 6. Verifique que el filtro funcione.
 7. Revise el gráfico interactivo.
 8. Revise la tabla dinámica.
-9. Exporte el dashboard a HTML.
+9. Despliegue el dashboard en un entorno compatible con Shiny.
 10. Mantenga separado el dashboard del libro principal.
 
 ## Resumen del capítulo

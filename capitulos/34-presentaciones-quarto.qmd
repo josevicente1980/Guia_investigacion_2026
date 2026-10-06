@@ -62,11 +62,11 @@ title: "Mi presentación"
 format: revealjs
 ---
 
-# Primera diapositiva
+## Primera diapositiva
 
 Contenido
 
-# Segunda diapositiva
+## Segunda diapositiva
 
 Contenido
 ```
@@ -89,20 +89,20 @@ La opción `revealjs` indica que Quarto debe generar una presentación HTML.
 
 ### Generación automática de diapositivas
 
-Cada encabezado de primer nivel crea una nueva diapositiva.
+En una presentación RevealJS, los encabezados de nivel 2 (`##`) suelen crear diapositivas, mientras que los de nivel 1 (`#`) pueden utilizarse como divisores de sección. Quarto determina automáticamente el nivel de diapositiva si no se especifica `slide-level`, por lo que conviene fijarlo explícitamente cuando la estructura del documento lo requiera.
 
 ### Ejemplo
 
 ```markdown
-# Introducción
+## Introducción
 
 Texto.
 
-# Objetivos
+## Objetivos
 
 Texto.
 
-# Resultados
+## Resultados
 
 Texto.
 ```
