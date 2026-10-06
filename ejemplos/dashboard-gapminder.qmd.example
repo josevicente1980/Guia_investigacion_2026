@@ -1,0 +1,62 @@
+---
+title: "Dashboard Gapminder"
+format: html
+server: shiny
+---
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(gapminder)
+library(shiny)
+library(plotly)
+library(DT)
+
+datos_dashboard <- gapminder
+
+selectInput(
+  "continente",
+  "Seleccione un continente:",
+  choices = unique(datos_dashboard$continent),
+  selected = "Europe"
+)
+
+textOutput("promedio")
+plotlyOutput("grafico")
+DTOutput("tabla")
+```
+
+```{r}
+#| context: server
+
+datos_filtrados <- reactive({
+  datos_dashboard |>
+    filter(continent == input$continente)
+})
+
+output$promedio <- renderText({
+  paste(
+    "Esperanza de vida promedio:",
+    round(mean(datos_filtrados()$lifeExp), 2)
+  )
+})
+
+output$grafico <- renderPlotly({
+  grafico <- ggplot(
+    datos_filtrados(),
+    aes(x = gdpPercap, y = lifeExp)
+  ) +
+    geom_point() +
+    scale_x_log10() +
+    theme_minimal()
+
+  ggplotly(grafico)
+})
+
+output$tabla <- renderDT({
+  datatable(
+    datos_filtrados(),
+    options = list(pageLength = 10)
+  )
+})
+```
