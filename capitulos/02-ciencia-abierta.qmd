@@ -18,7 +18,7 @@ La expansión de Internet y el desarrollo de tecnologías digitales transformaro
 
 Sin embargo, la disponibilidad de información por sí sola no garantiza una ciencia más transparente ni más confiable. La posibilidad de acceder a un artículo científico no implica necesariamente que los datos, métodos o procedimientos utilizados puedan ser examinados o reutilizados por otros investigadores. Como respuesta a estas limitaciones surgió el movimiento conocido como ciencia abierta.
 
-## ¿Qué es la ciencia abierta?
+### ¿Qué es la ciencia abierta?
 
 La ciencia abierta puede definirse como un conjunto de principios y prácticas orientadas a hacer que la investigación científica sea más accesible, transparente, colaborativa y reproducible [@unesco2021].
 
@@ -92,7 +92,7 @@ Repositorios como Zenodo, Figshare, Open Science Framework (OSF), GitHub y los r
 
 Estos espacios cumplen una función esencial en la preservación, difusión y reutilización del conocimiento científico [@wilkinson2016].
 
-## Licencias abiertas y reutilización responsable
+### Licencias abiertas y reutilización responsable
 
 La apertura del conocimiento no implica renunciar a la autoría intelectual.
 

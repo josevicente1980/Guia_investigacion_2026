@@ -32,7 +32,7 @@ Un marco teórico bien construido permite responder preguntas como:
 - ¿Qué vacíos de conocimiento permanecen sin resolver?
 - ¿Cómo se relaciona la investigación con estudios anteriores?
 
-## ¿Por qué es importante el marco teórico?
+### ¿Por qué es importante el marco teórico?
 
 La construcción del marco teórico cumple múltiples funciones dentro de una investigación.
 
@@ -112,7 +112,7 @@ Entre las plataformas más utilizadas destacan:
 
 La revisión de literatura no consiste únicamente en recopilar artículos. Su objetivo es analizar críticamente la evidencia disponible para identificar patrones, coincidencias, contradicciones y vacíos de conocimiento.
 
-## De la acumulación de citas a la construcción de argumentos
+### De la acumulación de citas a la construcción de argumentos
 
 Uno de los errores más frecuentes en estudiantes e investigadores noveles consiste en convertir el marco teórico en una colección de resúmenes de artículos.
 
@@ -138,13 +138,13 @@ Diversos estudios sugieren que la disponibilidad de recursos financieros constit
 
 En este caso la literatura se integra para construir una explicación coherente.
 
-## El uso de literatura reciente
+### El uso de literatura reciente
 
 La ciencia evoluciona constantemente. Por esta razón, se recomienda incorporar literatura reciente que refleje el estado actual del conocimiento.
 
 No existe una regla científica universal que obligue a que las referencias pertenezcan a una ventana temporal fija. La actualidad bibliográfica debe evaluarse según el campo, la pregunta de investigación y las exigencias editoriales aplicables. Las fuentes recientes son importantes para representar el estado actual del conocimiento, mientras que las obras clásicas deben conservarse cuando constituyen la base teórica, metodológica, normativa o histórica del estudio.
 
-## Del problema al marco teórico
+### Del problema al marco teórico
 
 La construcción del marco teórico debe mantener una relación directa con la pregunta de investigación.
 
@@ -176,7 +176,7 @@ Posibles secciones:
 
 Obsérvese que la estructura del marco teórico deriva directamente del problema planteado.
 
-## Organización del marco teórico
+### Organización del marco teórico
 
 Una estrategia útil consiste en avanzar desde lo general hacia lo específico.
 
@@ -210,7 +210,7 @@ Los vacíos pueden surgir cuando:
 
 Identificar estos vacíos permite justificar la necesidad de la investigación [@booth2024].
 
-## Marco teórico y construcción de hipótesis
+### Marco teórico y construcción de hipótesis
 
 En investigaciones cuantitativas, las hipótesis suelen derivarse directamente del marco teórico.
 
@@ -230,7 +230,7 @@ Las microempresas con mayores niveles de liquidez presentan una mayor probabilid
 
 De esta manera, las hipótesis dejan de ser simples intuiciones y se convierten en proposiciones fundamentadas científicamente [@kerlinger2002].
 
-## Errores frecuentes en la elaboración del marco teórico
+### Errores frecuentes en la elaboración del marco teórico
 
 Entre los errores más comunes destacan:
 

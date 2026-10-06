@@ -109,7 +109,7 @@ Su cobertura incluye:
 
 Es particularmente útil para investigaciones en educación, derecho, administración y ciencias sociales.
 
-## Construcción de estrategias de búsqueda
+### Construcción de estrategias de búsqueda
 
 La calidad de los resultados obtenidos depende directamente de la estrategia de búsqueda utilizada.
 
@@ -170,7 +170,7 @@ Algunas preguntas útiles para evaluar una fuente son:
 
 La indexación, el DOI o el número de citas pueden facilitar la identificación y trazabilidad de una publicación, pero no sustituyen la evaluación crítica de su pertinencia y calidad metodológica.
 
-## Del artículo científico a la referencia bibliográfica
+### Del artículo científico a la referencia bibliográfica
 
 Una vez identificada una fuente relevante, resulta necesario almacenar su información bibliográfica.
 
@@ -204,7 +204,7 @@ year = {2011}
 
 Esta estructura permite separar la información bibliográfica del documento principal.
 
-## Ventajas de utilizar BibTeX
+### Ventajas de utilizar BibTeX
 
 El uso de BibTeX ofrece múltiples beneficios:
 
@@ -218,7 +218,7 @@ El uso de BibTeX ofrece múltiples beneficios:
 
 Estas ventajas resultan especialmente importantes en investigaciones que manejan grandes volúmenes de literatura científica.
 
-## Estructura de una referencia BibTeX
+### Estructura de una referencia BibTeX
 
 Un registro BibTeX suele contener campos como:
 
@@ -236,7 +236,7 @@ url
 
 Dependiendo del tipo de documento pueden existir campos adicionales.
 
-## Tipos de registros BibTeX
+### Tipos de registros BibTeX
 
 ### Artículo científico
 
@@ -278,7 +278,7 @@ Dependiendo del tipo de documento pueden existir campos adicionales.
 }
 ```
 
-## Construyendo una biblioteca bibliográfica
+### Construyendo una biblioteca bibliográfica
 
 Dentro de nuestro proyecto utilizaremos una carpeta específica para almacenar referencias.
 
@@ -291,7 +291,7 @@ referencias/
 
 El archivo `referencias.bib` contendrá todas las referencias utilizadas durante el proyecto.
 
-## Integrando BibTeX con Quarto
+### Integrando BibTeX con Quarto
 
 La conexión entre Quarto y BibTeX se realiza mediante el archivo `_quarto.yml`.
 
@@ -301,7 +301,7 @@ bibliography: referencias/referencias.bib
 
 Esta instrucción permite que Quarto localice automáticamente la biblioteca bibliográfica.
 
-## Citando en Quarto
+### Citando en Quarto
 
 Una vez configurada la biblioteca, las citas pueden incorporarse directamente dentro del texto.
 
@@ -325,7 +325,7 @@ La reproducibilidad constituye uno de los pilares fundamentales de la ciencia mo
 
 Durante la renderización, Quarto generará automáticamente las citas y referencias correspondientes.
 
-## El archivo CSL
+### El archivo CSL
 
 Además de la biblioteca BibTeX, Quarto utiliza archivos CSL (*Citation Style Language*) para definir el formato de citación.
 
@@ -343,7 +343,7 @@ Este archivo determina:
 - Capitalización de títulos.
 - Normas APA, Vancouver, Chicago u otros estilos.
 
-## Bibliotecas bibliográficas reproducibles
+### Bibliotecas bibliográficas reproducibles
 
 Una de las ventajas más importantes de BibTeX consiste en la posibilidad de construir bibliotecas bibliográficas reutilizables.
 

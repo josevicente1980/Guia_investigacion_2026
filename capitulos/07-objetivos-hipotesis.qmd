@@ -36,7 +36,7 @@ Los objetivos permiten:
 
 En términos prácticos, los objetivos constituyen una hoja de ruta para el proceso de investigación.
 
-## El objetivo general
+### El objetivo general
 
 El objetivo general expresa el propósito principal de la investigación.
 
@@ -56,7 +56,7 @@ Analizar la asociación entre factores financieros y la supervivencia de las mic
 
 Obsérvese que el objetivo transforma la pregunta en una acción concreta.
 
-## Características de un buen objetivo general
+### Características de un buen objetivo general
 
 Un objetivo general debe ser:
 
@@ -82,7 +82,7 @@ Algunos verbos frecuentemente utilizados son:
 - Examinar.
 - Caracterizar.
 
-## Los objetivos específicos
+### Los objetivos específicos
 
 Los objetivos específicos representan las etapas necesarias para alcanzar el objetivo general.
 
@@ -110,7 +110,7 @@ Analizar los factores financieros que influyen en la supervivencia de las microe
 
 Cada objetivo específico contribuye al cumplimiento del objetivo general.
 
-## La lógica de los objetivos
+### La lógica de los objetivos
 
 La relación entre pregunta y objetivos puede representarse mediante el siguiente esquema:
 
@@ -128,7 +128,7 @@ Metodología
 
 La coherencia entre estos elementos constituye uno de los principales criterios utilizados para evaluar la calidad metodológica de una investigación [@maxwell2013].
 
-## Errores frecuentes en la formulación de objetivos
+### Errores frecuentes en la formulación de objetivos
 
 Entre los errores más comunes destacan:
 
@@ -170,7 +170,7 @@ El acceso al crédito incrementa la probabilidad de supervivencia de las microem
 
 Esta afirmación puede ser evaluada mediante datos y técnicas estadísticas.
 
-## El papel de las hipótesis en la investigación científica
+### El papel de las hipótesis en la investigación científica
 
 Las hipótesis cumplen varias funciones importantes:
 
@@ -224,7 +224,7 @@ Ejemplo:
 Los estudiantes que utilizan tutorías académicas presentan un rendimiento superior al de quienes no las utilizan.
 ```
 
-## Hipótesis nula e hipótesis alternativa
+### Hipótesis nula e hipótesis alternativa
 
 En investigación cuantitativa es frecuente trabajar con dos hipótesis complementarias.
 
@@ -259,7 +259,7 @@ Deben derivarse de:
 
 Por esta razón, la construcción del marco teórico desempeña un papel fundamental en el desarrollo de hipótesis científicamente fundamentadas [@booth2024].
 
-## Ejemplo integrador
+### Ejemplo integrador
 
 ### Problema
 

@@ -19,7 +19,7 @@ Cuando estos recursos no se encuentran adecuadamente organizados, aumentan las p
 
 En este sentido, la reproducibilidad no comienza cuando se ejecuta un análisis estadístico. Comienza desde el momento en que se crea la primera carpeta del proyecto. La organización explícita de archivos, versiones, documentación y responsabilidades forma parte del flujo reproducible y facilita que otras personas puedan comprender, revisar y reconstruir el trabajo [@turingway2022].
 
-## Organización como principio de reproducibilidad
+### Organización como principio de reproducibilidad
 
 La investigación reproducible busca que otras personas (o incluso el propio investigador en el futuro) puedan comprender, verificar y reutilizar los procedimientos realizados durante un estudio [@peng2011].
 
@@ -34,7 +34,7 @@ Para lograrlo, no basta con conservar los resultados finales. Es necesario mante
 
 Marwick et al. señalan que una adecuada organización de los proyectos constituye uno de los requisitos fundamentales para la reproducibilidad computacional, ya que permite integrar datos, código y documentación dentro de un flujo de trabajo coherente [@marwick2018].
 
-## El problema de los proyectos desorganizados
+### El problema de los proyectos desorganizados
 
 Considere la siguiente estructura de archivos:
 
@@ -87,7 +87,7 @@ Los principios FAIR propuestos por Wilkinson et al. enfatizan la importancia de 
 
 Por esta razón, resulta recomendable conservar siempre una copia intacta de los datos originales y realizar todas las modificaciones mediante código documentado.
 
-## Pensando como un investigador reproducible
+### Pensando como un investigador reproducible
 
 Un investigador reproducible debería poder responder inmediatamente preguntas como:
 

@@ -32,7 +32,7 @@ Los problemas de investigación surgen de múltiples fuentes:
 
 La investigación científica no busca estudiar temas generales, sino resolver preguntas específicas derivadas de problemas claramente definidos.
 
-## Del tema al problema
+### Del tema al problema
 
 Considere los siguientes ejemplos:
 
@@ -47,7 +47,7 @@ El tema representa un campo amplio de estudio, mientras que el problema delimita
 
 Una adecuada delimitación permite enfocar los esfuerzos de investigación y facilita la construcción del diseño metodológico posterior [@booth2024].
 
-## Características de un buen problema de investigación
+### Características de un buen problema de investigación
 
 No todos los problemas son apropiados para una investigación científica.
 
@@ -73,7 +73,7 @@ No necesariamente implica estudiar algo completamente nuevo, sino aportar eviden
 
 Debe apoyarse en literatura científica que justifique su importancia [@machi2016].
 
-## La importancia de la revisión de literatura
+### La importancia de la revisión de literatura
 
 La formulación de problemas de investigación no ocurre en el vacío.
 
@@ -101,7 +101,7 @@ La pregunta de investigación se convierte en el eje articulador de:
 - La recolección de datos.
 - El análisis de resultados.
 
-## Características de una buena pregunta de investigación
+### Características de una buena pregunta de investigación
 
 Una pregunta de investigación efectiva debe ser:
 
@@ -125,7 +125,7 @@ Debe aportar conocimiento útil para la comunidad científica o para la sociedad
 
 Debe establecer con claridad población, contexto y período de estudio [@hernandezsampieri2018].
 
-## Ejemplos de formulación de preguntas
+### Ejemplos de formulación de preguntas
 
 ### Pregunta demasiado amplia
 
@@ -217,7 +217,7 @@ Metodología
 
 Cada elemento debe derivarse del anterior y mantener coherencia lógica durante todo el proyecto [@maxwell2013].
 
-## Ejemplo integrador
+### Ejemplo integrador
 
 ### Problema
 
@@ -237,7 +237,7 @@ Analizar la asociación entre factores financieros y la supervivencia de las mic
 
 Obsérvese cómo el objetivo surge directamente de la pregunta planteada.
 
-## Errores frecuentes al formular problemas y preguntas
+### Errores frecuentes al formular problemas y preguntas
 
 Entre los errores más comunes destacan:
 

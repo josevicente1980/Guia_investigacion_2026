@@ -28,7 +28,7 @@ A diferencia de muchos programas estadísticos tradicionales, R permite registra
 
 La filosofía de R se encuentra estrechamente vinculada con los principios de transparencia y reproducibilidad que caracterizan a la ciencia abierta.
 
-## ¿Por qué R se ha convertido en una herramienta científica?
+### ¿Por qué R se ha convertido en una herramienta científica?
 
 La adopción de R en universidades, centros de investigación y organismos internacionales ha crecido de manera sostenida durante los últimos años.
 
@@ -43,7 +43,7 @@ Entre las principales razones destacan:
 
 Además, muchas de las metodologías más recientes en ciencia de datos, econometría, análisis espacial, aprendizaje automático y visualización científica se implementan rápidamente dentro del ecosistema de R.
 
-## El ecosistema de paquetes de R
+### El ecosistema de paquetes de R
 
 Una de las mayores fortalezas de R es su sistema de paquetes.
 
@@ -72,7 +72,7 @@ En lugar de copiar resultados desde otros programas, Quarto ejecuta directamente
 
 De esta manera, cualquier modificación realizada en los datos o en los análisis puede reflejarse automáticamente en el informe generado.
 
-## Del documento estático al documento dinámico
+### Del documento estático al documento dinámico
 
 La mayoría de los documentos académicos tradicionales son estáticos. Una vez insertadas tablas y figuras, estas permanecen inalteradas hasta que el autor decide actualizarlas manualmente.
 

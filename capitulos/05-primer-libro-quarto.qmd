@@ -19,7 +19,7 @@ La investigación reproducible no consiste únicamente en utilizar software mode
 
 En este capítulo construiremos nuestro primer proyecto en Quarto. Este proyecto será la base sobre la cual desarrollaremos todos los ejercicios, ejemplos y aplicaciones prácticas del resto del libro.
 
-## ¿Por qué utilizar Quarto para investigar?
+### ¿Por qué utilizar Quarto para investigar?
 
 La elaboración de informes académicos suele realizarse mediante múltiples aplicaciones independientes. Es frecuente que los investigadores almacenen los datos en hojas de cálculo, ejecuten los análisis en programas estadísticos y posteriormente copien los resultados a documentos de texto.
 
@@ -29,7 +29,7 @@ Los documentos dinámicos surgieron precisamente para resolver este problema. Su
 
 Quarto representa una evolución de esta filosofía y proporciona una plataforma moderna para generar documentos científicos reproducibles, artículos académicos, libros, presentaciones y sitios web a partir de una única fuente de información [@quarto2024].
 
-## Del documento al proyecto
+### Del documento al proyecto
 
 Una diferencia fundamental entre Quarto y los procesadores de texto tradicionales radica en la forma de organizar el trabajo.
 
@@ -86,7 +86,7 @@ Dependiendo de sus características, un proyecto puede generar:
 
 La principal ventaja de este enfoque consiste en que los distintos productos pueden compartir datos, análisis y referencias bibliográficas, reduciendo la duplicación de trabajo y fortaleciendo la reproducibilidad [@gandrud2015].
 
-## Creando nuestro proyecto
+### Creando nuestro proyecto
 
 A lo largo de este libro trabajaremos utilizando la siguiente estructura de carpetas:
 
@@ -195,7 +195,7 @@ format:
 
 Cuando Quarto renderiza un proyecto, este archivo es el primero que consulta.
 
-## Comprendiendo la estructura del YAML
+### Comprendiendo la estructura del YAML
 
 ### Tipo de proyecto
 
@@ -251,7 +251,7 @@ csl: referencias/apa.csl
 
 Define el formato utilizado para generar las citas y referencias.
 
-## Nuestro primer documento Quarto
+### Nuestro primer documento Quarto
 
 Los documentos Quarto utilizan la extensión `.qmd`.
 
@@ -316,7 +316,7 @@ Durante este proceso Quarto:
 
 Todo este proceso se realiza de manera automática y reproducible [@gandrud2015].
 
-## Generando múltiples formatos
+### Generando múltiples formatos
 
 Una de las ventajas más importantes de Quarto consiste en la posibilidad de generar múltiples formatos a partir de una única fuente.
 
@@ -340,7 +340,7 @@ Esta configuración permite producir simultáneamente:
 
 Esta característica reduce significativamente el trabajo asociado a la elaboración de múltiples versiones de un mismo informe [@quarto2024].
 
-## Citas y referencias bibliográficas
+### Citas y referencias bibliográficas
 
 Una de las fortalezas más importantes de Quarto consiste en la gestión automatizada de referencias bibliográficas.
 
@@ -358,7 +358,7 @@ La reproducibilidad constituye uno de los pilares fundamentales de la ciencia mo
 
 Durante la renderización, Quarto generará automáticamente el formato de citación definido por el archivo CSL.
 
-## Buenas prácticas para proyectos Quarto
+### Buenas prácticas para proyectos Quarto
 
 A medida que el proyecto crece, resulta recomendable seguir algunas reglas simples:
 
