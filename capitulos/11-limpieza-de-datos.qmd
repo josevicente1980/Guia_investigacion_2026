@@ -377,7 +377,8 @@ Una vez completado el diagnóstico inicial podemos almacenar una versión proces
 
 ```{r}
 #| label: cap11-guardar-sunac-limpio
-#| eval: false\nsaveRDS(
+#| eval: false
+saveRDS(
   sunac,
   here(
     "datos",
