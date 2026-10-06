@@ -62,7 +62,8 @@ Trabajaremos con la base generada en el capítulo anterior.
 
 ```{r}
 #| label: cap12-cargar-datos-sunac-limpio
-#| eval: false\n#| warning: false
+#| eval: false
+#| warning: false
 #| message: false
 
 
