@@ -1,5 +1,17 @@
 # Limpieza de datos
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro(c("datos", "visual"))
+sunac <- leer_objeto_libro("sunac.rds")
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar este capítulo, el lector será capaz de:
@@ -60,12 +72,10 @@ Trabajaremos con el módulo de uso del suelo de la ESPAC 2025.
 
 ```{r}
 #| label: cap11-cargar-datos-sunac
-#| warning: false
+#| eval: false\n#| warning: false
 #| message: false
 
-library(haven)
-library(dplyr)
-library(here)
+
 
 sunac <- read_sav(
   here(
@@ -84,8 +94,6 @@ Antes de limpiar una base de datos es necesario comprender sus dimensiones gener
 
 ```{r}
 #| label: cap11-resumen-dimensiones-sunac
-
-library(knitr)
 
 data.frame(
   Registros = nrow(sunac),
@@ -368,7 +376,7 @@ Una vez completado el diagnóstico inicial podemos almacenar una versión proces
 
 ```{r}
 #| label: cap11-guardar-sunac-limpio
-saveRDS(
+#| eval: false\nsaveRDS(
   sunac,
   here(
     "datos",
@@ -395,7 +403,7 @@ Entre las transformaciones más frecuentes se encuentran:
 
 La documentación constituye un requisito fundamental para garantizar la reproducibilidad científica [@peng2011].
 
-## Buenas prácticas de limpieza
+### Buenas prácticas de limpieza
 
 Durante el proceso de limpieza se recomienda:
 

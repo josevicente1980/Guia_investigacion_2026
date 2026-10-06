@@ -1,5 +1,17 @@
 # Calidad de los datos
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro(c("datos", "visual"))
+sunac <- leer_objeto_libro("sunac_transformado.rds")
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar este capítulo, el lector será capaz de:
@@ -123,12 +135,10 @@ Para evaluar la calidad de los datos utilizaremos la base transformada construid
 
 ```{r}
 #| label: ch13-cargar-paquetes
-#| warning: false
+#| eval: false\n#| warning: false
 #| message: false
 
-library(dplyr)
-library(here)
-library(knitr)
+
 
 sunac <- readRDS(
   here(
@@ -720,7 +730,7 @@ reporte_calidad |>
 
 Este tipo de reportes resulta especialmente útil para auditorías, documentación técnica y proyectos colaborativos.
 
-## Buenas prácticas para garantizar calidad de datos
+### Buenas prácticas para garantizar calidad de datos
 
 La calidad de los datos no debe evaluarse únicamente al final de un proyecto.
 

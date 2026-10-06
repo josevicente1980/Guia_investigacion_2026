@@ -1,5 +1,17 @@
 # Transformación de datos
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro(c("datos", "visual"))
+sunac <- leer_objeto_libro("sunac_limpio.rds")
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar este capítulo, el lector será capaz de:
@@ -50,14 +62,12 @@ Trabajaremos con la base generada en el capítulo anterior.
 
 ```{r}
 #| label: cap12-cargar-datos-sunac-limpio
-#| warning: false
+#| eval: false\n#| warning: false
 #| message: false
 
-library(dplyr)
-library(haven)
-library(here)
-library(knitr)
-library(ggplot2)
+
+
+
 
 sunac <- readRDS(
   here(
@@ -267,7 +277,7 @@ summary(sunac$supertotal)
 
 Aunque esta variable es informativa, en muchos casos resulta más útil trabajar con categorías de tamaño.
 
-## Construcción de categorías de tamaño de explotación
+### Construcción de categorías de tamaño de explotación
 
 La clasificación de explotaciones agropecuarias por tamaño constituye una práctica habitual en estudios agrícolas y rurales.
 
@@ -300,7 +310,7 @@ La tabla permite identificar la estructura productiva observada en la encuesta.
 
 Esta transformación convierte una variable continua en una categoría fácilmente interpretable.
 
-## Visualizando el tamaño de las explotaciones
+### Visualizando el tamaño de las explotaciones
 
 Podemos representar gráficamente la distribución de las categorías creadas.
 
@@ -325,7 +335,7 @@ sunac |>
 
 La visualización facilita la comprensión de la estructura de la población estudiada.
 
-## Construcción de variables binarias
+### Construcción de variables binarias
 
 Las variables binarias resultan extremadamente útiles en análisis descriptivos y econométricos.
 
@@ -347,7 +357,7 @@ us_montesha
 
 que representa superficie de monte o bosque.
 
-## Indicador de presencia de bosque
+### Indicador de presencia de bosque
 
 Podemos construir una variable que indique si existe o no bosque en el registro.
 
@@ -376,7 +386,7 @@ La nueva variable simplifica considerablemente la interpretación.
 
 En lugar de analizar hectáreas específicas, podemos distinguir rápidamente entre productores con y sin cobertura boscosa.
 
-## Indicador de cultivos transitorios
+### Indicador de cultivos transitorios
 
 También podemos crear una variable relacionada con actividades agrícolas.
 
@@ -403,7 +413,7 @@ table(sunac$tiene_transitorios)
 
 Este tipo de indicadores resulta especialmente útil en análisis comparativos.
 
-## Construcción de indicadores porcentuales
+### Construcción de indicadores porcentuales
 
 En investigación aplicada suele ser más informativo trabajar con proporciones que con valores absolutos.
 
@@ -429,7 +439,7 @@ summary(sunac$pct_bosque)
 
 Este indicador permite comparar explotaciones de distinto tamaño utilizando una misma escala.
 
-## Visualizando indicadores porcentuales
+### Visualizando indicadores porcentuales
 
 ```{r} 
 #| label: fig-cap12-histograma-porcentaje-bosque
@@ -593,7 +603,7 @@ upa <- sunac |>
 
 La elección entre `sum()`, `first()`, `max()` u otra regla no es una decisión de programación: es una decisión metodológica que debe justificarse a partir del diseño de la fuente.
 
-## Base analítica y trazabilidad
+### Base analítica y trazabilidad
 
 ### Construcción de una base analítica
 

@@ -1,5 +1,17 @@
 # Gráficos científicos
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("visual", extra = "patchwork")
+base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar este capítulo, el lector será capaz de:
@@ -21,22 +33,21 @@ La visualización científica busca maximizar la comunicación de la informació
 
 En este capítulo utilizaremos la base analítica construida a partir de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC 2025) para ilustrar los principios de diseño gráfico científico.
 
-## Cargando paquetes
+### Cargando paquetes
 
 ```{r}
 #| label: ch17-cargar-paquetes
-#| warning: false
+#| eval: false\n#| warning: false
 #| message: false
 
-library(tidyverse)
-library(ggplot2)
-library(here)
-library(knitr)
-library(scales)
-library(patchwork)
+
+
+
+
+
 ```
 
-## Cargando la base analítica
+### Cargando la base analítica
 
 ```{r}
 #| label: ch17-cargar-base
@@ -51,7 +62,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## Preparando variables para visualización
+### Preparando variables para visualización
 
 Tal como se observó en el capítulo anterior, la variable `supertotal` presenta una distribución altamente asimétrica. Por esta razón construiremos una transformación logarítmica que facilite la visualización.
 
@@ -67,7 +78,9 @@ base_analitica <- base_analitica |>
   )
 ```
 
-## ¿Qué diferencia un gráfico exploratorio de un gráfico científico?
+## Del gráfico exploratorio a la figura científica
+
+### ¿Qué diferencia un gráfico exploratorio de un gráfico científico?
 
 Los gráficos exploratorios se utilizan durante el análisis para comprender los datos.
 
@@ -119,7 +132,7 @@ comparacion_graficos |>
 
 Los gráficos científicos no sustituyen al análisis exploratorio. Ambos cumplen funciones complementarias dentro del proceso de investigación.
 
-## El principio de la tinta de datos
+### El principio de la tinta de datos
 
 Tufte [@tufte2001] propone que la mayor parte de la tinta utilizada en un gráfico debe estar dedicada a representar información relevante.
 
@@ -131,7 +144,7 @@ Esto implica:
 - Simplificar rejillas.
 - Destacar los datos.
 
-## Ejemplo de gráfico básico
+### Ejemplo de gráfico básico
 
 Comenzaremos con un histograma sencillo.
 
@@ -154,7 +167,7 @@ ggplot(
 
 Aunque el gráfico comunica la distribución de la variable, todavía puede mejorarse desde el punto de vista científico.
 
-## Mejorando la presentación
+### Mejorando la presentación
 
 ```{r}
 #| label: fig-ch17-histograma-mejorado
@@ -182,7 +195,7 @@ ggplot(
 
 La versión mejorada reduce el ruido visual y facilita la lectura del gráfico.
 
-## Temas en ggplot2
+### Temas en ggplot2
 
 Los temas controlan la apariencia general de los gráficos.
 
@@ -218,7 +231,7 @@ temas_ggplot |>
 
 No existe un único tema correcto. La elección depende del contexto de publicación y de los requisitos editoriales.
 
-## Comparación de temas
+### Comparación de temas
 
 ### Tema clásico
 
@@ -262,7 +275,9 @@ ggplot(
 
 Ambos gráficos contienen exactamente la misma información. La diferencia radica únicamente en la forma de presentación.
 
-## El uso científico del color
+## Diseño, color y legibilidad
+
+### El uso científico del color
 
 El color debe utilizarse para comunicar información y no solamente para decorar.
 
@@ -273,7 +288,7 @@ Un uso adecuado del color permite:
 - Facilitar comparaciones.
 - Mejorar accesibilidad.
 
-## Paletas perceptualmente uniformes
+### Paletas perceptualmente uniformes
 
 Las paletas Viridis fueron diseñadas específicamente para visualización científica [@garnier2024].
 
@@ -284,7 +299,7 @@ Sus ventajas incluyen:
 - Legibilidad para personas con daltonismo.
 - Gradientes perceptualmente uniformes.
 
-## Ejemplo utilizando Viridis
+### Ejemplo utilizando Viridis
 
 ```{r}
 #| label: fig-ch17-viridis
@@ -311,7 +326,7 @@ ggplot(
 
 La paleta mantiene contraste adecuado entre categorías y conserva una apariencia profesional.
 
-## Evitando gráficos engañosos
+### Evitando gráficos engañosos
 
 Los gráficos pueden inducir interpretaciones erróneas cuando:
 
@@ -322,7 +337,7 @@ Los gráficos pueden inducir interpretaciones erróneas cuando:
 
 La comunicación científica exige representar los datos de forma honesta y transparente [@cairo2016].
 
-## Ejemplo de mala práctica
+### Ejemplo de mala práctica
 
 ```{r}
 #| label: fig-ch17-mala-practica
@@ -362,7 +377,7 @@ ggplot(
 
 El gráfico exagera visualmente una diferencia relativamente pequeña. Este tipo de prácticas debe evitarse en publicaciones científicas.
 
-## Ejemplo corregido
+### Ejemplo corregido
 
 ```{r}
 #| label: fig-ch17-buena-practica
@@ -385,7 +400,7 @@ ggplot(
 
 La representación correcta permite apreciar la verdadera magnitud de la diferencia observada.
 
-## Construyendo un estilo gráfico reproducible
+### Construyendo un estilo gráfico reproducible
 
 Una práctica recomendable consiste en definir un estilo gráfico común para toda la investigación.
 
@@ -409,7 +424,7 @@ tema_cientifico <- theme_minimal() +
   )
 ```
 
-## Aplicando el tema científico
+### Aplicando el tema científico
 
 ```{r}
 #| label: fig-ch17-tema-cientifico
@@ -438,7 +453,7 @@ ggplot(
 
 La estandarización visual mejora la consistencia entre figuras y facilita la comunicación de resultados.
 
-## Recomendaciones para publicaciones científicas
+### Recomendaciones para publicaciones científicas
 
 Al construir figuras destinadas a publicaciones se recomienda:
 
@@ -467,13 +482,15 @@ Utilizando la base `base_analitica`:
 
 # Parte 2. Gráficos científicos para tesis, informes y artículos
 
-## Introducción
+### Introducción
 
 En la sección anterior aprendimos los principios fundamentales de la comunicación visual científica. Sin embargo, la calidad de una figura no depende únicamente de su apariencia estética. Los gráficos utilizados en tesis, artículos científicos e informes técnicos deben facilitar la interpretación estadística de los resultados y comunicar evidencia de manera clara y precisa [@tufte2001; @cairo2016].
 
 En esta sección construiremos figuras que suelen encontrarse en publicaciones académicas, incorporando criterios de presentación utilizados habitualmente en revistas científicas.
 
-## Histograma publicable
+## Gráficos para publicación
+
+### Histograma publicable
 
 Comenzaremos construyendo una versión mejorada del histograma de superficie transformada.
 
@@ -505,7 +522,7 @@ ggplot(
 
 La transformación logarítmica mejora significativamente la capacidad de visualizar la distribución de la superficie agrícola, reduciendo la influencia de observaciones extremadamente grandes.
 
-## Histograma con densidad
+### Histograma con densidad
 
 En muchas publicaciones científicas se recomienda complementar el histograma con una curva de densidad.
 
@@ -542,7 +559,7 @@ ggplot(
 
 La curva de densidad permite identificar de forma más clara la forma general de la distribución y posibles concentraciones de observaciones.
 
-## Comparaciones mediante diagramas de caja
+### Comparaciones mediante diagramas de caja
 
 Los diagramas de caja constituyen una de las herramientas más utilizadas para comparar distribuciones entre grupos.
 
@@ -574,7 +591,7 @@ ggplot(
 
 Las diferencias observadas entre cajas sugieren heterogeneidad en la distribución de la superficie según el tamaño de la unidad productiva.
 
-## Gráficos de violín
+### Gráficos de violín
 
 Los gráficos de violín combinan características de los diagramas de caja y de las curvas de densidad.
 
@@ -605,7 +622,7 @@ ggplot(
 
 La anchura de cada violín representa la concentración relativa de observaciones en distintos niveles de la variable.
 
-## Barras con intervalos de confianza
+### Barras con intervalos de confianza
 
 Los artículos científicos suelen presentar estimaciones acompañadas por medidas de incertidumbre.
 
@@ -651,7 +668,7 @@ resumen_tamano |>
 
 La tabla resume medias, errores estándar e intervalos de confianza aproximados para cada categoría.
 
-## Barras con intervalos
+### Barras con intervalos
 
 ```{r}
 #| label: fig-ch17-barras-ic
@@ -685,7 +702,7 @@ ggplot(
 
 Los intervalos de confianza proporcionan información sobre la incertidumbre asociada a las estimaciones promedio.
 
-## Gráficos de dispersión para publicaciones
+### Gráficos de dispersión para publicaciones
 
 Los gráficos de dispersión suelen utilizarse para explorar asociaciones entre variables cuantitativas.
 
@@ -720,7 +737,7 @@ ggplot(
 
 La línea ajustada permite visualizar la tendencia promedio observada entre ambas variables.
 
-## Facetas científicas
+### Facetas científicas
 
 Las facetas permiten dividir la información en paneles comparables.
 
@@ -753,7 +770,7 @@ ggplot(
 
 Las facetas permiten comparar distribuciones territoriales manteniendo la misma escala visual.
 
-## Importancia de las etiquetas
+### Importancia de las etiquetas
 
 Un gráfico científico debe ser comprensible sin necesidad de consultar el texto principal.
 
@@ -764,7 +781,7 @@ Las etiquetas deben:
 - Evitar abreviaturas ambiguas.
 - Mantener consistencia terminológica.
 
-## Ejemplo de etiquetado profesional
+### Ejemplo de etiquetado profesional
 
 ```{r}
 #| label: fig-ch17-etiquetado-profesional
@@ -795,7 +812,7 @@ ggplot(
 
 Los títulos, subtítulos y etiquetas ayudan al lector a comprender el contenido de la figura sin necesidad de información adicional.
 
-## Escalas y formatos numéricos
+### Escalas y formatos numéricos
 
 Los gráficos científicos deben utilizar formatos numéricos consistentes.
 
@@ -829,7 +846,7 @@ ggplot(
 
 La estandarización de escalas mejora la consistencia visual y facilita comparaciones entre figuras.
 
-## Leyendas y consistencia gráfica
+### Leyendas y consistencia gráfica
 
 Las leyendas deben mantenerse simples y claras.
 
@@ -840,7 +857,7 @@ Se recomienda:
 - Evitar leyendas redundantes.
 - Utilizar títulos descriptivos.
 
-## Recomendaciones para tesis y artículos
+### Recomendaciones para tesis y artículos
 
 Al preparar figuras para publicaciones se recomienda:
 
@@ -852,7 +869,7 @@ Al preparar figuras para publicaciones se recomienda:
 - Exportar figuras reproduciblemente.
 - Documentar completamente el código utilizado.
 
-## Manos a la obra
+### Manos a la obra
 
 Utilizando la base `base_analitica`:
 
@@ -869,13 +886,15 @@ Utilizando la base `base_analitica`:
 
 # Parte 3. Figuras avanzadas para publicaciones científicas
 
-## Introducción
+### Introducción
 
 Los artículos científicos, tesis doctorales, informes técnicos y documentos institucionales suelen requerir figuras más complejas que las utilizadas durante el análisis exploratorio. En estos contextos, no basta con construir gráficos individuales; es necesario diseñar figuras coherentes, comparables y reproducibles que comuniquen múltiples resultados de manera integrada [@wilkinson2005; @tufte2001].
 
 En esta sección aprenderemos a construir figuras multipanel, preparar gráficos para revistas científicas y exportar resultados utilizando estándares reproducibles.
 
-## ¿Qué es una figura científica avanzada?
+## Figuras compuestas y exportación
+
+### ¿Qué es una figura científica avanzada?
 
 Una figura científica avanzada suele presentar:
 
@@ -888,7 +907,7 @@ Una figura científica avanzada suele presentar:
 
 La Figura compuesta es uno de los formatos más utilizados en artículos científicos.
 
-## Construyendo una colección de gráficos
+### Construyendo una colección de gráficos
 
 Primero construiremos varios gráficos que posteriormente integraremos en una figura compuesta.
 
@@ -989,7 +1008,7 @@ grafico_dispersion
 
 La figura resume visualmente la asociación observada entre ambas variables.
 
-## Figuras multipanel
+### Figuras multipanel
 
 Los artículos científicos suelen combinar múltiples gráficos dentro de una misma figura.
 
@@ -1000,10 +1019,9 @@ Para ello utilizaremos el paquete `patchwork`.
 #| warning: false
 #| message: false
 
-library(patchwork)
 ```
 
-## Construcción de una figura compuesta
+### Construcción de una figura compuesta
 
 ```{r}
 #| label: fig-ch17-figura-compuesta
@@ -1022,7 +1040,7 @@ library(patchwork)
 
 La figura integra diferentes perspectivas del mismo fenómeno, facilitando la comparación visual y reduciendo el número de imágenes necesarias en un artículo.
 
-## Organización visual de paneles
+### Organización visual de paneles
 
 Las figuras multipanel permiten:
 
@@ -1033,7 +1051,7 @@ Las figuras multipanel permiten:
 
 Este tipo de figuras es particularmente frecuente en revistas indexadas.
 
-## Etiquetado automático de paneles
+### Etiquetado automático de paneles
 
 Muchas revistas solicitan identificar paneles mediante letras.
 
@@ -1055,7 +1073,7 @@ Muchas revistas solicitan identificar paneles mediante letras.
 
 Las etiquetas facilitan la referencia cruzada dentro del texto del artículo.
 
-## Tamaño de figuras para publicación
+### Tamaño de figuras para publicación
 
 Las revistas científicas suelen especificar dimensiones máximas para las figuras.
 
@@ -1092,7 +1110,7 @@ dimensiones_revistas |>
 
 Las dimensiones pueden variar entre revistas, pero la tabla proporciona valores de referencia útiles.
 
-## Resolución y calidad gráfica
+### Resolución y calidad gráfica
 
 La calidad de una figura depende de:
 
@@ -1103,7 +1121,7 @@ La calidad de una figura depende de:
 
 Las revistas científicas suelen solicitar resoluciones entre 300 y 600 dpi [@wilke2019].
 
-## Exportación en formato PNG
+### Exportación en formato PNG
 
 ```{r}
 #| label: ch17-exportar-png
@@ -1119,7 +1137,7 @@ ggsave(
 )
 ```
 
-## Exportación en formato PDF
+### Exportación en formato PDF
 
 ```{r}
 #| label: ch17-exportar-pdf
@@ -1134,7 +1152,7 @@ ggsave(
 )
 ```
 
-## Exportación en formato TIFF
+### Exportación en formato TIFF
 
 Muchas revistas siguen solicitando TIFF para las figuras finales.
 
@@ -1152,7 +1170,7 @@ ggsave(
 )
 ```
 
-## Integración con Quarto
+### Integración con Quarto
 
 Una ventaja importante de Quarto es que las figuras se generan automáticamente durante el proceso de renderización.
 
@@ -1163,7 +1181,7 @@ Esto permite:
 - Consistencia visual.
 - Menor riesgo de errores.
 
-## Reproducibilidad gráfica
+### Reproducibilidad gráfica
 
 La reproducibilidad implica que cualquier investigador pueda reconstruir exactamente la misma figura utilizando:
 
@@ -1173,7 +1191,7 @@ La reproducibilidad implica que cualquier investigador pueda reconstruir exactam
 
 La visualización reproducible constituye un componente esencial de la ciencia abierta [@peng2011].
 
-## Lista de verificación para publicaciones
+### Lista de verificación para publicaciones
 
 Antes de enviar una figura a una revista científica conviene verificar:
 
@@ -1203,7 +1221,7 @@ checklist_figuras |>
 
 La lista permite revisar sistemáticamente la calidad de las figuras antes de su publicación.
 
-## Errores frecuentes
+### Errores frecuentes
 
 Entre los errores más comunes se encuentran:
 
@@ -1214,7 +1232,7 @@ Entre los errores más comunes se encuentran:
 - Exportación en baja resolución.
 - Falta de reproducibilidad.
 
-## Flujo recomendado para producción científica
+### Flujo recomendado para producción científica
 
 ```text
 Datos
@@ -1232,7 +1250,7 @@ Exportación
 Publicación
 ```
 
-## Manos a la obra
+### Manos a la obra
 
 Utilizando la base `base_analitica`:
 

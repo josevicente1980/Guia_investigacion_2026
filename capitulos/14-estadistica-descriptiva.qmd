@@ -1,5 +1,17 @@
 # Estadística descriptiva
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("visual", extra = "moments")
+base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar este capítulo, el lector será capaz de:
@@ -30,19 +42,19 @@ La estadística descriptiva permite responder preguntas como:
 
 En este capítulo trabajaremos con la base analítica construida a partir de la ESPAC 2025.
 
-## Cargando la base de trabajo
+## Exploración y tipos de variables
+
+### Cargando la base de trabajo
 
 Comenzamos cargando los paquetes necesarios y la base transformada en capítulos anteriores.
 
 ```{r}
 #| label: ch14-cargar-paquetes
-#| warning: false
+#| eval: false\n#| warning: false
 #| message: false
 
-library(dplyr)
-library(here)
-library(knitr)
-library(moments)
+
+
 
 base_analitica <- readRDS(
   here(
@@ -72,7 +84,7 @@ if (
 }
 ```
 
-## Exploración inicial de la base
+### Exploración inicial de la base
 
 Antes de calcular estadísticas descriptivas, revisamos las dimensiones generales de la base.
 
@@ -100,7 +112,7 @@ glimpse(base_analitica)
 
 La salida permite identificar variables categóricas, numéricas y derivadas. Esta revisión es importante porque el tipo de variable determina qué estadísticas descriptivas son apropiadas.
 
-## Tipos de variables
+### Tipos de variables
 
 En estadística descriptiva es fundamental distinguir entre variables numéricas y categóricas.
 
@@ -123,7 +135,7 @@ tiene_bosque
 
 Esta distinción es importante porque no todas las medidas estadísticas son adecuadas para todas las variables. La media y la desviación estándar son apropiadas para variables numéricas, mientras que las tablas de frecuencia son más adecuadas para variables categóricas [@moore2017].
 
-## Identificación automática de tipos de variables
+### Identificación automática de tipos de variables
 
 Podemos identificar los tipos de variables utilizando R.
 
@@ -141,7 +153,7 @@ data.frame(
 
 Esta tabla permite reconocer cómo R interpreta cada variable. Una correcta identificación del tipo de dato evita errores en el análisis posterior.
 
-## Variables numéricas disponibles
+### Variables numéricas disponibles
 
 Identifiquemos las variables numéricas de la base.
 
@@ -163,7 +175,7 @@ data.frame(
 
 Estas variables serán utilizadas para calcular medidas de tendencia central, dispersión, posición y forma de la distribución.
 
-## Variables categóricas disponibles
+### Variables categóricas disponibles
 
 También podemos identificar variables categóricas.
 
@@ -187,7 +199,9 @@ data.frame(
 
 Las variables categóricas serán analizadas mediante tablas de frecuencia y porcentajes.
 
-## Medidas de tendencia central
+## Tendencia central y dispersión
+
+### Medidas de tendencia central
 
 Las medidas de tendencia central resumen el comportamiento típico de una variable numérica.
 
@@ -199,7 +213,7 @@ Las más utilizadas son:
 
 Estas medidas permiten construir una primera descripción del fenómeno estudiado [@freedman2007].
 
-## Media aritmética
+### Media aritmética
 
 La media aritmética se obtiene sumando todos los valores y dividiendo entre el número de observaciones.
 
@@ -221,7 +235,7 @@ data.frame(
 
 La media representa el promedio de superficie observado en la base. Sin embargo, cuando existen valores extremos, la media puede verse afectada y dejar de representar adecuadamente el valor típico de la distribución.
 
-## Mediana
+### Mediana
 
 La mediana es el valor que divide la distribución en dos partes iguales.
 
@@ -243,7 +257,7 @@ data.frame(
 
 La mediana es especialmente útil cuando la distribución presenta valores extremos o asimetría. Si la media y la mediana son muy diferentes, esto sugiere que la distribución no es simétrica.
 
-## Comparación entre media y mediana
+### Comparación entre media y mediana
 
 Podemos presentar ambas medidas en una sola tabla.
 
@@ -274,7 +288,7 @@ data.frame(
 
 Cuando la media es mayor que la mediana, suele existir una distribución sesgada hacia valores altos. Este patrón es frecuente en variables de superficie, ingreso, producción o ventas.
 
-## Moda
+### Moda
 
 La moda representa el valor o categoría que aparece con mayor frecuencia.
 
@@ -298,7 +312,7 @@ base_analitica |>
 
 La tabla muestra la categoría más frecuente de tamaño de UPA dentro de la base analítica.
 
-## Función para calcular la moda
+### Función para calcular la moda
 
 Podemos crear una función simple para calcular la moda de una variable.
 
@@ -329,7 +343,7 @@ data.frame(
 
 El resultado permite identificar automáticamente la categoría más frecuente.
 
-## Estadísticas descriptivas básicas
+### Estadísticas descriptivas básicas
 
 Podemos reunir media, mediana, mínimo y máximo en una tabla resumen.
 
@@ -363,7 +377,7 @@ data.frame(
 
 La tabla resume el comportamiento general de la superficie total. Esta información permite identificar el nivel promedio, el valor central y la amplitud de la variable.
 
-## Interpretación inicial
+### Interpretación inicial
 
 La estadística descriptiva no debe limitarse a producir tablas. Cada resultado requiere interpretación.
 
@@ -371,7 +385,7 @@ En el caso de la superficie total, la comparación entre media y mediana permite
 
 Este tipo de lectura inicial es fundamental antes de construir gráficos, tablas más complejas o modelos estadísticos.
 
-## Medidas de dispersión
+### Medidas de dispersión
 
 Las medidas de tendencia central permiten identificar valores típicos dentro de una distribución. Sin embargo, dos conjuntos de datos pueden tener exactamente la misma media y presentar niveles de variabilidad completamente diferentes.
 
@@ -390,7 +404,7 @@ Las medidas más utilizadas son:
 - Desviación estándar.
 - Coeficiente de variación.
 
-## Rango
+### Rango
 
 El rango representa la diferencia entre el valor máximo y el valor mínimo de una variable.
 
@@ -420,7 +434,7 @@ El rango proporciona una primera aproximación a la amplitud de la distribución
 
 Sin embargo, esta medida utiliza únicamente dos observaciones y puede verse fuertemente afectada por valores extremos.
 
-## Varianza
+### Varianza
 
 La varianza mide la dispersión promedio de los datos respecto a la media.
 
@@ -444,7 +458,7 @@ data.frame(
 
 La principal limitación de la varianza es que sus unidades se encuentran elevadas al cuadrado, dificultando su interpretación directa.
 
-## Desviación estándar
+### Desviación estándar
 
 La desviación estándar corrige esta limitación al expresar la dispersión en las mismas unidades originales de la variable.
 
@@ -466,7 +480,7 @@ data.frame(
 
 La desviación estándar es una de las medidas de dispersión más utilizadas en investigación aplicada [@moore2017].
 
-## Interpretación de la desviación estándar
+### Interpretación de la desviación estándar
 
 Podemos comparar simultáneamente la media y la desviación estándar.
 
@@ -497,7 +511,7 @@ data.frame(
 
 Si la desviación estándar es elevada respecto a la media, esto sugiere una importante heterogeneidad entre las unidades observadas.
 
-## Coeficiente de variación
+### Coeficiente de variación
 
 El coeficiente de variación permite comparar niveles de dispersión entre variables medidas en diferentes escalas.
 
@@ -534,7 +548,7 @@ data.frame(
 
 Valores elevados indican una fuerte heterogeneidad entre las observaciones.
 
-## Resumen de medidas de dispersión
+### Resumen de medidas de dispersión
 
 ```{r}
 #| label: tbl-ch14-resumen-dispersion
@@ -567,7 +581,9 @@ data.frame(
 
 Esta tabla resume los principales indicadores de variabilidad de la superficie total.
 
-## Medidas de posición
+## Posición y forma de la distribución
+
+### Medidas de posición
 
 Las medidas de posición permiten conocer cómo se distribuyen los datos dentro de una variable.
 
@@ -579,7 +595,7 @@ Las más utilizadas son:
 
 Estas medidas permiten dividir una distribución en grupos ordenados [@freedman2007].
 
-## Cuartiles
+### Cuartiles
 
 Los cuartiles dividen la distribución en cuatro partes iguales.
 
@@ -613,7 +629,7 @@ Interpretación:
 - Q2: corresponde a la mediana.
 - Q3: 75% de las observaciones se encuentran por debajo de este valor.
 
-## Percentiles
+### Percentiles
 
 También podemos calcular percentiles específicos.
 
@@ -645,7 +661,7 @@ data.frame(
 
 Los percentiles permiten estudiar con mayor detalle la distribución de una variable.
 
-## Visualización mediante diagrama de caja
+### Visualización mediante diagrama de caja
 
 Los diagramas de caja constituyen una herramienta fundamental para visualizar medidas de posición y dispersión.
 
@@ -667,7 +683,7 @@ La figura muestra:
 - Valores extremos.
 - Posibles observaciones atípicas.
 
-## Forma de la distribución
+### Forma de la distribución
 
 Además de conocer el centro y la dispersión de los datos, resulta importante comprender la forma de la distribución.
 
@@ -678,7 +694,7 @@ Dos conceptos fundamentales son:
 
 Estas medidas ayudan a evaluar qué tan cercana se encuentra una distribución respecto a la normalidad [@weisberg2005].
 
-## Asimetría
+### Asimetría
 
 La asimetría mide el grado de simetría de una distribución.
 
@@ -713,7 +729,7 @@ Interpretación:
 - Valor positivo: cola hacia la derecha.
 - Valor negativo: cola hacia la izquierda.
 
-## Curtosis
+### Curtosis
 
 La curtosis mide el grado de concentración de observaciones alrededor de la media.
 
@@ -735,7 +751,7 @@ data.frame(
 
 Valores elevados suelen indicar la presencia de observaciones extremas.
 
-## Histograma de la superficie total
+### Histograma de la superficie total
 
 Podemos visualizar simultáneamente la forma de la distribución.
 
@@ -758,7 +774,7 @@ La figura permite interpretar visualmente:
 - Valores extremos.
 - Forma general de la distribución.
 
-## Interpretación general
+### Interpretación general
 
 Hasta este punto hemos aprendido a describir una variable numérica utilizando:
 
@@ -769,7 +785,9 @@ Hasta este punto hemos aprendido a describir una variable numérica utilizando:
 
 Estas herramientas constituyen la base de cualquier análisis estadístico y permiten comprender adecuadamente los datos antes de construir modelos más complejos [@tukey1977].
 
-## Tablas de frecuencia
+## Frecuencias y ponderación
+
+### Tablas de frecuencia
 
 Hasta este punto hemos trabajado principalmente con variables numéricas. Sin embargo, una gran parte de la información utilizada en investigación corresponde a variables categóricas.
 
@@ -781,7 +799,7 @@ Permiten responder preguntas como:
 - ¿Qué porcentaje representa cada grupo?
 - ¿Cómo se distribuyen las observaciones?
 
-## Frecuencia absoluta
+### Frecuencia absoluta
 
 Comenzaremos analizando la variable:
 
@@ -806,7 +824,7 @@ base_analitica |>
 
 La tabla muestra la cantidad de observaciones pertenecientes a cada categoría.
 
-## Frecuencia relativa
+### Frecuencia relativa
 
 Las frecuencias absolutas son útiles, pero generalmente resulta más informativo trabajar con porcentajes.
 
@@ -834,7 +852,7 @@ base_analitica |>
 
 Los porcentajes facilitan la comparación entre categorías.
 
-## Distribución de la tenencia de la tierra
+### Distribución de la tenencia de la tierra
 
 Ahora analizaremos una variable de gran importancia para los estudios agrarios.
 
@@ -862,15 +880,13 @@ base_analitica |>
 
 Esta tabla permite identificar cuáles son las modalidades predominantes de tenencia de la tierra dentro de la población estudiada.
 
-## Visualización de frecuencias
+### Visualización de frecuencias
 
 Los gráficos de barras constituyen la representación visual más utilizada para variables categóricas.
 
 ```{r}
 #| label: fig-ch14-tamano-upa
 #| fig-cap: "Distribución del tamaño de UPA"
-
-library(ggplot2)
 
 base_analitica |>
   count(
@@ -895,7 +911,7 @@ base_analitica |>
 
 La figura facilita la comparación visual entre categorías.
 
-## Tablas de contingencia
+### Tablas de contingencia
 
 Las tablas de contingencia permiten analizar simultáneamente dos variables categóricas.
 
@@ -921,7 +937,7 @@ table(
 
 Este tipo de análisis constituye el punto de partida para estudiar asociaciones entre variables categóricas.
 
-## Estadística descriptiva ponderada
+### Estadística descriptiva ponderada
 
 Las encuestas oficiales generalmente utilizan diseños muestrales complejos.
 
@@ -935,7 +951,7 @@ fact_exp_fin
 
 Esta variable permite obtener estimaciones representativas de la población nacional.
 
-## ¿Por qué utilizar factores de expansión?
+### ¿Por qué utilizar factores de expansión?
 
 Supongamos que deseamos estimar el número total de unidades productivas.
 
@@ -975,7 +991,7 @@ Observe que los resultados son completamente distintos.
 
 La muestra contiene observaciones reales, mientras que la suma de factores de expansión aproxima el tamaño de la población representada.
 
-## Media ponderada
+### Media ponderada
 
 También podemos calcular medias ponderadas.
 
@@ -1004,7 +1020,7 @@ data.frame(
 
 La media ponderada incorpora el diseño de la encuesta y suele proporcionar estimaciones más representativas de la realidad nacional.
 
-## Comparación entre media simple y media ponderada
+### Comparación entre media simple y media ponderada
 
 ```{r}
 #| label: tbl-ch14-comparacion-medias
@@ -1035,7 +1051,7 @@ data.frame(
 
 Las diferencias observadas reflejan el efecto del diseño muestral sobre las estimaciones.
 
-## Tabla descriptiva reproducible
+### Tabla descriptiva reproducible
 
 Una práctica frecuente consiste en generar tablas resumen para informes y artículos científicos.
 
@@ -1073,7 +1089,7 @@ data.frame(
 
 Esta tabla resume las principales características estadísticas de una variable.
 
-## Interpretación integrada
+### Interpretación integrada
 
 La estadística descriptiva permite transformar grandes volúmenes de datos en información comprensible.
 

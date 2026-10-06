@@ -1,5 +1,17 @@
 # Tablas descriptivas
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro(c("datos", "tablas"))
+base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar este capítulo, el lector será capaz de:
@@ -23,16 +35,16 @@ En el contexto de la investigación reproducible, las tablas deben generarse aut
 
 En este capítulo aprenderemos a construir tablas descriptivas utilizando información real de la ESPAC 2025.
 
-## Cargando la base de trabajo
+## Principios y tablas básicas
+
+### Cargando la base de trabajo
 
 ```{r}
 #| label: ch15-cargar-paquetes
-#| warning: false
+#| eval: false\n#| warning: false
 #| message: false
 
-library(dplyr)
-library(knitr)
-library(here)
+
 
 base_analitica <- readRDS(
   here(
@@ -44,7 +56,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## ¿Por qué son importantes las tablas?
+### ¿Por qué son importantes las tablas?
 
 Las tablas permiten:
 
@@ -56,7 +68,7 @@ Las tablas permiten:
 
 La mayoría de artículos científicos presentan resultados descriptivos inicialmente mediante tablas antes de introducir modelos estadísticos más complejos [@healy2018].
 
-## Principios de una buena tabla
+### Principios de una buena tabla
 
 Una tabla académica debe cumplir varios criterios básicos:
 
@@ -79,7 +91,7 @@ que:
 Tabla de resultados
 ```
 
-## Construcción de una tabla simple
+### Construcción de una tabla simple
 
 Podemos comenzar creando una tabla que muestre las dimensiones generales de la base.
 
@@ -97,7 +109,7 @@ data.frame(
 
 La tabla resume el tamaño de la base utilizada durante el análisis.
 
-## Tablas descriptivas para variables numéricas
+### Tablas descriptivas para variables numéricas
 
 Las variables numéricas suelen describirse mediante:
 
@@ -109,7 +121,7 @@ Las variables numéricas suelen describirse mediante:
 
 Estas estadísticas permiten resumir el comportamiento general de una variable [@moore2017].
 
-## Tabla descriptiva básica
+### Tabla descriptiva básica
 
 Analizaremos la variable `supertotal`.
 
@@ -147,7 +159,7 @@ data.frame(
 
 Esta tabla resume los principales indicadores descriptivos de la variable.
 
-## Tabla descriptiva de múltiples variables
+### Tabla descriptiva de múltiples variables
 
 En la práctica, generalmente analizamos varias variables simultáneamente.
 
@@ -179,7 +191,7 @@ data.frame(
 
 Observe cómo una sola tabla resume múltiples variables de interés.
 
-## Interpretación de tablas descriptivas
+### Interpretación de tablas descriptivas
 
 La interpretación debe acompañar siempre a las tablas.
 
@@ -192,7 +204,9 @@ Por ejemplo:
 
 La tabla debe ser el punto de partida para la interpretación y no un fin en sí misma.
 
-## Tablas de frecuencia
+## Frecuencias y tablas cruzadas
+
+### Tablas de frecuencia
 
 Las variables categóricas requieren otro tipo de resumen.
 
@@ -204,7 +218,7 @@ Analicemos la variable:
 tamano_upa
 ```
 
-## Frecuencia absoluta
+### Frecuencia absoluta
 
 ```{r}
 #| label: tbl-ch15-frecuencia-absoluta
@@ -223,7 +237,7 @@ base_analitica |>
 
 Esta tabla muestra cuántas observaciones pertenecen a cada categoría.
 
-## Frecuencia relativa
+### Frecuencia relativa
 
 Los porcentajes suelen ser más informativos.
 
@@ -251,7 +265,7 @@ base_analitica |>
 
 La frecuencia relativa facilita la comparación entre categorías.
 
-## Frecuencias acumuladas
+### Frecuencias acumuladas
 
 También podemos construir frecuencias acumuladas.
 
@@ -281,7 +295,7 @@ base_analitica |>
 
 Las frecuencias acumuladas permiten conocer qué porcentaje de observaciones se concentra hasta una determinada categoría.
 
-## Tablas descriptivas de la tenencia de la tierra
+### Tablas descriptivas de la tenencia de la tierra
 
 La variable `su_tenencia` resulta particularmente relevante en estudios agropecuarios.
 
@@ -309,7 +323,7 @@ base_analitica |>
 
 La tabla permite identificar las formas predominantes de acceso a la tierra.
 
-## Tablas cruzadas
+### Tablas cruzadas
 
 Las tablas cruzadas permiten analizar simultáneamente dos variables categóricas.
 
@@ -321,7 +335,7 @@ y
 tiene_bosque
 ```
 
-## Construcción de una tabla cruzada
+### Construcción de una tabla cruzada
 
 ```{r}
 #| label: tbl-ch15-tabla-cruzada
@@ -337,7 +351,7 @@ table(
 
 La tabla muestra la distribución conjunta de ambas variables.
 
-## Tabla cruzada con porcentajes
+### Tabla cruzada con porcentajes
 
 También podemos calcular porcentajes por fila.
 
@@ -359,7 +373,7 @@ prop.table(
 
 Estos porcentajes facilitan la comparación entre grupos.
 
-## Interpretación de tablas cruzadas
+### Interpretación de tablas cruzadas
 
 Las tablas cruzadas permiten responder preguntas como:
 
@@ -369,7 +383,7 @@ Las tablas cruzadas permiten responder preguntas como:
 
 Estas tablas constituyen la base de muchos análisis inferenciales posteriores.
 
-## Buenas prácticas en la construcción de tablas
+### Buenas prácticas en la construcción de tablas
 
 Al construir tablas descriptivas se recomienda:
 
@@ -382,7 +396,9 @@ Al construir tablas descriptivas se recomienda:
 
 Estas prácticas mejoran significativamente la comunicación de resultados [@cleveland1993].
 
-## Tablas descriptivas ponderadas
+## Ponderación y comparaciones
+
+### Tablas descriptivas ponderadas
 
 En el capítulo anterior aprendimos que las encuestas oficiales utilizan factores de expansión para representar adecuadamente a la población.
 
@@ -396,7 +412,7 @@ permite extrapolar los resultados de la muestra hacia la población objetivo.
 
 Por esta razón, muchas tablas descriptivas deben construirse utilizando ponderaciones [@groves2009].
 
-## ¿Por qué ponderar?
+### ¿Por qué ponderar?
 
 Supongamos que queremos estimar la distribución de las unidades productivas según tamaño.
 
@@ -423,7 +439,7 @@ base_analitica |>
 
 Esta tabla describe únicamente la muestra observada.
 
-## Distribución ponderada
+### Distribución ponderada
 
 Ahora incorporamos los factores de expansión.
 
@@ -460,7 +476,7 @@ base_analitica |>
 
 La diferencia entre ambas tablas refleja el efecto del diseño muestral.
 
-## Tablas descriptivas ponderadas por provincia
+### Tablas descriptivas ponderadas por provincia
 
 También podemos estimar la distribución territorial de la población.
 
@@ -490,7 +506,7 @@ base_analitica |>
 
 La tabla muestra las provincias con mayor representación dentro de la población estimada.
 
-## Medias ponderadas
+### Medias ponderadas
 
 Las ponderaciones también pueden utilizarse para estimar estadísticas descriptivas.
 
@@ -521,7 +537,9 @@ data.frame(
 
 Las diferencias observadas reflejan la importancia de considerar el diseño muestral durante el análisis.
 
-## Tablas profesionales con gt
+## Presentación y exportación
+
+### Tablas profesionales con gt
 
 Aunque `kable()` resulta muy útil, en proyectos profesionales suele requerirse un nivel adicional de presentación.
 
@@ -530,10 +548,9 @@ Para ello podemos utilizar el paquete `gt`.
 ```{r}
 #| label: ch15-cargar-gt
 
-library(gt)
 ```
 
-## Primera tabla con gt
+### Primera tabla con gt
 
 ```{r}
 #| label: tbl-ch15-primer-gt
@@ -551,7 +568,7 @@ base_analitica |>
 
 Observe cómo la presentación resulta más elegante y profesional.
 
-## Personalizando títulos
+### Personalizando títulos
 
 Podemos añadir subtítulos.
 
@@ -573,7 +590,7 @@ base_analitica |>
 
 Esta práctica es particularmente útil en informes institucionales.
 
-## Renombrando columnas
+### Renombrando columnas
 
 También podemos modificar los encabezados.
 
@@ -595,7 +612,7 @@ base_analitica |>
 
 Los nombres descriptivos mejoran considerablemente la legibilidad.
 
-## Formateando números
+### Formateando números
 
 Las tablas académicas suelen requerir un número consistente de decimales.
 
@@ -622,7 +639,7 @@ data.frame(
 
 Esta práctica facilita la interpretación de los resultados.
 
-## Tabla descriptiva profesional
+### Tabla descriptiva profesional
 
 Podemos combinar varias estadísticas en una sola tabla.
 
@@ -684,7 +701,7 @@ tabla_descriptiva |>
 
 Este tipo de tablas suele encontrarse en artículos científicos y reportes técnicos.
 
-## Exportación de tablas
+### Exportación de tablas
 
 Una ventaja importante de Quarto es que las tablas se exportan automáticamente.
 
@@ -700,7 +717,7 @@ las tablas mantienen su estructura y formato.
 
 Por ello no es necesario copiar resultados manualmente desde R hacia procesadores de texto.
 
-## Tablas y reproducibilidad
+### Tablas y reproducibilidad
 
 La construcción automática de tablas constituye uno de los pilares de la investigación reproducible [@peng2011; @gandrud2015].
 
@@ -716,7 +733,7 @@ Tablas actualizadas
 
 Todo el documento se actualiza automáticamente sin intervención manual.
 
-## Recomendaciones para artículos científicos
+### Recomendaciones para artículos científicos
 
 Antes de finalizar este capítulo conviene considerar algunas recomendaciones prácticas:
 

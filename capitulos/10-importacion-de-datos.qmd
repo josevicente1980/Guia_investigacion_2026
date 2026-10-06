@@ -1,5 +1,17 @@
 # Importación de datos con R
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("datos")
+sunac <- leer_objeto_libro("sunac.rds")
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar este capítulo, el lector será capaz de:
@@ -22,7 +34,7 @@ En el contexto de la investigación reproducible, importar datos implica estable
 
 A lo largo de este libro utilizaremos información oficial de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC) 2025, desarrollada por el Instituto Nacional de Estadística y Censos (INEC) del Ecuador. La ESPAC tiene como objetivo proporcionar información continua, confiable y oportuna sobre superficie sembrada, cosechada, producción, ventas, ganadería, aves y empleo agropecuario [@inec_manual_espac2025]. Además, la guía de uso de bases de datos de la encuesta describe su estructura, variables, factores de expansión y recomendaciones para el usuario [@inec_guia_espac2025].
 
-## La importancia de los datos en la investigación científica
+### La importancia de los datos en la investigación científica
 
 Los datos constituyen la materia prima de la investigación empírica. A partir de ellos los investigadores describen fenómenos, contrastan hipótesis, construyen indicadores y generan evidencia para la toma de decisiones.
 
@@ -105,10 +117,9 @@ Una vez instalados, cargamos los paquetes:
 ```{r} 
 #| label: cap10-cargar-librerias
 
-library(haven)
-library(readr)
-library(dplyr)
-library(here)
+
+
+
 ```
 
 El uso de `here()` es importante porque permite construir rutas desde la raíz del proyecto, evitando errores cuando los capítulos se encuentran dentro de subcarpetas. Este tipo de práctica fortalece la portabilidad del proyecto y evita depender de rutas absolutas asociadas a un computador específico [@wilson2017].
@@ -441,7 +452,7 @@ dim(glnac)
 
 En capítulos posteriores aprenderemos a integrar estos módulos mediante variables de identificación comunes. Esta integración permitirá construir bases analíticas más completas, incorporando información sobre características del productor, uso del suelo, empleo y producción agropecuaria.
 
-## Buenas prácticas de importación
+### Buenas prácticas de importación
 
 Al trabajar con datos oficiales se recomienda:
 
