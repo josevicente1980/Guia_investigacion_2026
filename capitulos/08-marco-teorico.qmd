@@ -142,9 +142,7 @@ En este caso la literatura se integra para construir una explicación coherente.
 
 La ciencia evoluciona constantemente. Por esta razón, se recomienda incorporar literatura reciente que refleje el estado actual del conocimiento.
 
-Aunque no existe una regla universal, muchas revistas científicas sugieren que una proporción importante de las referencias utilizadas provenga de los últimos cinco años [@creswell2022].
-
-No obstante, las obras clásicas continúan siendo indispensables cuando constituyen la base teórica del estudio.
+No existe una regla científica universal que obligue a que las referencias pertenezcan a una ventana temporal fija. La actualidad bibliográfica debe evaluarse según el campo, la pregunta de investigación y las exigencias editoriales aplicables. Las fuentes recientes son importantes para representar el estado actual del conocimiento, mientras que las obras clásicas deben conservarse cuando constituyen la base teórica, metodológica, normativa o histórica del estudio.
 
 ## Del problema al marco teórico
 
@@ -207,7 +205,7 @@ Los vacíos pueden surgir cuando:
 - Existen pocos estudios sobre un fenómeno.
 - Los resultados previos son contradictorios.
 - No existen investigaciones en determinados contextos geográficos.
-- Se han utilizado metodologías limitadas.
+- Persisten limitaciones metodológicas relevantes que dejan preguntas abiertas.
 - Han surgido nuevos fenómenos aún poco estudiados.
 
 Identificar estos vacíos permite justificar la necesidad de la investigación [@booth2024].
