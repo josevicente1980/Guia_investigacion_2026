@@ -16,7 +16,7 @@ Una vez identificado el problema y formulada la pregunta de investigación, el s
 
 Los objetivos representan la traducción operativa de la pregunta de investigación. Mientras la pregunta expresa una interrogante, los objetivos describen las acciones que permitirán responderla [@hernandezsampieri2018].
 
-Por su parte, las hipótesis constituyen proposiciones tentativas acerca de las relaciones esperadas entre variables y desempeñan un papel central en numerosos estudios cuantitativos [@creswell2018].
+Por su parte, las hipótesis constituyen proposiciones tentativas acerca de las relaciones esperadas entre variables y desempeñan un papel central en numerosos estudios cuantitativos [@creswell2022].
 
 La correcta formulación de objetivos e hipótesis resulta fundamental para garantizar la coherencia metodológica de toda investigación.
 
@@ -180,7 +180,7 @@ Las hipótesis cumplen varias funciones importantes:
 - Permiten contrastar teorías existentes.
 - Favorecen la interpretación de resultados.
 
-En investigaciones cuantitativas suelen ocupar un papel central, mientras que en muchos estudios cualitativos pueden no ser necesarias [@creswell2018].
+En investigaciones cuantitativas suelen ocupar un papel central, mientras que en muchos estudios cualitativos pueden no ser necesarias [@creswell2022].
 
 ## Tipos de hipótesis
 
@@ -257,7 +257,7 @@ Deben derivarse de:
 - Revisiones de literatura.
 - Resultados encontrados en investigaciones anteriores.
 
-Por esta razón, la construcción del marco teórico desempeña un papel fundamental en el desarrollo de hipótesis científicamente fundamentadas [@booth2016].
+Por esta razón, la construcción del marco teórico desempeña un papel fundamental en el desarrollo de hipótesis científicamente fundamentadas [@booth2024].
 
 ## Ejemplo integrador
 

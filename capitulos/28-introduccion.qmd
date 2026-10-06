@@ -14,7 +14,7 @@ Al finalizar este capítulo, el lector será capaz de:
 
 La introducción constituye una de las secciones más importantes de cualquier trabajo científico. Su propósito es explicar al lector qué problema será estudiado, por qué es relevante y cuál es la contribución esperada de la investigación [@swales2004].
 
-Una buena introducción debe conducir progresivamente desde el contexto general hacia el problema específico de investigación. El lector debe comprender claramente qué se conoce sobre el tema, qué vacíos existen en la literatura y cómo el estudio pretende contribuir a cerrar dichos vacíos [@creswell2018].
+Una buena introducción debe conducir progresivamente desde el contexto general hacia el problema específico de investigación. El lector debe comprender claramente qué se conoce sobre el tema, qué vacíos existen en la literatura y cómo el estudio pretende contribuir a cerrar dichos vacíos [@creswell2022].
 
 ## Configuración inicial
 

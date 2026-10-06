@@ -12,7 +12,7 @@ Al finalizar este capítulo, el lector será capaz de:
 
 ## Introducción
 
-La metodología describe cómo se desarrolló la investigación. Su propósito es permitir que otros investigadores comprendan, evalúen y reproduzcan el proceso seguido para obtener los resultados [@creswell2018].
+La metodología describe cómo se desarrolló la investigación. Su propósito es permitir que otros investigadores comprendan, evalúen y reproduzcan el proceso seguido para obtener los resultados [@creswell2022].
 
 Una metodología bien redactada debe responder tres preguntas fundamentales:
 

@@ -20,7 +20,7 @@ La calidad de una investigación depende en gran medida de la claridad con la qu
 
 ## ¿Qué es un problema de investigación?
 
-Un problema de investigación puede definirse como una situación, fenómeno o vacío de conocimiento que requiere ser explicado, comprendido o analizado mediante métodos científicos [@creswell2018].
+Un problema de investigación puede definirse como una situación, fenómeno o vacío de conocimiento que requiere ser explicado, comprendido o analizado mediante métodos científicos [@creswell2022].
 
 Los problemas de investigación surgen de múltiples fuentes:
 
@@ -45,7 +45,7 @@ Considere los siguientes ejemplos:
 
 El tema representa un campo amplio de estudio, mientras que el problema delimita una situación concreta susceptible de análisis científico.
 
-Una adecuada delimitación permite enfocar los esfuerzos de investigación y facilita la construcción del diseño metodológico posterior [@booth2016].
+Una adecuada delimitación permite enfocar los esfuerzos de investigación y facilita la construcción del diseño metodológico posterior [@booth2024].
 
 ## Características de un buen problema de investigación
 
@@ -85,13 +85,13 @@ Antes de definir un problema resulta indispensable revisar la evidencia científ
 - ¿Qué metodologías han sido utilizadas?
 - ¿Qué limitaciones presentan las investigaciones anteriores?
 
-La revisión de literatura permite identificar oportunidades reales de investigación y evita duplicar estudios ya realizados [@booth2016].
+La revisión de literatura permite identificar oportunidades reales de investigación y evita duplicar estudios ya realizados [@booth2024].
 
 ## ¿Qué es una pregunta de investigación?
 
 Una pregunta de investigación constituye la expresión formal del problema que se desea estudiar.
 
-Representa una interrogante específica que orienta todo el proceso investigativo y delimita el tipo de información que será necesaria para responderla [@creswell2018].
+Representa una interrogante específica que orienta todo el proceso investigativo y delimita el tipo de información que será necesaria para responderla [@creswell2022].
 
 La pregunta de investigación se convierte en el eje articulador de:
 
