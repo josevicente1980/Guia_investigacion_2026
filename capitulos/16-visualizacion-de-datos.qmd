@@ -51,6 +51,7 @@ Como este capítulo debe poder ejecutarse de forma independiente, comenzaremos c
 ```
 
 ```{r}
+#| eval: false
 #| label: ch16-cargar-base-analitica
 
 base_analitica <- readRDS(

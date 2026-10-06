@@ -168,6 +168,7 @@ Para importar el módulo de uso del suelo de la ESPAC 2025 utilizamos:
 
 ```{r} 
 #| label: cap10-importar-sunac
+#| eval: false
 
 sunac <- read_sav(
   here(
@@ -314,7 +315,8 @@ Además del formato SPSS, muchas instituciones distribuyen información en forma
 
 La importación se realiza mediante `read_csv()`:
 
-```{r} 
+```{r}
+#| eval: false
 #| label: cap10-importar-sunac-csv
 sunac_csv <- read_csv(
   here(
@@ -335,7 +337,8 @@ dim(sunac_csv)
 
 Y exploramos su estructura:
 
-```{r} 
+```{r}
+#| eval: false
 #| label: cap10-vista-general-sunac-csv
 glimpse(sunac_csv)
 ```
@@ -370,6 +373,7 @@ Una vez importados los datos, resulta conveniente almacenarlos en un formato nat
 
 ```{r} 
 #| label: cap10-guardar-sunac-rds
+#| eval: false
 saveRDS(
   sunac,
   here("datos", "procesado", "ESPAC_2025", "sunac.rds")
@@ -380,6 +384,7 @@ Posteriormente podremos recuperarlos mediante:
 
 ```{r} 
 #| label: cap10-cargar-sunac-rds
+#| eval: false
 sunac_rds <- readRDS(
   here("datos", "procesado", "ESPAC_2025", "sunac.rds")
 )
@@ -426,7 +431,8 @@ Este tipo de inventario permite documentar claramente qué archivos forman parte
 
 Una vez identificados los archivos disponibles, podríamos importar distintos módulos de la ESPAC.
 
-```{r} 
+```{r}
+#| eval: false
 #| label: cap10-importar-bases-complementarias
 cgnac <- read_sav(
   here("datos", "original", "ESPAC_2025", "spss", "cgnac2025.sav")
@@ -443,7 +449,8 @@ glnac <- read_sav(
 
 Podemos revisar sus dimensiones:
 
-```{r} 
+```{r}
+#| eval: false
 #| label: cap10-dimensiones-bases-complementarias
 dim(cgnac)
 dim(eunac)

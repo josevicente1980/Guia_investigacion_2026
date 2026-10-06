@@ -50,6 +50,7 @@ En este capítulo utilizaremos la base analítica construida a partir de la Encu
 ### Cargando la base analítica
 
 ```{r}
+#| eval: false
 #| label: ch17-cargar-base
 
 base_analitica <- readRDS(
@@ -465,7 +466,7 @@ Al construir figuras destinadas a publicaciones se recomienda:
 - Garantizar reproducibilidad.
 - Conservar una misma línea gráfica en todo el documento.
 
-## Manos a la obra
+### Manos a la obra
 
 Utilizando la base `base_analitica`:
 
@@ -1250,7 +1251,7 @@ Exportación
 Publicación
 ```
 
-### Manos a la obra
+## Manos a la obra
 
 Utilizando la base `base_analitica`:
 

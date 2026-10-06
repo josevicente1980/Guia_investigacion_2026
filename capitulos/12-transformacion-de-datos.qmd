@@ -654,6 +654,7 @@ Una vez finalizado el proceso de transformación es recomendable almacenar la ba
 
 ```{r} 
 #| label: cap12-guardar-base-analitica
+#| eval: false
 saveRDS(
   base_analitica,
   here(
@@ -671,6 +672,7 @@ Posteriormente podremos recuperar la información mediante:
 
 ```{r} 
 #| label: cap12-verificar-base-analitica
+#| eval: false
 base_analitica <- readRDS(
   here(
     "datos",
