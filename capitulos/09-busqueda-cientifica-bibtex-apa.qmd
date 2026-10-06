@@ -15,7 +15,7 @@ Al finalizar este capítulo, el lector será capaz de:
 
 La calidad de una investigación depende en gran medida de la calidad de la literatura científica que la sustenta. Un problema metodológicamente sólido puede perder relevancia si se fundamenta en información incompleta, desactualizada o poco confiable.
 
-Por esta razón, la búsqueda de literatura científica constituye una de las etapas más importantes del proceso investigativo. No se trata únicamente de encontrar artículos relacionados con un tema, sino de identificar evidencia científica rigurosa que permita comprender el estado actual del conocimiento y justificar la necesidad de nuevas investigaciones [@booth2016].
+Por esta razón, la búsqueda de literatura científica constituye una de las etapas más importantes del proceso investigativo. No se trata únicamente de encontrar artículos relacionados con un tema, sino de identificar evidencia científica rigurosa que permita comprender el estado actual del conocimiento y justificar la necesidad de nuevas investigaciones [@booth2024].
 
 La creciente producción científica mundial ha convertido esta tarea en un desafío cada vez más complejo. Miles de artículos son publicados diariamente en múltiples disciplinas, idiomas y formatos. Ante este escenario, los investigadores necesitan herramientas que les permitan localizar, organizar y gestionar grandes volúmenes de información de manera eficiente.
 
@@ -23,7 +23,7 @@ La creciente producción científica mundial ha convertido esta tarea en un desa
 
 Una revisión de literatura rigurosa no consiste en buscar algunos artículos en Internet y citarlos dentro de un documento.
 
-La búsqueda científica debe desarrollarse de manera sistemática, transparente y reproducible.
+La búsqueda científica debe desarrollarse de manera sistemática, transparente y reproducible. La literatura metodológica reciente insiste además en documentar el alcance, las bases consultadas, las estrategias de búsqueda, los filtros y las decisiones de selección para que el proceso pueda evaluarse y reproducirse [@gusenbauer2025].
 
 Kitchenham y Charters destacan que una búsqueda sistemática debe permitir identificar la evidencia relevante minimizando sesgos y maximizando la cobertura de información disponible [@kitchenham2007].
 
@@ -129,7 +129,7 @@ AND
 (financial performance OR liquidity)
 ```
 
-Los operadores booleanos permiten mejorar significativamente la precisión de las búsquedas [@booth2016].
+Los operadores booleanos permiten mejorar significativamente la precisión de las búsquedas [@booth2024].
 
 ### Operador AND
 

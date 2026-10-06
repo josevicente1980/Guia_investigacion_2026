@@ -19,7 +19,7 @@ Una vez que los datos han sido importados y limpiados, el siguiente paso consist
 
 Las bases de datos originales suelen contener variables diseñadas para procesos de captura, validación y almacenamiento de información. Sin embargo, estas variables no siempre resultan adecuadas para el análisis estadístico o econométrico.
 
-La transformación de datos constituye el proceso mediante el cual los datos originales se convierten en variables analíticas capaces de describir fenómenos, construir indicadores, contrastar hipótesis y estimar modelos estadísticos [@wickham2014; @peng2020].
+La transformación de datos constituye el proceso mediante el cual los datos originales se convierten en variables analíticas capaces de describir fenómenos, construir indicadores, contrastar hipótesis y estimar modelos estadísticos [@wickham2014; @peng2020; @wickham2023r4ds].
 
 En investigación reproducible todas las transformaciones deben realizarse mediante código documentado, evitando modificaciones manuales sobre los archivos originales [@peng2011; @gandrud2015].
 

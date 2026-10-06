@@ -13,6 +13,8 @@ Al finalizar este capítulo, el lector será capaz de:
 
 ## Introducción
 
+La gestión contemporánea de la calidad de datos exige considerar no solo exactitud y completitud, sino también trazabilidad, sesgos y control a lo largo del ciclo de vida de la información [@yu2024].
+
 Toda investigación científica depende de la calidad de los datos utilizados para producir evidencia. La calidad de los datos constituye uno de los pilares fundamentales de toda investigación reproducible. Un análisis estadístico sofisticado no puede compensar deficiencias importantes en la información de entrada. Por esta razón, la evaluación de la calidad de los datos constituye una etapa fundamental dentro del proceso de investigación reproducible [@wang1996; @pipino2002].
 
 En términos generales, la calidad de los datos hace referencia al grado en que la información resulta adecuada para el propósito para el cual será utilizada. Un conjunto de datos puede ser técnicamente correcto y, sin embargo, no ser suficientemente completo, consistente o preciso para responder determinadas preguntas de investigación [@redman1998].

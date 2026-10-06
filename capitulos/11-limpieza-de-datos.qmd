@@ -15,7 +15,7 @@ Al finalizar este capítulo, el lector será capaz de:
 
 Una de las ideas más extendidas entre estudiantes e investigadores noveles consiste en pensar que la limpieza de datos equivale a corregir errores o eliminar observaciones problemáticas. Sin embargo, la realidad es mucho más compleja. Limpiar datos no significa modificar los datos hasta que "se vean bien"; significa identificar, documentar y justificar cada transformación realizada.
 
-La limpieza de datos constituye un proceso sistemático orientado a comprender la estructura de una base de datos, identificar posibles inconsistencias y documentar las transformaciones necesarias para preparar la información para su análisis posterior [@wickham2014; @dasu2003].
+La limpieza de datos constituye un proceso sistemático orientado a comprender la estructura de una base de datos, identificar posibles inconsistencias y documentar las transformaciones necesarias para preparar la información para su análisis posterior [@wickham2014; @dasu2003; @kopra2024].
 
 En investigación reproducible, ninguna modificación debe realizarse sin dejar evidencia de las decisiones tomadas. Por esta razón, la limpieza de datos no es únicamente una actividad técnica, sino también un ejercicio de transparencia metodológica [@peng2011; @gandrud2015].
 
