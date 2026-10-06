@@ -2,6 +2,15 @@ version_registro: "2026-10-05"
 proposito: "Fuentes obligatorias para preparación editorial, paquete de envío y carga OMP"
 
 fuentes:
+  - id: UNL_DIRECTRICES_WEB
+    tipo: fuente_oficial_vigente
+    url: "https://libros.unl.edu.ec/index.php/editorial-unl/about/submissions"
+    fecha_verificacion: "2026-10-05"
+    organismo: "Editorial Universitaria - Universidad Nacional de Loja"
+    uso: "Requisitos vigentes de propuesta, expediente, manuscrito, referencias, tablas, figuras, declaración de IA y checklist de envío"
+    obligatoria: true
+    prioridad: 1
+
   - id: UNL_OMP_INSTRUCTIVO
     tipo: documento_oficial
     archivo_original: "5_3_1_Instructivo_OMP_Registro_EnvíoObra_V1.pdf"
@@ -17,6 +26,7 @@ fuentes:
     organismo: "Universidad Nacional de Loja"
     uso: "Estructura, tamaño, márgenes, títulos, tablas, figuras, ecuaciones y elementos preliminares"
     obligatoria: true
+    nota: "Aplicar solo si la tipología final de la obra corresponde a esta plantilla. La tipología debe resolverse antes de fijar tamaño y estilos finales."
 
   - id: UNL_CESION_DERECHOS
     tipo: formulario_oficial
@@ -40,15 +50,16 @@ fuentes:
     obligatoria: true
 
   - id: UNED_DECLARACION_IA
-    tipo: buena_practica_complementaria
+    tipo: fuente_metodologica_complementaria
     url: "https://investigauned.uned.es/como-declarar-el-uso-de-ia-en-trabajos-academicos/"
     fecha_publicacion: "2025-05-14"
     organismo: "Investiga UNED"
-    uso: "Transparencia en la declaración del uso de herramientas de IA"
+    uso: "Marco complementario para documentar de forma transparente el uso de herramientas de IA"
     obligatoria: false
-    nota: "Aplicar como complemento salvo que la Editorial UNL publique una política específica más reciente."
+    nota: "La obligación de declarar IA proviene actualmente de las directrices oficiales UNL; esta fuente complementa el contenido de la declaración."
 
 regla_actualizacion:
-  - "Verificar vigencia de requisitos UNL antes del envío definitivo."
+  - "Verificar vigencia de las directrices web UNL inmediatamente antes del envío definitivo."
   - "Si una fuente oficial cambia, actualizar este registro y la checklist en el mismo commit."
   - "No sustituir una fuente oficial por una recomendación generada por IA."
+  - "No fijar tamaño, plantilla o tipología editorial sin confirmar la categoría final de la obra."

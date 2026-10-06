@@ -4,13 +4,13 @@
 **URL:** https://investigauned.uned.es/como-declarar-el-uso-de-ia-en-trabajos-academicos/  
 **Fecha de la entrada:** 2025-05-14.
 
-## Finalidad
+## Relación con la política UNL vigente
 
-Adoptar una práctica transparente y verificable de declaración del uso de inteligencia artificial cuando haya intervenido en la preparación de la obra, siempre subordinada a cualquier política específica y más reciente de la Editorial UNL.
+Las directrices oficiales de la Editorial Universitaria de la UNL, verificadas el 2026-10-05, exigen una declaración de uso de herramientas de inteligencia artificial cuando hayan sido empleadas en la preparación del manuscrito. La UNL indica que debe ubicarse al final del documento, después de las referencias bibliográficas, y remite al marco AID descrito por Investiga UNED.
 
-## Estructura recomendada
+Por tanto, esta fuente deja de ser el fundamento de la obligación editorial: la obligación proviene de la UNL. Investiga UNED se conserva como apoyo metodológico para estructurar una declaración transparente.
 
-La declaración debería documentar:
+## Contenido que debe documentarse
 
 1. herramienta utilizada;
 2. propósito del uso;
@@ -23,6 +23,6 @@ La declaración debería documentar:
 
 La IA actúa únicamente como apoyo. Los autores conservan la responsabilidad por el contenido final. Ningún resultado, referencia, interpretación o afirmación debe incorporarse sin revisión crítica y, cuando corresponda, verificación contra fuentes académicas o datos reproducibles.
 
-## Ubicación provisional
+## Ubicación
 
-Como buena práctica, puede prepararse una declaración al final de la obra, después de las referencias, salvo que la Editorial UNL indique una ubicación o formato diferente.
+Preparar la declaración al final de la obra, después de las referencias bibliográficas, conforme a las directrices UNL vigentes.
