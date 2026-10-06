@@ -174,8 +174,19 @@ Cada uno de estos elementos será interpretado en las siguientes secciones.
 broom::tidy(
   modelo_simple
 ) |>
+  select(
+    term,
+    estimate,
+    std.error,
+    statistic,
+    p.value
+  ) |>
+  setNames(
+    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Coeficientes estimados del modelo"
   )
 ```

@@ -284,7 +284,7 @@ Esta práctica permite detectar rápidamente posibles problemas de importación.
 Toda base de datos contiene distintos tipos de variables.
 
 | Tipo        | Descripción                                 |
-| ----------- | ------------------------------------------- |
+| :---------- | :------------------------------------------ |
 | `numeric`   | Valores numéricos                           |
 | `character` | Texto                                       |
 | `factor`    | Categorías                                  |

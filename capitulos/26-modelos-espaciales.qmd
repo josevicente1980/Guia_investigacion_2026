@@ -239,8 +239,19 @@ modelo_sar <- lagsarlm(
 broom::tidy(
   modelo_sar
 ) |>
+  select(
+    term,
+    estimate,
+    std.error,
+    statistic,
+    p.value
+  ) |>
+  setNames(
+    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Modelo SAR"
   )
 ```
@@ -415,8 +426,19 @@ modelo_lm <- lm(
 tidy(
   modelo_lm
 ) |>
+  select(
+    term,
+    estimate,
+    std.error,
+    statistic,
+    p.value
+  ) |>
+  setNames(
+    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Modelo lineal tradicional"
   )
 ```
@@ -449,8 +471,19 @@ tidy(
   modelo_ml,
   effects = "fixed"
 ) |>
+  select(
+    term,
+    estimate,
+    std.error,
+    statistic,
+    p.value
+  ) |>
+  setNames(
+    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Coeficientes fijos"
   )
 ```
@@ -776,8 +809,19 @@ modelo_lm_sfa <- lm(
 broom::tidy(
   modelo_lm_sfa
 ) |>
+  select(
+    term,
+    estimate,
+    std.error,
+    statistic,
+    p.value
+  ) |>
+  setNames(
+    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Función de producción convencional"
   )
 ```

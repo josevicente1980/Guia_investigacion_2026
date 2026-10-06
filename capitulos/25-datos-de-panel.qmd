@@ -422,8 +422,19 @@ modelo_pooled <- plm(
 tidy(
   modelo_pooled
 ) |>
+  select(
+    term,
+    estimate,
+    std.error,
+    statistic,
+    p.value
+  ) |>
+  setNames(
+    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Modelo pooled OLS"
   )
 ```
@@ -493,8 +504,19 @@ modelo_fe <- plm(
 tidy(
   modelo_fe
 ) |>
+  select(
+    term,
+    estimate,
+    std.error,
+    statistic,
+    p.value
+  ) |>
+  setNames(
+    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Modelo de efectos fijos"
   )
 ```
@@ -594,8 +616,19 @@ modelo_re <- plm(
 tidy(
   modelo_re
 ) |>
+  select(
+    term,
+    estimate,
+    std.error,
+    statistic,
+    p.value
+  ) |>
+  setNames(
+    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Modelo de efectos aleatorios"
   )
 ```
@@ -653,6 +686,7 @@ coef_pooled |>
   ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r"),
     caption = "Comparación de coeficientes"
   )
 ```
@@ -915,8 +949,19 @@ Para fines pedagógicos continuaremos utilizando el modelo de efectos fijos.
 tidy(
   modelo_fe
 ) |>
+  select(
+    term,
+    estimate,
+    std.error,
+    statistic,
+    p.value
+  ) |>
+  setNames(
+    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Coeficientes finales del modelo"
   )
 ```

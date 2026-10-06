@@ -211,8 +211,19 @@ modelo_logit <- glm(
 tidy(
   modelo_logit
 ) |>
+  select(
+    term,
+    estimate,
+    std.error,
+    statistic,
+    p.value
+  ) |>
+  setNames(
+    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Coeficientes del modelo Logit"
   )
 ```
@@ -474,8 +485,19 @@ Esta transformación permite modelar probabilidades mediante una combinación li
 tidy(
   modelo_logit
 ) |>
+  select(
+    term,
+    estimate,
+    std.error,
+    statistic,
+    p.value
+  ) |>
+  setNames(
+    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Coeficientes estimados"
   )
 ```
@@ -853,8 +875,19 @@ Ambos garantizan probabilidades válidas entre 0 y 1.
 tidy(
   modelo_probit
 ) |>
+  select(
+    term,
+    estimate,
+    std.error,
+    statistic,
+    p.value
+  ) |>
+  setNames(
+    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Coeficientes estimados del modelo Probit"
   )
 ```
@@ -897,6 +930,7 @@ left_join(
 ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r"),
     caption = "Comparación de coeficientes"
   )
 ```
