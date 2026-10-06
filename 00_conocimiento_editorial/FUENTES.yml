@@ -1,0 +1,54 @@
+version_registro: "2026-10-05"
+proposito: "Fuentes obligatorias para preparación editorial, paquete de envío y carga OMP"
+
+fuentes:
+  - id: UNL_OMP_INSTRUCTIVO
+    tipo: documento_oficial
+    archivo_original: "5_3_1_Instructivo_OMP_Registro_EnvíoObra_V1.pdf"
+    version: "1.0"
+    fecha_aprobacion: "2026-02-19"
+    organismo: "Editorial Universitaria - Universidad Nacional de Loja"
+    uso: "Preparación del expediente, registro, carga de archivos, colaboradores, revisores y envío final OMP"
+    obligatoria: true
+
+  - id: UNL_PLANTILLA_MONOGRAFIA
+    tipo: plantilla_oficial
+    archivo_original: "[2] UNL - Monografía Colectiva- Autores por Capítulo.pdf"
+    organismo: "Universidad Nacional de Loja"
+    uso: "Estructura, tamaño, márgenes, títulos, tablas, figuras, ecuaciones y elementos preliminares"
+    obligatoria: true
+
+  - id: UNL_CESION_DERECHOS
+    tipo: formulario_oficial
+    archivo_original: "01_UNL-CE_CesionDerechos.docx"
+    organismo: "Comisión Evaluadora de Propiedad Intelectual - UNL"
+    uso: "Cesión de derechos patrimoniales y declaración de originalidad"
+    obligatoria: true
+
+  - id: UNL_SOLICITUD_PUBLICACION
+    tipo: formulario_oficial
+    archivo_original: "02_V2_UNL-CE_SolicitudEditorialPubl.docx"
+    organismo: "Editorial Universitaria - UNL"
+    uso: "Solicitud institucional de inicio de gestión editorial"
+    obligatoria: true
+
+  - id: UNL_FORMULARIO_PRESENTACION
+    tipo: formulario_oficial
+    archivo_original: "03_V2_UNL-CE_Formulario_Presentación.xlsx"
+    organismo: "Editorial Universitaria - UNL"
+    uso: "Metadatos de la propuesta, autores y autor de correspondencia"
+    obligatoria: true
+
+  - id: UNED_DECLARACION_IA
+    tipo: buena_practica_complementaria
+    url: "https://investigauned.uned.es/como-declarar-el-uso-de-ia-en-trabajos-academicos/"
+    fecha_publicacion: "2025-05-14"
+    organismo: "Investiga UNED"
+    uso: "Transparencia en la declaración del uso de herramientas de IA"
+    obligatoria: false
+    nota: "Aplicar como complemento salvo que la Editorial UNL publique una política específica más reciente."
+
+regla_actualizacion:
+  - "Verificar vigencia de requisitos UNL antes del envío definitivo."
+  - "Si una fuente oficial cambia, actualizar este registro y la checklist en el mismo commit."
+  - "No sustituir una fuente oficial por una recomendación generada por IA."
