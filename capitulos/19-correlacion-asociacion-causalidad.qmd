@@ -517,6 +517,8 @@ Utilizando la base `base_correlacion`:
 
 ## Parte 3. Correlación no implica causalidad
 
+La inferencia causal moderna exige explicitar el diseño, los supuestos de identificación y las fuentes potenciales de sesgo antes de interpretar una asociación como un efecto causal [@imbens2024].
+
 ## Introducción
 
 Una de las advertencias más importantes en investigación cuantitativa es que una asociación estadística no demuestra causalidad. Dos variables pueden estar correlacionadas y, aun así, no existir una relación causal directa entre ellas [@pearl2018; @hernan2020].

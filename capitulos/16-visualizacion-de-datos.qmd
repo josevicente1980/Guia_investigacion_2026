@@ -14,7 +14,7 @@ Al finalizar este capítulo, el lector será capaz de:
 
 ## Introducción
 
-La visualización de datos constituye una de las herramientas más importantes dentro del análisis estadístico moderno. Mientras que las tablas permiten resumir información numérica, los gráficos facilitan la identificación de patrones, tendencias, valores atípicos y relaciones entre variables de forma mucho más intuitiva [@wickham2016].
+La visualización de datos constituye una de las herramientas más importantes dentro del análisis estadístico moderno. Mientras que las tablas permiten resumir información numérica, los gráficos facilitan la identificación de patrones, tendencias, valores atípicos y relaciones entre variables de forma mucho más intuitiva [@wickham2016; @wickham2023r4ds].
 
 En investigación científica, la visualización no debe entenderse únicamente como un elemento estético. Un gráfico correctamente diseñado permite explorar los datos, generar hipótesis y comunicar resultados de manera clara y efectiva [@wilkinson2005].
 
@@ -808,7 +808,7 @@ La visualización debe ayudar a comprender los datos, no complicar innecesariame
 
 ## Visualizaciones territoriales: de tablas planas a mapas inteligentes
 
-Los datos territoriales permiten pasar de una tabla tradicional a una representación espacial del fenómeno estudiado. Cuando una base contiene provincias, cantones, coordenadas o cualquier referencia geográfica, es posible construir mapas que ayuden a identificar patrones regionales, concentraciones y diferencias espaciales [@lovelace2019].
+Los datos territoriales permiten pasar de una tabla tradicional a una representación espacial del fenómeno estudiado. Cuando una base contiene provincias, cantones, coordenadas o cualquier referencia geográfica, es posible construir mapas que ayuden a identificar patrones regionales, concentraciones y diferencias espaciales [@lovelace2025].
 
 En esta sección construiremos una introducción práctica al análisis espacial en R utilizando Ecuador como referencia. El objetivo no es desarrollar todavía un análisis espacial avanzado, sino comprender la lógica básica de los mapas estáticos, los puntos georreferenciados, los sistemas de coordenadas, los buffers y los mapas interactivos.
 
