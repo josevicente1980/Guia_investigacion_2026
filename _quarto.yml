@@ -94,7 +94,7 @@ format:
   docx:
     toc: true
     toc-title: "Contenido"
-    toc-depth: 3
+    toc-depth: 2
     number-sections: true
     number-depth: 3
     fig-cap-location: bottom

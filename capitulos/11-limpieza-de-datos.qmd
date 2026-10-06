@@ -21,7 +21,9 @@ En investigación reproducible, ninguna modificación debe realizarse sin dejar 
 
 A lo largo de este capítulo trabajaremos con información real de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC) 2025.
 
-## ¿Por qué limpiar datos?
+## Diagnóstico antes de transformar
+
+### ¿Por qué limpiar datos?
 
 Diversos estudios han demostrado que una parte importante del tiempo invertido en proyectos de análisis de datos se concentra en actividades relacionadas con la preparación de la información [@dasu2003].
 
@@ -36,7 +38,7 @@ Antes de estimar modelos estadísticos o construir indicadores es necesario veri
 
 Cuando estas verificaciones no se realizan adecuadamente, los resultados obtenidos pueden conducir a interpretaciones erróneas.
 
-## Calidad de datos e investigación reproducible
+### Calidad de datos e investigación reproducible
 
 La calidad de los datos constituye uno de los pilares fundamentales de la investigación científica.
 
@@ -52,7 +54,7 @@ La reproducibilidad requiere que todas las transformaciones realizadas sobre la 
 
 Por esta razón, nunca se recomienda modificar manualmente una base de datos descargada desde una fuente oficial.
 
-## Cargando la base de trabajo
+### Cargando la base de trabajo
 
 Trabajaremos con el módulo de uso del suelo de la ESPAC 2025.
 
@@ -76,7 +78,7 @@ sunac <- read_sav(
 )
 ```
 
-## Diagnóstico inicial de la base
+### Diagnóstico inicial de la base
 
 Antes de limpiar una base de datos es necesario comprender sus dimensiones generales.
 
@@ -94,7 +96,7 @@ data.frame(
 
 La ESPAC contiene decenas de miles de observaciones y múltiples variables asociadas al uso del suelo, tenencia y superficie agropecuaria.
 
-## Exploración general de la base
+### Exploración general de la base
 
 Una primera inspección puede realizarse mediante:
 
@@ -119,7 +121,7 @@ glimpse(sunac)
 
 Esta función muestra el tipo de dato de cada variable y facilita la identificación de variables categóricas, continuas y etiquetadas.
 
-## Observaciones y unidades de análisis
+### Observaciones y unidades de análisis
 
 Uno de los errores más frecuentes consiste en asumir que cada fila representa una unidad productiva independiente.
 
@@ -141,7 +143,7 @@ Si ambas cantidades son diferentes, significa que una misma unidad productiva pu
 
 Esto ocurre en la ESPAC porque un productor puede registrar múltiples usos del suelo dentro de una misma unidad de producción agropecuaria.
 
-## Identificando registros por productor
+### Identificando registros por productor
 
 Podemos examinar cuántas veces aparece cada identificador.
 
@@ -153,11 +155,13 @@ sunac |>
   head(10)
 ```
 
-La existencia de múltiples registros por identificador no implica necesariamente un error.
+La existencia de múltiples registros por identificador no implica necesariamente un error. Antes de hablar de duplicados debe distinguirse entre una fila repetida por equivocación y varios registros válidos asociados a una misma unidad de análisis.
 
 Antes de eliminar registros es indispensable comprender la estructura metodológica de la encuesta [@groves2009].
 
-## Valores perdidos
+## Valores perdidos y variables etiquetadas
+
+### Valores perdidos
 
 Los valores perdidos constituyen una característica habitual de las bases de datos reales.
 
@@ -178,7 +182,7 @@ El resultado muestra las variables con mayor cantidad de valores perdidos.
 
 Sin embargo, no todos los valores perdidos representan errores.
 
-## ¿Todos los NA son errores?
+### ¿Todos los NA son errores?
 
 La respuesta es no.
 
@@ -192,7 +196,7 @@ Por ejemplo:
 
 Por esta razón, numerosos NA representan respuestas estructuralmente inexistentes y no errores de captura [@groves2009].
 
-## Perfil de valores perdidos
+### Perfil de valores perdidos
 
 Podemos calcular el porcentaje de valores perdidos por variable.
 
@@ -212,7 +216,7 @@ sort(
 
 Esta información resulta útil para evaluar la calidad y cobertura de cada variable.
 
-## Variables etiquetadas provenientes de SPSS
+### Variables etiquetadas provenientes de SPSS
 
 Una característica importante de las bases importadas mediante `haven` es la conservación de etiquetas.
 
@@ -240,7 +244,7 @@ attributes(sunac$su_tenencia)$labels
 
 Estas etiquetas permiten interpretar adecuadamente las categorías originales.
 
-## Conversión de variables etiquetadas
+### Conversión de variables etiquetadas
 
 Para facilitar el análisis estadístico transformaremos la variable a factor.
 
@@ -262,7 +266,7 @@ class(sunac$su_tenencia)
 
 Ahora la variable puede utilizarse fácilmente en tablas y gráficos.
 
-## Distribución de la forma de tenencia
+### Distribución de la forma de tenencia
 
 Una vez convertida la variable podemos examinar su distribución.
 
@@ -276,7 +280,9 @@ sunac |>
 
 Esta tabla permite identificar cuáles son las formas predominantes de tenencia de la tierra registradas por la encuesta.
 
-## Detección de registros duplicados
+## Duplicados y valores extremos
+
+### Detección de registros duplicados
 
 Podemos verificar si existen registros completamente duplicados.
 
@@ -287,7 +293,7 @@ sum(duplicated(sunac))
 
 En caso de existir duplicados exactos, será necesario evaluar si corresponden a errores de captura o a características propias de la estructura de la base.
 
-## Detección de valores extremos
+### Detección de valores extremos
 
 Los valores extremos constituyen otra fuente frecuente de preocupación.
 
@@ -310,7 +316,7 @@ Los valores extremos no deben eliminarse automáticamente.
 
 Primero deben contrastarse con la documentación metodológica y el contexto de estudio [@wilson2017].
 
-## Explorando la superficie total
+### Explorando la superficie total
 
 Analicemos la variable de superficie total.
 
@@ -321,7 +327,7 @@ summary(sunac$supertotal)
 
 Los resultados permiten identificar la dispersión de la información y posibles observaciones atípicas.
 
-## Visualización de valores extremos
+### Visualización de valores extremos
 
 Los diagramas de caja permiten identificar observaciones alejadas del comportamiento general.
 
@@ -337,7 +343,7 @@ Los puntos alejados de la caja representan posibles valores extremos.
 
 La presencia de estos valores no implica necesariamente errores.
 
-## Identificación de observaciones extremas
+### Identificación de observaciones extremas
 
 Podemos localizar las observaciones con mayores superficies.
 
@@ -354,7 +360,9 @@ sunac |>
 
 Este procedimiento facilita la revisión individual de observaciones potencialmente atípicas.
 
-## Construcción de una base procesada
+## Conservación y trazabilidad
+
+### Construcción de una base procesada
 
 Una vez completado el diagnóstico inicial podemos almacenar una versión procesada de la base.
 
@@ -373,7 +381,7 @@ saveRDS(
 
 La conservación de versiones procesadas evita repetir tareas y garantiza trazabilidad sobre los cambios realizados [@gandrud2015].
 
-## Documentando transformaciones
+### Documentando transformaciones
 
 Toda modificación realizada sobre una base de datos debe quedar documentada.
 

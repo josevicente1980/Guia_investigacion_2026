@@ -30,7 +30,9 @@ Sin embargo, disponer de datos no garantiza automáticamente la calidad de una i
 
 En el caso de encuestas oficiales, esta comprensión requiere revisar no solo la base de datos, sino también los documentos metodológicos, cuestionarios, diccionarios de variables y guías de uso. En la ESPAC 2025, por ejemplo, el manual del encuestador describe los capítulos del cuestionario, incluyendo uso del suelo, cultivos, ganadería, empleo, ambiente, financiamiento, ingresos y costos en finca [@inec_manual_espac2025].
 
-## Organización de los datos dentro del proyecto
+## Fuente y organización de los datos
+
+### Organización de los datos dentro del proyecto
 
 Uno de los principios fundamentales de la investigación reproducible consiste en separar claramente los datos originales de los datos transformados durante el análisis [@wilson2017]. Esta separación evita alterar accidentalmente la información descargada desde la fuente oficial y permite reconstruir el proceso de trabajo desde el inicio.
 
@@ -53,7 +55,7 @@ La carpeta `original` contiene los archivos descargados directamente desde el po
 
 La carpeta `procesado` almacenará los objetos generados durante las etapas de limpieza, transformación y análisis. Esta práctica permite mantener una distinción clara entre datos fuente y datos derivados, principio coherente con las buenas prácticas de computación científica reproducible [@wilson2017; @broman2018].
 
-## Conociendo la ESPAC 2025
+### Conociendo la ESPAC 2025
 
 Antes de importar cualquier archivo es importante comprender qué información contiene la encuesta. La metodología oficial de la ESPAC 2025 describe la operación estadística, su marco conceptual, diseño muestral, recolección, procesamiento y análisis de resultados [@inec_metodologia_espac2025].
 
@@ -81,7 +83,9 @@ sunac2025.sav
 
 Este módulo contiene información relacionada con uso del suelo y superficie agropecuaria, por lo que resulta adecuado para iniciar el proceso de importación y exploración de datos.
 
-## Instalación y carga de paquetes
+## Preparación e importación
+
+### Instalación y carga de paquetes
 
 Para importar datos utilizaremos principalmente los paquetes `haven`, `readr`, `dplyr` y `here`.
 
@@ -109,7 +113,7 @@ library(here)
 
 El uso de `here()` es importante porque permite construir rutas desde la raíz del proyecto, evitando errores cuando los capítulos se encuentran dentro de subcarpetas. Este tipo de práctica fortalece la portabilidad del proyecto y evita depender de rutas absolutas asociadas a un computador específico [@wilson2017].
 
-## Verificando la ubicación de los archivos
+### Verificando la ubicación de los archivos
 
 Antes de importar información, siempre es recomendable verificar que los archivos se encuentran disponibles en la carpeta esperada.
 
@@ -145,7 +149,7 @@ list.files(
 
 Estos comandos permiten verificar que la estructura del proyecto está completa y que los insumos necesarios para trabajar con la ESPAC 2025 se encuentran correctamente ubicados.
 
-## Importando archivos SPSS
+### Importando archivos SPSS
 
 Una gran cantidad de encuestas oficiales se distribuyen en formato SPSS (`.sav`). Este formato permite conservar metadatos útiles, como etiquetas de variables y etiquetas de valores.
 
@@ -167,7 +171,9 @@ sunac <- read_sav(
 
 El objeto `sunac` contiene ahora la información almacenada en el archivo original. La importación mediante código permite que este procedimiento pueda repetirse cuantas veces sea necesario, manteniendo trazabilidad sobre la fuente utilizada [@peng2011].
 
-## Explorando las dimensiones de la base
+## Primera revisión de la base
+
+### Explorando las dimensiones de la base
 
 Una de las primeras preguntas que debemos responder es cuántas observaciones y variables contiene la base.
 
@@ -190,7 +196,7 @@ ncol(sunac)
 
 Estos resultados permiten dimensionar el tamaño del archivo y verificar si la importación fue exitosa.
 
-## Explorando los nombres de las variables
+### Explorando los nombres de las variables
 
 Para conocer las variables disponibles utilizamos:
 
@@ -218,7 +224,7 @@ fact_exp_fin
 
 Estas variables serán importantes en capítulos posteriores, especialmente cuando integremos distintos módulos de la ESPAC.
 
-## Explorando la estructura de la base
+### Explorando la estructura de la base
 
 Una de las funciones más útiles durante las primeras etapas del análisis es `str()`.
 
@@ -243,7 +249,7 @@ glimpse(sunac)
 
 Esta función ofrece una visualización más compacta y amigable para bases con muchas variables.
 
-## Visualizando las primeras observaciones
+### Visualizando las primeras observaciones
 
 Antes de iniciar cualquier análisis es recomendable inspeccionar visualmente los datos.
 
@@ -261,7 +267,7 @@ head(sunac, 10)
 
 Esta práctica permite detectar rápidamente posibles problemas de importación. En trabajos con datos reales, una inspección inicial suele revelar nombres de variables poco descriptivos, valores codificados, etiquetas heredadas del software original o inconsistencias que deberán abordarse durante la limpieza de datos [@wickham2014].
 
-## Comprendiendo los tipos de variables
+### Comprendiendo los tipos de variables
 
 Toda base de datos contiene distintos tipos de variables.
 
@@ -291,7 +297,7 @@ attr(sunac$su_tenencia, "labels")
 
 El resultado permite observar las categorías originales de la variable `su_tenencia`. Esta información será útil en los capítulos de limpieza y transformación de datos.
 
-## Importando archivos CSV
+### Importando archivos CSV
 
 Además del formato SPSS, muchas instituciones distribuyen información en formato CSV.
 
@@ -325,7 +331,7 @@ glimpse(sunac_csv)
 
 El formato CSV es ampliamente utilizado porque facilita la interoperabilidad entre programas, aunque suele conservar menos metadatos que los formatos nativos de software estadístico [@broman2018].
 
-## Comparando formatos SPSS y CSV
+### Comparando formatos SPSS y CSV
 
 Aunque ambas versiones pueden contener la misma información, existen diferencias importantes.
 
@@ -345,7 +351,9 @@ Los archivos CSV suelen ofrecer:
 
 Por esta razón, en este libro utilizaremos principalmente archivos SPSS cuando necesitemos conservar etiquetas y archivos CSV cuando queramos enfatizar portabilidad y compatibilidad.
 
-## Guardando objetos de trabajo
+## Conservación e integración de los datos
+
+### Guardando objetos de trabajo
 
 Una vez importados los datos, resulta conveniente almacenarlos en un formato nativo de R.
 
@@ -375,7 +383,7 @@ dim(sunac_rds)
 
 Esta estrategia permite acelerar procesos posteriores, especialmente cuando trabajamos con bases de gran tamaño.
 
-## Inventario de archivos de una operación estadística
+### Inventario de archivos de una operación estadística
 
 Cuando una operación estadística se distribuye mediante varios módulos, resulta útil construir un inventario automático de archivos.
 
@@ -403,7 +411,7 @@ inventario
 
 Este tipo de inventario permite documentar claramente qué archivos forman parte del proyecto y constituye una práctica recomendable cuando se trabaja con operaciones estadísticas distribuidas en varios módulos.
 
-## Importando varios módulos
+### Importando varios módulos
 
 Una vez identificados los archivos disponibles, podríamos importar distintos módulos de la ESPAC.
 

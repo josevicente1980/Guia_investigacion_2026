@@ -25,7 +25,9 @@ En investigación reproducible todas las transformaciones deben realizarse media
 
 Durante este capítulo trabajaremos con información real de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC) 2025.
 
-## ¿Qué significa transformar datos?
+## Del dato original a la variable analítica
+
+### ¿Qué significa transformar datos?
 
 Transformar datos implica modificar la estructura, formato o contenido de una variable para facilitar su interpretación y análisis.
 
@@ -42,7 +44,7 @@ La transformación constituye el puente entre la preparación de datos y el aná
 
 Mientras la limpieza busca identificar y corregir problemas potenciales de calidad, la transformación busca convertir los datos en variables útiles para responder preguntas de investigación.
 
-## Cargando la base procesada
+### Cargando la base procesada
 
 Trabajaremos con la base generada en el capítulo anterior.
 
@@ -67,7 +69,7 @@ sunac <- readRDS(
 )
 ```
 
-## Conociendo la base de trabajo
+### Conociendo la base de trabajo
 
 Antes de realizar cualquier transformación es recomendable recordar las dimensiones de la información disponible.
 
@@ -94,7 +96,7 @@ glimpse(sunac)
 
 La función `glimpse()` permite identificar los nombres de las variables, sus tipos de datos y algunos ejemplos de valores observados.
 
-## De datos originales a variables analíticas
+### De datos originales a variables analíticas
 
 Considere la variable:
 
@@ -121,7 +123,7 @@ Este formato es adecuado para preservar la información original del archivo SPS
 
 Por esta razón, uno de los primeros pasos de transformación consiste en convertir variables etiquetadas a factores.
 
-## Selección de variables relevantes
+### Selección de variables relevantes
 
 Las bases oficiales suelen contener decenas o incluso cientos de variables.
 
@@ -150,7 +152,7 @@ La selección de variables facilita el trabajo analítico y mejora la legibilida
 
 Además, reduce el consumo de memoria cuando se trabaja con bases de gran tamaño [@peng2020].
 
-## Renombrando variables
+### Renombrando variables
 
 Muchas operaciones estadísticas utilizan nombres abreviados difíciles de interpretar.
 
@@ -173,7 +175,7 @@ Observe cómo los nombres resultan ahora más intuitivos.
 
 Esta práctica facilita la lectura del código y reduce errores durante etapas posteriores [@wilson2017].
 
-## Transformación de variables etiquetadas
+### Transformación de variables etiquetadas
 
 Las variables provenientes de SPSS conservan etiquetas originales.
 
@@ -211,7 +213,7 @@ class(sunac$su_categoria)
 
 Ahora ambas variables pueden utilizarse directamente en tablas, gráficos y modelos estadísticos.
 
-## Explorando las categorías transformadas
+### Explorando las categorías transformadas
 
 Una vez realizada la transformación podemos observar la distribución de frecuencias.
 
@@ -226,7 +228,7 @@ La tabla muestra la cantidad de observaciones registradas para cada forma de ten
 
 La interpretación de esta distribución resulta mucho más sencilla que trabajar con códigos numéricos.
 
-## Transformación de variables geográficas
+### Transformación de variables geográficas
 
 La variable `ual_prov` contiene códigos provinciales.
 
@@ -250,7 +252,7 @@ class(sunac$provincia)
 
 La nueva variable permitirá realizar análisis territoriales utilizando nombres de provincias en lugar de códigos numéricos.
 
-## Creación de nuevas variables
+### Creación de nuevas variables
 
 Uno de los principales objetivos de la transformación consiste en construir variables que no existen originalmente en la base de datos.
 
@@ -441,7 +443,9 @@ hist(
 
 La visualización facilita la identificación de patrones de distribución.
 
-## Transformaciones mediante reglas de clasificación
+## Construcción y validación de variables
+
+### Transformaciones mediante reglas de clasificación
 
 Las transformaciones frecuentemente responden a necesidades específicas de investigación.
 
@@ -468,7 +472,7 @@ table(sunac$grupo_tamano)
 
 Las categorías agregadas permiten simplificar la interpretación cuando existen demasiados grupos.
 
-## Explorando variables derivadas
+### Explorando variables derivadas
 
 Una buena práctica consiste en verificar inmediatamente los resultados de cada transformación.
 
@@ -485,7 +489,7 @@ sunac |>
 
 Esta inspección permite validar que las reglas aplicadas generan resultados coherentes.
 
-## Construcción de indicadores para análisis posteriores
+### Construcción de indicadores para análisis posteriores
 
 Una vez transformadas las variables podemos generar una tabla resumen.
 
@@ -502,7 +506,7 @@ sunac |>
 
 Observe cómo ahora disponemos de variables listas para análisis descriptivos, visualizaciones y modelos estadísticos.
 
-## Importancia de las transformaciones reproducibles
+### Importancia de las transformaciones reproducibles
 
 Todas las transformaciones realizadas hasta este punto han sido ejecutadas mediante código.
 
@@ -510,7 +514,7 @@ Esto significa que cualquier investigador puede reproducir exactamente los mismo
 
 La reproducibilidad constituye una condición esencial para garantizar transparencia y credibilidad científica [@peng2011; @gandrud2015].
 
-## Buenas prácticas durante la transformación
+### Buenas prácticas durante la transformación
 
 Durante el proceso de transformación se recomienda:
 
@@ -523,7 +527,9 @@ Durante el proceso de transformación se recomienda:
 
 Estas prácticas facilitan la trazabilidad y reducen errores analíticos.
 
-## Agregación de información
+## Unidad de análisis y agregación
+
+### Agregación de información
 
 Hasta este momento hemos trabajado a nivel de registros individuales.
 
@@ -544,34 +550,48 @@ La diferencia entre ambas cifras indica que existen múltiples registros asociad
 
 En muchos análisis será necesario trabajar a nivel de productor y no a nivel de registro.
 
-## Construcción de una base agregada por productor
+### Construcción de una base agregada por productor
 
-Podemos resumir la información utilizando el identificador único.
+Antes de agregar es necesario clasificar cada variable según su nivel de medición. Una variable registrada a nivel de UPA y repetida en varias filas **no debe sumarse**, mientras que una variable que represente componentes mutuamente excluyentes puede ser aditiva. Esta decisión debe sustentarse en la documentación de la fuente y verificarse con los propios datos.
 
-```{r} 
+Primero comprobamos si `supertotal` es constante dentro de cada identificador:
+
+```{r}
+#| label: cap12-verificar-supertotal-por-upa
+
+verificacion_supertotal <- sunac |>
+  group_by(Identificador) |>
+  summarise(
+    valores_distintos = n_distinct(supertotal[!is.na(supertotal)]),
+    .groups = "drop"
+  )
+
+max(verificacion_supertotal$valores_distintos)
+```
+
+Si el máximo es 1, `supertotal` se comporta como una variable de nivel UPA repetida entre registros y no debe sumarse. Si aparecen varios valores por identificador, la agregación debe detenerse hasta revisar la definición de la variable y la estructura del módulo.
+
+Para ilustrar una agregación segura, podemos construir una función que solo acepte un valor único por UPA:
+
+```{r}
 #| label: cap12-agregar-indicadores-por-upa
+
+valor_unico <- function(x) {
+  y <- unique(x[!is.na(x)])
+  if (length(y) == 0) return(NA_real_)
+  if (length(y) > 1) stop("La variable no es constante dentro del identificador.")
+  y
+}
+
 upa <- sunac |>
   group_by(Identificador) |>
   summarise(
-    superficie_total =
-      sum(
-        supertotal,
-        na.rm = TRUE
-      ),
-
-    superficie_bosque =
-      sum(
-        us_montesha,
-        na.rm = TRUE
-      ),
-
-    superficie_transitorios =
-      sum(
-        us_transiha,
-        na.rm = TRUE
-      )
+    superficie_total = valor_unico(supertotal),
+    .groups = "drop"
   )
 ```
+
+Las superficies parciales, como bosque o cultivos transitorios, solo deben agregarse después de confirmar en la documentación de la ESPAC que cada registro representa componentes sumables y no valores repetidos.
 
 Analicemos las dimensiones de la nueva base.
 
@@ -584,11 +604,9 @@ data.frame(
   knitr::kable()
 ```
 
-Observe que ahora cada fila representa una unidad productiva única.
+Observe que ahora cada fila representa una unidad productiva única. La agregación cambia la unidad de análisis y, por tanto, también cambia el significado de las variables y de cualquier estadístico posterior.
 
-Esta transformación cambia completamente la unidad de análisis.
-
-## Explorando la base agregada
+### Explorando la base agregada
 
 Podemos visualizar los primeros registros.
 
@@ -601,7 +619,7 @@ Ahora cada observación resume la información disponible para un productor espe
 
 La agregación constituye una de las transformaciones más frecuentes en investigación aplicada, especialmente cuando se trabaja con encuestas complejas y registros múltiples [@wickham2014].
 
-## Construcción de indicadores agregados
+### Construcción de indicadores agregados
 
 A partir de las variables resumidas podemos generar nuevos indicadores.
 
@@ -626,7 +644,7 @@ summary(upa$pct_bosque)
 
 Este indicador permite comparar productores independientemente de su tamaño.
 
-## Clasificación de productores según tamaño
+### Clasificación de productores según tamaño
 
 También podemos clasificar las unidades productivas agregadas.
 
@@ -655,7 +673,9 @@ upa |>
 
 Esta clasificación será útil en análisis posteriores relacionados con estructura productiva.
 
-## Construcción de una base analítica
+## Base analítica y trazabilidad
+
+### Construcción de una base analítica
 
 Una vez realizadas las transformaciones necesarias podemos construir una base diseñada específicamente para el análisis.
 
@@ -687,7 +707,7 @@ glimpse(base_analitica)
 
 La nueva base contiene variables interpretables y listas para análisis descriptivos y econométricos.
 
-## Explorando la base analítica
+### Explorando la base analítica
 
 Podemos visualizar las primeras observaciones.
 
@@ -698,7 +718,7 @@ head(base_analitica)
 
 Observe cómo las variables transformadas permiten comprender la información con mucha mayor facilidad que las variables originales codificadas.
 
-## Guardando los resultados
+### Guardando los resultados
 
 Una vez finalizado el proceso de transformación es recomendable almacenar la base resultante.
 
@@ -738,7 +758,7 @@ Verificamos que la carga fue exitosa.
 dim(base_analitica)
 ```
 
-## Trazabilidad de las transformaciones
+### Trazabilidad de las transformaciones
 
 Uno de los principios fundamentales de la investigación reproducible consiste en que todas las transformaciones puedan reconstruirse completamente.
 
@@ -755,7 +775,7 @@ Las operaciones realizadas durante este capítulo incluyen:
 
 Gracias al uso de scripts, cualquier investigador puede reproducir exactamente el mismo flujo de trabajo [@peng2011; @gandrud2015].
 
-## Validación de resultados
+### Validación de resultados
 
 Antes de continuar con el análisis es recomendable verificar que las transformaciones producen resultados coherentes.
 
@@ -779,7 +799,7 @@ table(base_analitica$tiene_bosque)
 
 Estas verificaciones permiten detectar errores tempranamente.
 
-## Transformación de datos y análisis estadístico
+### Transformación de datos y análisis estadístico
 
 La calidad de cualquier análisis depende directamente de la calidad de las transformaciones realizadas previamente.
 
@@ -795,7 +815,7 @@ Utilizando la base `sunac_limpio.rds`:
 2. Cree una variable de tamaño de explotación.
 3. Construya un indicador de presencia de bosque.
 4. Calcule el porcentaje de bosque respecto a la superficie total.
-5. Agregue la información por productor.
+5. Verifique qué variables pueden agregarse por productor y cuáles corresponden ya al nivel de UPA.
 6. Construya una base analítica.
 7. Guarde la base transformada en formato RDS.
 8. Documente todas las transformaciones realizadas.
