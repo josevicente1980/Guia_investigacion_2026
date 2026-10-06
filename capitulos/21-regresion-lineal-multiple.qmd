@@ -1,7 +1,6 @@
 # Regresión lineal múltiple
 
 ```{r}
-#| eval: false
 #| label: setup-libro
 #| include: false
 #| warning: false
@@ -49,9 +48,9 @@ La regresión lineal múltiple permite incorporar varias variables explicativas 
 
 ```{r}
 #| label: reg21-cargar-base
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparación de variables
@@ -311,9 +310,9 @@ En esta sección estudiaremos cómo comparar modelos, interpretar el aporte de n
 
 ```{r}
 #| label: reg21-cargar-base-parte2
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparación de variables
@@ -706,9 +705,9 @@ En esta sección construiremos un flujo completo de análisis que servirá como 
 
 ```{r}
 #| label: reg21-cargar-base-parte3
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparación de variables

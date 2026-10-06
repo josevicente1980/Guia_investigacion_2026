@@ -1,7 +1,6 @@
 # Diagnóstico del modelo
 
 ```{r}
-#| eval: false
 #| label: setup-libro
 #| include: false
 #| warning: false
@@ -50,9 +49,9 @@ En este capítulo utilizaremos el modelo múltiple construido previamente para i
 
 ```{r}
 #| label: reg22-cargar-base
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparación de variables
@@ -392,9 +391,9 @@ Estos elementos son especialmente importantes cuando se trabaja con múltiples v
 
 ```{r}
 #| label: reg22-cargar-base-parte2
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparación de variables
@@ -844,9 +843,9 @@ En esta sección integraremos todos los diagnósticos en un único procedimiento
 
 ```{r}
 #| label: reg22-cargar-base-parte3
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparación de variables

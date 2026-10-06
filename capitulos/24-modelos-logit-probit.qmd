@@ -1,7 +1,6 @@
 # Modelos Logit y Probit
 
 ```{r}
-#| eval: false
 #| label: setup-libro
 #| include: false
 #| warning: false
@@ -72,9 +71,9 @@ Cuando la variable respuesta solo puede tomar dos valores, la regresión lineal 
 
 ```{r}
 #| label: reg24-cargar-base
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Construcción de la variable binaria
@@ -343,9 +342,9 @@ Estos conceptos constituyen la base de la interpretación de modelos Logit [@hos
 
 ```{r}
 #| label: reg24-cargar-base-parte2
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Reconstrucción de la variable binaria
@@ -769,9 +768,9 @@ En la práctica, Logit y Probit suelen producir resultados muy similares.
 
 ```{r}
 #| label: reg24-cargar-base-parte3
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Construcción de la variable binaria

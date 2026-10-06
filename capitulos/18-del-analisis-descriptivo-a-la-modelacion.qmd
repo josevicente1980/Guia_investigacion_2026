@@ -1,7 +1,6 @@
 # Del análisis descriptivo a la modelación
 
 ```{r}
-#| eval: false
 #| label: setup-libro
 #| include: false
 #| warning: false
@@ -27,7 +26,6 @@ base_analitica <- leer_objeto_libro("modelo_demo.rds")
 
 # 2. Carga de la base de datos
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 
 # Introducir log1p para evitar los infinitos generados por ceros
 base_analitica <- base_analitica |> 

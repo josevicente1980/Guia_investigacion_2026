@@ -1,7 +1,6 @@
 # Correlación, asociación y causalidad
 
 ```{r}
-#| eval: false
 #| label: setup-libro
 #| include: false
 #| warning: false
@@ -37,9 +36,9 @@ Cada capítulo debe poder renderizarse de forma independiente. Por ello cargamos
 
 ```{r}
 #| label: ch19-cargar-base-parte2
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparando la base para correlaciones
@@ -546,9 +545,9 @@ En esta sección estudiaremos por qué ocurre esto y cómo pensar de manera más
 
 ```{r}
 #| label: ch19-cargar-base-parte3
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparando la base

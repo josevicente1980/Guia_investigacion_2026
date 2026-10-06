@@ -1,7 +1,6 @@
 # Regresión lineal simple
 
 ```{r}
-#| eval: false
 #| label: setup-libro
 #| include: false
 #| warning: false
@@ -49,9 +48,9 @@ En este capítulo utilizaremos una base pedagógica simulada y reproducible para
 
 ```{r}
 #| label: reg20-cargar-base
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparación de variables
@@ -331,9 +330,9 @@ Estas herramientas permiten evaluar la capacidad explicativa y predictiva del mo
 
 ```{r}
 #| label: reg20-cargar-base-parte2
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparación de variables
@@ -731,9 +730,9 @@ En esta sección realizaremos un diagnóstico introductorio utilizando residuos.
 
 ```{r}
 #| label: reg20-cargar-base-parte3
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparación de variables

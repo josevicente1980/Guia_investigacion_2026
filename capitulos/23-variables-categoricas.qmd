@@ -1,7 +1,6 @@
 # Variables categóricas
 
 ```{r}
-#| eval: false
 #| label: setup-libro
 #| include: false
 #| warning: false
@@ -59,9 +58,9 @@ La regresión lineal permite incorporar variables categóricas mediante procesos
 
 ```{r}
 #| label: reg23-cargar-base
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparación de variables
@@ -367,9 +366,9 @@ log_productividad
 
 ```{r}
 #| label: reg23-cargar-base-parte2
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparación de variables
@@ -733,9 +732,9 @@ Para responder este tipo de preguntas utilizamos interacciones entre variables n
 
 ```{r}
 #| label: reg23-cargar-base-parte3
+#| eval: false
 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
-)
 ```
 
 ### Preparación de variables
