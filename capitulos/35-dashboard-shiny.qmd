@@ -1,5 +1,16 @@
 # Dashboards con Shiny y Quarto
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("comunicacion", extra = c("gapminder", "shiny", "plotly", "DT"))
+```
+
+
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
@@ -36,9 +47,8 @@ Esta separación evita errores de compilación y mantiene la reproducibilidad de
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(gapminder)
-library(knitr)
+
+
 ```
 
 ```{r}
@@ -248,11 +258,9 @@ No debe ejecutarse dentro del libro completo si también se renderiza a PDF o Wo
 # server: shiny
 # ---
 
-library(shiny)
-library(tidyverse)
-library(gapminder)
-library(plotly)
-library(DT)
+
+
+
 
 data(
   "gapminder",

@@ -1,5 +1,16 @@
 # Generación de documentos Word, PDF y HTML
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("comunicacion", extra = c("gapminder"))
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar este capítulo, el lector será capaz de:
@@ -34,9 +45,8 @@ Esto elimina la necesidad de copiar resultados manualmente entre diferentes plat
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(gapminder)
-library(knitr)
+
+
 ```
 
 ### Carga de datos

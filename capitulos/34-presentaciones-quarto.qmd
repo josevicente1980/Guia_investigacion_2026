@@ -1,5 +1,16 @@
 # Presentaciones con Quarto
 
+```{r}
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("comunicacion", extra = c("gapminder"))
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar este capítulo, el lector será capaz de:
@@ -27,9 +38,7 @@ Quarto permite generar presentaciones completamente reproducibles utilizando una
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(gapminder)
-library(knitr)
+
 
 data(
   "gapminder",
