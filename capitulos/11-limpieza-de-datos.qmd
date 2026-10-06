@@ -111,24 +111,41 @@ Una primera inspección puede realizarse mediante:
 
 ```{r}
 #| label: cap11-resumen-estadistico-sunac
-summary(sunac)
+sunac |>
+  select(
+    su_k202ha,
+    supertotal,
+    fact_exp_fin
+  ) |>
+  summary()
 ```
 
 El resumen estadístico permite identificar:
 
-* Variables numéricas.
-* Valores extremos.
-* Rangos de observación.
+* Rangos y posición de variables numéricas.
+* Valores extremos que requieren revisión.
 * Posibles valores perdidos.
+
+Para mantener la salida legible, el ejemplo resume únicamente variables representativas. En un diagnóstico real, la selección debe responder a la pregunta analítica y a la documentación de la fuente.
 
 También podemos obtener una visión estructural de la base.
 
 ```{r}
 #| label: cap11-vista-general-sunac
-glimpse(sunac)
+sunac |>
+  select(
+    Identificador,
+    ual_prov,
+    su_categoria,
+    su_tenencia,
+    su_k202ha,
+    supertotal,
+    fact_exp_fin
+  ) |>
+  glimpse()
 ```
 
-Esta función muestra el tipo de dato de cada variable y facilita la identificación de variables categóricas, continuas y etiquetadas.
+Esta función muestra el tipo de dato de las variables seleccionadas y facilita distinguir variables categóricas, continuas y etiquetadas sin llenar varias páginas con una impresión completa de la base.
 
 ### Observaciones y unidades de análisis
 

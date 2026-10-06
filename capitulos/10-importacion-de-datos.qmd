@@ -131,8 +131,13 @@ Antes de importar información, siempre es recomendable verificar que los archiv
 ```{r} 
 #| label: cap10-listar-archivos
 
-list.files(
+archivos_spss <- list.files(
   here("datos", "original", "ESPAC_2025", "spss")
+)
+
+data.frame(
+  Archivos_SPSS = length(archivos_spss),
+  Ejemplo = paste(head(archivos_spss, 3), collapse = ", ")
 )
 ```
 
@@ -143,8 +148,13 @@ También podemos revisar los archivos CSV:
 ```{r} 
 #| label: cap10-listar-archivos-csv
 
-list.files(
+archivos_csv <- list.files(
   here("datos", "original", "ESPAC_2025", "csv")
+)
+
+data.frame(
+  Archivos_CSV = length(archivos_csv),
+  Ejemplo = paste(head(archivos_csv, 3), collapse = ", ")
 )
 ```
 
@@ -153,8 +163,13 @@ Y la documentación:
 ```{r} 
 #| label: cap10-listar-documentacion
 
-list.files(
+documentos <- list.files(
   here("datos", "original", "ESPAC_2025", "documentacion")
+)
+
+data.frame(
+  Documentos = length(documentos),
+  Ejemplo = paste(head(documentos, 3), collapse = ", ")
 )
 ```
 
@@ -215,7 +230,9 @@ Para conocer las variables disponibles utilizamos:
 ```{r} 
 #| label: cap10-nombres-variables
 
-names(sunac)
+data.frame(
+  Variable = names(sunac)[1:12]
+)
 ```
 
 En este módulo aparecen variables de identificación, localización, uso del suelo, tenencia y superficie. Algunas variables relevantes son:
@@ -256,10 +273,19 @@ También podemos usar `glimpse()`:
 
 ```{r} 
 #| label: cap10-vista-general-sunac
-glimpse(sunac)
+sunac |>
+  select(
+    Identificador,
+    ual_prov,
+    su_categoria,
+    su_tenencia,
+    supertotal,
+    fact_exp_fin
+  ) |>
+  glimpse()
 ```
 
-Esta función ofrece una visualización más compacta y amigable para bases con muchas variables.
+Esta función ofrece una visualización compacta de la estructura. En el libro mostramos solo variables representativas para conservar la legibilidad; el objeto original permanece completo.
 
 ### Visualizando las primeras observaciones
 
@@ -267,17 +293,35 @@ Antes de iniciar cualquier análisis es recomendable inspeccionar visualmente lo
 
 ```{r} 
 #| label: cap10-primeras-observaciones
-head(sunac)
+sunac |>
+  select(
+    Identificador,
+    ual_prov,
+    su_categoria,
+    su_tenencia,
+    supertotal,
+    fact_exp_fin
+  ) |>
+  head(6)
 ```
 
 También es posible visualizar un número específico de registros:
 
 ```{r} 
 #| label: cap10-primeras-10-observaciones
-head(sunac, 10)
+sunac |>
+  select(
+    Identificador,
+    ual_prov,
+    su_categoria,
+    su_tenencia,
+    supertotal,
+    fact_exp_fin
+  ) |>
+  head(10)
 ```
 
-Esta práctica permite detectar rápidamente posibles problemas de importación. En trabajos con datos reales, una inspección inicial suele revelar nombres de variables poco descriptivos, valores codificados, etiquetas heredadas del software original o inconsistencias que deberán abordarse durante la limpieza de datos [@wickham2014].
+Esta práctica permite detectar rápidamente posibles problemas de importación. Para evitar salidas innecesariamente extensas, se muestran únicamente variables representativas; esta selección afecta solo a la impresión, no a la base original. En trabajos con datos reales, una inspección inicial suele revelar nombres de variables poco descriptivos, valores codificados, etiquetas heredadas del software original o inconsistencias que deberán abordarse durante la limpieza de datos [@wickham2014].
 
 ### Comprendiendo los tipos de variables
 
@@ -414,10 +458,16 @@ archivos_sav <- list.files(
   full.names = TRUE
 )
 
-archivos_sav
+data.frame(
+  Total = length(archivos_sav),
+  Primeros = paste(
+    head(basename(archivos_sav), 5),
+    collapse = ", "
+  )
+)
 ```
 
-También podemos crear una tabla con el nombre de cada archivo:
+Para documentar el inventario completo sin imprimir rutas absolutas, conservamos únicamente el nombre de cada archivo:
 
 ```{r} 
 #| label: cap10-crear-inventario-archivos
