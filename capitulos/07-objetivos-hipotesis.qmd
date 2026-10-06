@@ -51,7 +51,7 @@ Por ejemplo, si la pregunta es:
 El objetivo general podría formularse como:
 
 ```{.text}
-Analizar los factores financieros que influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.
+Analizar la asociación entre factores financieros y la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.
 ```
 
 Obsérvese que el objetivo transforma la pregunta en una acción concreta.
@@ -64,8 +64,8 @@ Un objetivo general debe ser:
 - Preciso.
 - Coherente con la pregunta.
 - Alcanzable.
-- Medible.
-- Delimitado en espacio y tiempo.
+- Evaluable en función de la evidencia prevista.
+- Delimitado en la medida en que lo requieran la pregunta, la población, el contexto y el diseño.
 
 Asimismo, debe comenzar con un verbo en infinitivo que describa una acción concreta.
 
@@ -103,7 +103,7 @@ Analizar los factores financieros que influyen en la supervivencia de las microe
 
 2. Identificar los principales indicadores financieros asociados con la supervivencia empresarial.
 
-3. Estimar la influencia de dichos indicadores sobre la probabilidad de permanencia de las empresas.
+3. Estimar la asociación entre dichos indicadores y la probabilidad de permanencia de las empresas.
 
 4. Comparar los resultados obtenidos entre distintos sectores económicos.
 ```
@@ -160,7 +160,7 @@ Cuando los objetivos no responden directamente a la pregunta planteada, la inves
 
 Las hipótesis son explicaciones tentativas acerca de las relaciones existentes entre variables o fenómenos [@kerlinger2002].
 
-Una hipótesis representa una afirmación que será contrastada mediante evidencia empírica.
+Una hipótesis representa una proposición contrastable mediante evidencia empírica. Su formulación debe ser coherente con el diseño y no convertir una asociación esperada en una afirmación causal cuando el estudio no permite identificar causalidad.
 
 Por ejemplo:
 
@@ -244,7 +244,7 @@ Representa la existencia del efecto esperado.
 H₁: La capacitación empresarial influye positivamente en la productividad de las microempresas.
 ```
 
-Los procedimientos estadísticos permiten evaluar cuál de estas hipótesis recibe mayor respaldo empírico [@wooldridge2020].
+Los procedimientos estadísticos permiten evaluar la compatibilidad de los datos con una hipótesis nula bajo supuestos explícitos; un valor p, por sí solo, no demuestra que la hipótesis alternativa sea verdadera [@wooldridge2020].
 
 ## Relación entre teoría e hipótesis
 
