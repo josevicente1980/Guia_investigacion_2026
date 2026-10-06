@@ -23,7 +23,7 @@ La creciente producción científica mundial ha convertido esta tarea en un desa
 
 Una revisión de literatura rigurosa no consiste en buscar algunos artículos en Internet y citarlos dentro de un documento.
 
-La búsqueda científica debe desarrollarse de manera sistemática, transparente y reproducible. La literatura metodológica reciente insiste además en documentar el alcance, las bases consultadas, las estrategias de búsqueda, los filtros y las decisiones de selección para que el proceso pueda evaluarse y reproducirse [@gusenbauer2025].
+La búsqueda científica debe desarrollarse de manera transparente y reproducible. Cuando el objetivo sea realizar una revisión sistemática, además deberá seguirse un protocolo explícito de búsqueda, selección, evaluación y síntesis de la evidencia; una búsqueda reproducible, por sí sola, no convierte una revisión narrativa en una revisión sistemática. La literatura metodológica reciente insiste además en documentar el alcance, las bases consultadas, las estrategias de búsqueda, los filtros y las decisiones de selección para que el proceso pueda evaluarse y reproducirse [@gusenbauer2025].
 
 Kitchenham y Charters destacan que una búsqueda sistemática debe permitir identificar la evidencia relevante minimizando sesgos y maximizando la cobertura de información disponible [@kitchenham2007].
 
@@ -161,14 +161,14 @@ No toda publicación encontrada durante una búsqueda posee el mismo nivel de ca
 
 Algunas preguntas útiles para evaluar una fuente son:
 
-- ¿Se encuentra indexada en una base reconocida?
-- ¿Ha sido sometida a revisión por pares?
-- ¿Posee DOI?
-- ¿Quiénes son los autores?
-- ¿Cuál es la reputación de la revista?
-- ¿Qué nivel de citación posee?
+- ¿La publicación existe y sus datos bibliográficos pueden verificarse?
+- ¿La fuente corresponde realmente con la afirmación que se desea respaldar?
+- ¿El diseño, los datos y el método son adecuados para la pregunta que aborda?
+- ¿La publicación fue sometida a revisión editorial o por pares cuando ello resulta pertinente?
+- ¿La fuente es primaria, secundaria, metodológica, normativa o institucional, y ese tipo de evidencia es apropiado para el uso previsto?
+- ¿Existen conflictos, limitaciones o problemas de calidad que deban considerarse?
 
-Estas consideraciones permiten seleccionar literatura más confiable para la construcción del marco teórico.
+La indexación, el DOI o el número de citas pueden facilitar la identificación y trazabilidad de una publicación, pero no sustituyen la evaluación crítica de su pertinencia y calidad metodológica.
 
 ## Del artículo científico a la referencia bibliográfica
 
