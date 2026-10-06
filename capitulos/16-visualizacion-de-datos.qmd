@@ -42,7 +42,8 @@ Como este capítulo debe poder ejecutarse de forma independiente, comenzaremos c
 
 ```{r}
 #| label: ch16-cargar-paquetes
-#| eval: false\n#| warning: false
+#| eval: false
+#| warning: false
 #| message: false
 
 
