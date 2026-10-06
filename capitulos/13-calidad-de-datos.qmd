@@ -135,7 +135,8 @@ Para evaluar la calidad de los datos utilizaremos la base transformada construid
 
 ```{r}
 #| label: ch13-cargar-paquetes
-#| eval: false\n#| warning: false
+#| eval: false
+#| warning: false
 #| message: false
 
 
