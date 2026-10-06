@@ -83,3 +83,96 @@ if (necesita_actualizar(archivo_limpio, archivo_transformado)) {
 }
 
 message("Pre-render: objetos ESPAC disponibles y actualizados.")
+
+
+# Base pedagógica para los capítulos de modelación -----------------------------
+# Se genera de forma determinista para no usar el factor de expansión de la
+# ESPAC como predictor sustantivo. Su función es exclusivamente didáctica.
+
+set.seed(20261005)
+
+n_demo <- 1200L
+
+region <- factor(
+  sample(
+    c("Loja", "Azuay", "Guayas", "Pichincha"),
+    n_demo,
+    replace = TRUE,
+    prob = c(0.28, 0.22, 0.25, 0.25)
+  ),
+  levels = c("Loja", "Azuay", "Guayas", "Pichincha")
+)
+
+tamano_empresa <- factor(
+  sample(
+    c("Micro", "Pequeña", "Mediana", "Grande"),
+    n_demo,
+    replace = TRUE,
+    prob = c(0.35, 0.35, 0.20, 0.10)
+  ),
+  levels = c("Micro", "Pequeña", "Mediana", "Grande")
+)
+
+capital <- round(
+  pmax(
+    0.5,
+    rlnorm(
+      n_demo,
+      meanlog = 1.35 +
+        0.20 * as.numeric(tamano_empresa),
+      sdlog = 0.45
+    )
+  ),
+  2
+)
+
+edad_empresa <- pmax(
+  1,
+  round(rgamma(n_demo, shape = 3.2, scale = 3.0))
+)
+
+efecto_region <- c(
+  Loja = 0.00,
+  Azuay = 0.08,
+  Guayas = 0.16,
+  Pichincha = 0.20
+)
+
+efecto_tamano <- c(
+  Micro = 0.00,
+  Pequeña = 0.12,
+  Mediana = 0.24,
+  Grande = 0.36
+)
+
+sd_error <- 0.22 + 0.015 * capital
+
+log_productividad <- 1.10 +
+  0.18 * capital +
+  0.012 * edad_empresa +
+  unname(efecto_region[as.character(region)]) +
+  unname(efecto_tamano[as.character(tamano_empresa)]) +
+  rnorm(n_demo, sd = sd_error)
+
+modelo_demo <- data.frame(
+  id = seq_len(n_demo),
+  region = region,
+  tamano_empresa = tamano_empresa,
+  capital = capital,
+  edad_empresa = edad_empresa,
+  productividad = exp(log_productividad),
+  log_productividad = log_productividad
+)
+
+modelo_demo$alta_productividad <- as.integer(
+  modelo_demo$log_productividad >
+    median(modelo_demo$log_productividad, na.rm = TRUE)
+)
+
+saveRDS(
+  modelo_demo,
+  file.path(dir_salida, "modelo_demo.rds"),
+  compress = FALSE
+)
+
+message("Pre-render: base pedagógica de modelación disponible.")
