@@ -426,15 +426,14 @@ tidy(
     term,
     estimate,
     std.error,
-    statistic,
     p.value
   ) |>
   setNames(
-    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+    c("Parámetro", "Estim.", "EE", "p")
   ) |>
   kable(
     digits = 4,
-    align = c("l", "r", "r", "r", "r"),
+    align = c("l", "r", "r", "r"),
     caption = "Modelo pooled OLS"
   )
 ```
@@ -508,15 +507,14 @@ tidy(
     term,
     estimate,
     std.error,
-    statistic,
     p.value
   ) |>
   setNames(
-    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+    c("Parámetro", "Estim.", "EE", "p")
   ) |>
   kable(
     digits = 4,
-    align = c("l", "r", "r", "r", "r"),
+    align = c("l", "r", "r", "r"),
     caption = "Modelo de efectos fijos"
   )
 ```
@@ -620,15 +618,14 @@ tidy(
     term,
     estimate,
     std.error,
-    statistic,
     p.value
   ) |>
   setNames(
-    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+    c("Parámetro", "Estim.", "EE", "p")
   ) |>
   kable(
     digits = 4,
-    align = c("l", "r", "r", "r", "r"),
+    align = c("l", "r", "r", "r"),
     caption = "Modelo de efectos aleatorios"
   )
 ```
@@ -661,7 +658,7 @@ coef_fe <- tidy(
     estimate
   ) |>
   rename(
-    Efectos_Fijos = estimate
+    Fijos = estimate
   )
 
 coef_re <- tidy(
@@ -672,7 +669,7 @@ coef_re <- tidy(
     estimate
   ) |>
   rename(
-    Efectos_Aleatorios = estimate
+    Aleatorios = estimate
   )
 
 coef_pooled |>
@@ -683,6 +680,9 @@ coef_pooled |>
   left_join(
     coef_re,
     by = "term"
+  ) |>
+  setNames(
+    c("Parámetro", "Pooled", "Fijos", "Aleatorios")
   ) |>
   kable(
     digits = 4,
@@ -953,15 +953,14 @@ tidy(
     term,
     estimate,
     std.error,
-    statistic,
     p.value
   ) |>
   setNames(
-    c("Parámetro", "Estim.", "EE", "Estad.", "p")
+    c("Parámetro", "Estim.", "EE", "p")
   ) |>
   kable(
     digits = 4,
-    align = c("l", "r", "r", "r", "r"),
+    align = c("l", "r", "r", "r"),
     caption = "Coeficientes finales del modelo"
   )
 ```
