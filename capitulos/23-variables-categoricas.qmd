@@ -9,7 +9,7 @@
 
 source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("modelos")
-base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
 
@@ -31,11 +31,11 @@ Hasta ahora hemos trabajado principalmente con variables numéricas. Sin embargo
 Algunos ejemplos son:
 
 ```text
-Provincia
+Región
 Sexo
 Nivel educativo
 Estado civil
-Tamaño de UPA
+Tamaño de empresa
 ```
 
 Estas variables contienen información relevante para explicar fenómenos económicos, sociales y ambientales.
@@ -60,13 +60,7 @@ La regresión lineal permite incorporar variables categóricas mediante procesos
 ```{r}
 #| label: reg23-cargar-base
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -78,24 +72,24 @@ base_analitica <- readRDS(
 
 base_categorias <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       ),
-    provincia =
+    region =
       as.factor(
-        provincia
+        region
       ),
-    tamano_upa =
+    tamano_empresa =
       as.factor(
-        tamano_upa
+        tamano_empresa
       )
   ) |>
   select(
-    log_supertotal,
-    provincia,
-    tamano_upa,
-    fact_exp_fin
+    log_productividad,
+    region,
+    tamano_empresa,
+    capital
   ) |>
   drop_na()
 ```
@@ -112,22 +106,22 @@ glimpse(
 
 **Interpretación**
 
-Las variables `provincia` y `tamano_upa` aparecen como factores. Esto indica que R las reconocerá automáticamente como variables categóricas.
+Las variables `region` y `tamano_empresa` aparecen como factores. Esto indica que R las reconocerá automáticamente como variables categóricas.
 
 ### Frecuencia de categorías
 
 ```{r}
-#| label: tbl-reg23-frecuencia-provincia
+#| label: tbl-reg23-frecuencia-region
 
 base_categorias |>
   count(
-    provincia
+    region
   ) |>
   arrange(
     desc(n)
   ) |>
   kable(
-    caption = "Frecuencia de observaciones por provincia"
+    caption = "Frecuencia de observaciones por region"
   )
 ```
 
@@ -138,13 +132,13 @@ La tabla muestra la distribución de observaciones entre categorías territorial
 ### Visualización de categorías
 
 ```{r}
-#| label: fig-reg23-frecuencia-provincia
-#| fig-cap: "Frecuencia de observaciones por provincia"
+#| label: fig-reg23-frecuencia-region
+#| fig-cap: "Frecuencia de observaciones por region"
 
 ggplot(
   base_categorias,
   aes(
-    x = provincia
+    x = region
   )
 ) +
   geom_bar(
@@ -187,7 +181,7 @@ Una variable dummy toma únicamente dos valores:
 Por ejemplo:
 
 ```text
-Provincia = Loja
+Región = Loja
 ```
 
 podría representarse como:
@@ -195,7 +189,7 @@ podría representarse como:
 ```text
 Loja = 1
 
-Otra provincia = 0
+Otra región = 0
 ```
 
 ### Ejemplo simple de dummy
@@ -207,13 +201,13 @@ base_categorias |>
   mutate(
     dummy_loja =
       if_else(
-        provincia == "Loja",
+        region == "Loja",
         1,
         0
       )
   ) |>
   select(
-    provincia,
+    region,
     dummy_loja
   ) |>
   slice_head(
@@ -226,7 +220,7 @@ base_categorias |>
 
 **Interpretación**
 
-La nueva variable identifica observaciones pertenecientes a la provincia de Loja.
+La nueva variable identifica observaciones pertenecientes a la región de Loja.
 
 ## Categoría de referencia
 
@@ -251,11 +245,11 @@ Una categoría será utilizada como referencia y las demás serán comparadas co
 tibble(
   Categoria =
     levels(
-      base_categorias$provincia
+      base_categorias$region
     )
 ) |>
   kable(
-    caption = "Niveles del factor provincia"
+    caption = "Niveles del factor region"
   )
 ```
 
@@ -272,11 +266,11 @@ En ocasiones resulta conveniente seleccionar explícitamente la categoría base.
 
 base_categorias <- base_categorias |>
   mutate(
-    provincia =
+    region =
       relevel(
-        provincia,
+        region,
         ref = levels(
-          provincia
+          region
         )[1]
       )
   )
@@ -290,7 +284,7 @@ base_categorias <- base_categorias |>
 tibble(
   Categoria_Referencia =
     levels(
-      base_categorias$provincia
+      base_categorias$region
     )[1]
 ) |>
   kable(
@@ -300,7 +294,7 @@ tibble(
 
 **Interpretación**
 
-Todos los coeficientes asociados a provincia serán interpretados respecto a esta categoría.
+Todos los coeficientes asociados a region serán interpretados respecto a esta categoría.
 
 ### Matriz de diseño
 
@@ -310,7 +304,7 @@ La función `model.matrix()` permite observar la codificación interna utilizada
 #| label: tbl-reg23-matriz-diseno
 
 model.matrix(
-  ~ provincia,
+  ~ region,
   data = base_categorias
 ) |>
   as.data.frame() |>
@@ -318,7 +312,7 @@ model.matrix(
     n = 10
   ) |>
   kable(
-    caption = "Matriz de diseño para provincia"
+    caption = "Matriz de diseño para region"
   )
 ```
 
@@ -347,13 +341,13 @@ La principal ventaja consiste en que podemos cuantificar diferencias promedio en
 En esta sección utilizaremos la variable categórica:
 
 ```text
-tamano_upa
+tamano_empresa
 ```
 
 para explicar variaciones en:
 
 ```text
-log_supertotal
+log_productividad
 ```
 
 ### Cargando librerías
@@ -374,13 +368,7 @@ log_supertotal
 ```{r}
 #| label: reg23-cargar-base-parte2
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -392,18 +380,18 @@ base_analitica <- readRDS(
 
 base_categorias <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       ),
-    tamano_upa =
+    tamano_empresa =
       as.factor(
-        tamano_upa
+        tamano_empresa
       )
   ) |>
   select(
-    log_supertotal,
-    tamano_upa
+    log_productividad,
+    tamano_empresa
   ) |>
   drop_na()
 ```
@@ -415,19 +403,19 @@ base_categorias <- base_analitica |>
 
 base_categorias |>
   group_by(
-    tamano_upa
+    tamano_empresa
   ) |>
   summarise(
     n = n(),
     media =
       mean(
-        log_supertotal
+        log_productividad
       ),
     .groups = "drop"
   ) |>
   kable(
     digits = 3,
-    caption = "Promedio de superficie por categoría"
+    caption = "Promedio de productividad por categoría"
   )
 ```
 
@@ -439,13 +427,13 @@ Las medias sugieren diferencias entre categorías de tamaño. La regresión perm
 
 ```{r}
 #| label: fig-reg23-boxplot-categorias
-#| fig-cap: "Distribución de superficie según tamaño de UPA"
+#| fig-cap: "Distribución de productividad según tamaño de empresa"
 
 ggplot(
   base_categorias,
   aes(
-    x = tamano_upa,
-    y = log_supertotal
+    x = tamano_empresa,
+    y = log_productividad
   )
 ) +
   geom_boxplot(
@@ -457,7 +445,7 @@ ggplot(
 
 **Interpretación**
 
-Las diferencias observadas sugieren que el tamaño de la UPA podría estar asociado con la superficie total.
+Las diferencias observadas sugieren que el tamaño de la empresa podría estar asociado con la productividad total.
 
 ## Modelo con variable categórica
 
@@ -465,8 +453,8 @@ Las diferencias observadas sugieren que el tamaño de la UPA podría estar asoci
 #| label: reg23-modelo-categorico
 
 modelo_cat <- lm(
-  log_supertotal ~
-    tamano_upa,
+  log_productividad ~
+    tamano_empresa,
   data = base_categorias
 )
 ```
@@ -533,25 +521,25 @@ Intercepto
 representa el valor promedio esperado de:
 
 ```text
-log_supertotal
+log_productividad
 ```
 
-para las UPA pequeñas.
+para las empresas pequeñas.
 
 ### Interpretación de una categoría adicional
 
 Si observamos:
 
 ```text
-tamano_upaMediana = 0.45
+tamano_empresaMediana = 0.45
 ```
 
 la interpretación sería:
 
 ```text
-Las UPA medianas presentan en promedio
-0.45 unidades más en log_supertotal
-que las UPA pequeñas.
+Las empresa medianas presentan en promedio
+0.45 unidades más en log_productividad
+que las empresas pequeñas.
 ```
 
 ### Valores ajustados
@@ -577,8 +565,8 @@ base_categorias <- base_categorias |>
 ggplot(
   base_categorias,
   aes(
-    x = tamano_upa,
-    y = log_supertotal
+    x = tamano_empresa,
+    y = log_productividad
   )
 ) +
   geom_jitter(
@@ -629,13 +617,13 @@ La interpretación de la prueba ANOVA se basa en el **valor p** asociado al esta
 #| label: tbl-reg23-predicciones-grupo
 
 nuevos_grupos <- tibble(
-  tamano_upa = factor(
+  tamano_empresa = factor(
     levels(
-      base_categorias$tamano_upa
+      base_categorias$tamano_empresa
     ),
     levels =
       levels(
-        base_categorias$tamano_upa
+        base_categorias$tamano_empresa
       )
   )
 )
@@ -669,7 +657,7 @@ Las predicciones representan los valores medios esperados para cada grupo.
 ggplot(
   nuevos_grupos,
   aes(
-    x = tamano_upa,
+    x = tamano_empresa,
     y = prediccion
   )
 ) +
@@ -690,11 +678,11 @@ En la práctica es frecuente combinar variables categóricas y numéricas.
 Por ejemplo:
 
 ```text
-log_supertotal
+log_productividad
 =
-fact_exp_fin
+capital
 +
-tamano_upa
+tamano_empresa
 ```
 
 Este tipo de especificación será el punto de partida de la siguiente sección.
@@ -725,8 +713,8 @@ Sin embargo, en muchas investigaciones resulta necesario responder preguntas má
 Por ejemplo:
 
 ```text
-¿La experiencia financiera tiene el mismo efecto
-sobre la superficie total para todos los tamaños de UPA?
+¿La capital productivo tiene el mismo efecto
+sobre la productividad total para todos los tamaños de empresa?
 ```
 
 Para responder este tipo de preguntas utilizamos interacciones entre variables numéricas y categóricas [@kutner2004].
@@ -749,13 +737,7 @@ Para responder este tipo de preguntas utilizamos interacciones entre variables n
 ```{r}
 #| label: reg23-cargar-base-parte3
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -766,19 +748,19 @@ base_analitica <- readRDS(
 
 base_interaccion <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       ),
-    tamano_upa =
+    tamano_empresa =
       as.factor(
-        tamano_upa
+        tamano_empresa
       )
   ) |>
   select(
-    log_supertotal,
-    fact_exp_fin,
-    tamano_upa
+    log_productividad,
+    capital,
+    tamano_empresa
   ) |>
   drop_na()
 ```
@@ -791,9 +773,9 @@ Comenzaremos con un modelo sin interacción.
 #| label: reg23-modelo-aditivo
 
 modelo_aditivo <- lm(
-  log_supertotal ~
-    fact_exp_fin +
-    tamano_upa,
+  log_productividad ~
+    capital +
+    tamano_empresa,
   data = base_interaccion
 )
 ```
@@ -820,7 +802,7 @@ glance(
 
 **Interpretación**
 
-El modelo supone que el efecto de la experiencia financiera es idéntico para todas las categorías de tamaño.
+El modelo supone que el efecto de la capital productivo es idéntico para todas las categorías de tamaño.
 
 ## Modelo con interacción
 
@@ -830,9 +812,9 @@ Ahora permitiremos que la pendiente cambie entre categorías.
 #| label: reg23-modelo-interaccion
 
 modelo_interaccion <- lm(
-  log_supertotal ~
-    fact_exp_fin *
-    tamano_upa,
+  log_productividad ~
+    capital *
+    tamano_empresa,
   data = base_interaccion
 )
 ```
@@ -859,7 +841,7 @@ glance(
 
 **Interpretación**
 
-El modelo permite que el efecto de la experiencia financiera sea diferente según el tamaño de la UPA.
+El modelo permite que el efecto de la capital productivo sea diferente según el tamaño de la empresa.
 
 ### Coeficientes del modelo
 
@@ -948,14 +930,14 @@ Esta prueba evalúa si incorporar la interacción mejora significativamente el a
 
 ```{r}
 #| label: fig-reg23-interaccion
-#| fig-cap: "Interacción entre experiencia financiera y tamaño de UPA"
+#| fig-cap: "Interacción entre capital productivo y tamaño de empresa"
 
 ggplot(
   base_interaccion,
   aes(
-    x = fact_exp_fin,
-    y = log_supertotal,
-    color = tamano_upa
+    x = capital,
+    y = log_productividad,
+    color = tamano_empresa
   )
 ) +
   geom_point(
@@ -980,18 +962,18 @@ Si las pendientes difieren claramente, la interacción puede resultar relevante.
 #| label: tbl-reg23-predicciones-interaccion
 
 nuevos_datos <- expand.grid(
-  fact_exp_fin = seq(
+  capital = seq(
     min(
-      base_interaccion$fact_exp_fin
+      base_interaccion$capital
     ),
     max(
-      base_interaccion$fact_exp_fin
+      base_interaccion$capital
     ),
     length.out = 3
   ),
-  tamano_upa =
+  tamano_empresa =
     levels(
-      base_interaccion$tamano_upa
+      base_interaccion$tamano_empresa
     )
 )
 
@@ -1018,7 +1000,7 @@ Las predicciones permiten comparar escenarios manteniendo explícitamente las ca
 En aplicaciones reales es frecuente encontrar variables como:
 
 ```text
-Provincia
+Región
 Cantón
 Actividad económica
 Nivel educativo

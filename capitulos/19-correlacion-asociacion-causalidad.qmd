@@ -9,7 +9,7 @@
 
 source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("modelos")
-base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
 
@@ -38,19 +38,13 @@ Cada capítulo debe poder renderizarse de forma independiente. Por ello cargamos
 ```{r}
 #| label: ch19-cargar-base-parte2
 
-base_analitica <- readRDS(
-  here::here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
 ### Preparando la base para correlaciones
 
-Para este capítulo utilizaremos variables numéricas de la base. También construiremos nuevamente `log_supertotal`, ya que permite representar mejor la superficie total.
+Para este capítulo utilizaremos variables numéricas de la base. También construiremos nuevamente `log_productividad`, ya que permite representar mejor la productividad total.
 
 ```{r}
 #| eval: false
@@ -58,15 +52,15 @@ Para este capítulo utilizaremos variables numéricas de la base. También const
 
 base_correlacion <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       )
   ) |>
   select(
-    supertotal,
-    log_supertotal,
-    fact_exp_fin
+    productividad,
+    log_productividad,
+    capital
   )
 ```
 
@@ -82,7 +76,7 @@ glimpse(
 
 **Interpretación**
 
-La base contiene tres variables numéricas. La variable `supertotal` representa la superficie original, `log_supertotal` corresponde a su transformación logarítmica y `fact_exp_fin` representa el factor de expansión.
+La base contiene tres variables numéricas. La variable `productividad` representa la productividad original, `log_productividad` corresponde a su transformación logarítmica y `capital` representa el capital.
 
 ## ¿Qué mide la correlación?
 
@@ -130,8 +124,8 @@ La covarianza indica si dos variables tienden a variar juntas. Si la covarianza 
 #| label: tbl-ch19-covarianza
 
 covarianza <- cov(
-  base_correlacion$log_supertotal,
-  base_correlacion$fact_exp_fin,
+  base_correlacion$log_productividad,
+  base_correlacion$capital,
   use = "complete.obs"
 )
 
@@ -141,7 +135,7 @@ tibble(
 ) |>
   kable(
     digits = 4,
-    caption = "Covarianza entre superficie transformada y factor de expansión"
+    caption = "Covarianza entre productividad transformada y capital"
   )
 ```
 
@@ -157,8 +151,8 @@ La correlación de Pearson mide la asociación lineal entre dos variables cuanti
 #| label: tbl-ch19-correlacion-pearson
 
 cor_pearson <- cor(
-  base_correlacion$log_supertotal,
-  base_correlacion$fact_exp_fin,
+  base_correlacion$log_productividad,
+  base_correlacion$capital,
   use = "complete.obs",
   method = "pearson"
 )
@@ -175,7 +169,7 @@ tibble(
 
 **Interpretación**
 
-El coeficiente de Pearson resume la intensidad de la relación lineal entre `log_supertotal` y `fact_exp_fin`. Cuando dos variables independientes presentan una correlación superior a 0,80 en valor absoluto, puede existir un problema de multicolinealidad [@lalinde2018uso].
+El coeficiente de Pearson resume la intensidad de la relación lineal entre `log_productividad` y `capital`. Cuando dos variables independientes presentan una correlación superior a 0,80 en valor absoluto, puede existir un problema de multicolinealidad [@lalinde2018uso].
 
 Cuando hay multicolinealidad:
 
@@ -188,13 +182,13 @@ Cuando hay multicolinealidad:
 
 ```{r}
 #| label: fig-ch19-pearson-dispersion
-#| fig-cap: "Dispersión entre superficie transformada y factor de expansión"
+#| fig-cap: "Dispersión entre productividad transformada y capital"
 
 ggplot(
   base_correlacion,
   aes(
-    x = fact_exp_fin,
-    y = log_supertotal
+    x = capital,
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -208,8 +202,8 @@ ggplot(
   ) +
   theme_minimal() +
   labs(
-    x = "Factor de expansión",
-    y = "Logaritmo de la superficie total"
+    x = "Capital",
+    y = "Logaritmo de la productividad total"
   )
 ```
 
@@ -225,8 +219,8 @@ La correlación de Spearman utiliza rangos en lugar de valores originales. Es ú
 #| label: tbl-ch19-correlacion-spearman
 
 cor_spearman <- cor(
-  base_correlacion$log_supertotal,
-  base_correlacion$fact_exp_fin,
+  base_correlacion$log_productividad,
+  base_correlacion$capital,
   use = "complete.obs",
   method = "spearman"
 )
@@ -253,8 +247,8 @@ La correlación de Kendall se basa en la comparación de pares concordantes y di
 #| label: tbl-ch19-correlacion-kendall
 
 cor_kendall <- cor(
-  base_correlacion$log_supertotal,
-  base_correlacion$fact_exp_fin,
+  base_correlacion$log_productividad,
+  base_correlacion$capital,
   use = "complete.obs",
   method = "kendall"
 )
@@ -308,8 +302,8 @@ Además de calcular el coeficiente, podemos evaluar si la correlación observada
 #| label: tbl-ch19-prueba-pearson
 
 prueba_pearson <- cor.test(
-  base_correlacion$log_supertotal,
-  base_correlacion$fact_exp_fin,
+  base_correlacion$log_productividad,
+  base_correlacion$capital,
   method = "pearson"
 )
 
@@ -449,13 +443,13 @@ La correlación puede verse afectada por valores extremos. Por ello conviene com
 
 ```{r}
 #| label: fig-ch19-valores-extremos-correlacion
-#| fig-cap: "Relación entre superficie original y factor de expansión"
+#| fig-cap: "Relación entre productividad original y capital"
 
 ggplot(
   base_correlacion,
   aes(
-    x = fact_exp_fin,
-    y = supertotal
+    x = capital,
+    y = productividad
   )
 ) +
   geom_point(
@@ -464,26 +458,26 @@ ggplot(
   ) +
   theme_minimal() +
   labs(
-    x = "Factor de expansión",
-    y = "Superficie total"
+    x = "Capital",
+    y = "Productividad total"
   )
 ```
 
 **Interpretación**
 
-La variable `supertotal` presenta valores extremos importantes. Por eso la transformación logarítmica resulta más útil para visualizar e interpretar la relación.
+La variable `productividad` presenta valores extremos importantes. Por eso la transformación logarítmica resulta más útil para visualizar e interpretar la relación.
 
 ### Comparación con variable transformada
 
 ```{r}
 #| label: fig-ch19-comparacion-transformada
-#| fig-cap: "Relación con superficie transformada"
+#| fig-cap: "Relación con productividad transformada"
 
 ggplot(
   base_correlacion,
   aes(
-    x = fact_exp_fin,
-    y = log_supertotal
+    x = capital,
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -492,8 +486,8 @@ ggplot(
   ) +
   theme_minimal() +
   labs(
-    x = "Factor de expansión",
-    y = "Logaritmo de la superficie total"
+    x = "Capital",
+    y = "Logaritmo de la productividad total"
   )
 ```
 
@@ -517,14 +511,14 @@ Por estas razones, la correlación debe interpretarse como una herramienta descr
 
 Utilizando la base `base_correlacion`:
 
-1. Calcule la covarianza entre `log_supertotal` y `fact_exp_fin`.
+1. Calcule la covarianza entre `log_productividad` y `capital`.
 2. Calcule la correlación de Pearson.
 3. Calcule la correlación de Spearman.
 4. Calcule la correlación de Kendall.
 5. Compare los tres coeficientes.
 6. Construya una matriz de correlación.
 7. Elabore un mapa de calor con `ggplot2`.
-8. Compare la relación usando `supertotal` y `log_supertotal`.
+8. Compare la relación usando `productividad` y `log_productividad`.
 9. Explique por qué una transformación puede mejorar la lectura visual.
 10. Discuta por qué la correlación no demuestra causalidad.
 
@@ -553,13 +547,7 @@ En esta sección estudiaremos por qué ocurre esto y cómo pensar de manera más
 ```{r}
 #| label: ch19-cargar-base-parte3
 
-base_analitica <- readRDS(
-  here::here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -570,17 +558,17 @@ base_analitica <- readRDS(
 
 base_causalidad <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       )
   ) |>
   select(
-    supertotal,
-    log_supertotal,
-    fact_exp_fin,
-    tamano_upa,
-    provincia
+    productividad,
+    log_productividad,
+    capital,
+    tamano_empresa,
+    region
   )
 ```
 
@@ -746,29 +734,29 @@ Z → Y
 
 En este caso, la asociación entre X e Y puede surgir porque ambas variables tienen una causa común.
 
-### Aplicación conceptual a la ESPAC
+### Aplicación conceptual a la base pedagógica
 
-En la base ESPAC podríamos observar asociaciones entre:
+En la base base pedagógica simulada podemos explorar asociaciones entre:
 
 ```text
-provincia
-tamano_upa
-log_supertotal
+region
+tamano_empresa
+log_productividad
 ```
 
-Sin embargo, no debemos concluir automáticamente que una provincia causa determinada superficie. La provincia puede reflejar condiciones agroecológicas, estructura productiva, historia agraria, acceso a mercados u otros factores no observados.
+Sin embargo, no debemos concluir automáticamente que una region causa determinada productividad. La region puede reflejar diferencias estructurales, sectoriales o institucionales y otros factores no observados.
 
-### Diferencias provinciales
+### Diferencias regionles
 
 ```{r}
-#| label: fig-ch19-diferencias-provincia-causalidad
-#| fig-cap: "Distribución de superficie transformada por provincia"
+#| label: fig-ch19-diferencias-region-causalidad
+#| fig-cap: "Distribución de productividad transformada por region"
 
 ggplot(
   base_causalidad,
   aes(
-    x = provincia,
-    y = log_supertotal
+    x = region,
+    y = log_productividad
   )
 ) +
   geom_boxplot(
@@ -778,14 +766,14 @@ ggplot(
   coord_flip() +
   theme_minimal() +
   labs(
-    x = "Provincia",
-    y = "Logaritmo de la superficie total"
+    x = "Región",
+    y = "Logaritmo de la productividad total"
   )
 ```
 
 **Interpretación**
 
-El gráfico muestra diferencias territoriales. Estas diferencias son descriptivas y no deben interpretarse como efectos causales de la provincia sobre la superficie.
+El gráfico muestra diferencias territoriales. Estas diferencias son descriptivas y no deben interpretarse como efectos causales de la region sobre la productividad.
 
 ### Correlaciones espurias
 
@@ -910,7 +898,7 @@ tibble(
     "Evalúa efectos bajo supuestos causales"
   ),
   Ejemplo = c(
-    "Comparar provincias",
+    "Comparar regions",
     "Estimar el efecto de una intervención"
   )
 ) |>

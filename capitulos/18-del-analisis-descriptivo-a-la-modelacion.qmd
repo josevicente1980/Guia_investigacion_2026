@@ -9,7 +9,7 @@
 
 source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("modelos")
-base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
 
@@ -26,18 +26,12 @@ base_analitica <- leer_objeto_libro("sunac_transformado.rds")
 
 
 # 2. Carga de la base de datos
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 
 # Introducir log1p para evitar los infinitos generados por ceros
 base_analitica <- base_analitica |> 
-  mutate(log_supertotal = log1p(supertotal))
+  mutate(log_productividad = log1p(productividad))
 ```
 
 
@@ -74,15 +68,15 @@ En este capítulo comenzaremos el tránsito desde el análisis descriptivo hacia
 La estadística descriptiva responde preguntas como:
 
 ```text
-¿Cuál es la superficie promedio?
-¿Cuál es la provincia con mayor superficie?
+¿Cuál es la productividad promedio?
+¿Cuál es la region con mayor productividad?
 ¿Cómo se distribuyen las observaciones?
 ```
 
 La modelación responde preguntas diferentes:
 
 ```text
-¿La superficie total está relacionada con el factor de expansión?
+¿La productividad total está relacionada con el capital?
 ¿Existen diferencias sistemáticas entre categorías?
 ¿Qué variables ayudan a explicar la variabilidad observada?
 ```
@@ -123,18 +117,18 @@ En nuestro caso utilizaremos como ejemplo:
 
 ```text
 Variable dependiente:
-log_supertotal
+log_productividad
 ```
 
 y como posibles variables explicativas:
 
 ```text
-fact_exp_fin
-tamano_upa
-provincia
+capital
+tamano_empresa
+region
 ```
 
-Por lo tanto, las variables `fact_exp_fin`, `tamano_upa` y `provincia` ayudan a explicar las variaciones de la superficie total.
+Por lo tanto, `capital`, `tamano_empresa` y `region` pueden utilizarse como predictores de la productividad dentro de este ejemplo pedagógico, sin interpretar sus coeficientes como efectos causales.
 
 ## La importancia de una matriz analítica
 
@@ -154,10 +148,10 @@ La matriz analítica debe:
 
 matriz_modelo <- base_analitica |>
   select(
-    log_supertotal,
-    fact_exp_fin,
-    tamano_upa,
-    provincia
+    log_productividad,
+    capital,
+    tamano_empresa,
+    region
   )
 
 matriz_modelo |>
@@ -232,17 +226,17 @@ Por esta razón, la interpretación de modelos requiere sustento teórico y cono
 
 Antes de estimar modelos es recomendable examinar visualmente la relación entre variables.
 
-### Relación entre superficie y factor de expansión
+### Relación entre productividad y capital
 
 ```{r}
 #| label: fig-ch18-dispersion-inicial
-#| fig-cap: "Relación preliminar entre superficie transformada y factor de expansión"
+#| fig-cap: "Relación preliminar entre productividad transformada y capital"
 
 ggplot(
   matriz_modelo,
   aes(
-    x = fact_exp_fin,
-    y = log_supertotal
+    x = capital,
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -251,8 +245,8 @@ ggplot(
   ) +
   theme_minimal() +
   labs(
-    x = "Factor de expansión",
-    y = "Logaritmo de la superficie total"
+    x = "Capital",
+    y = "Logaritmo de la productividad total"
   )
 ```
 
@@ -269,8 +263,8 @@ El gráfico permite identificar posibles asociaciones, concentraciones de observ
 ggplot(
   matriz_modelo,
   aes(
-    x = fact_exp_fin,
-    y = log_supertotal
+    x = capital,
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -284,8 +278,8 @@ ggplot(
   ) +
   theme_minimal() +
   labs(
-    x = "Factor de expansión",
-    y = "Logaritmo de la superficie total"
+    x = "Capital",
+    y = "Logaritmo de la productividad total"
   )
 ```
 
@@ -299,40 +293,40 @@ La modelación también requiere comprender cómo se comportan las variables den
 
 ```{r}
 #| label: fig-ch18-boxplot-categorias
-#| fig-cap: "Distribución de la superficie según tamaño de UPA"
+#| fig-cap: "Distribución de la productividad según tamaño de empresa"
 
 ggplot(
   matriz_modelo,
   aes(
-    x = tamano_upa,
-    y = log_supertotal,
-    fill = tamano_upa
+    x = tamano_empresa,
+    y = log_productividad,
+    fill = tamano_empresa
   )
 ) +
   geom_boxplot() +
   scale_fill_viridis_d() +
   theme_minimal() +
   labs(
-    x = "Tamaño de UPA",
-    y = "Logaritmo de la superficie total"
+    x = "Tamaño de empresa",
+    y = "Logaritmo de la productividad total"
   )
 ```
 
 **Interpretación**
 
-Las diferencias observadas sugieren que la categoría de tamaño podría aportar información relevante para explicar la superficie total.
+Las diferencias observadas sugieren que la categoría de tamaño podría aportar información relevante para explicar la productividad total.
 
 ### Comparación territorial
 
 ```{r}
-#| label: fig-ch18-provincia-modelacion
-#| fig-cap: "Distribución de superficie por provincia"
+#| label: fig-ch18-region-modelacion
+#| fig-cap: "Distribución de productividad por region"
 
 ggplot(
   matriz_modelo,
   aes(
-    x = provincia,
-    y = log_supertotal
+    x = region,
+    y = log_productividad
   )
 ) +
   geom_boxplot(
@@ -342,14 +336,14 @@ ggplot(
   coord_flip() +
   theme_minimal() +
   labs(
-    x = "Provincia",
-    y = "Logaritmo de la superficie total"
+    x = "Región",
+    y = "Logaritmo de la productividad total"
   )
 ```
 
 **Interpretación**
 
-La existencia de diferencias provinciales sugiere que la dimensión territorial podría incorporarse posteriormente dentro de modelos explicativos.
+La existencia de diferencias regionles sugiere que la dimensión territorial podría incorporarse posteriormente dentro de modelos explicativos.
 
 ### Matriz de correlación
 
@@ -360,8 +354,8 @@ Antes de estimar modelos es habitual examinar correlaciones entre variables num�
 
 correlacion_modelo <- matriz_modelo |>
   select(
-    log_supertotal,
-    fact_exp_fin
+    log_productividad,
+    capital
   ) |>
   cor(
     use = "complete.obs"
@@ -476,10 +470,10 @@ En nuestro ejemplo utilizaremos:
 
 ```text
 Variable dependiente:
-log_supertotal
+log_productividad
 
 Variable explicativa:
-fact_exp_fin
+capital
 ```
 
 ### Construcción del primer modelo
@@ -490,7 +484,7 @@ Estimaremos una regresión lineal simple.
 #| label: ch18-modelo-simple
 
 modelo_simple <- lm(
-  log_supertotal ~ fact_exp_fin,
+  log_productividad ~ capital,
   data = matriz_modelo
 )
 ```
@@ -534,7 +528,7 @@ coeficientes_simple |>
 
 La tabla resume los parámetros estimados y facilita la presentación de resultados en informes o artículos.
 
-La significancia estadística de los coeficientes se evalúa mediante el **valor p (p-value)**. Si este es menor que el nivel de significancia previamente establecido (generalmente 0,05), se rechaza la hipótesis nula de que el coeficiente es igual a cero y se concluye que la variable explicativa tiene un efecto estadísticamente significativo sobre la variable dependiente. En la tabla presentada, tanto el intercepto como la variable `fact_exp_fin` presentan valores p inferiores a 0,001, por lo que ambos coeficientes son altamente significativos. También pueden extraerse conclusiones a partir del estadístico *t*, cuyo valor absoluto suele contrastarse con el valor crítico aproximado de 2.
+La inferencia no debe reducirse a una regla automática basada en valores p. Los coeficientes deben interpretarse junto con sus intervalos de confianza, magnitud sustantiva, supuestos del modelo y propósito del análisis. En esta base simulada los resultados ilustran el procedimiento de estimación, no una conclusión empírica sobre empresas reales.
 
 ### Valores ajustados
 
@@ -563,7 +557,7 @@ ggplot(
   matriz_modelo,
   aes(
     x = predicho_simple,
-    y = log_supertotal
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -596,8 +590,8 @@ Mientras más cercanos se encuentren los puntos a la línea diagonal, mejor ser�
 ggplot(
   matriz_modelo,
   aes(
-    x = fact_exp_fin,
-    y = log_supertotal
+    x = capital,
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -611,8 +605,8 @@ ggplot(
   ) +
   theme_minimal() +
   labs(
-    x = "Factor de expansión",
-    y = "Logaritmo de la superficie total"
+    x = "Capital",
+    y = "Logaritmo de la productividad total"
   )
 ```
 
@@ -726,16 +720,16 @@ La regresión también puede incorporar variables categóricas.
 Por ejemplo:
 
 ```text
-tamano_upa
+tamano_empresa
 ```
 
-### Modelo con tamaño de UPA
+### Modelo con tamaño de empresa
 
 ```{r}
 #| label: ch18-modelo-categorico
 
 modelo_tamano <- lm(
-  log_supertotal ~ tamano_upa,
+  log_productividad ~ tamano_empresa,
   data = matriz_modelo
 )
 ```
@@ -750,7 +744,7 @@ broom::tidy(
 ) |>
   kable(
     digits = 4,
-    caption = "Modelo con categorías de tamaño de UPA"
+    caption = "Modelo con categorías de tamaño de empresa"
   )
 ```
 
@@ -774,9 +768,9 @@ Y = β0 + β1X1 + β2X2 + ... + βkXk + ε
 #| label: ch18-modelo-multiple
 
 modelo_multiple <- lm(
-  log_supertotal ~
-    fact_exp_fin +
-    tamano_upa,
+  log_productividad ~
+    capital +
+    tamano_empresa,
   data = matriz_modelo
 )
 ```
@@ -797,7 +791,7 @@ broom::tidy(
 
 **Interpretación**
 
-Cada coeficiente representa el efecto estimado de una variable manteniendo constantes las demás variables incluidas en el modelo. Es decir, cada una de las variables regresoras ayuda a explicar las variaciones de la superficie total.
+Cada coeficiente representa una asociación condicional entre una variable y la respuesta, manteniendo constantes las demás variables incluidas. En este ejemplo pedagógico no debe interpretarse como un efecto causal.
 
 ### Comparación entre modelos
 
@@ -807,7 +801,7 @@ Cada coeficiente representa el efecto estimado de una variable manteniendo const
 comparacion_modelos <- tibble(
   Modelo = c(
     "Simple",
-    "Tamaño UPA",
+    "Tamaño empresa",
     "Múltiple"
   ),
   R2 = c(
@@ -872,7 +866,7 @@ Tradicionalmente, muchos modelos estadísticos han sido utilizados con fines exp
 Por ejemplo:
 
 ```text
-¿Qué factores explican la superficie agrícola?
+¿Qué factores explican la productividad agrícola?
 ```
 
 Sin embargo, los modelos también pueden utilizarse para predecir.
@@ -880,7 +874,7 @@ Sin embargo, los modelos también pueden utilizarse para predecir.
 Por ejemplo:
 
 ```text
-¿Cuál sería la superficie esperada para una nueva observación?
+¿Cuál sería la productividad esperada para una nueva observación?
 ```
 
 Aunque explicación y predicción están relacionadas, no son exactamente lo mismo.
@@ -942,7 +936,7 @@ ggplot(
   matriz_modelo,
   aes(
     x = prediccion_multiple,
-    y = log_supertotal
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -1136,9 +1130,9 @@ La división permite evaluar si el modelo mantiene un desempeño razonable sobre
 #| label: ch18-modelo-entrenamiento
 
 modelo_entrenamiento <- lm(
-  log_supertotal ~
-    fact_exp_fin +
-    tamano_upa,
+  log_productividad ~
+    capital +
+    tamano_empresa,
   data =
     datos_entrenamiento
 )
@@ -1171,7 +1165,7 @@ ggplot(
   datos_validacion,
   aes(
     x = prediccion,
-    y = log_supertotal
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -1203,7 +1197,7 @@ Una medida ampliamente utilizada para evaluar predicciones es la raíz del error
 rmse <- sqrt(
   mean(
     (
-      datos_validacion$log_supertotal -
+      datos_validacion$log_productividad -
       datos_validacion$prediccion
     )^2,
     na.rm = TRUE
@@ -1245,9 +1239,9 @@ Depende de Z
 #| label: ch18-modelo-interaccion
 
 modelo_interaccion <- lm(
-  log_supertotal ~
-    fact_exp_fin *
-    tamano_upa,
+  log_productividad ~
+    capital *
+    tamano_empresa,
   data =
     matriz_modelo
 )

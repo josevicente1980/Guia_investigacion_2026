@@ -9,7 +9,7 @@
 
 source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("modelos")
-base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
 
@@ -30,7 +30,7 @@ La correlación permite cuantificar la intensidad de la asociación entre dos va
 
 La regresión lineal simple constituye uno de los modelos estadísticos más utilizados en ciencias sociales, económicas, ambientales y de la salud. Su objetivo es describir cómo cambia una variable de interés cuando otra variable experimenta variaciones [@montgomery2021].
 
-En este capítulo utilizaremos la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC) para ilustrar el proceso completo de estimación e interpretación de una regresión lineal simple.
+En este capítulo utilizaremos una base pedagógica simulada y reproducible para ilustrar la estimación e interpretación de una regresión lineal simple.
 
 ### Cargando librerías
 
@@ -50,13 +50,7 @@ En este capítulo utilizaremos la Encuesta de Superficie y Producción Agropecua
 ```{r}
 #| label: reg20-cargar-base
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -68,14 +62,14 @@ base_analitica <- readRDS(
 
 base_regresion <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       )
   ) |>
   select(
-    log_supertotal,
-    fact_exp_fin
+    log_productividad,
+    capital
   )
 ```
 
@@ -101,12 +95,12 @@ En este capítulo utilizaremos:
 
 ```text
 Variable dependiente:
-log_supertotal
+log_productividad
 ```
 
 ```text
 Variable explicativa:
-fact_exp_fin
+capital
 ```
 
 ### Exploración visual inicial
@@ -115,13 +109,13 @@ Antes de estimar cualquier modelo conviene observar los datos.
 
 ```{r}
 #| label: fig-reg20-dispersion-inicial
-#| fig-cap: "Relación entre superficie transformada y factor de expansión"
+#| fig-cap: "Relación entre productividad transformada y capital"
 
 ggplot(
   base_regresion,
   aes(
-    x = fact_exp_fin,
-    y = log_supertotal
+    x = capital,
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -130,8 +124,8 @@ ggplot(
   ) +
   theme_minimal() +
   labs(
-    x = "Factor de expansión",
-    y = "Logaritmo de la superficie total"
+    x = "Capital",
+    y = "Logaritmo de la productividad total"
   )
 ```
 
@@ -147,7 +141,7 @@ La función `lm()` permite estimar modelos lineales.
 #| label: reg20-estimar-modelo
 
 modelo_simple <- lm(
-  log_supertotal ~ fact_exp_fin,
+  log_productividad ~ capital,
   data = base_regresion
 )
 ```
@@ -194,13 +188,13 @@ La tabla resume los parámetros estimados de la ecuación de regresión.
 
 ### Interpretación del intercepto
 
-El intercepto representa el valor esperado de la variable dependiente cuando la variable explicativa toma el valor cero. Antes de emitir una interpretación, se debe verificar que el valor p sea menor que 0,05. Una vez comprobada la significancia estadística, se concluye que, cuando el factor de expansión es igual a cero, la superficie total transformada toma el valor estimado por el intercepto.
+El intercepto representa el valor esperado de la variable dependiente cuando la variable explicativa toma el valor cero. Su interpretación sustantiva solo es útil si ese valor se encuentra dentro de un rango plausible para el problema analizado.
 
 En términos prácticos:
 
 ```text
-Valor esperado de log_supertotal
-cuando fact_exp_fin = 0
+Valor esperado de log_productividad
+cuando capital = 0
 ```
 
 Su interpretación debe evaluarse siempre dentro del contexto de los datos observados.
@@ -212,11 +206,11 @@ La pendiente representa el cambio promedio esperado en la variable dependiente a
 En nuestro caso:
 
 ```text
-Cambio esperado en log_supertotal
-cuando fact_exp_fin aumenta una unidad.
+Cambio esperado en log_productividad
+cuando capital aumenta una unidad.
 ```
 
-La pendiente constituye el parámetro más importante de la regresión lineal simple. En este caso, una vez comprobada su significancia estadística, puede interpretarse que, cuando el factor de expansión aumenta en una unidad, la superficie total transformada cambia en la magnitud indicada por el coeficiente estimado.
+La pendiente resume el cambio esperado en `log_productividad` asociado con un aumento de una unidad en `capital`. En esta base simulada se interpreta como una asociación del modelo y no como un efecto causal.
 
 ### Incorporando la recta de regresión
 
@@ -227,8 +221,8 @@ La pendiente constituye el parámetro más importante de la regresión lineal si
 ggplot(
   base_regresion,
   aes(
-    x = fact_exp_fin,
-    y = log_supertotal
+    x = capital,
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -242,8 +236,8 @@ ggplot(
   ) +
   theme_minimal() +
   labs(
-    x = "Factor de expansión",
-    y = "Logaritmo de la superficie total"
+    x = "Capital",
+    y = "Logaritmo de la productividad total"
   )
 ```
 
@@ -338,13 +332,7 @@ Estas herramientas permiten evaluar la capacidad explicativa y predictiva del mo
 ```{r}
 #| label: reg20-cargar-base-parte2
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -356,14 +344,14 @@ base_analitica <- readRDS(
 
 base_regresion <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       )
   ) |>
   select(
-    log_supertotal,
-    fact_exp_fin
+    log_productividad,
+    capital
   )
 ```
 
@@ -373,7 +361,7 @@ base_regresion <- base_analitica |>
 #| label: reg20-modelo-simple-parte2
 
 modelo_simple <- lm(
-  log_supertotal ~ fact_exp_fin,
+  log_productividad ~ capital,
   data = base_regresion
 )
 ```
@@ -417,7 +405,7 @@ tibble(
 
 **Interpretación**
 
-El R² indica qué proporción de la variabilidad observada en `log_supertotal` es explicada por `fact_exp_fin`.
+El R² indica qué proporción de la variabilidad observada en `log_productividad` es explicada por `capital`.
 
 ### R² ajustado
 
@@ -491,7 +479,7 @@ ggplot(
   base_regresion,
   aes(
     x = ajustado,
-    y = log_supertotal
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -544,20 +532,20 @@ Los intervalos reflejan el rango plausible de valores para cada parámetro pobla
 
 Una de las principales aplicaciones de la regresión consiste en realizar predicciones.
 
-Crearemos algunos valores hipotéticos del factor de expansión.
+Crearemos algunos valores hipotéticos del capital.
 
 ```{r}
 #| label: tbl-reg20-nuevos-valores
 
 nuevos_datos <- tibble(
-  fact_exp_fin =
+  capital =
     seq(
       min(
-        base_regresion$fact_exp_fin,
+        base_regresion$capital,
         na.rm = TRUE
       ),
       max(
-        base_regresion$fact_exp_fin,
+        base_regresion$capital,
         na.rm = TRUE
       ),
       length.out = 10
@@ -593,7 +581,7 @@ nuevos_datos |>
 
 **Interpretación**
 
-Cada valor corresponde a la respuesta esperada de `log_supertotal` para un valor específico del factor de expansión.
+Cada valor corresponde a la respuesta esperada de `log_productividad` para un valor específico del capital.
 
 ### Intervalos de confianza para la media estimada
 
@@ -650,8 +638,8 @@ Estos intervalos indican dónde podría ubicarse una observación futura individ
 ggplot(
   base_regresion,
   aes(
-    x = fact_exp_fin,
-    y = log_supertotal
+    x = capital,
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -665,8 +653,8 @@ ggplot(
   ) +
   theme_minimal() +
   labs(
-    x = "Factor de expansión",
-    y = "Logaritmo de la superficie total"
+    x = "Capital",
+    y = "Logaritmo de la productividad total"
   )
 ```
 
@@ -744,13 +732,7 @@ En esta sección realizaremos un diagnóstico introductorio utilizando residuos.
 ```{r}
 #| label: reg20-cargar-base-parte3
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -761,14 +743,14 @@ base_analitica <- readRDS(
 
 base_regresion <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       )
   ) |>
   select(
-    log_supertotal,
-    fact_exp_fin
+    log_productividad,
+    capital
   )
 ```
 
@@ -778,7 +760,7 @@ base_regresion <- base_analitica |>
 #| label: reg20-modelo-parte3
 
 modelo_simple <- lm(
-  log_supertotal ~ fact_exp_fin,
+  log_productividad ~ capital,
   data = base_regresion
 )
 ```
@@ -1121,7 +1103,7 @@ Estas preguntas constituyen la base de cualquier evaluación preliminar de model
 
 ## Resumen del capítulo
 
-En este capítulo aprendimos a construir e interpretar una regresión lineal simple utilizando datos reales de la ESPAC.
+En este capítulo aprendimos a construir e interpretar una regresión lineal simple utilizando una base pedagógica simulada.
 
 Primero definimos la estructura del modelo, estimamos sus parámetros e interpretamos intercepto y pendiente. Posteriormente evaluamos la calidad del ajuste mediante el coeficiente de determinación, intervalos de confianza y predicciones. Finalmente realizamos un diagnóstico introductorio utilizando residuos y herramientas gráficas básicas.
 

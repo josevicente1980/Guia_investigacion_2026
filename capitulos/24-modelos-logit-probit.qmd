@@ -9,7 +9,7 @@
 
 source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("modelos")
-base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
 
@@ -35,7 +35,7 @@ Por ejemplo:
 ```text
 Ingreso
 Producción
-Superficie
+Productividad
 Ventas
 ```
 
@@ -73,43 +73,37 @@ Cuando la variable respuesta solo puede tomar dos valores, la regresión lineal 
 ```{r}
 #| label: reg24-cargar-base
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
 ### Construcción de la variable binaria
 
-Para fines pedagógicos construiremos una variable que identifique UPA con superficie superior a la mediana.
+Para fines pedagógicos utilizaremos una variable binaria que identifica observaciones con productividad superior a la mediana de la base simulada.
 
 ```{r}
 #| eval: false
 #| label: reg24-variable-binaria
 
-mediana_superficie <- median(
-  base_analitica$supertotal,
+mediana_productividad <- median(
+  base_analitica$productividad,
   na.rm = TRUE
 )
 
 base_logit <- base_analitica |>
   mutate(
-    upa_grande =
+    alta_productividad =
       if_else(
-        supertotal >
-          mediana_superficie,
+        productividad >
+          mediana_productividad,
         1,
         0
       )
   ) |>
   select(
-    upa_grande,
-    fact_exp_fin,
-    supertotal
+    alta_productividad,
+    capital,
+    productividad
   ) |>
   drop_na()
 ```
@@ -121,7 +115,7 @@ base_logit <- base_analitica |>
 
 base_logit |>
   count(
-    upa_grande
+    alta_productividad
   ) |>
   kable(
     caption = "Distribución de la variable binaria"
@@ -133,9 +127,9 @@ base_logit |>
 La variable respuesta toma únicamente dos valores:
 
 ```text
-1 = UPA grande
+1 = productividad alta
 
-0 = UPA no grande
+0 = productividad no alta
 ```
 
 ## ¿Por qué no usar regresión lineal?
@@ -176,13 +170,13 @@ $$P(Y_i = 1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_i)}}$$
 
 ```{r}
 #| label: fig-reg24-dispersion-binaria
-#| fig-cap: "Variable binaria y experiencia financiera"
+#| fig-cap: "Variable binaria y capital productivo"
 
 ggplot(
   base_logit,
   aes(
-    x = fact_exp_fin,
-    y = upa_grande
+    x = capital,
+    y = alta_productividad
   )
 ) +
   geom_jitter(
@@ -202,8 +196,8 @@ La dispersión muestra observaciones concentradas en dos valores posibles: 0 y 1
 #| label: reg24-modelo-logit
 
 modelo_logit <- glm(
-  upa_grande ~
-    fact_exp_fin,
+  alta_productividad ~
+    capital,
   data = base_logit,
   family = binomial(
     link = "logit"
@@ -290,7 +284,7 @@ Todas las predicciones permanecen dentro del rango válido de probabilidades.
 ggplot(
   base_logit,
   aes(
-    x = fact_exp_fin,
+    x = capital,
     y = probabilidad
   )
 ) +
@@ -350,13 +344,7 @@ Estos conceptos constituyen la base de la interpretación de modelos Logit [@hos
 ```{r}
 #| label: reg24-cargar-base-parte2
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -366,24 +354,24 @@ base_analitica <- readRDS(
 #| eval: false
 #| label: reg24-reconstruir-variable
 
-mediana_superficie <- median(
-  base_analitica$supertotal,
+mediana_productividad <- median(
+  base_analitica$productividad,
   na.rm = TRUE
 )
 
 base_logit <- base_analitica |>
   mutate(
-    upa_grande =
+    alta_productividad =
       if_else(
-        supertotal >
-          mediana_superficie,
+        productividad >
+          mediana_productividad,
         1,
         0
       )
   ) |>
   select(
-    upa_grande,
-    fact_exp_fin
+    alta_productividad,
+    capital
   ) |>
   drop_na()
 ```
@@ -394,8 +382,8 @@ base_logit <- base_analitica |>
 #| label: reg24-modelo-logit-parte2
 
 modelo_logit <- glm(
-  upa_grande ~
-    fact_exp_fin,
+  alta_productividad ~
+    capital,
   family = binomial(
     link = "logit"
   ),
@@ -410,7 +398,7 @@ La probabilidad representa la posibilidad de ocurrencia de un evento.
 Por ejemplo:
 
 ```text
-P(UPA grande) = 0.70
+P(productividad alta) = 0.70
 ```
 
 significa:
@@ -422,7 +410,7 @@ significa:
 de probabilidad de pertenecer a la categoría:
 
 ```text
-UPA grande
+productividad alta
 ```
 
 ### Odds
@@ -657,7 +645,7 @@ base_logit <- base_logit |>
 
 table(
   Observado =
-    base_logit$upa_grande,
+    base_logit$alta_productividad,
   Predicho =
     base_logit$clase_predicha
 ) |>
@@ -676,7 +664,7 @@ La tabla resume los aciertos y errores del modelo.
 #| label: tbl-reg24-exactitud
 
 exactitud <- mean(
-  base_logit$upa_grande ==
+  base_logit$alta_productividad ==
     base_logit$clase_predicha
 )
 
@@ -699,16 +687,16 @@ La exactitud representa la proporción de observaciones correctamente clasificad
 #| label: tbl-reg24-prediccion-casos
 
 nuevos_casos <- tibble(
-  fact_exp_fin = c(
+  capital = c(
     quantile(
-      base_logit$fact_exp_fin,
+      base_logit$capital,
       0.25
     ),
     median(
-      base_logit$fact_exp_fin
+      base_logit$capital
     ),
     quantile(
-      base_logit$fact_exp_fin,
+      base_logit$capital,
       0.75
     )
   )
@@ -731,7 +719,7 @@ nuevos_casos |>
 
 **Interpretación**
 
-Las probabilidades permiten evaluar escenarios futuros bajo diferentes niveles de experiencia financiera.
+Las probabilidades permiten evaluar escenarios futuros bajo diferentes niveles de capital productivo.
 
 ### Conclusión práctica
 
@@ -782,13 +770,7 @@ En la práctica, Logit y Probit suelen producir resultados muy similares.
 ```{r}
 #| label: reg24-cargar-base-parte3
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -797,24 +779,24 @@ base_analitica <- readRDS(
 ```{r}
 #| label: reg24-variable-binaria-parte3
 
-mediana_superficie <- median(
-  base_analitica$supertotal,
+mediana_productividad <- median(
+  base_analitica$productividad,
   na.rm = TRUE
 )
 
 base_binaria <- base_analitica |>
   mutate(
-    upa_grande =
+    alta_productividad =
       if_else(
-        supertotal >
-          mediana_superficie,
+        productividad >
+          mediana_productividad,
         1,
         0
       )
   ) |>
   select(
-    upa_grande,
-    fact_exp_fin
+    alta_productividad,
+    capital
   ) |>
   drop_na()
 ```
@@ -825,8 +807,8 @@ base_binaria <- base_analitica |>
 #| label: reg24-modelo-logit-parte3
 
 modelo_logit <- glm(
-  upa_grande ~
-    fact_exp_fin,
+  alta_productividad ~
+    capital,
   data = base_binaria,
   family = binomial(
     link = "logit"
@@ -840,8 +822,8 @@ modelo_logit <- glm(
 #| label: reg24-modelo-probit
 
 modelo_probit <- glm(
-  upa_grande ~
-    fact_exp_fin,
+  alta_productividad ~
+    capital,
   data = base_binaria,
   family = binomial(
     link = "probit"
@@ -1016,7 +998,7 @@ exactitud_logit <- mean(
     1,
     0
   ) ==
-    base_binaria$upa_grande
+    base_binaria$alta_productividad
 )
 
 exactitud_probit <- mean(
@@ -1025,7 +1007,7 @@ exactitud_probit <- mean(
     1,
     0
   ) ==
-    base_binaria$upa_grande
+    base_binaria$alta_productividad
 )
 
 tibble(

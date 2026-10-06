@@ -9,7 +9,7 @@
 
 source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("modelos")
-base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
 
@@ -50,13 +50,7 @@ La regresión lineal múltiple permite incorporar varias variables explicativas 
 ```{r}
 #| label: reg21-cargar-base
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -70,16 +64,16 @@ Para ilustrar la regresión múltiple construiremos una base con variables numé
 
 base_modelo <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       )
   ) |>
   select(
-    log_supertotal,
-    fact_exp_fin,
-    tamano_upa,
-    provincia
+    log_productividad,
+    capital,
+    tamano_empresa,
+    region
   ) |>
   drop_na()
 ```
@@ -96,7 +90,7 @@ glimpse(
 
 **Interpretación**
 
-La variable dependiente será `log_supertotal`, mientras que `fact_exp_fin`, `tamano_upa` y posteriormente otras variables actuarán como explicativas.
+La variable dependiente será `log_productividad`, mientras que `capital`, `tamano_empresa` y `region` actuarán como predictores dentro de una base pedagógica simulada.
 
 ## Del modelo simple al modelo múltiple
 
@@ -112,18 +106,18 @@ Ahora cada coeficiente mide el efecto parcial de una variable manteniendo consta
 
 ### ¿Qué significa controlar variables?
 
-Uno de los principales aportes de la regresión múltiple consiste en controlar estadísticamente otros factores.
+La regresión múltiple permite estimar asociaciones condicionales incorporando simultáneamente varios predictores. Incluir covariables no equivale, por sí solo, a identificar efectos causales.
 
 Conceptualmente:
 
 ```text
-Superficie agrícola
+Productividad agrícola
 ↓
 puede depender de
 
-Factor de expansión
-Tamaño de UPA
-Provincia
+Capital
+Tamaño de empresa
+Región
 Otros factores
 ```
 
@@ -137,7 +131,7 @@ Antes de construir el modelo múltiple estimaremos nuevamente un modelo simple.
 #| label: reg21-modelo-simple
 
 modelo_simple <- lm(
-  log_supertotal ~ fact_exp_fin,
+  log_productividad ~ capital,
   data = base_modelo
 )
 ```
@@ -171,9 +165,9 @@ Ahora incorporaremos el tamaño de la unidad productiva.
 #| label: reg21-modelo-multiple-1
 
 modelo_multiple_1 <- lm(
-  log_supertotal ~
-    fact_exp_fin +
-    tamano_upa,
+  log_productividad ~
+    capital +
+    tamano_empresa,
   data = base_modelo
 )
 ```
@@ -194,7 +188,7 @@ broom::tidy(
 
 **Interpretación**
 
-Cada coeficiente representa el cambio esperado en `log_supertotal` asociado a una variación de la variable correspondiente, manteniendo constantes las demás variables incluidas en el modelo. De igual forma, el primer paso es observar el valor p para comprobar su significancia estadística y proceder a interpretar los resultados.
+Cada coeficiente representa el cambio esperado en `log_productividad` asociado a una variación de la variable correspondiente, manteniendo constantes las demás variables incluidas en el modelo. De igual forma, el primer paso es observar el valor p para comprobar su significancia estadística y proceder a interpretar los resultados.
 
 ### Comparación entre modelos
 
@@ -255,7 +249,7 @@ base_modelo |>
   ggplot(
     aes(
       x = ajustado,
-      y = log_supertotal
+      y = log_productividad
     )
   ) +
   geom_point(
@@ -318,13 +312,7 @@ En esta sección estudiaremos cómo comparar modelos, interpretar el aporte de n
 ```{r}
 #| label: reg21-cargar-base-parte2
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -336,16 +324,16 @@ base_analitica <- readRDS(
 
 base_modelo <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       )
   ) |>
   select(
-    log_supertotal,
-    fact_exp_fin,
-    tamano_upa,
-    provincia
+    log_productividad,
+    capital,
+    tamano_empresa,
+    region
   ) |>
   drop_na()
 ```
@@ -358,9 +346,9 @@ Comenzaremos con el modelo estimado en la sección anterior.
 #| label: reg21-modelo-base
 
 modelo_1 <- lm(
-  log_supertotal ~
-    fact_exp_fin +
-    tamano_upa,
+  log_productividad ~
+    capital +
+    tamano_empresa,
   data = base_modelo
 )
 ```
@@ -392,16 +380,16 @@ Estos indicadores resumen la calidad general del ajuste y servirán como punto d
 
 ### Incorporando una variable adicional
 
-Ahora agregaremos la variable provincia.
+Ahora agregaremos la variable region.
 
 ```{r}
-#| label: reg21-modelo-provincia
+#| label: reg21-modelo-region
 
 modelo_2 <- lm(
-  log_supertotal ~
-    fact_exp_fin +
-    tamano_upa +
-    provincia,
+  log_productividad ~
+    capital +
+    tamano_empresa +
+    region,
   data = base_modelo
 )
 ```
@@ -422,7 +410,7 @@ tidy(
 
 **Interpretación**
 
-Al incorporar provincia, los coeficientes previamente estimados pueden modificarse. Esto ocurre porque parte de la variabilidad explicada anteriormente puede estar asociada a diferencias territoriales. En este caso, puede deducirse que algunas variables no son estadísticamente significativas cuando su valor p es mayor que 0,05 y, por lo tanto, su estadístico *t* en valor absoluto es inferior al valor crítico aproximado de 2; esto indica que dichas variables no aportan evidencia suficiente dentro del modelo especificado.
+Al incorporar `region`, los coeficientes previamente estimados pueden modificarse porque el modelo redistribuye la variación explicada entre los predictores. La relevancia de una variable debe evaluarse mediante magnitud, incertidumbre, coherencia sustantiva y propósito analítico, no únicamente con un umbral de significancia.
 
 ### Comparación entre modelos
 
@@ -459,21 +447,21 @@ La comparación permite evaluar si la nueva variable aporta información adicion
 
 ## ¿Qué es una variable de control?
 
-Una variable de control es una variable incorporada al modelo para aislar mejor la relación entre la variable dependiente y el predictor principal.
+Una covariable adicional puede ayudar a describir asociaciones condicionales y reducir confusión bajo supuestos específicos. Su inclusión no garantiza control causal.
 
 Por ejemplo:
 
 ```text
-log_supertotal
+log_productividad
 ↓
-fact_exp_fin
+capital
 ```
 
 puede verse afectado por:
 
 ```text
-tamano_upa
-provincia
+tamano_empresa
+region
 ```
 
 Al incorporarlas al modelo reducimos posibles sesgos de omisión.
@@ -491,14 +479,14 @@ Por ejemplo:
 representa el efecto de:
 
 ```text
-fact_exp_fin
+capital
 ```
 
 manteniendo constantes:
 
 ```text
-tamano_upa
-provincia
+tamano_empresa
+region
 ```
 
 Esta es una de las principales fortalezas del modelo múltiple.
@@ -590,7 +578,7 @@ base_modelo |>
   ggplot(
     aes(
       x = ajustado,
-      y = log_supertotal
+      y = log_productividad
     )
   ) +
   geom_point(
@@ -719,13 +707,7 @@ En esta sección construiremos un flujo completo de análisis que servirá como 
 ```{r}
 #| label: reg21-cargar-base-parte3
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -736,24 +718,24 @@ base_analitica <- readRDS(
 
 base_modelo <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       ),
-    tamano_upa =
+    tamano_empresa =
       as.factor(
-        tamano_upa
+        tamano_empresa
       ),
-    provincia =
+    region =
       as.factor(
-        provincia
+        region
       )
   ) |>
   select(
-    log_supertotal,
-    fact_exp_fin,
-    tamano_upa,
-    provincia
+    log_productividad,
+    capital,
+    tamano_empresa,
+    region
   ) |>
   drop_na()
 ```
@@ -764,10 +746,10 @@ base_modelo <- base_analitica |>
 #| label: reg21-modelo-final
 
 modelo_final <- lm(
-  log_supertotal ~
-    fact_exp_fin +
-    tamano_upa +
-    provincia,
+  log_productividad ~
+    capital +
+    tamano_empresa +
+    region,
   data = base_modelo
 )
 ```
@@ -840,7 +822,7 @@ ggplot(
   base_modelo,
   aes(
     x = ajustado,
-    y = log_supertotal
+    y = log_productividad
   )
 ) +
   geom_point(
@@ -873,7 +855,7 @@ Una forma sencilla de evaluar el desempeño consiste en calcular la diferencia e
 base_modelo <- base_modelo |>
   mutate(
     error =
-      log_supertotal -
+      log_productividad -
       ajustado
   )
 ```
@@ -944,54 +926,54 @@ La regresión múltiple permite generar predicciones para escenarios específico
 #| label: tbl-reg21-nuevos-casos
 
 nuevos_casos <- tibble(
-  fact_exp_fin = c(
+  capital = c(
     median(
-      base_modelo$fact_exp_fin,
+      base_modelo$capital,
       na.rm = TRUE
     ),
     quantile(
-      base_modelo$fact_exp_fin,
+      base_modelo$capital,
       0.75,
       na.rm = TRUE
     )
   ),
-  tamano_upa = factor(
+  tamano_empresa = factor(
     c(
       levels(
         factor(
-          base_modelo$tamano_upa
+          base_modelo$tamano_empresa
         )
       )[1],
       levels(
         factor(
-          base_modelo$tamano_upa
+          base_modelo$tamano_empresa
         )
       )[2]
     ),
     levels =
       levels(
         factor(
-          base_modelo$tamano_upa
+          base_modelo$tamano_empresa
         )
       )
   ),
-  provincia = factor(
+  region = factor(
     c(
       levels(
         factor(
-          base_modelo$provincia
+          base_modelo$region
         )
       )[1],
       levels(
         factor(
-          base_modelo$provincia
+          base_modelo$region
         )
       )[1]
     ),
     levels =
       levels(
         factor(
-          base_modelo$provincia
+          base_modelo$region
         )
       )
   )
@@ -1025,7 +1007,7 @@ nuevos_casos |>
 
 **Interpretación**
 
-Las predicciones representan el valor esperado de la superficie transformada para los escenarios definidos.
+Las predicciones representan el valor esperado de la productividad transformada para los escenarios definidos.
 
 ### Intervalos de confianza
 

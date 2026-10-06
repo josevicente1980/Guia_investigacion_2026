@@ -9,7 +9,7 @@
 
 source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("modelos", extra = c("car"))
-base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
 
@@ -51,13 +51,7 @@ En este capítulo utilizaremos el modelo múltiple construido previamente para i
 ```{r}
 #| label: reg22-cargar-base
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -69,24 +63,24 @@ base_analitica <- readRDS(
 
 base_modelo <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       ),
-    tamano_upa =
+    tamano_empresa =
       as.factor(
-        tamano_upa
+        tamano_empresa
       ),
-    provincia =
+    region =
       as.factor(
-        provincia
+        region
       )
   ) |>
   select(
-    log_supertotal,
-    fact_exp_fin,
-    tamano_upa,
-    provincia
+    log_productividad,
+    capital,
+    tamano_empresa,
+    region
   ) |>
   drop_na()
 ```
@@ -97,10 +91,10 @@ base_modelo <- base_analitica |>
 #| label: reg22-estimar-modelo
 
 modelo_diag <- lm(
-  log_supertotal ~
-    fact_exp_fin +
-    tamano_upa +
-    provincia,
+  log_productividad ~
+    capital +
+    tamano_empresa +
+    region,
   data = base_modelo
 )
 ```
@@ -399,13 +393,7 @@ Estos elementos son especialmente importantes cuando se trabaja con múltiples v
 ```{r}
 #| label: reg22-cargar-base-parte2
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -417,24 +405,24 @@ base_analitica <- readRDS(
 
 base_modelo <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       ),
-    tamano_upa =
+    tamano_empresa =
       as.factor(
-        tamano_upa
+        tamano_empresa
       ),
-    provincia =
+    region =
       as.factor(
-        provincia
+        region
       )
   ) |>
   select(
-    log_supertotal,
-    fact_exp_fin,
-    tamano_upa,
-    provincia
+    log_productividad,
+    capital,
+    tamano_empresa,
+    region
   ) |>
   drop_na()
 ```
@@ -445,10 +433,10 @@ base_modelo <- base_analitica |>
 #| label: reg22-modelo-parte2
 
 modelo_diag <- lm(
-  log_supertotal ~
-    fact_exp_fin +
-    tamano_upa +
-    provincia,
+  log_productividad ~
+    capital +
+    tamano_empresa +
+    region,
   data = base_modelo
 )
 ```
@@ -857,13 +845,7 @@ En esta sección integraremos todos los diagnósticos en un único procedimiento
 ```{r}
 #| label: reg22-cargar-base-parte3
 
-base_analitica <- readRDS(
-  here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
+base_analitica <- leer_objeto_libro("modelo_demo.rds")
 )
 ```
 
@@ -874,24 +856,24 @@ base_analitica <- readRDS(
 
 base_modelo <- base_analitica |>
   mutate(
-    log_supertotal =
+    log_productividad =
       log1p(
-        supertotal
+        productividad
       ),
-    tamano_upa =
+    tamano_empresa =
       as.factor(
-        tamano_upa
+        tamano_empresa
       ),
-    provincia =
+    region =
       as.factor(
-        provincia
+        region
       )
   ) |>
   select(
-    log_supertotal,
-    fact_exp_fin,
-    tamano_upa,
-    provincia
+    log_productividad,
+    capital,
+    tamano_empresa,
+    region
   ) |>
   drop_na()
 ```
@@ -902,10 +884,10 @@ base_modelo <- base_analitica |>
 #| label: reg22-modelo-final
 
 modelo_diag <- lm(
-  log_supertotal ~
-    fact_exp_fin +
-    tamano_upa +
-    provincia,
+  log_productividad ~
+    capital +
+    tamano_empresa +
+    region,
   data = base_modelo
 )
 ```
