@@ -430,7 +430,7 @@ tidy(
 
 **Interpretación**
 
-Los coeficientes representan el efecto promedio de cada variable explicativa sobre la inversión. No debe olvidarse comprobar la significancia estadística mediante el valor p o el estadístico *t*.
+Los coeficientes describen asociaciones promedio entre los regresores y la inversión dentro de la especificación estimada. No deben interpretarse automáticamente como efectos causales; la lectura debe considerar magnitud, incertidumbre, supuestos y diseño.
 
 ### Coeficiente de determinación
 
@@ -473,7 +473,7 @@ El modelo pooled ignora estas diferencias.
 
 ## Modelo de efectos fijos
 
-Los efectos fijos controlan características constantes de cada empresa.
+Los efectos fijos absorben heterogeneidad invariante en el tiempo a nivel de empresa. Esto puede reducir sesgo por factores constantes no observados, pero no elimina automáticamente confusión por variables que cambian en el tiempo.
 
 ```{r}
 #| label: reg25-modelo-fe
@@ -845,7 +845,7 @@ Hipótesis nula:
 No existen efectos individuales.
 ```
 
-Si el valor p es pequeño, la estructura panel aporta información relevante y resulta preferible utilizar modelos de panel.
+Un valor p pequeño aporta evidencia contra la ausencia de efectos individuales bajo esta prueba. No constituye por sí solo una regla suficiente para elegir la especificación final.
 
 ### Prueba F para efectos fijos
 
@@ -866,7 +866,7 @@ Hipótesis nula:
 No existen efectos fijos.
 ```
 
-Un valor p pequeño favorece el modelo de efectos fijos frente al pooled OLS.
+Un valor p pequeño aporta evidencia contra la especificación pooled en favor de heterogeneidad individual capturada por efectos fijos, siempre dentro de los supuestos de la prueba.
 
 ### Prueba de Hausman
 
@@ -1110,4 +1110,4 @@ Los modelos de panel son ampliamente utilizados en:
 
 En este capítulo aprendimos a trabajar con datos de panel utilizando la base Grunfeld. Inicialmente identificamos la estructura individuo-tiempo y construimos un objeto `pdata.frame`. Posteriormente estimamos modelos pooled OLS, efectos fijos y efectos aleatorios. Finalmente utilizamos la prueba de Hausman como un diagnóstico complementario dentro de una comparación más amplia de especificaciones y generamos predicciones a partir del modelo estimado.
 
-Los modelos de panel constituyen una herramienta fundamental para analizar fenómenos que evolucionan a través del tiempo, permitiendo controlar heterogeneidad no observada y mejorar la calidad de las inferencias econométricas.
+Los modelos de panel permiten aprovechar la variación entre unidades y a través del tiempo y modelar heterogeneidad no observada bajo supuestos específicos. La calidad de la inferencia depende de que esos supuestos y la estructura del panel sean adecuados para la pregunta de investigación.

@@ -188,7 +188,7 @@ broom::tidy(
 
 **Interpretación**
 
-Cada coeficiente representa el cambio esperado en `log_productividad` asociado a una variación de la variable correspondiente, manteniendo constantes las demás variables incluidas en el modelo. De igual forma, el primer paso es observar el valor p para comprobar su significancia estadística y proceder a interpretar los resultados.
+Cada coeficiente representa una asociación condicional con `log_productividad`, manteniendo constantes las demás variables incluidas en el modelo. La interpretación debe comenzar por la magnitud, el signo, la escala y el intervalo de confianza; el valor p complementa esa lectura, pero no determina por sí solo la importancia del resultado.
 
 ### Comparación entre modelos
 
@@ -796,7 +796,7 @@ tidy(
 
 **Interpretación**
 
-Cada coeficiente representa el efecto parcial de la variable correspondiente manteniendo constantes las demás variables del modelo. No debe olvidarse evaluar su significancia estadística.
+Cada coeficiente representa una asociación parcial condicionada a las demás variables del modelo. Sin una estrategia de identificación causal, no debe describirse como un efecto. La interpretación debe integrar magnitud, incertidumbre y coherencia sustantiva.
 
 ### Generación de valores ajustados
 

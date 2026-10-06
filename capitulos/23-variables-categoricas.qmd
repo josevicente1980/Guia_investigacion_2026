@@ -606,10 +606,7 @@ anova(
 
 La prueba evalúa si las medias poblacionales difieren entre categorías.
 
-La interpretación de la prueba ANOVA se basa en el **valor p** asociado al estadístico F:
-
-- Si p < 0,05, se rechaza la hipótesis nula y se concluye que el modelo es **estadísticamente significativo**, es decir, al menos una de las variables explicativas influye sobre la variable dependiente.
-- Si p ≥ 0,05, no existe evidencia suficiente para afirmar que el modelo explica la variabilidad de la variable de respuesta.
+La prueba F del ANOVA evalúa si las diferencias entre categorías son compatibles con la hipótesis nula de igualdad de medias bajo los supuestos del modelo. Un valor p pequeño aporta evidencia contra esa igualdad, pero no demuestra influencia causal ni indica por sí solo que las diferencias sean sustantivamente importantes. La magnitud de las diferencias y su incertidumbre también deben examinarse.
 
 ### Predicciones por grupo
 

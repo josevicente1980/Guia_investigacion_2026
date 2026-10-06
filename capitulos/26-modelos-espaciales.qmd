@@ -199,7 +199,7 @@ Hipótesis nula:
 No existe autocorrelación espacial.
 ```
 
-Valores p pequeños indican dependencia espacial significativa.
+Un valor p pequeño aporta evidencia contra la hipótesis nula de ausencia de autocorrelación espacial para la matriz de pesos especificada. La magnitud y el signo del índice de Moran deben interpretarse conjuntamente con esa evidencia.
 
 ### Diagrama de Moran
 
@@ -247,7 +247,7 @@ broom::tidy(
 
 **Interpretación**
 
-Los coeficientes representan efectos directos mientras que el parámetro espacial captura la dependencia entre áreas vecinas.
+En un modelo SAR, los coeficientes no deben interpretarse de forma idéntica a una regresión lineal convencional porque la retroalimentación espacial genera impactos directos e indirectos. El parámetro espacial resume la dependencia asociada al rezago de la variable dependiente.
 
 ### Conclusión práctica
 
@@ -854,7 +854,7 @@ tibble(
 
 **Interpretación**
 
-La eficiencia técnica toma valores entre 0 y 1. Valores cercanos a 1 indican unidades más próximas a la frontera eficiente.
+La eficiencia técnica estimada toma valores entre 0 y 1 dentro de esta especificación. Valores cercanos a 1 indican unidades más próximas a la frontera estimada, pero las magnitudes dependen de la forma funcional y de los supuestos distributivos del modelo.
 
 ### Distribución de eficiencia
 

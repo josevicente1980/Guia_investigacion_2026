@@ -664,7 +664,7 @@ La línea representa la predicción promedio del modelo y la banda sombreada ref
 
 ### Significancia global del modelo
 
-Además de evaluar la significancia individual de cada coeficiente, el modelo de regresión incorpora la **prueba F**, la cual permite determinar si el conjunto de variables explicativas contribuye de manera significativa a explicar la variabilidad de la variable dependiente. En otras palabras, esta prueba evalúa la **significancia global del modelo**, contrastando la hipótesis nula de que todos los coeficientes de las variables explicativas son simultáneamente iguales a cero [@del2012multicolinealidad].
+La **prueba F** contrasta la hipótesis nula de que los coeficientes de las variables explicativas son simultáneamente iguales a cero. Su resultado aporta evidencia sobre la compatibilidad de los datos con esa hipótesis bajo los supuestos del modelo, pero no sustituye la evaluación de magnitudes, intervalos de confianza, ajuste y propósito analítico [@del2012multicolinealidad].
 
 El modelo también incorpora una prueba F que evalúa si existe evidencia estadística de relación entre las variables.
 
@@ -690,7 +690,7 @@ glance(
 
 **Interpretación**
 
-Un valor p pequeño sugiere que la relación lineal observada difícilmente se explica por azar. Si el **valor p** de la prueba F es menor que el nivel de significancia (generalmente 0,05), se concluye que el modelo explica de manera significativa la variabilidad de la variable dependiente.
+Un valor p pequeño aporta evidencia contra la hipótesis nula global. No implica por sí solo que el modelo tenga una capacidad explicativa o predictiva importante; esa valoración requiere considerar también el tamaño de los coeficientes, el R², la incertidumbre y el contexto.
 
 ### Conclusión práctica
 

@@ -750,7 +750,7 @@ broom::tidy(
 
 **Interpretación**
 
-Los coeficientes representan diferencias promedio respecto a la categoría de referencia. Tal como se mencionó anteriormente, se deben observar los valores p para extraer conclusiones acerca de la significancia estadística.
+Los coeficientes representan diferencias promedio respecto a la categoría de referencia. Su interpretación debe considerar la magnitud estimada, la incertidumbre y la relevancia sustantiva; el valor p es solo una pieza de esa evaluación y no debe utilizarse como criterio automático de importancia.
 
 ### Introducción a la regresión múltiple
 

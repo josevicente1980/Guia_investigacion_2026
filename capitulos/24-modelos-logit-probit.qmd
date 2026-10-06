@@ -431,7 +431,7 @@ produce:
 Odds = 3
 ```
 
-lo que significa que el evento es tres veces más probable que su alternativa.
+lo que significa que las *odds* del evento son 3 a 1 frente a su alternativa. Esto no equivale a afirmar que el evento sea tres veces más probable en términos de probabilidad.
 
 ### Conversión de probabilidades a odds
 
@@ -610,7 +610,7 @@ El gráfico muestra cómo el modelo distribuye las probabilidades predichas entr
 
 ### Clasificación binaria
 
-Una práctica común consiste en transformar probabilidades en decisiones binarias.
+Una práctica común consiste en transformar probabilidades en decisiones binarias mediante un umbral. Ese umbral debe elegirse según el objetivo del análisis y los costos relativos de los errores; 0,50 es solo una referencia pedagógica.
 
 Por ejemplo:
 
@@ -679,7 +679,7 @@ tibble(
 
 **Interpretación**
 
-La exactitud representa la proporción de observaciones correctamente clasificadas.
+La exactitud representa la proporción de observaciones correctamente clasificadas, pero puede ser insuficiente cuando las clases están desbalanceadas o los errores tienen costos distintos. Por ello debe interpretarse junto con la matriz de clasificación y, cuando corresponda, otras métricas.
 
 ### Predicciones para nuevos casos
 
