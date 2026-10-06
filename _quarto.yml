@@ -1,6 +1,8 @@
 project:
   type: book
   output-dir: reportes
+  pre-render:
+    - Rscript R/pre_render.R
 
 book:
   title: "Investigación reproducible con R y Quarto"
