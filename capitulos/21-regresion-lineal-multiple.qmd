@@ -58,7 +58,6 @@ base_analitica <- leer_objeto_libro("modelo_demo.rds")
 Para ilustrar la regresión múltiple construiremos una base con variables numéricas y categóricas.
 
 ```{r}
-#| eval: false
 #| label: reg21-preparar-base
 
 base_modelo <- base_analitica |>

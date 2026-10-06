@@ -56,7 +56,6 @@ base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ### Preparación de variables
 
 ```{r}
-#| eval: false
 #| label: reg20-preparar-base
 
 base_regresion <- base_analitica |>

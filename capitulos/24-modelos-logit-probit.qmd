@@ -81,7 +81,6 @@ base_analitica <- leer_objeto_libro("modelo_demo.rds")
 Para fines pedagógicos utilizaremos una variable binaria que identifica observaciones con productividad superior a la mediana de la base simulada.
 
 ```{r}
-#| eval: false
 #| label: reg24-variable-binaria
 
 mediana_productividad <- median(

@@ -46,7 +46,6 @@ base_analitica <- leer_objeto_libro("modelo_demo.rds")
 Para este capítulo utilizaremos variables numéricas de la base. También construiremos nuevamente `log_productividad`, ya que permite representar mejor la productividad total.
 
 ```{r}
-#| eval: false
 #| label: ch19-preparar-base-correlacion
 
 base_correlacion <- base_analitica |>
