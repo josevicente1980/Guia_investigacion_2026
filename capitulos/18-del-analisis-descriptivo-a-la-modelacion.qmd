@@ -1,17 +1,29 @@
 # Del análisis descriptivo a la modelación
 
 ```{r}
+#| eval: false
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("modelos")
+base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+```
+
+
+```{r}
 #| label: setup-cap18
 #| include: false
 
 # 1. Carga de librerías
-library(here)      
-library(dplyr)     
-library(tidyr)     
-library(tibble)    
-library(ggplot2)   
-library(knitr)     
-library(broom)     
+
+
+
+
+
+
 
 # 2. Carga de la base de datos
 base_analitica <- readRDS(

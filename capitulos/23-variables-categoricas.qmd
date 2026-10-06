@@ -1,5 +1,18 @@
 # Variables categóricas
 
+```{r}
+#| eval: false
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("modelos")
+base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar esta sección, el lector será capaz de:
@@ -36,11 +49,10 @@ La regresión lineal permite incorporar variables categóricas mediante procesos
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(ggplot2)
-library(broom)
-library(knitr)
-library(here)
+
+
+
+
 ```
 
 ### Cargando la base analítica
@@ -61,6 +73,7 @@ base_analitica <- readRDS(
 ### Preparación de variables
 
 ```{r}
+#| eval: false
 #| label: reg23-preparar-base
 
 base_categorias <- base_analitica |>
@@ -350,11 +363,10 @@ log_supertotal
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(ggplot2)
-library(broom)
-library(knitr)
-library(here)
+
+
+
+
 ```
 
 ### Cargando la base analítica
@@ -375,6 +387,7 @@ base_analitica <- readRDS(
 ### Preparación de variables
 
 ```{r}
+#| eval: false
 #| label: reg23-preparar-base-parte2
 
 base_categorias <- base_analitica |>
@@ -725,11 +738,10 @@ Para responder este tipo de preguntas utilizamos interacciones entre variables n
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(ggplot2)
-library(broom)
-library(knitr)
-library(here)
+
+
+
+
 ```
 
 ### Cargando la base analítica

@@ -1,5 +1,18 @@
 # Correlación, asociación y causalidad
 
+```{r}
+#| eval: false
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("modelos")
+base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+```
+
+
 ## Introducción
 
 En el capítulo anterior estudiamos la asociación entre variables mediante gráficos y comparaciones descriptivas. Ahora avanzaremos hacia una medida numérica de esa asociación: la correlación.
@@ -17,10 +30,9 @@ Cada capítulo debe poder renderizarse de forma independiente. Por ello cargamos
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(ggplot2)
-library(here)
-library(knitr)
+
+
+
 ```
 
 ```{r}
@@ -41,6 +53,7 @@ base_analitica <- readRDS(
 Para este capítulo utilizaremos variables numéricas de la base. También construiremos nuevamente `log_supertotal`, ya que permite representar mejor la superficie total.
 
 ```{r}
+#| eval: false
 #| label: ch19-preparar-base-correlacion
 
 base_correlacion <- base_analitica |>
@@ -532,10 +545,9 @@ En esta sección estudiaremos por qué ocurre esto y cómo pensar de manera más
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(ggplot2)
-library(here)
-library(knitr)
+
+
+
 ```
 
 ```{r}

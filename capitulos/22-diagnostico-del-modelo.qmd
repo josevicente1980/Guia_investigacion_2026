@@ -1,5 +1,18 @@
 # Diagnóstico del modelo
 
+```{r}
+#| eval: false
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("modelos", extra = c("car"))
+base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar esta sección, el lector será capaz de:
@@ -26,12 +39,11 @@ En este capítulo utilizaremos el modelo múltiple construido previamente para i
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(ggplot2)
-library(broom)
-library(knitr)
-library(here)
-library(car)
+
+
+
+
+
 ```
 
 ### Cargando la base analítica
@@ -52,6 +64,7 @@ base_analitica <- readRDS(
 ### Preparación de variables
 
 ```{r}
+#| eval: false
 #| label: reg22-preparar-base
 
 base_modelo <- base_analitica |>
@@ -393,12 +406,11 @@ Estos elementos son especialmente importantes cuando se trabaja con múltiples v
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(ggplot2)
-library(broom)
-library(knitr)
-library(here)
-library(car)
+
+
+
+
+
 ```
 
 ### Cargando la base analítica
@@ -419,6 +431,7 @@ base_analitica <- readRDS(
 ### Preparación de variables
 
 ```{r}
+#| eval: false
 #| label: reg22-preparar-base-parte2
 
 base_modelo <- base_analitica |>
@@ -851,12 +864,11 @@ En esta sección integraremos todos los diagnósticos en un único procedimiento
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(ggplot2)
-library(broom)
-library(knitr)
-library(here)
-library(car)
+
+
+
+
+
 ```
 
 ### Cargando la base analítica

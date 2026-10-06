@@ -1,5 +1,18 @@
 # Regresión lineal múltiple
 
+```{r}
+#| eval: false
+#| label: setup-libro
+#| include: false
+#| warning: false
+#| message: false
+
+source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
+cargar_paquetes_libro("modelos")
+base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+```
+
+
 ## Objetivos de aprendizaje {.unnumbered}
 
 Al finalizar esta sección, el lector será capaz de:
@@ -26,11 +39,10 @@ La regresión lineal múltiple permite incorporar varias variables explicativas 
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(ggplot2)
-library(broom)
-library(knitr)
-library(here)
+
+
+
+
 ```
 
 ### Cargando la base analítica
@@ -53,6 +65,7 @@ base_analitica <- readRDS(
 Para ilustrar la regresión múltiple construiremos una base con variables numéricas y categóricas.
 
 ```{r}
+#| eval: false
 #| label: reg21-preparar-base
 
 base_modelo <- base_analitica |>
@@ -294,11 +307,10 @@ En esta sección estudiaremos cómo comparar modelos, interpretar el aporte de n
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(ggplot2)
-library(broom)
-library(knitr)
-library(here)
+
+
+
+
 ```
 
 ### Cargando la base analítica
@@ -319,6 +331,7 @@ base_analitica <- readRDS(
 ### Preparación de variables
 
 ```{r}
+#| eval: false
 #| label: reg21-preparar-base-parte2
 
 base_modelo <- base_analitica |>
@@ -695,11 +708,10 @@ En esta sección construiremos un flujo completo de análisis que servirá como 
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(ggplot2)
-library(broom)
-library(knitr)
-library(here)
+
+
+
+
 ```
 
 ### Cargando la base analítica
