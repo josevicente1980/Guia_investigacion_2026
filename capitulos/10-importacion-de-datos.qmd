@@ -340,6 +340,7 @@ Y exploramos su estructura:
 ```{r}
 #| eval: false
 #| label: cap10-vista-general-sunac-csv
+#| eval: false
 glimpse(sunac_csv)
 ```
 
@@ -394,6 +395,7 @@ Verificamos que el objeto recuperado tiene las mismas dimensiones:
 
 ```{r} 
 #| label: cap10-dimensiones-sunac-rds
+#| eval: false
 dim(sunac_rds)
 ```
 
@@ -452,6 +454,7 @@ Podemos revisar sus dimensiones:
 ```{r}
 #| eval: false
 #| label: cap10-dimensiones-bases-complementarias
+#| eval: false
 dim(cgnac)
 dim(eunac)
 dim(glnac)
