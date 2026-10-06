@@ -9,10 +9,8 @@ book:
     - name: José Vicente Ordóñez Yaguache
     - name: Yomara Karolina Ruiz Reyes
     - name: Kevin Marlow Jiménez Villavicencio
-  date: today
-  date-format: "D [de] MMMM [de] YYYY"
   language: es
-  output-file: Investigacion_reproducible_con_R_y_Quarto.docx
+  output-file: Investigacion_reproducible_con_R_y_Quarto
 
   chapters:
     - index.qmd
