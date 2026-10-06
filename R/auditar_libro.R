@@ -22,8 +22,15 @@ leer <- function(x) paste(readLines(x, warn = FALSE, encoding = "UTF-8"),
 
 texto <- vapply(qmd, leer, character(1))
 
-# Extrae claves de citas tipo @clave, excluyendo correos electrónicos obvios.
+# Retira bloques de código cercados para no confundir ejemplos BibTeX
+# con citas reales de Quarto.
+quitar_bloques_codigo <- function(txt) {
+  gsub("(?s)\x60\x60\x60.*?\x60\x60\x60|(?s)~~~.*?~~~", "", txt, perl = TRUE)
+}
+
+# Extrae claves de citas tipo @clave fuera de bloques de código.
 extraer_citas <- function(txt) {
+  txt <- quitar_bloques_codigo(txt)
   m <- gregexpr("(?<![[:alnum:]_.%+-])@[A-Za-z0-9_:.+/-]+",
                 txt, perl = TRUE)
   x <- regmatches(txt, m)[[1]]
@@ -44,6 +51,9 @@ bib_keys <- sub("^\\s*@[A-Za-z]+\\s*\\{\\s*([^,]+),.*$", "\\1",
                 bib_lines[inicio])
 bib_keys <- trimws(bib_keys)
 
+bib_duplicadas <- sort(unique(bib_keys[duplicated(bib_keys)]))
+bib_keys_unicas <- unique(bib_keys)
+
 # Divide el .bib por entradas para extraer año de manera trazable.
 fin <- c(inicio[-1] - 1L, length(bib_lines))
 entradas <- Map(function(i, j) bib_lines[i:j], inicio, fin)
@@ -59,8 +69,8 @@ extraer_anio <- function(lines) {
 
 anios <- vapply(entradas, extraer_anio, integer(1))
 
-citas_sin_bib <- setdiff(citas, bib_keys)
-bib_no_citadas <- setdiff(bib_keys, citas)
+citas_sin_bib <- setdiff(citas, bib_keys_unicas)
+bib_no_citadas <- setdiff(bib_keys_unicas, citas)
 
 tabla_citas <- do.call(rbind, lapply(names(citas_por_archivo), function(f) {
   k <- citas_por_archivo[[f]]
@@ -88,15 +98,20 @@ write.csv(data.frame(clave = citas_sin_bib),
 write.csv(data.frame(clave = bib_no_citadas),
           "00_conocimiento_editorial/auditorias/resultados/bibliografia_no_citada.csv",
           row.names = FALSE, fileEncoding = "UTF-8")
+write.csv(data.frame(clave = bib_duplicadas),
+          "00_conocimiento_editorial/auditorias/resultados/claves_bibtex_duplicadas.csv",
+          row.names = FALSE, fileEncoding = "UTF-8")
 write.csv(tabla_bib,
           "00_conocimiento_editorial/auditorias/resultados/auditoria_bibliografia.csv",
           row.names = FALSE, fileEncoding = "UTF-8")
 
 n_bib <- nrow(tabla_bib)
+n_bib_unicas <- length(bib_keys_unicas)
 n_antiguas <- sum(tabla_bib$mas_de_5_anios, na.rm = TRUE)
 pct_antiguas <- if (n_bib) 100 * n_antiguas / n_bib else NA_real_
 
 estado_citas <- if (length(citas_sin_bib) == 0) "PASS" else "BLOCK"
+estado_duplicadas <- if (length(bib_duplicadas) == 0) "PASS" else "BLOCK"
 estado_bib_no_cit <- if (length(bib_no_citadas) == 0) "PASS" else "REVIEW"
 estado_antig <- if (!is.na(pct_antiguas) && pct_antiguas <= 20) "PASS" else "REVIEW"
 
@@ -111,6 +126,9 @@ resumen <- c(
   paste0("- Archivos QMD auditados: ", length(qmd)),
   paste0("- Claves de cita detectadas: ", length(citas)),
   paste0("- Entradas BibTeX: ", n_bib),
+  paste0("- Claves BibTeX únicas: ", n_bib_unicas),
+  paste0("- Claves BibTeX duplicadas: ", length(bib_duplicadas),
+         " — **", estado_duplicadas, "**"),
   paste0("- Citas sin entrada BibTeX: ", length(citas_sin_bib),
          " — **", estado_citas, "**"),
   paste0("- Entradas BibTeX no citadas: ", length(bib_no_citadas),
@@ -127,6 +145,7 @@ resumen <- c(
   "## Estado",
   "",
   paste0("- Integridad citas↔BibTeX: **", estado_citas, "**"),
+  paste0("- Unicidad de claves BibTeX: **", estado_duplicadas, "**"),
   paste0("- Bibliografía no citada: **", estado_bib_no_cit, "**"),
   paste0("- Antigüedad bibliográfica: **", estado_antig, "**")
 )
