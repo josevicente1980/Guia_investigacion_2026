@@ -17,7 +17,7 @@ Toda investigación genera una gran cantidad de recursos digitales. Bases de dat
 
 Cuando estos recursos no se encuentran adecuadamente organizados, aumentan las posibilidades de cometer errores, perder información valiosa o dificultar la actualización de resultados. La organización constituye uno de los pilares fundamentales de la investigación reproducible, ya que permite documentar el proceso analítico y facilita la reconstrucción de cada una de las etapas desarrolladas [@gandrud2015; @marwick2018].
 
-En este sentido, la reproducibilidad no comienza cuando se ejecuta un análisis estadístico. Comienza desde el momento en que se crea la primera carpeta del proyecto.
+En este sentido, la reproducibilidad no comienza cuando se ejecuta un análisis estadístico. Comienza desde el momento en que se crea la primera carpeta del proyecto. La organización explícita de archivos, versiones, documentación y responsabilidades forma parte del flujo reproducible y facilita que otras personas puedan comprender, revisar y reconstruir el trabajo [@turingway2022].
 
 ## Organización como principio de reproducibilidad
 
