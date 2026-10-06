@@ -295,31 +295,12 @@ qqline(
 
 Mientras más próximos se encuentren los puntos a la línea de referencia, más compatible será la distribución observada con una distribución normal.
 
-### Prueba de Shapiro-Wilk
+### Evaluación de normalidad
 
-```{r}
-#| label: tbl-reg22-shapiro
+La forma de los residuos se evalúa principalmente mediante el gráfico Q-Q y la magnitud de las desviaciones relevantes para el propósito inferencial. Las pruebas automáticas de normalidad, como Shapiro-Wilk, pueden rechazar desviaciones pequeñas en muestras grandes y no deberían utilizarse como regla mecánica para aceptar o descartar un modelo.
 
-shapiro.test(
-  sample(
-    residuals(
-      modelo_diag
-    ),
-    min(
-      5000,
-      length(
-        residuals(
-          modelo_diag
-        )
-      )
-    )
-  )
-)
-```
+En regresión lineal, la normalidad exacta de los residuos no es un requisito para obtener estimadores por mínimos cuadrados; su importancia depende del objetivo inferencial, del tamaño de muestra y de los procedimientos utilizados para cuantificar la incertidumbre.
 
-**Interpretación**
-
-Valores p pequeños sugieren desviaciones respecto a la normalidad.
 
 ## Homoscedasticidad
 
@@ -364,7 +345,7 @@ tibble(
   ),
   Herramienta = c(
     "Residuos vs ajustados",
-    "Q-Q Plot y Shapiro",
+    "Gráfico Q-Q y evaluación contextual",
     "Dispersión residual"
   )
 ) |>

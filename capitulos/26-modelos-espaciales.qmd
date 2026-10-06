@@ -1,4 +1,4 @@
-# Modelos espaciales y extensiones modernas
+# Modelos avanzados: espacial, multinivel y frontera estocástica
 
 ```{r}
 #| label: setup-libro

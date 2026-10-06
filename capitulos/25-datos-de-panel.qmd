@@ -728,7 +728,7 @@ En esta sección aprendimos a:
 - Identificar heterogeneidad individual.
 - Comparar diferentes especificaciones.
 
-En la siguiente sección utilizaremos pruebas formales para seleccionar entre efectos fijos y efectos aleatorios mediante la prueba de Hausman.
+En la siguiente sección utilizaremos pruebas formales como parte del diagnóstico entre especificaciones, sin convertirlas en una regla automática de selección.
 
 ### Introducción
 
@@ -740,7 +740,7 @@ Después de estimar modelos pooled OLS, efectos fijos y efectos aleatorios surge
 
 La respuesta depende de los supuestos sobre la heterogeneidad individual.
 
-En esta sección utilizaremos pruebas formales para seleccionar el modelo más apropiado y realizaremos una aplicación completa de análisis con datos de panel [@wooldridge2010].
+En esta sección combinaremos supuestos sustantivos, estructura de los datos y pruebas formales para evaluar especificaciones de panel [@wooldridge2010].
 
 ### Cargando librerías
 
@@ -901,29 +901,9 @@ Hipótesis alternativa:
 Los efectos aleatorios son inconsistentes.
 ```
 
-### Regla de decisión
+### Interpretación conjunta
 
-```{r}
-#| label: tbl-reg25-decision
-
-tibble(
-  Resultado = c(
-    "Valor p pequeño",
-    "Valor p grande"
-  ),
-  Decision = c(
-    "Elegir efectos fijos",
-    "Elegir efectos aleatorios"
-  )
-) |>
-  kable(
-    caption = "Regla de decisión para Hausman"
-  )
-```
-
-**Interpretación**
-
-La decisión final depende del resultado empírico obtenido en la prueba.
+La prueba de Hausman informa sobre la compatibilidad entre los supuestos de efectos aleatorios y los datos observados. Un valor p pequeño aporta evidencia contra esa especificación, pero un valor p grande no demuestra que efectos aleatorios sea el modelo correcto. La decisión debe considerar también la pregunta de investigación, la relación esperada entre heterogeneidad no observada y regresores, la estructura del panel y la robustez de la inferencia.
 
 ### Coeficientes del modelo seleccionado
 
@@ -1092,8 +1072,8 @@ tibble(
     "Estimar pooled",
     "Estimar efectos fijos",
     "Estimar efectos aleatorios",
-    "Aplicar Hausman",
-    "Seleccionar modelo",
+    "Evaluar supuestos y Hausman",
+    "Comparar especificaciones",
     "Interpretar resultados"
   )
 ) |>
@@ -1120,14 +1100,14 @@ Los modelos de panel son ampliamente utilizados en:
 3. Estime un modelo pooled.
 4. Estime un modelo de efectos fijos.
 5. Estime un modelo de efectos aleatorios.
-6. Aplique la prueba de Hausman.
-7. Seleccione el modelo apropiado.
+6. Aplique la prueba de Hausman como diagnóstico complementario.
+7. Justifique la especificación elegida con base en supuestos, diseño y evidencia.
 8. Interprete coeficientes.
 9. Genere predicciones.
 10. Redacte conclusiones sustantivas.
 
 ## Resumen del capítulo
 
-En este capítulo aprendimos a trabajar con datos de panel utilizando la base Grunfeld. Inicialmente identificamos la estructura individuo-tiempo y construimos un objeto `pdata.frame`. Posteriormente estimamos modelos pooled OLS, efectos fijos y efectos aleatorios. Finalmente utilizamos la prueba de Hausman para seleccionar la especificación más apropiada y generamos predicciones a partir del modelo estimado.
+En este capítulo aprendimos a trabajar con datos de panel utilizando la base Grunfeld. Inicialmente identificamos la estructura individuo-tiempo y construimos un objeto `pdata.frame`. Posteriormente estimamos modelos pooled OLS, efectos fijos y efectos aleatorios. Finalmente utilizamos la prueba de Hausman como un diagnóstico complementario dentro de una comparación más amplia de especificaciones y generamos predicciones a partir del modelo estimado.
 
 Los modelos de panel constituyen una herramienta fundamental para analizar fenómenos que evolucionan a través del tiempo, permitiendo controlar heterogeneidad no observada y mejorar la calidad de las inferencias econométricas.
