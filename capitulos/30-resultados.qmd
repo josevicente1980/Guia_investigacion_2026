@@ -18,7 +18,7 @@ La sección de resultados debe seleccionar los hallazgos esenciales y coordinarl
 
 Los resultados deben responder directamente a los objetivos y preguntas de investigación formulados previamente [@apa2020].
 
-## Configuración inicial
+### Configuración inicial
 
 ### Carga de librerías
 
@@ -76,7 +76,7 @@ datos_resultados |>
 
 Los resultados descriptivos permiten caracterizar la muestra estudiada antes de presentar análisis más complejos.
 
-## Distribución de la variable principal
+### Distribución de la variable principal
 
 ```{r}
 #| label: fig-reg30-histograma
@@ -174,7 +174,7 @@ ggplot(
 
 La figura facilita la visualización de la asociación estimada por el modelo.
 
-## Valores observados y predichos
+### Valores observados y predichos
 
 ```{r}
 #| label: reg30-predicciones
@@ -225,7 +225,7 @@ Un ejemplo incorrecto sería:
 
 La segunda afirmación introduce una explicación causal que corresponde a la discusión y no a los resultados.
 
-## Estructura recomendada
+### Estructura recomendada
 
 ```text
 Resultados descriptivos
@@ -247,7 +247,7 @@ Figuras
 Síntesis de hallazgos
 ```
 
-## Buenas prácticas
+### Buenas prácticas
 
 ### Recomendaciones
 
@@ -265,7 +265,7 @@ Síntesis de hallazgos
 * Omitir medidas de ajuste.
 * Presentar resultados irrelevantes.
 
-## Lista de verificación
+### Lista de verificación
 
 ```{r}
 #| label: tbl-reg30-checklist
@@ -297,7 +297,7 @@ tibble(
 
 La lista de verificación permite asegurar que la sección de resultados cumple los estándares básicos de reporte científico.
 
-## Manos a la obra
+### Manos a la obra
 
 1. Presente estadísticas descriptivas.
 2. Organice resultados según los objetivos.

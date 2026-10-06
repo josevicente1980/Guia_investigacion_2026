@@ -16,7 +16,7 @@ La introducción constituye una de las secciones más importantes de cualquier t
 
 Una buena introducción debe conducir progresivamente desde el contexto general hacia el problema específico de investigación. El lector debe comprender claramente qué se conoce sobre el tema, qué vacíos existen en la literatura y cómo el estudio pretende contribuir a cerrar dichos vacíos [@creswell2022].
 
-## Configuración inicial
+### Configuración inicial
 
 ### Carga de librerías
 
@@ -62,7 +62,7 @@ Vacío de investigación
 Objetivo del estudio
 ```
 
-## Identificando los componentes de una introducción
+### Identificando los componentes de una introducción
 
 ### Ejemplo estructurado
 
@@ -96,7 +96,7 @@ kable(
 
 La introducción debe responder progresivamente estas cinco preguntas para construir una narrativa lógica y convincente.
 
-## Construcción del contexto
+### Construcción del contexto
 
 El contexto permite ubicar al lector dentro del fenómeno estudiado.
 
@@ -118,7 +118,7 @@ Ejemplo:
 
 El problema constituye el puente entre el contexto general y la pregunta de investigación.
 
-## Incorporación de literatura científica
+### Incorporación de literatura científica
 
 Quarto permite integrar citas bibliográficas de manera reproducible.
 
@@ -130,7 +130,7 @@ La adopción tecnológica se ha convertido en un factor clave para mejorar la pr
 
 Al renderizar el documento, Quarto genera automáticamente la referencia correspondiente.
 
-## Ejemplo de citas múltiples
+### Ejemplo de citas múltiples
 
 ```text
 Diversos estudios han documentado los efectos de la innovación sobre el crecimiento económico [@acemoglu2012; @brynjolfsson2014].
@@ -158,7 +158,7 @@ Ejemplo:
 
 > El objetivo de este estudio es analizar la relación entre adopción tecnológica y productividad empresarial utilizando información de empresas latinoamericanas.
 
-## Evaluación de coherencia
+### Evaluación de coherencia
 
 La coherencia entre problema, vacío y objetivo puede verificarse mediante una matriz simple.
 
@@ -188,7 +188,7 @@ kable(
 
 Cuando estos tres elementos están alineados, la introducción adquiere mayor claridad y consistencia argumentativa.
 
-## Plantilla básica para redactar una introducción
+### Plantilla básica para redactar una introducción
 
 ```text
 1. Presentar el contexto general.
@@ -204,7 +204,7 @@ Cuando estos tres elementos están alineados, la introducción adquiere mayor cl
 6. Resumir la contribución esperada.
 ```
 
-## Buenas prácticas
+### Buenas prácticas
 
 ### Recomendaciones
 

@@ -20,7 +20,7 @@ Mientras la sección de resultados responde a la pregunta "¿qué encontramos?",
 
 Una buena discusión conecta los resultados con la teoría, la evidencia previa y las implicaciones derivadas del estudio [@belcher2019].
 
-## Configuración inicial
+### Configuración inicial
 
 ### Carga de librerías
 
@@ -119,7 +119,7 @@ tibble(
 
 La discusión debe indicar si los resultados respaldan, amplían o contradicen investigaciones anteriores.
 
-## Identificación de aportes
+### Identificación de aportes
 
 Después de comparar resultados, debe explicarse la contribución específica del estudio.
 
@@ -147,7 +147,7 @@ tibble(
 
 Todo estudio debe explicar explícitamente cuál es su aporte al conocimiento existente.
 
-## Implicaciones prácticas
+### Implicaciones prácticas
 
 La discusión también debe identificar posibles aplicaciones de los resultados.
 
@@ -196,7 +196,7 @@ tibble(
 
 Reconocer limitaciones fortalece la credibilidad del trabajo científico.
 
-## Propuestas para futuras investigaciones
+### Propuestas para futuras investigaciones
 
 Las limitaciones identificadas suelen convertirse en oportunidades para nuevas investigaciones.
 
@@ -249,11 +249,11 @@ Limitaciones
 Investigaciones futuras
 ```
 
-## Ejemplo de redacción adecuada
+### Ejemplo de redacción adecuada
 
 > Los resultados obtenidos evidencian una asociación positiva entre ingreso y esperanza de vida. Este hallazgo coincide con estudios previos que destacan el papel del desarrollo económico en la mejora de las condiciones de bienestar [@deaton2013]. La evidencia presentada amplía la comprensión de esta relación utilizando procedimientos completamente reproducibles. Desde una perspectiva aplicada, los resultados sugieren que políticas orientadas al crecimiento económico podrían contribuir indirectamente a mejorar indicadores de salud poblacional. No obstante, deben considerarse limitaciones relacionadas con la disponibilidad de variables adicionales y la naturaleza observacional de los datos utilizados.
 
-## Errores frecuentes
+### Errores frecuentes
 
 ### Incorrecto
 
@@ -267,7 +267,7 @@ Esto pertenece a resultados.
 
 Esto corresponde a discusión.
 
-## Lista de verificación
+### Lista de verificación
 
 ```{r}
 #| label: tbl-reg31-checklist
@@ -299,7 +299,7 @@ tibble(
 
 Antes de finalizar un manuscrito es recomendable verificar que todos los componentes fundamentales de la discusión estén presentes.
 
-## Manos a la obra
+### Manos a la obra
 
 1. Identifique el hallazgo principal.
 2. Interprete su significado.

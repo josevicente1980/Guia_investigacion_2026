@@ -19,7 +19,7 @@ En la práctica científica moderna, la reproducibilidad exige que las tablas, f
 
 El objetivo de este capítulo consiste en mostrar cómo transformar resultados estadísticos en productos científicos listos para publicación utilizando Quarto.
 
-## Configuración inicial
+### Configuración inicial
 
 ### Carga de librerías
 
@@ -121,7 +121,7 @@ La tabla presenta automáticamente:
 * Número de observaciones.
 * Estadísticos de ajuste.
 
-## Personalizando tablas
+### Personalizando tablas
 
 ```{r}
 #| label: tbl-reg27-modelsummary-personalizado
@@ -183,7 +183,7 @@ La comparación simultánea permite evaluar cambios en:
 * Significancia estadística.
 * Capacidad explicativa.
 
-## Extrayendo información para reportes
+### Extrayendo información para reportes
 
 En ocasiones es necesario construir tablas personalizadas.
 
@@ -297,7 +297,7 @@ ggplot(
 
 Cuanto más cercanos se encuentren los puntos a la diagonal, mejor será el ajuste del modelo.
 
-## Exportación automática con Quarto
+### Exportación automática con Quarto
 
 Una ventaja fundamental de Quarto consiste en que el mismo código genera múltiples formatos de salida [@allaire2024].
 
@@ -321,7 +321,7 @@ Un único archivo fuente permite producir simultáneamente:
 * Informes PDF.
 * Documentos Word.
 
-## Tablas compatibles con Word, PDF y HTML
+### Tablas compatibles con Word, PDF y HTML
 
 Para maximizar compatibilidad se recomienda:
 
@@ -337,7 +337,7 @@ modelsummary()
 
 Estas herramientas generan resultados estables en todos los formatos de salida.
 
-## Buenas prácticas de reporte reproducible
+### Buenas prácticas de reporte reproducible
 
 ### Recomendaciones
 
@@ -349,7 +349,7 @@ Estas herramientas generan resultados estables en todos los formatos de salida.
 6. Evitar editar resultados fuera de Quarto.
 7. Utilizar un único flujo reproducible.
 
-## Flujo recomendado
+### Flujo recomendado
 
 ```text
 Datos
@@ -375,7 +375,7 @@ Interpretación
 Documento final
 ```
 
-## Manos a la obra
+### Manos a la obra
 
 1. Ajuste un modelo lineal.
 2. Genere una tabla con modelsummary.

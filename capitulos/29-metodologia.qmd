@@ -26,7 +26,7 @@ Una metodología bien redactada debe responder tres preguntas fundamentales:
 
 En investigación reproducible, estas respuestas deben estar respaldadas por código ejecutable y documentación transparente [@peng2011].
 
-## Configuración inicial
+### Configuración inicial
 
 ### Carga de librerías
 
@@ -110,7 +110,7 @@ tibble(
 
 La descripción de variables facilita la comprensión del análisis y mejora la transparencia metodológica.
 
-## Preparación de los datos
+### Preparación de los datos
 
 Antes de cualquier análisis es necesario preparar la base de datos.
 
@@ -125,7 +125,7 @@ datos_modelo <- datos_metodologia |>
   )
 ```
 
-## Verificación de datos faltantes
+### Verificación de datos faltantes
 
 ```{r}
 #| label: tbl-reg29-faltantes
@@ -166,7 +166,7 @@ modelo_metodologico <- lm(
 )
 ```
 
-## Resumen del modelo
+### Resumen del modelo
 
 ```{r}
 #| label: tbl-reg29-modelo
@@ -184,7 +184,7 @@ broom::tidy(
 
 La metodología debe documentar claramente qué procedimiento estadístico fue utilizado.
 
-## Representación gráfica del proceso metodológico
+### Representación gráfica del proceso metodológico
 
 ```{r}
 #| label: fig-reg29-flujo-metodologico
@@ -240,7 +240,7 @@ Un ejemplo de redacción metodológica podría ser:
 
 > Se utilizó la base de datos Gapminder, que contiene información socioeconómica de múltiples países. Los datos fueron procesados mediante R y Quarto. Posteriormente se aplicó una transformación logarítmica al PIB per cápita y se estimó un modelo de regresión lineal para analizar su relación con la esperanza de vida.
 
-## Buenas prácticas
+### Buenas prácticas
 
 ### Recomendaciones
 
@@ -258,7 +258,7 @@ Un ejemplo de redacción metodológica podría ser:
 * No reportar criterios de selección de datos.
 * Presentar resultados dentro de la metodología.
 
-## Lista de verificación
+### Lista de verificación
 
 ```{r}
 #| label: tbl-reg29-checklist
