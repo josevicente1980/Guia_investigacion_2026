@@ -48,7 +48,7 @@ que los distantes.
 
 Este principio es conocido como la Primera Ley de la Geografía de Tobler.
 
-## Cargando librerías
+### Cargando librerías
 
 ```{r}
 #| label: reg26-cargar-librerias
@@ -63,7 +63,7 @@ library(tidyverse)
 library(knitr)
 ```
 
-## Cargando la base espacial
+### Cargando la base espacial
 
 Utilizaremos la base `columbus` incluida en `spData`.
 
@@ -91,7 +91,7 @@ columbus_sf <- sf::st_read(
 vecinos <- col.gal.nb
 ```
 
-## Explorando la base
+### Explorando la base
 
 ```{r}
 #| label: tbl-reg26-estructura
@@ -105,7 +105,7 @@ glimpse(
 
 Cada observación corresponde a un área geográfica de la ciudad de Columbus.
 
-## Visualización espacial
+### Visualización espacial
 
 ```{r}
 #| label: fig-reg26-mapa-columbus
@@ -122,11 +122,11 @@ plot(
 
 Cada polígono representa una unidad espacial.
 
-## Construcción de vecinos
+### Construcción de vecinos
 
 La dependencia espacial requiere identificar relaciones de vecindad.
 
-## Resumen de vecinos
+### Resumen de vecinos
 
 ```{r}
 #| label: tbl-reg26-vecinos
@@ -156,7 +156,7 @@ tibble(
 
 Cada área posee un conjunto de vecinos espaciales que influirá en el análisis.
 
-## Matriz de pesos espaciales
+### Matriz de pesos espaciales
 
 ```{r}
 #| label: reg26-pesos
@@ -168,7 +168,7 @@ pesos <- nb2listw(
 ```
 
 
-## Índice de Moran
+### Índice de Moran
 
 El índice de Moran evalúa autocorrelación espacial.
 
@@ -191,7 +191,7 @@ No existe autocorrelación espacial.
 
 Valores p pequeños indican dependencia espacial significativa.
 
-## Diagrama de Moran
+### Diagrama de Moran
 
 ```{r}
 #| label: fig-reg26-moran
@@ -221,7 +221,7 @@ modelo_sar <- lagsarlm(
 )
 ```
 
-## Resultados del modelo SAR
+### Resultados del modelo SAR
 
 ```{r}
 #| label: tbl-reg26-sar
@@ -239,7 +239,7 @@ broom::tidy(
 
 Los coeficientes representan efectos directos mientras que el parámetro espacial captura la dependencia entre áreas vecinas.
 
-## Conclusión práctica
+### Conclusión práctica
 
 En esta primera parte aprendimos a:
 
@@ -249,7 +249,7 @@ En esta primera parte aprendimos a:
 - Interpretar autocorrelación espacial.
 - Estimar un modelo SAR.
 
-## Introducción
+### Introducción
 
 En los capítulos anteriores asumimos que todas las observaciones pertenecían a un mismo nivel de análisis.
 
@@ -283,7 +283,7 @@ Variación entre grupos
 
 La idea central consiste en reconocer que observaciones pertenecientes al mismo grupo tienden a parecerse entre sí.
 
-## Cargando librerías
+### Cargando librerías
 
 ```{r}
 #| label: reg26-cargar-librerias-multinivel
@@ -297,7 +297,7 @@ library(broom.mixed)
 library(knitr)
 ```
 
-## Cargando la base de datos
+### Cargando la base de datos
 
 Utilizaremos la base `Exam` incluida en el paquete `mlmRev`.
 
@@ -312,7 +312,7 @@ data(
 datos_exam <- Exam
 ```
 
-## Explorando la base
+### Explorando la base
 
 ```{r}
 #| label: tbl-reg26-estructura-exam
@@ -328,7 +328,7 @@ Cada observación corresponde a un estudiante.
 
 Los estudiantes están agrupados dentro de escuelas.
 
-## Número de escuelas
+### Número de escuelas
 
 ```{r}
 #| label: tbl-reg26-num-escuelas
@@ -345,7 +345,7 @@ datos_exam |>
   )
 ```
 
-## Número de estudiantes
+### Número de estudiantes
 
 ```{r}
 #| label: tbl-reg26-num-estudiantes
@@ -359,7 +359,7 @@ datos_exam |>
   )
 ```
 
-## Visualización jerárquica
+### Visualización jerárquica
 
 ```{r}
 #| label: fig-reg26-score-escuela
@@ -385,7 +385,7 @@ Existen diferencias importantes entre escuelas.
 
 Esto sugiere la presencia de variabilidad grupal.
 
-## Modelo lineal tradicional
+### Modelo lineal tradicional
 
 Comenzaremos ignorando la estructura jerárquica.
 
@@ -398,7 +398,7 @@ modelo_lm <- lm(
 )
 ```
 
-## Resultados del modelo lineal
+### Resultados del modelo lineal
 
 ```{r}
 #| label: tbl-reg26-lm
@@ -416,7 +416,7 @@ tidy(
 
 El puntaje de ingreso (`standLRT`) presenta una asociación positiva con el rendimiento académico.
 
-## Modelo multinivel básico
+### Modelo multinivel básico
 
 Ahora permitimos que cada escuela tenga su propio intercepto.
 
@@ -431,7 +431,7 @@ modelo_ml <- lmer(
 )
 ```
 
-## Resultados del modelo multinivel
+### Resultados del modelo multinivel
 
 ```{r}
 #| label: tbl-reg26-multinivel
@@ -450,7 +450,7 @@ tidy(
 
 El coeficiente de `standLRT` representa el efecto promedio entre todas las escuelas.
 
-## Componentes de varianza
+### Componentes de varianza
 
 ```{r}
 #| label: tbl-reg26-varianza
@@ -474,7 +474,7 @@ as.data.frame(
 
 La varianza asociada a las escuelas indica cuánto difieren los interceptos entre instituciones.
 
-## Efectos aleatorios
+### Efectos aleatorios
 
 ```{r}
 #| label: tbl-reg26-efectos-aleatorios
@@ -496,7 +496,7 @@ ranef(
 
 Cada escuela presenta una desviación específica respecto al promedio general.
 
-## Visualización de efectos aleatorios
+### Visualización de efectos aleatorios
 
 ```{r}
 #| label: fig-reg26-efectos-aleatorios
@@ -530,7 +530,7 @@ ggplot(
 
 Las escuelas con valores positivos presentan rendimientos superiores al promedio esperado.
 
-## Comparación de modelos
+### Comparación de modelos
 
 ```{r}
 #| label: tbl-reg26-comparacion-modelos
@@ -555,7 +555,7 @@ tibble(
 
 Menores valores de AIC indican mejor ajuste relativo.
 
-## ¿Cuándo utilizar modelos multinivel?
+### ¿Cuándo utilizar modelos multinivel?
 
 Los modelos multinivel son apropiados cuando existen:
 
@@ -565,7 +565,7 @@ Los modelos multinivel son apropiados cuando existen:
 - Variación entre organizaciones.
 - Variación territorial.
 
-## Aplicaciones frecuentes
+### Aplicaciones frecuentes
 
 ```{r}
 #| label: tbl-reg26-aplicaciones
@@ -591,7 +591,7 @@ tibble(
   )
 ```
 
-## Conclusión práctica
+### Conclusión práctica
 
 En esta sección aprendimos a:
 
@@ -606,7 +606,7 @@ En la siguiente sección estudiaremos modelos de frontera estocástica para medi
 
 ## Frontera estocástica y medición de eficiencia
 
-## Introducción
+### Introducción
 
 Hasta ahora hemos utilizado modelos orientados a explicar relaciones entre variables. Sin embargo, en muchos contextos el interés principal consiste en responder una pregunta diferente:
 
@@ -616,7 +616,7 @@ Hasta ahora hemos utilizado modelos orientados a explicar relaciones entre varia
 
 Los modelos de frontera estocástica permiten estimar eficiencia técnica comparando el desempeño observado con una frontera de producción [@kumbhakar2015].
 
-## Cargando librerías
+### Cargando librerías
 
 ```{r}
 #| label: reg26-cargar-librerias-sfa
@@ -629,7 +629,7 @@ library(knitr)
 library(broom)
 ```
 
-## Creación de base simulada reproducible
+### Creación de base simulada reproducible
 
 Para asegurar que el capítulo renderice correctamente en cualquier equipo, construiremos una base simulada de producción. La base sigue la lógica de una función Cobb-Douglas con capital, trabajo, ruido aleatorio e ineficiencia técnica.
 
@@ -676,7 +676,7 @@ datos_sfa <- tibble(
   )
 ```
 
-## Explorando la base
+### Explorando la base
 
 ```{r}
 #| label: tbl-reg26-estructura-sfa
@@ -690,7 +690,7 @@ glimpse(
 
 La base contiene una variable de producción (`output`) y dos insumos productivos (`capital` y `labour`). Además, incluye componentes simulados de error e ineficiencia para fines pedagógicos.
 
-## Resumen descriptivo
+### Resumen descriptivo
 
 ```{r}
 #| label: tbl-reg26-resumen-sfa
@@ -712,7 +712,7 @@ datos_sfa |>
 
 El resumen permite verificar que existe variabilidad suficiente en producción, capital y trabajo para estimar una función de producción.
 
-## Relación entre capital y producción
+### Relación entre capital y producción
 
 ```{r}
 #| label: fig-reg26-produccion-capital
@@ -745,7 +745,7 @@ ggplot(
 
 El gráfico muestra una asociación positiva entre capital y producción. Esta relación es consistente con la lógica de una función de producción.
 
-## Función de producción convencional
+### Función de producción convencional
 
 Antes de estimar eficiencia técnica, construiremos una regresión convencional.
 
@@ -760,7 +760,7 @@ modelo_lm_sfa <- lm(
 )
 ```
 
-## Resultados de la regresión convencional
+### Resultados de la regresión convencional
 
 ```{r}
 #| label: tbl-reg26-regresion-produccion
@@ -778,7 +778,7 @@ broom::tidy(
 
 Los coeficientes representan elasticidades de producción. Un coeficiente positivo indica que aumentos en el insumo se asocian con aumentos en la producción.
 
-## Estimación de frontera estocástica
+### Estimación de frontera estocástica
 
 Ahora estimaremos una frontera estocástica. A diferencia de la regresión convencional, este modelo separa el error aleatorio de la ineficiencia técnica.
 
@@ -793,7 +793,7 @@ modelo_sfa <- frontier::sfa(
 )
 ```
 
-## Resultados del modelo SFA
+### Resultados del modelo SFA
 
 ```{r}
 #| label: tbl-reg26-sfa
@@ -807,7 +807,7 @@ summary(
 
 El modelo estima una frontera de producción. Los coeficientes de capital y trabajo indican cómo se relacionan los insumos con la producción potencial. Los parámetros adicionales del modelo permiten separar ruido estadístico e ineficiencia técnica.
 
-## Eficiencia técnica estimada
+### Eficiencia técnica estimada
 
 ```{r}
 #| label: reg26-eficiencia-sfa
@@ -817,7 +817,7 @@ eficiencia <- efficiencies(
 )
 ```
 
-## Resumen de eficiencia
+### Resumen de eficiencia
 
 ```{r}
 #| label: tbl-reg26-resumen-eficiencia
@@ -848,7 +848,7 @@ tibble(
 
 La eficiencia técnica toma valores entre 0 y 1. Valores cercanos a 1 indican unidades más próximas a la frontera eficiente.
 
-## Distribución de eficiencia
+### Distribución de eficiencia
 
 ```{r}
 #| label: fig-reg26-distribucion-eficiencia
@@ -880,7 +880,7 @@ tibble(
 
 El histograma permite identificar si la mayoría de unidades se encuentran cerca o lejos de la frontera eficiente.
 
-## Ranking de eficiencia
+### Ranking de eficiencia
 
 ```{r}
 #| label: tbl-reg26-ranking-eficiencia
@@ -911,7 +911,7 @@ tibble(
 
 Las unidades ubicadas en los primeros lugares presentan los mayores niveles de eficiencia técnica estimada.
 
-## Comparación entre regresión y frontera estocástica
+### Comparación entre regresión y frontera estocástica
 
 ```{r}
 #| label: tbl-reg26-comparacion-lm-sfa
@@ -965,7 +965,7 @@ tibble(
 
 Cada familia de modelos responde a una necesidad metodológica distinta. La elección depende del problema empírico.
 
-## ¿Cuándo utilizar frontera estocástica?
+### ¿Cuándo utilizar frontera estocástica?
 
 La frontera estocástica es útil cuando el objetivo es evaluar eficiencia en unidades productivas como:
 
@@ -979,7 +979,7 @@ Universidades
 
 Su principal aporte consiste en distinguir entre bajo desempeño por ruido aleatorio y bajo desempeño por ineficiencia.
 
-## Manos a la obra
+### Manos a la obra
 
 1. Construya una base de producción con insumos y producto.
 2. Estime una función de producción convencional.

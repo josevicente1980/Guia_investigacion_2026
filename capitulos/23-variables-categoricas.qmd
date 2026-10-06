@@ -29,7 +29,7 @@ Estas variables contienen información relevante para explicar fenómenos econó
 
 La regresión lineal permite incorporar variables categóricas mediante procesos de codificación automática conocidos como variables dummy o indicadoras [@montgomery2021].
 
-## Cargando librerías
+### Cargando librerías
 
 ```{r}
 #| label: reg23-cargar-librerias
@@ -43,7 +43,7 @@ library(knitr)
 library(here)
 ```
 
-## Cargando la base analítica
+### Cargando la base analítica
 
 ```{r}
 #| label: reg23-cargar-base
@@ -58,7 +58,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## Preparación de variables
+### Preparación de variables
 
 ```{r}
 #| label: reg23-preparar-base
@@ -101,7 +101,7 @@ glimpse(
 
 Las variables `provincia` y `tamano_upa` aparecen como factores. Esto indica que R las reconocerá automáticamente como variables categóricas.
 
-## Frecuencia de categorías
+### Frecuencia de categorías
 
 ```{r}
 #| label: tbl-reg23-frecuencia-provincia
@@ -122,7 +122,7 @@ base_categorias |>
 
 La tabla muestra la distribución de observaciones entre categorías territoriales.
 
-## Visualización de categorías
+### Visualización de categorías
 
 ```{r}
 #| label: fig-reg23-frecuencia-provincia
@@ -145,7 +145,7 @@ ggplot(
 
 El gráfico permite identificar diferencias en el tamaño relativo de las categorías.
 
-## ¿Por qué no usar texto directamente?
+### ¿Por qué no usar texto directamente?
 
 Los modelos matemáticos operan con números.
 
@@ -185,7 +185,7 @@ Loja = 1
 Otra provincia = 0
 ```
 
-## Ejemplo simple de dummy
+### Ejemplo simple de dummy
 
 ```{r}
 #| label: tbl-reg23-dummy-loja
@@ -230,7 +230,7 @@ Azuay
 
 Una categoría será utilizada como referencia y las demás serán comparadas contra ella.
 
-## Niveles del factor
+### Niveles del factor
 
 ```{r}
 #| label: tbl-reg23-niveles-factor
@@ -250,7 +250,7 @@ tibble(
 
 La primera categoría suele actuar como referencia en los modelos lineales.
 
-## Cambio de categoría de referencia
+### Cambio de categoría de referencia
 
 En ocasiones resulta conveniente seleccionar explícitamente la categoría base.
 
@@ -269,7 +269,7 @@ base_categorias <- base_categorias |>
   )
 ```
 
-## Verificación de referencia
+### Verificación de referencia
 
 ```{r}
 #| label: tbl-reg23-referencia
@@ -289,7 +289,7 @@ tibble(
 
 Todos los coeficientes asociados a provincia serán interpretados respecto a esta categoría.
 
-## Matriz de diseño
+### Matriz de diseño
 
 La función `model.matrix()` permite observar la codificación interna utilizada por R.
 
@@ -313,7 +313,7 @@ model.matrix(
 
 Cada columna representa una variable dummy generada automáticamente.
 
-## Conclusión práctica
+### Conclusión práctica
 
 En esta primera parte aprendimos a:
 
@@ -325,7 +325,7 @@ En esta primera parte aprendimos a:
 
 En la siguiente sección incorporaremos estas variables dentro de modelos de regresión y aprenderemos a interpretar correctamente los coeficientes asociados a categorías.
 
-## Introducción
+### Introducción
 
 Una vez comprendida la lógica de las variables dummy, podemos incorporarlas directamente dentro de modelos de regresión.
 
@@ -343,7 +343,7 @@ para explicar variaciones en:
 log_supertotal
 ```
 
-## Cargando librerías
+### Cargando librerías
 
 ```{r}
 #| label: reg23-cargar-librerias-parte2
@@ -357,7 +357,7 @@ library(knitr)
 library(here)
 ```
 
-## Cargando la base analítica
+### Cargando la base analítica
 
 ```{r}
 #| label: reg23-cargar-base-parte2
@@ -372,7 +372,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## Preparación de variables
+### Preparación de variables
 
 ```{r}
 #| label: reg23-preparar-base-parte2
@@ -395,7 +395,7 @@ base_categorias <- base_analitica |>
   drop_na()
 ```
 
-## Exploración inicial
+### Exploración inicial
 
 ```{r}
 #| label: tbl-reg23-resumen-grupos
@@ -422,7 +422,7 @@ base_categorias |>
 
 Las medias sugieren diferencias entre categorías de tamaño. La regresión permitirá cuantificar estas diferencias formalmente.
 
-## Visualización preliminar
+### Visualización preliminar
 
 ```{r}
 #| label: fig-reg23-boxplot-categorias
@@ -458,7 +458,7 @@ modelo_cat <- lm(
 )
 ```
 
-## Resumen del modelo
+### Resumen del modelo
 
 ```{r}
 #| label: tbl-reg23-resumen-modelo
@@ -482,7 +482,7 @@ glance(
 
 El modelo evalúa si existen diferencias sistemáticas entre categorías de tamaño.
 
-## Coeficientes estimados
+### Coeficientes estimados
 
 ```{r}
 #| label: tbl-reg23-coeficientes
@@ -503,7 +503,7 @@ El intercepto representa la media esperada para la categoría de referencia.
 
 Los demás coeficientes representan diferencias respecto a dicha categoría.
 
-## Interpretación del intercepto
+### Interpretación del intercepto
 
 Supongamos que la categoría de referencia es:
 
@@ -525,7 +525,7 @@ log_supertotal
 
 para las UPA pequeñas.
 
-## Interpretación de una categoría adicional
+### Interpretación de una categoría adicional
 
 Si observamos:
 
@@ -541,7 +541,7 @@ Las UPA medianas presentan en promedio
 que las UPA pequeñas.
 ```
 
-## Valores ajustados
+### Valores ajustados
 
 ```{r}
 #| label: reg23-ajustados
@@ -555,7 +555,7 @@ base_categorias <- base_categorias |>
   )
 ```
 
-## Comparación observado versus ajustado
+### Comparación observado versus ajustado
 
 ```{r}
 #| label: fig-reg23-observado-ajustado
@@ -585,7 +585,7 @@ ggplot(
 
 Los puntos rojos representan las medias estimadas por el modelo para cada categoría.
 
-## Comparación mediante ANOVA
+### Comparación mediante ANOVA
 
 Cuando todas las variables explicativas son categóricas, la regresión y ANOVA producen resultados equivalentes.
 
@@ -610,7 +610,7 @@ La interpretación de la prueba ANOVA se basa en el **valor p** asociado al esta
 - Si p < 0,05, se rechaza la hipótesis nula y se concluye que el modelo es **estadísticamente significativo**, es decir, al menos una de las variables explicativas influye sobre la variable dependiente.
 - Si p ≥ 0,05, no existe evidencia suficiente para afirmar que el modelo explica la variabilidad de la variable de respuesta.
 
-## Predicciones por grupo
+### Predicciones por grupo
 
 ```{r}
 #| label: tbl-reg23-predicciones-grupo
@@ -647,7 +647,7 @@ nuevos_grupos |>
 
 Las predicciones representan los valores medios esperados para cada grupo.
 
-## Visualización de medias estimadas
+### Visualización de medias estimadas
 
 ```{r}
 #| label: fig-reg23-medias-estimadas
@@ -670,7 +670,7 @@ ggplot(
 
 Las diferencias de altura reflejan diferencias promedio estimadas entre categorías.
 
-## Variable categórica y variable numérica
+### Variable categórica y variable numérica
 
 En la práctica es frecuente combinar variables categóricas y numéricas.
 
@@ -686,7 +686,7 @@ tamano_upa
 
 Este tipo de especificación será el punto de partida de la siguiente sección.
 
-## Conclusión práctica
+### Conclusión práctica
 
 En esta sección aprendimos a:
 
@@ -699,7 +699,7 @@ En esta sección aprendimos a:
 
 En la siguiente sección estudiaremos variables categóricas con múltiples niveles e introduciremos interacciones básicas entre variables numéricas y categóricas.
 
-## Introducción
+### Introducción
 
 Hasta ahora hemos incorporado variables categóricas simples dentro de modelos lineales.
 
@@ -718,7 +718,7 @@ sobre la superficie total para todos los tamaños de UPA?
 
 Para responder este tipo de preguntas utilizamos interacciones entre variables numéricas y categóricas [@kutner2004].
 
-## Cargando librerías
+### Cargando librerías
 
 ```{r}
 #| label: reg23-cargar-librerias-parte3
@@ -732,7 +732,7 @@ library(knitr)
 library(here)
 ```
 
-## Cargando la base analítica
+### Cargando la base analítica
 
 ```{r}
 #| label: reg23-cargar-base-parte3
@@ -747,7 +747,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## Preparación de variables
+### Preparación de variables
 
 ```{r}
 #| label: reg23-preparar-base-parte3
@@ -771,7 +771,7 @@ base_interaccion <- base_analitica |>
   drop_na()
 ```
 
-## Modelo aditivo
+### Modelo aditivo
 
 Comenzaremos con un modelo sin interacción.
 
@@ -786,7 +786,7 @@ modelo_aditivo <- lm(
 )
 ```
 
-## Resumen del modelo aditivo
+### Resumen del modelo aditivo
 
 ```{r}
 #| label: tbl-reg23-modelo-aditivo
@@ -825,7 +825,7 @@ modelo_interaccion <- lm(
 )
 ```
 
-## Resumen del modelo con interacción
+### Resumen del modelo con interacción
 
 ```{r}
 #| label: tbl-reg23-modelo-interaccion
@@ -849,7 +849,7 @@ glance(
 
 El modelo permite que el efecto de la experiencia financiera sea diferente según el tamaño de la UPA.
 
-## Coeficientes del modelo
+### Coeficientes del modelo
 
 ```{r}
 #| label: tbl-reg23-coeficientes-interaccion
@@ -876,7 +876,7 @@ representan interacciones.
 
 Estos coeficientes indican cuánto cambia la pendiente respecto a la categoría de referencia.
 
-## Comparación entre modelos
+### Comparación entre modelos
 
 ```{r}
 #| label: tbl-reg23-comparacion-modelos
@@ -913,7 +913,7 @@ tibble(
 
 La comparación permite evaluar si la interacción aporta capacidad explicativa adicional.
 
-## Comparación formal mediante ANOVA
+### Comparación formal mediante ANOVA
 
 ```{r}
 #| label: tbl-reg23-anova-interaccion
@@ -932,7 +932,7 @@ anova(
 
 Esta prueba evalúa si incorporar la interacción mejora significativamente el ajuste.
 
-## Visualización de la interacción
+### Visualización de la interacción
 
 ```{r}
 #| label: fig-reg23-interaccion
@@ -962,7 +962,7 @@ Si las pendientes son similares, la interacción es débil.
 
 Si las pendientes difieren claramente, la interacción puede resultar relevante.
 
-## Predicciones por categoría
+### Predicciones por categoría
 
 ```{r}
 #| label: tbl-reg23-predicciones-interaccion
@@ -1001,7 +1001,7 @@ nuevos_datos |>
 
 Las predicciones permiten comparar escenarios manteniendo explícitamente las categorías analizadas.
 
-## Variables categóricas con muchos niveles
+### Variables categóricas con muchos niveles
 
 En aplicaciones reales es frecuente encontrar variables como:
 
@@ -1018,7 +1018,7 @@ R genera automáticamente todas las variables dummy necesarias.
 
 El investigador únicamente debe declarar correctamente el factor.
 
-## Buenas prácticas
+### Buenas prácticas
 
 Antes de utilizar variables categóricas:
 
@@ -1028,7 +1028,7 @@ Antes de utilizar variables categóricas:
 4. Interpretar coeficientes respecto a dicha referencia.
 5. Evitar categorías con muy pocas observaciones.
 
-## Flujo de trabajo recomendado
+### Flujo de trabajo recomendado
 
 ```{r}
 #| label: tbl-reg23-flujo
@@ -1052,7 +1052,7 @@ tibble(
 
 Este procedimiento resume el uso práctico de variables categóricas dentro de modelos lineales.
 
-## Manos a la obra
+### Manos a la obra
 
 1. Convierta una variable categórica en factor.
 2. Identifique su categoría de referencia.
