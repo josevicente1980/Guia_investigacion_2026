@@ -3,6 +3,8 @@ project:
   output-dir: reportes
   pre-render:
     - Rscript R/pre_render.R
+  post-render:
+    - Rscript R/post_render_docx.R
 
 book:
   title: "Investigación reproducible con R y Quarto"
