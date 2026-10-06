@@ -105,6 +105,59 @@ write.csv(tabla_bib,
           "00_conocimiento_editorial/auditorias/resultados/auditoria_bibliografia.csv",
           row.names = FALSE, fileEncoding = "UTF-8")
 
+# Auditoría de actualidad por archivo/capítulo
+anio_por_clave <- setNames(unname(anios), bib_keys)
+
+detalle_archivo <- do.call(rbind, lapply(names(citas_por_archivo), function(f) {
+  ks <- citas_por_archivo[[f]]
+  if (!length(ks)) {
+    return(data.frame(
+      archivo = f,
+      clave = NA_character_,
+      anio = NA_integer_,
+      reciente_5_anios = NA,
+      stringsAsFactors = FALSE
+    ))
+  }
+  yy <- unname(anio_por_clave[ks])
+  data.frame(
+    archivo = f,
+    clave = ks,
+    anio = yy,
+    reciente_5_anios = !is.na(yy) & yy >= umbral_antiguedad,
+    stringsAsFactors = FALSE
+  )
+}))
+
+resumen_archivo <- do.call(rbind, lapply(split(detalle_archivo, detalle_archivo$archivo), function(d) {
+  d2 <- d[!is.na(d$clave), , drop = FALSE]
+  n <- nrow(d2)
+  n_rec <- sum(d2$reciente_5_anios %in% TRUE, na.rm = TRUE)
+  n_ant <- sum(d2$reciente_5_anios %in% FALSE, na.rm = TRUE)
+  n_sin <- sum(is.na(d2$anio))
+  pct_rec <- if (n > 0) 100 * n_rec / n else NA_real_
+  data.frame(
+    archivo = unique(d$archivo)[1],
+    referencias_citadas = n,
+    recientes_5_anios = n_rec,
+    antiguas_mas_5_anios = n_ant,
+    sin_anio = n_sin,
+    porcentaje_recientes = ifelse(is.na(pct_rec), NA_real_, round(pct_rec, 1)),
+    estado_actualidad = if (n == 0) "REVIEW" else if (pct_rec >= 80) "PASS" else "REVIEW",
+    stringsAsFactors = FALSE
+  )
+}))
+
+resumen_archivo <- resumen_archivo[order(resumen_archivo$porcentaje_recientes,
+                                         decreasing = FALSE, na.last = TRUE), ]
+
+write.csv(detalle_archivo,
+          "00_conocimiento_editorial/auditorias/resultados/referencias_por_archivo.csv",
+          row.names = FALSE, fileEncoding = "UTF-8")
+write.csv(resumen_archivo,
+          "00_conocimiento_editorial/auditorias/resultados/actualidad_bibliografica_por_archivo.csv",
+          row.names = FALSE, fileEncoding = "UTF-8")
+
 n_bib <- nrow(tabla_bib)
 n_bib_unicas <- length(bib_keys_unicas)
 n_antiguas <- sum(tabla_bib$mas_de_5_anios, na.rm = TRUE)
@@ -137,6 +190,10 @@ resumen <- c(
          " de ", n_bib, " (",
          ifelse(is.na(pct_antiguas), "NA", sprintf("%.1f%%", pct_antiguas)),
          ") — **", estado_antig, "**"),
+  paste0("- Archivos/capítulos con referencias: ",
+         sum(resumen_archivo$referencias_citadas > 0)),
+  paste0("- Archivos/capítulos con 0% de referencias recientes: ",
+         sum(resumen_archivo$porcentaje_recientes == 0, na.rm = TRUE)),
   "",
   "## Criterio",
   "",
