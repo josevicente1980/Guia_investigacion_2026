@@ -11,7 +11,7 @@
 
 La obra dispone de una base técnica sólida: proyecto Quarto tipo libro, 35 capítulos, bibliografía BibTeX, CSL APA, salida Word y sitio HTML. Sin embargo, todavía no puede declararse lista para envío porque existen decisiones editoriales y controles críticos pendientes.
 
-**Decisión de autor confirmada:** la obra se presentará editorialmente como **Guía**, no como monografía ni como libro en su denominación editorial. El formulario oficial contempla la categoría **Guía (15 × 20 cm)**. La plantilla de monografía colectiva conservada en las fuentes permanentes se mantiene únicamente como referencia institucional y no debe aplicarse como plantilla final de esta obra.
+**Decisión de autor corregida y confirmada:** la obra se quiere presentar como **Libro académico**, no como guía. La Editorial UNL publica libros y, dentro de su tipología/formato, distingue principalmente monografías académicas (24 × 17 cm) y guías/folletos (20 × 15 cm). Por tanto, ya no corresponde trabajar con el formato de Guía. Antes de fijar plantilla y tamaño final debe confirmarse el subtipo institucional del libro en el formulario vigente.
 
 ## Controles
 
@@ -21,9 +21,9 @@ La obra dispone de una base técnica sólida: proyecto Quarto tipo libro, 35 cap
 | Salida editorial | Se genera Word editable mediante Quarto | PASS | Mantener y validar render final |
 | Bibliografía | Existe `referencias/referencias.bib` y CSL APA | PASS | Auditar contenido y correspondencia |
 | Tablas/figuras | Configuración coloca tablas arriba y figuras abajo | PASS | Verificar cada objeto |
-| Tipología | Obra confirmada por el autor como **Guía** | **PASS** | Mantener esta clasificación en formulario, metadatos y paquete editorial |
+| Naturaleza de la obra | Autor confirma **Libro académico** | **PASS** | Mantener esta decisión como objetivo editorial |
 | Plantilla | `plantillas/plantilla.docx` está configurada como `reference-doc`, pero no se ha verificado contra la plantilla oficial aplicable | **BLOCK** | Verificar/reconstruir tras confirmar tipología |
-| Tamaño | Para la categoría Guía, el formulario oficial registra **15 × 20 cm** | **PASS** | Usar como objetivo de maquetación, sujeto a plantilla oficial aplicable |
+| Subtipo y tamaño | Debe confirmarse el subtipo institucional del libro; la UNL publica monografías académicas en 24 × 17 cm y guías/folletos en 20 × 15 cm | **BLOCK** | No fijar tamaño hasta resolver el subtipo del libro |
 | IA | No se encontró una declaración de uso de IA en la obra | **BLOCK** | Incorporar declaración final conforme a UNL |
 | Contraportada | No se encontró resumen editorial ≤180 palabras | **BLOCK** | Redactar y auditar |
 | Portada | No constan tres propuestas de imagen de portada en el paquete | **BLOCK** | Preparar al cierre con derechos verificados |
@@ -60,16 +60,17 @@ La regla de antigüedad bibliográfica **no debe aplicarse de forma mecánica**:
 
 ## Orden de corrección
 
-1. Ajustar la configuración Quarto y la política de archivos generados para una **Guía**.
-2. Localizar, validar o reconstruir el `reference-doc` según la plantilla oficial aplicable a Guía.
-3. Crear auditoría reproducible de citas, bibliografía, tablas, figuras y dependencias.
-4. Auditar los 35 capítulos por bloques, sin reescribir masivamente.
-5. Incorporar front matter/back matter faltante, incluida declaración de IA.
-6. Renderizar Word final y ejecutar auditoría editorial.
-7. Preparar paquete OMP y expediente administrativo.
+1. Confirmar el **subtipo institucional del Libro académico** en el formulario/plantilla UNL vigente.
+2. Ajustar la configuración Quarto y la política de archivos generados para el libro.
+3. Localizar, validar o reconstruir el `reference-doc` según la plantilla oficial aplicable.
+4. Crear auditoría reproducible de citas, bibliografía, tablas, figuras y dependencias.
+5. Auditar los 35 capítulos por bloques, sin reescribir masivamente.
+6. Incorporar front matter/back matter faltante, incluida declaración de IA.
+7. Renderizar Word final y ejecutar auditoría editorial.
+8. Preparar paquete OMP y expediente administrativo.
 
 ## Regla de cierre
 
 **SUBMISSION READY: NO.**
 
-Persisten controles críticos en **BLOCK**, pero la tipología editorial ya quedó resuelta como **Guía**. El siguiente bloqueo es validar una plantilla Word aplicable a Guía y ajustar la configuración Quarto al formato 15 × 20 cm.
+Persisten controles críticos en **BLOCK**. La naturaleza de la obra ya quedó confirmada como **Libro académico**; el siguiente bloqueo es resolver el subtipo institucional y la plantilla/formato UNL aplicables.
