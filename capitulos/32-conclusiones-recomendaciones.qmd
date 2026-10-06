@@ -163,8 +163,8 @@ tibble(
     "Desigualdades entre países"
   ),
   Recomendacion = c(
-    "Promover crecimiento inclusivo",
-    "Fortalecer políticas sociales"
+    "Examinar mecanismos y heterogeneidad con diseños adecuados",
+    "Priorizar análisis que identifiquen qué factores explican las desigualdades"
   )
 ) |>
   kable(
@@ -174,7 +174,7 @@ tibble(
 
 **Interpretación**
 
-Las recomendaciones deben estar sustentadas por evidencia y no por opiniones personales.
+Las recomendaciones deben ser proporcionales a la evidencia y al diseño. Los estudios asociativos pueden fundamentar prioridades de investigación, monitoreo o evaluación, pero no justifican automáticamente una intervención causal.
 
 ### Tipos de recomendaciones
 
@@ -230,7 +230,7 @@ Investigaciones futuras
 
 ### Ejemplo de recomendación adecuada
 
-> Se recomienda fortalecer políticas orientadas al crecimiento económico sostenible y a la reducción de desigualdades, considerando la relación observada entre ingreso y bienestar.
+> Se recomienda profundizar el análisis de los mecanismos que vinculan ingreso y bienestar mediante diseños capaces de distinguir asociación de causalidad antes de proponer intervenciones específicas.
 
 ## Errores frecuentes
 
@@ -254,7 +254,7 @@ La recomendación carece de evidencia.
 
 ### Correcto
 
-> Se recomienda fortalecer estrategias de desarrollo económico debido a la asociación observada entre ingreso y bienestar.
+> La asociación observada justifica profundizar el análisis y evaluar mecanismos plausibles antes de recomendar estrategias de intervención.
 
 La recomendación está sustentada en resultados.
 
@@ -268,7 +268,7 @@ tibble(
     "Responde objetivos",
     "Sintetiza hallazgos",
     "No repite resultados",
-    "Incluye recomendaciones",
+    "Incluye recomendaciones cuando el tipo de trabajo las requiere",
     "Tiene respaldo empírico",
     "Mantiene coherencia"
   ),

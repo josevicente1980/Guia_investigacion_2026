@@ -109,14 +109,14 @@ La tabla presenta coeficientes, errores estándar, estadísticos t y valores p. 
 
 ## Tablas profesionales con modelsummary
 
-El paquete `modelsummary` permite transformar modelos en tablas listas para artículos científicos [@arelbundock2022].
+El paquete `modelsummary` permite construir tablas reproducibles y adaptables a distintos requisitos editoriales [@arelbundock2022].
 
 ```{r}
 #| label: tbl-reg27-modelsummary-simple
 
 modelsummary(
   modelo_1,
-  stars = TRUE,
+  stars = FALSE,
   title = "Modelo de esperanza de vida"
 )
 ```
@@ -127,7 +127,7 @@ La tabla presenta automáticamente:
 
 * Coeficientes.
 * Errores estándar.
-* Significancia estadística.
+* Incertidumbre de las estimaciones.
 * Número de observaciones.
 * Estadísticos de ajuste.
 
@@ -138,7 +138,7 @@ La tabla presenta automáticamente:
 
 modelsummary(
   modelo_1,
-  stars = TRUE,
+  stars = FALSE,
   statistic = "std.error",
   gof_omit = "IC|Log|F",
   title = "Modelo lineal simple"
@@ -180,7 +180,7 @@ modelsummary(
     "Modelo 2" = modelo_2,
     "Modelo 3" = modelo_3
   ),
-  stars = TRUE,
+  stars = FALSE,
   title = "Comparación de modelos"
 )
 ```
@@ -212,7 +212,7 @@ broom::tidy(
 
 **Interpretación**
 
-Los intervalos de confianza complementan la información proporcionada por los valores p.
+Los intervalos de confianza permiten evaluar conjuntamente dirección, magnitud e incertidumbre y evitan reducir la interpretación a umbrales de significancia.
 
 ## Visualización de coeficientes
 

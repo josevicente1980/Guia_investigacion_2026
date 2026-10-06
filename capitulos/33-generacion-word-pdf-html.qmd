@@ -353,7 +353,7 @@ tibble(
 
 **Interpretación**
 
-Estos comandos permiten automatizar completamente la generación de documentos.
+Estos comandos permiten automatizar la generación de documentos. Durante la escritura conviene renderizar solo el capítulo o formato que se está verificando y reservar el render completo para puntos de control, auditorías y entregas finales.
 
 ### Errores frecuentes
 
@@ -400,14 +400,9 @@ tibble(
     "PDF generado",
     "Word generado"
   ),
-  Estado = c(
-    "Sí",
-    "Sí",
-    "Sí",
-    "Sí",
-    "Sí",
-    "Sí",
-    "Sí"
+  Estado = rep(
+    "Por verificar",
+    7
   )
 ) |>
   kable(
@@ -417,7 +412,7 @@ tibble(
 
 **Interpretación**
 
-Antes de distribuir un documento es recomendable verificar que todos los formatos se generen correctamente.
+Antes de distribuir un documento deben verificarse únicamente los formatos exigidos por el destino editorial o institucional, además de revisar que tablas, figuras, referencias y resultados se hayan generado desde el código vigente.
 
 ### Manos a la obra
 

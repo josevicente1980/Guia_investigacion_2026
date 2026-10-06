@@ -254,11 +254,11 @@ Un ejemplo de redacción metodológica podría ser:
 
 ### Recomendaciones
 
-* Describir claramente la fuente de datos.
-* Documentar las transformaciones realizadas.
-* Especificar software y versiones utilizadas.
-* Definir todas las variables relevantes.
-* Presentar el procedimiento analítico completo.
+* Identificar fuente, versión, fecha de acceso y unidad de análisis.
+* Documentar criterios de inclusión, exclusión y tratamiento de datos faltantes.
+* Registrar todas las transformaciones realizadas mediante código.
+* Especificar software, paquetes y versiones relevantes.
+* Definir variables, estrategia analítica, supuestos y criterios de diagnóstico realmente utilizados.
 
 ### Errores frecuentes
 
@@ -282,13 +282,9 @@ tibble(
     "Software",
     "Reproducibilidad"
   ),
-  Verificado = c(
-    "Sí",
-    "Sí",
-    "Sí",
-    "Sí",
-    "Sí",
-    "Sí"
+  Estado = rep(
+    "Por verificar",
+    6
   )
 ) |>
   kable(
@@ -315,5 +311,5 @@ Antes de finalizar un documento científico conviene verificar que todos los com
 
 ## Resumen del capítulo
 
-En este capítulo se presentó la estructura fundamental de una metodología reproducible. Se mostró cómo documentar datos, variables, transformaciones y procedimientos analíticos utilizando Quarto. Una metodología correctamente redactada permite que los resultados sean transparentes, verificables y replicables por otros investigadores.
+En este capítulo se presentó la estructura fundamental de una metodología reproducible. Se mostró cómo documentar datos, variables, transformaciones y procedimientos analíticos utilizando Quarto. Una metodología correctamente redactada, junto con los datos y el código disponibles cuando sea posible, permite reconstruir el proceso analítico y evaluar sus decisiones.
 

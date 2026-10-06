@@ -148,14 +148,15 @@ La relación entre PIB per cápita y esperanza de vida presenta un coeficiente p
 
 modelsummary(
   modelo_resultados,
-  stars = TRUE,
+  stars = FALSE,
+  statistic = "conf.int",
   title = "Modelo de esperanza de vida"
 )
 ```
 
 **Interpretación**
 
-Las tablas de resultados deben incluir coeficientes, errores estándar, niveles de significancia y medidas de ajuste.
+Las tablas deben reportar las estimaciones necesarias para responder la pregunta de investigación, acompañadas por medidas de incertidumbre y de ajuste pertinentes. No es necesario destacar resultados mediante estrellas de significancia cuando los intervalos y las estimaciones permiten una lectura más informativa.
 
 ## Representación gráfica de resultados
 
@@ -227,13 +228,13 @@ La cercanía entre observaciones y predicciones permite evaluar visualmente el a
 
 Un ejemplo adecuado sería:
 
-> Los resultados indican una relación positiva y estadísticamente significativa entre el PIB per cápita y la esperanza de vida. El coeficiente estimado sugiere que incrementos en el ingreso se asocian con mayores niveles de esperanza de vida.
+> Los resultados muestran una asociación positiva entre el PIB per cápita y la esperanza de vida. La magnitud estimada y su intervalo de confianza permiten evaluar la precisión y relevancia de esta asociación.
 
 Un ejemplo incorrecto sería:
 
 > Los países ricos tienen mejor calidad de vida porque invierten más en salud.
 
-La segunda afirmación introduce una explicación causal que corresponde a la discusión y no a los resultados.
+La segunda afirmación introduce una explicación causal que no está sustentada por este diseño observacional. Trasladarla a la discusión no resolvería el problema: solo podría formularse como una explicación alternativa o hipótesis, no como una conclusión causal.
 
 ### Estructura recomendada
 

@@ -154,11 +154,11 @@ Las citas deben respaldar afirmaciones empíricas y conceptuales realizadas en l
 
 Una introducción científica no debe limitarse a resumir literatura existente.
 
-Debe identificar claramente qué aspecto permanece insuficientemente estudiado.
+Debe identificar qué aspecto permanece insuficientemente resuelto y demostrar por qué esa ausencia, contradicción, limitación o extensión pendiente es relevante para el conocimiento existente.
 
 Ejemplo:
 
-> Aunque existe abundante evidencia sobre transformación digital en economías desarrolladas, los estudios aplicados al contexto latinoamericano continúan siendo limitados.
+> Aunque existe abundante evidencia sobre transformación digital, todavía es necesario establecer si los mecanismos documentados se mantienen en contextos empresariales latinoamericanos con estructuras productivas e institucionales diferentes.
 
 ## Formulación del objetivo
 
@@ -218,8 +218,8 @@ Cuando estos tres elementos están alineados, la introducción adquiere mayor cl
 
 ### Recomendaciones
 
-* Utilizar literatura reciente.
-* Priorizar artículos científicos revisados por pares.
+* Combinar literatura reciente con fuentes clásicas cuando sean conceptualmente necesarias.
+* Seleccionar fuentes por pertinencia, calidad metodológica y correspondencia con la afirmación que respaldan.
 * Evitar afirmaciones sin evidencia.
 * Mantener coherencia argumentativa.
 * Conectar explícitamente problema y objetivo.
@@ -231,6 +231,7 @@ Cuando estos tres elementos están alineados, la introducción adquiere mayor cl
 * Falta de referencias académicas.
 * Objetivos desconectados del problema.
 * Revisiones bibliográficas descriptivas sin análisis crítico.
+* Presentar la simple ausencia de estudios en un país o región como novedad suficiente sin demostrar su relevancia teórica o empírica.
 
 ## Manos a la obra
 

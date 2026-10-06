@@ -91,11 +91,11 @@ Los coeficientes constituyen la evidencia empírica que servirá de base para la
 
 ### Resultado
 
-> El coeficiente asociado al PIB per cápita es positivo y estadísticamente significativo.
+> El coeficiente asociado al PIB per cápita es positivo y su intervalo de confianza permite evaluar la precisión de la estimación.
 
 ### Discusión
 
-> Este resultado sugiere que mayores niveles de ingreso se encuentran asociados con una mayor esperanza de vida. El hallazgo coincide con investigaciones previas que identifican al desarrollo económico como un determinante importante del bienestar poblacional [@deaton2013].
+> Este resultado sugiere que mayores niveles de ingreso se encuentran asociados con una mayor esperanza de vida. La comparación con estudios previos debe distinguir entre evidencia asociativa y causal y considerar si sus diseños, poblaciones y períodos son realmente comparables [@deaton2013].
 
 **Interpretación**
 
@@ -170,8 +170,8 @@ tibble(
     "Mayor esperanza de vida"
   ),
   Implicacion = c(
-    "Promoción del crecimiento económico",
-    "Mejora del bienestar"
+    "Investigar mecanismos que vinculan ingreso y salud",
+    "Examinar desigualdades y factores asociados al bienestar"
   )
 ) |>
   kable(
@@ -181,7 +181,7 @@ tibble(
 
 **Interpretación**
 
-Las implicaciones ayudan a conectar la investigación con la toma de decisiones.
+Las implicaciones conectan los hallazgos con preguntas sustantivas y posibles decisiones, pero deben ser proporcionales al diseño. Una asociación observacional no basta, por sí sola, para recomendar una intervención.
 
 ## Limitaciones del estudio
 
