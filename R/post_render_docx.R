@@ -236,18 +236,14 @@ if (.Platform$OS.type == "windows") {
 
   ps <- paste0(
     "$ErrorActionPreference='Stop'; ",
+    "Add-Type -AssemblyName System.IO.Compression; ",
     "Add-Type -AssemblyName System.IO.Compression.FileSystem; ",
     "$src='", gsub("'", "''", ruta_tmp), "'; ",
     "$dst='", gsub("'", "''", ruta_zip), "'; ",
     "if (Test-Path $dst) { Remove-Item $dst -Force }; ",
-    "$zip=[System.IO.Compression.ZipFile]::Open($dst,[System.IO.Compression.ZipArchiveMode]::Create); ",
-    "Get-ChildItem -Path $src -Recurse -File | ForEach-Object { ",
-      "$name=$_.FullName.Substring($src.Length+1).Replace('\\','/'); ",
-      "[System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile(",
-        "$zip,$_.FullName,$name,[System.IO.Compression.CompressionLevel]::Optimal",
-      ") | Out-Null ",
-    "}; ",
-    "$zip.Dispose();"
+    "[System.IO.Compression.ZipFile]::CreateFromDirectory(",
+      "$src,$dst,[System.IO.Compression.CompressionLevel]::Optimal,$false",
+    ");"
   )
 
   estado <- system2(
