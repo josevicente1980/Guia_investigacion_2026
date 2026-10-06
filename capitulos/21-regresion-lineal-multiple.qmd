@@ -184,6 +184,9 @@ broom::tidy(
     std.error,
     p.value
   ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
+  ) |>
   setNames(
     c("Parámetro", "Estim.", "EE", "p")
   ) |>
@@ -416,6 +419,9 @@ tidy(
     std.error,
     p.value
   ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
+  ) |>
   setNames(
     c("Parámetro", "Estim.", "EE", "p")
   ) |>
@@ -541,6 +547,12 @@ coef_modelo1 |>
       ),
     by = "term"
   ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
+  ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
+  ) |>
   setNames(
     c("Parámetro", "Modelo 1", "Modelo 2")
   ) |>
@@ -630,12 +642,26 @@ Cuando un modelo contiene todas las variables de otro más algunas adicionales, 
 ```{r}
 #| label: tbl-reg21-anova-modelos
 
-anova(
+anova_modelos <- anova(
   modelo_1,
   modelo_2
 ) |>
+  as.data.frame()
+
+anova_modelos |>
+  transmute(
+    Modelo = c(
+      "Modelo 1",
+      "Modelo 2"
+    ),
+    gl_res = Res.Df,
+    gl = Df,
+    F = F,
+    p = `Pr(>F)`
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Comparación ANOVA entre modelos anidados"
   )
 ```
@@ -822,6 +848,9 @@ tidy(
     estimate,
     IC95,
     p.value
+  ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
   ) |>
   setNames(
     c("Parámetro", "Estim.", "IC 95%", "p")
@@ -1092,6 +1121,9 @@ tidy(
     desc(
       magnitud
     )
+  ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
   ) |>
   select(
     Variable = term,

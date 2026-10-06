@@ -428,6 +428,9 @@ tidy(
     std.error,
     p.value
   ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
+  ) |>
   setNames(
     c("Parámetro", "Estim.", "EE", "p")
   ) |>
@@ -508,6 +511,9 @@ tidy(
     estimate,
     std.error,
     p.value
+  ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
   ) |>
   setNames(
     c("Parámetro", "Estim.", "EE", "p")
@@ -620,6 +626,9 @@ tidy(
     std.error,
     p.value
   ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
+  ) |>
   setNames(
     c("Parámetro", "Estim.", "EE", "p")
   ) |>
@@ -680,6 +689,12 @@ coef_pooled |>
   left_join(
     coef_re,
     by = "term"
+  ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
+  ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
   ) |>
   setNames(
     c("Parámetro", "Pooled", "Fijos", "Aleatorios")
@@ -954,6 +969,9 @@ tidy(
     estimate,
     std.error,
     p.value
+  ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
   ) |>
   setNames(
     c("Parámetro", "Estim.", "EE", "p")

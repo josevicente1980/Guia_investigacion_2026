@@ -46,3 +46,43 @@ leer_objeto_libro <- function(nombre) {
   }
   readRDS(ruta)
 }
+
+
+# Etiquetas legibles para tablas de modelos ------------------------------------
+
+etiquetar_terminos_modelo <- function(x) {
+  x <- as.character(x)
+
+  x <- dplyr::recode(
+    x,
+    "(Intercept)" = "Intercepto",
+    "capital" = "Capital",
+    "edad_empresa" = "Edad",
+    "standLRT" = "Puntaje ingreso",
+    "value" = "Valor mercado",
+    .default = x
+  )
+
+  x <- gsub(
+    "^capital:tamano_empresa",
+    "Capital × ",
+    x
+  )
+  x <- gsub(
+    "^tamano_empresa([^:]+):capital$",
+    "Capital × \\1",
+    x
+  )
+  x <- gsub(
+    "^tamano_empresa",
+    "",
+    x
+  )
+  x <- gsub(
+    "^region",
+    "",
+    x
+  )
+
+  x
+}

@@ -471,6 +471,9 @@ glance(
     statistic,
     p.value
   ) |>
+  setNames(
+    c("R²", "R² aj.", "F", "p")
+  ) |>
   kable(
     digits = 4,
     caption = "Resumen del modelo categórico"
@@ -502,6 +505,9 @@ tidy(
     estimate,
     IC95,
     p.value
+  ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
   ) |>
   setNames(
     c("Parámetro", "Estim.", "IC 95%", "p")
@@ -608,11 +614,29 @@ Cuando todas las variables explicativas son categóricas, la regresión y ANOVA 
 ```{r}
 #| label: tbl-reg23-anova
 
-anova(
+anova_cat <- anova(
   modelo_cat
 ) |>
+  as.data.frame() |>
+  tibble::rownames_to_column(
+    "Fuente"
+  )
+
+anova_cat |>
+  transmute(
+    Fuente = dplyr::recode(
+      Fuente,
+      "tamano_empresa" = "Tamaño de empresa",
+      "Residuals" = "Residuos",
+      .default = Fuente
+    ),
+    gl = Df,
+    F = `F value`,
+    p = `Pr(>F)`
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r"),
     caption = "ANOVA del modelo categórico"
   )
 ```
@@ -806,6 +830,9 @@ glance(
     statistic,
     p.value
   ) |>
+  setNames(
+    c("R²", "R² aj.", "F", "p")
+  ) |>
   kable(
     digits = 4,
     caption = "Resumen del modelo aditivo"
@@ -845,6 +872,9 @@ glance(
     statistic,
     p.value
   ) |>
+  setNames(
+    c("R²", "R² aj.", "F", "p")
+  ) |>
   kable(
     digits = 4,
     caption = "Resumen del modelo con interacción"
@@ -876,6 +906,9 @@ tidy(
     estimate,
     IC95,
     p.value
+  ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
   ) |>
   setNames(
     c("Parámetro", "Estim.", "IC 95%", "p")
@@ -941,12 +974,29 @@ La comparación permite evaluar si la interacción aporta capacidad explicativa 
 ```{r}
 #| label: tbl-reg23-anova-interaccion
 
-anova(
+anova_interaccion <- anova(
   modelo_aditivo,
   modelo_interaccion
 ) |>
+  as.data.frame() |>
+  tibble::rownames_to_column(
+    "Modelo"
+  )
+
+anova_interaccion |>
+  transmute(
+    Modelo = c(
+      "Aditivo",
+      "Interacción"
+    ),
+    gl_res = Res.Df,
+    gl = Df,
+    F = F,
+    p = `Pr(>F)`
+  ) |>
   kable(
     digits = 4,
+    align = c("l", "r", "r", "r", "r"),
     caption = "Comparación entre modelos anidados"
   )
 ```

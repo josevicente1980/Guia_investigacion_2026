@@ -180,6 +180,9 @@ broom::tidy(
     std.error,
     p.value
   ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
+  ) |>
   setNames(
     c("Parámetro", "Estim.", "EE", "p")
   ) |>

@@ -217,6 +217,9 @@ tidy(
     std.error,
     p.value
   ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
+  ) |>
   setNames(
     c("Parámetro", "Estim.", "EE", "p")
   ) |>
@@ -489,6 +492,9 @@ tidy(
     estimate,
     std.error,
     p.value
+  ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
   ) |>
   setNames(
     c("Parámetro", "Estim.", "EE", "p")
@@ -879,6 +885,9 @@ tidy(
     std.error,
     p.value
   ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
+  ) |>
   setNames(
     c("Parámetro", "Estim.", "EE", "p")
   ) |>
@@ -925,6 +934,12 @@ left_join(
   coef_probit,
   by = "term"
 ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
+  ) |>
+  mutate(
+    term = etiquetar_terminos_modelo(term)
+  ) |>
   setNames(
     c("Parámetro", "Logit", "Probit")
   ) |>
