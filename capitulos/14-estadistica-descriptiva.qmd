@@ -50,7 +50,8 @@ Comenzamos cargando los paquetes necesarios y la base transformada en capítulos
 
 ```{r}
 #| label: ch14-cargar-paquetes
-#| eval: false\n#| warning: false
+#| eval: false
+#| warning: false
 #| message: false
 
 
