@@ -8,7 +8,7 @@ La correlación permite resumir la dirección y la intensidad de la relación en
 
 En esta sección trabajaremos con tres medidas: Pearson, Spearman y Kendall. Cada una responde a supuestos distintos y permite observar la asociación desde una perspectiva diferente [@pearson1895; @spearman1904; @kendall1938].
 
-## Cargando paquetes y base de trabajo
+### Cargando paquetes y base de trabajo
 
 Cada capítulo debe poder renderizarse de forma independiente. Por ello cargamos nuevamente las librerías y la base analítica.
 
@@ -36,7 +36,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## Preparando la base para correlaciones
+### Preparando la base para correlaciones
 
 Para este capítulo utilizaremos variables numéricas de la base. También construiremos nuevamente `log_supertotal`, ya que permite representar mejor la superficie total.
 
@@ -57,7 +57,7 @@ base_correlacion <- base_analitica |>
   )
 ```
 
-## Estructura de la base
+### Estructura de la base
 
 ```{r}
 #| label: tbl-ch19-estructura-correlacion
@@ -83,7 +83,7 @@ Su valor se encuentra entre:
 
 Un valor positivo indica que ambas variables tienden a moverse en la misma dirección. Un valor negativo indica que una variable tiende a aumentar cuando la otra disminuye. Un valor cercano a cero sugiere ausencia de asociación lineal clara.
 
-## Tabla de interpretación general
+### Tabla de interpretación general
 
 ```{r}
 #| label: tbl-ch19-interpretacion-correlacion
@@ -109,7 +109,7 @@ tibble(
 
 Esta tabla ofrece una guía básica. La interpretación final depende del contexto sustantivo, del tamaño de la muestra y de la forma de la relación entre variables.
 
-## Covarianza
+### Covarianza
 
 La covarianza indica si dos variables tienden a variar juntas. Si la covarianza es positiva, las variables tienden a moverse en la misma dirección. Si es negativa, tienden a moverse en direcciones opuestas.
 
@@ -136,7 +136,7 @@ tibble(
 
 La covarianza indica la dirección de la relación, pero no es fácil de interpretar porque depende de las unidades de medida de las variables. Por esa razón se utiliza con mayor frecuencia la correlación.
 
-## Correlación de Pearson
+### Correlación de Pearson
 
 La correlación de Pearson mide la asociación lineal entre dos variables cuantitativas [@pearson1895].
 
@@ -171,7 +171,7 @@ Cuando hay multicolinealidad:
 3. La significancia individual de las variables puede reducirse.
 4. Es difícil interpretar el efecto individual de cada variable.
 
-## Visualización de Pearson
+### Visualización de Pearson
 
 ```{r}
 #| label: fig-ch19-pearson-dispersion
@@ -204,7 +204,7 @@ ggplot(
 
 La línea permite observar la tendencia lineal promedio. Este gráfico complementa el coeficiente de Pearson.
 
-## Correlación de Spearman
+### Correlación de Spearman
 
 La correlación de Spearman utiliza rangos en lugar de valores originales. Es útil cuando la relación es monotónica, pero no necesariamente lineal [@spearman1904].
 
@@ -232,7 +232,7 @@ tibble(
 
 Spearman puede ser más adecuado cuando existen valores extremos o cuando la relación no sigue una forma estrictamente lineal.
 
-## Correlación de Kendall
+### Correlación de Kendall
 
 La correlación de Kendall se basa en la comparación de pares concordantes y discordantes [@kendall1938].
 
@@ -287,7 +287,7 @@ tibble(
 
 Si los tres coeficientes son similares, la asociación parece estable bajo diferentes criterios. Si difieren mucho, conviene revisar la forma de la relación, la presencia de valores extremos y la distribución de las variables.
 
-## Prueba de significancia para Pearson
+### Prueba de significancia para Pearson
 
 Además de calcular el coeficiente, podemos evaluar si la correlación observada es estadísticamente distinta de cero.
 
@@ -348,7 +348,7 @@ round(
 
 La matriz permite observar simultáneamente las asociaciones entre todas las variables numéricas seleccionadas. Tal como se detalló anteriormente, se debe tener cuidado cuando las variables independientes presentan una correlación superior a 0,80 en valor absoluto, pues puede existir un problema de multicolinealidad. En ese caso, es aconsejable evaluar la exclusión de una de las variables altamente correlacionadas.
 
-## Preparando datos para un mapa de calor
+### Preparando datos para un mapa de calor
 
 Para visualizar la matriz de correlación con `ggplot2`, primero la convertimos a formato largo.
 
@@ -381,7 +381,7 @@ correlacion_larga |>
 
 El formato largo permite construir visualizaciones con `ggplot2`, manteniendo compatibilidad con HTML, Word y PDF.
 
-## Mapa de calor de correlaciones
+### Mapa de calor de correlaciones
 
 ```{r}
 #| label: fig-ch19-heatmap-correlaciones
@@ -460,7 +460,7 @@ ggplot(
 
 La variable `supertotal` presenta valores extremos importantes. Por eso la transformación logarítmica resulta más útil para visualizar e interpretar la relación.
 
-## Comparación con variable transformada
+### Comparación con variable transformada
 
 ```{r}
 #| label: fig-ch19-comparacion-transformada
@@ -488,7 +488,7 @@ ggplot(
 
 La transformación permite observar mejor la distribución conjunta de las variables y reduce el efecto visual de los valores extremos.
 
-## Limitaciones de la correlación
+### Limitaciones de la correlación
 
 La correlación tiene varias limitaciones:
 
@@ -500,7 +500,7 @@ La correlación tiene varias limitaciones:
 
 Por estas razones, la correlación debe interpretarse como una herramienta descriptiva y no como una prueba causal [@hernan2020].
 
-## Manos a la obra
+### Manos a la obra
 
 Utilizando la base `base_correlacion`:
 
@@ -519,13 +519,13 @@ Utilizando la base `base_correlacion`:
 
 La inferencia causal moderna exige explicitar el diseño, los supuestos de identificación y las fuentes potenciales de sesgo antes de interpretar una asociación como un efecto causal [@imbens2024].
 
-## Introducción
+### Introducción
 
 Una de las advertencias más importantes en investigación cuantitativa es que una asociación estadística no demuestra causalidad. Dos variables pueden estar correlacionadas y, aun así, no existir una relación causal directa entre ellas [@pearl2018; @hernan2020].
 
 En esta sección estudiaremos por qué ocurre esto y cómo pensar de manera más rigurosa sobre asociaciones, variables de confusión y causalidad.
 
-## Cargando paquetes y base de trabajo
+### Cargando paquetes y base de trabajo
 
 ```{r}
 #| label: ch19-cargar-paquetes-parte3
@@ -551,7 +551,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## Preparando la base
+### Preparando la base
 
 ```{r}
 #| label: ch19-preparar-base-causalidad
@@ -588,7 +588,7 @@ La causalidad responde a una pregunta diferente:
 
 Esta diferencia es central en inferencia causal moderna [@hernan2020].
 
-## Comparación conceptual
+### Comparación conceptual
 
 ```{r}
 #| label: tbl-ch19-asociacion-causalidad
@@ -616,7 +616,7 @@ tibble(
 
 La asociación puede observarse directamente en los datos. La causalidad requiere supuestos adicionales, diseño adecuado y una justificación teórica.
 
-## Variable de confusión
+### Variable de confusión
 
 Una variable de confusión es aquella que se relaciona tanto con la variable explicativa como con la variable de resultado.
 
@@ -632,7 +632,7 @@ X aparece asociado con Y
 
 Esto puede generar una asociación que no representa un efecto causal directo.
 
-## Ejemplo simulado de confusión
+### Ejemplo simulado de confusión
 
 ```{r}
 #| label: tbl-ch19-simulacion-confusion
@@ -671,7 +671,7 @@ datos_confusion |>
 
 En esta simulación, `z` afecta tanto a `x` como a `y`. Por tanto, puede aparecer una asociación entre `x` e `y` aunque no exista una relación causal directa entre ellas.
 
-## Asociación aparente
+### Asociación aparente
 
 ```{r}
 #| label: fig-ch19-asociacion-aparente
@@ -699,7 +699,7 @@ ggplot(
 
 El gráfico muestra una asociación positiva entre `x` e `y`. Sin embargo, en la simulación esta asociación se debe a la variable `z`.
 
-## Correlación aparente
+### Correlación aparente
 
 ```{r}
 #| label: tbl-ch19-correlacion-aparente
@@ -721,7 +721,7 @@ tibble(
 
 La correlación puede ser alta incluso cuando la asociación se explica por una tercera variable.
 
-## Diagramas causales simples
+### Diagramas causales simples
 
 Los diagramas causales ayudan a representar supuestos sobre las relaciones entre variables [@pearl2018].
 
@@ -734,7 +734,7 @@ Z → Y
 
 En este caso, la asociación entre X e Y puede surgir porque ambas variables tienen una causa común.
 
-## Aplicación conceptual a la ESPAC
+### Aplicación conceptual a la ESPAC
 
 En la base ESPAC podríamos observar asociaciones entre:
 
@@ -746,7 +746,7 @@ log_supertotal
 
 Sin embargo, no debemos concluir automáticamente que una provincia causa determinada superficie. La provincia puede reflejar condiciones agroecológicas, estructura productiva, historia agraria, acceso a mercados u otros factores no observados.
 
-## Diferencias provinciales
+### Diferencias provinciales
 
 ```{r}
 #| label: fig-ch19-diferencias-provincia-causalidad
@@ -775,13 +775,13 @@ ggplot(
 
 El gráfico muestra diferencias territoriales. Estas diferencias son descriptivas y no deben interpretarse como efectos causales de la provincia sobre la superficie.
 
-## Correlaciones espurias
+### Correlaciones espurias
 
 Una correlación espuria ocurre cuando dos variables parecen relacionadas, pero la relación se debe a coincidencia, tendencia común, variables omitidas o mecanismos externos.
 
 En investigación aplicada, las correlaciones espurias son frecuentes cuando se analizan muchas variables sin una hipótesis previa.
 
-## Ejemplo conceptual de correlación espuria
+### Ejemplo conceptual de correlación espuria
 
 ```{r}
 #| label: fig-ch19-correlacion-espuria
@@ -828,7 +828,7 @@ ggplot(
 
 Las variables `x` e `y` parecen asociadas, pero ambas comparten una tendencia común generada por `tiempo`.
 
-## Correlación espuria estimada
+### Correlación espuria estimada
 
 ```{r}
 #| label: tbl-ch19-correlacion-espuria
@@ -850,7 +850,7 @@ tibble(
 
 El coeficiente puede sugerir una asociación fuerte, aunque el patrón se debe a una tendencia compartida.
 
-## Preguntas para evaluar causalidad
+### Preguntas para evaluar causalidad
 
 Antes de interpretar una asociación como causal conviene preguntarse:
 
@@ -875,7 +875,7 @@ tibble(
 
 Estas preguntas ayudan a evitar conclusiones apresuradas a partir de correlaciones simples.
 
-## Asociación en estudios observacionales
+### Asociación en estudios observacionales
 
 En estudios observacionales, el investigador no asigna tratamientos ni controla completamente las condiciones del estudio.
 
@@ -883,7 +883,7 @@ Por ello, la inferencia causal requiere especial cuidado [@angrist2009].
 
 En estos casos, las asociaciones pueden ser útiles para generar hipótesis, pero no siempre permiten establecer efectos causales.
 
-## Evidencia descriptiva y evidencia causal
+### Evidencia descriptiva y evidencia causal
 
 ```{r}
 #| label: tbl-ch19-evidencia-descriptiva-causal
@@ -911,7 +911,7 @@ tibble(
 
 La evidencia descriptiva es fundamental, pero no debe confundirse con evidencia causal.
 
-## Buenas prácticas
+### Buenas prácticas
 
 Para interpretar asociaciones de manera rigurosa se recomienda:
 
@@ -922,7 +922,7 @@ Para interpretar asociaciones de manera rigurosa se recomienda:
 - Distinguir entre descripción, predicción y explicación causal.
 - Reportar limitaciones del análisis.
 
-## Manos a la obra
+### Manos a la obra
 
 Utilizando la base `base_causalidad`:
 

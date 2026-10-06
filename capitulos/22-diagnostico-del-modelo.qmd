@@ -19,7 +19,7 @@ Una vez ajustado un modelo es necesario verificar si sus supuestos básicos resu
 
 En este capítulo utilizaremos el modelo múltiple construido previamente para ilustrar las principales herramientas de diagnóstico.
 
-## Cargando librerías
+### Cargando librerías
 
 ```{r}
 #| label: reg22-cargar-librerias
@@ -34,7 +34,7 @@ library(here)
 library(car)
 ```
 
-## Cargando la base analítica
+### Cargando la base analítica
 
 ```{r}
 #| label: reg22-cargar-base
@@ -49,7 +49,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## Preparación de variables
+### Preparación de variables
 
 ```{r}
 #| label: reg22-preparar-base
@@ -92,7 +92,7 @@ modelo_diag <- lm(
 )
 ```
 
-## Resumen general del modelo
+### Resumen general del modelo
 
 ```{r}
 #| label: tbl-reg22-resumen-modelo
@@ -115,7 +115,7 @@ glance(
 
 El modelo presenta una determinada capacidad explicativa y un error residual promedio que servirá como referencia para el diagnóstico posterior.
 
-## ¿Qué son los residuos?
+### ¿Qué son los residuos?
 
 Los residuos representan la diferencia entre los valores observados y los valores predichos.
 
@@ -125,7 +125,7 @@ $$e_i = y_i - \hat{y}_i$$
 
 Un buen modelo produce residuos pequeños y sin patrones sistemáticos.
 
-## Construcción de residuos
+### Construcción de residuos
 
 ```{r}
 #| label: reg22-construir-residuos
@@ -143,7 +143,7 @@ base_modelo <- base_modelo |>
   )
 ```
 
-## Resumen de residuos
+### Resumen de residuos
 
 ```{r}
 #| label: tbl-reg22-resumen-residuos
@@ -173,7 +173,7 @@ tibble(
 
 La media de los residuos debería aproximarse a cero y la distribución debería ser relativamente simétrica.
 
-## Histograma de residuos
+### Histograma de residuos
 
 ```{r}
 #| label: fig-reg22-histograma-residuos
@@ -197,7 +197,7 @@ ggplot(
 
 El histograma permite identificar asimetrías, colas largas o valores extremos.
 
-## Curva de densidad
+### Curva de densidad
 
 ```{r}
 #| label: fig-reg22-densidad-residuos
@@ -224,7 +224,7 @@ La densidad facilita la evaluación visual de la forma general de la distribuci�
 
 Uno de los supuestos básicos indica que la relación entre variables debe estar adecuadamente representada por una función lineal.
 
-## Residuos versus valores ajustados
+### Residuos versus valores ajustados
 
 ```{r}
 #| label: fig-reg22-residuos-ajustados
@@ -254,11 +254,11 @@ Los residuos deberían dispersarse aleatoriamente alrededor de cero.
 
 Patrones curvos pueden sugerir problemas de linealidad.
 
-## Evaluación de normalidad
+### Evaluación de normalidad
 
 La normalidad de residuos es importante para la validez de diversos procedimientos inferenciales.
 
-## Gráfico Q-Q
+### Gráfico Q-Q
 
 ```{r}
 #| label: fig-reg22-qqplot
@@ -282,7 +282,7 @@ qqline(
 
 Mientras más próximos se encuentren los puntos a la línea de referencia, más compatible será la distribución observada con una distribución normal.
 
-## Prueba de Shapiro-Wilk
+### Prueba de Shapiro-Wilk
 
 ```{r}
 #| label: tbl-reg22-shapiro
@@ -312,7 +312,7 @@ Valores p pequeños sugieren desviaciones respecto a la normalidad.
 
 La homoscedasticidad implica que la variabilidad de los residuos permanece aproximadamente constante a lo largo de los valores ajustados.
 
-## Visualización de dispersión residual
+### Visualización de dispersión residual
 
 ```{r}
 #| label: fig-reg22-homoscedasticidad
@@ -338,7 +338,7 @@ ggplot(
 
 Una dispersión relativamente uniforme favorece el supuesto de homoscedasticidad.
 
-## Resumen de supuestos evaluados
+### Resumen de supuestos evaluados
 
 ```{r}
 #| label: tbl-reg22-resumen-supuestos
@@ -364,7 +364,7 @@ tibble(
 
 Estas herramientas constituyen la base del diagnóstico de cualquier modelo lineal.
 
-## Conclusión práctica
+### Conclusión práctica
 
 En esta primera parte aprendimos a:
 
@@ -374,7 +374,7 @@ En esta primera parte aprendimos a:
 - Evaluar normalidad.
 - Evaluar homoscedasticidad.
 
-## Introducción
+### Introducción
 
 En la sección anterior evaluamos la distribución de los residuos y verificamos los supuestos básicos del modelo lineal.
 
@@ -386,7 +386,7 @@ Ahora analizaremos tres aspectos adicionales que pueden afectar la calidad de un
 
 Estos elementos son especialmente importantes cuando se trabaja con múltiples variables explicativas [@montgomery2021].
 
-## Cargando librerías
+### Cargando librerías
 
 ```{r}
 #| label: reg22-cargar-librerias-parte2
@@ -401,7 +401,7 @@ library(here)
 library(car)
 ```
 
-## Cargando la base analítica
+### Cargando la base analítica
 
 ```{r}
 #| label: reg22-cargar-base-parte2
@@ -416,7 +416,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## Preparación de variables
+### Preparación de variables
 
 ```{r}
 #| label: reg22-preparar-base-parte2
@@ -445,7 +445,7 @@ base_modelo <- base_analitica |>
   drop_na()
 ```
 
-## Reestimación del modelo
+### Reestimación del modelo
 
 ```{r}
 #| label: reg22-modelo-parte2
@@ -471,7 +471,7 @@ X1  ↔  X2
 
 Si ambas variables aportan prácticamente la misma información, la estimación de los coeficientes puede volverse inestable.
 
-## Consecuencias de la multicolinealidad
+### Consecuencias de la multicolinealidad
 
 La multicolinealidad puede provocar:
 
@@ -482,7 +482,7 @@ La multicolinealidad puede provocar:
 
 No afecta necesariamente la capacidad predictiva del modelo, pero sí puede dificultar la interpretación individual de los coeficientes.
 
-## Factor de inflación de la varianza (VIF)
+### Factor de inflación de la varianza (VIF)
 
 La medida más utilizada para evaluar multicolinealidad es el Variance Inflation Factor (VIF).
 
@@ -539,7 +539,7 @@ VIF > 10
 Problema importante
 ```
 
-## Visualización de VIF
+### Visualización de VIF
 
 ```{r}
 #| label: fig-reg22-vif
@@ -586,7 +586,7 @@ Una observación influyente es aquella que tiene capacidad para modificar signif
 
 No todas las observaciones extremas son necesariamente influyentes.
 
-## Distancia de Cook
+### Distancia de Cook
 
 La Distancia de Cook es una de las medidas más utilizadas para identificar observaciones influyentes.
 
@@ -602,7 +602,7 @@ base_modelo <- base_modelo |>
   )
 ```
 
-## Resumen de Distancia de Cook
+### Resumen de Distancia de Cook
 
 ```{r}
 #| label: tbl-reg22-cook-resumen
@@ -632,7 +632,7 @@ tibble(
 
 Valores elevados sugieren observaciones que merecen revisión adicional.
 
-## Observaciones más influyentes
+### Observaciones más influyentes
 
 ```{r}
 #| label: tbl-reg22-casos-influyentes
@@ -663,7 +663,7 @@ base_modelo |>
 
 Estas observaciones son candidatas para una revisión detallada.
 
-## Visualización de Distancia de Cook
+### Visualización de Distancia de Cook
 
 ```{r}
 #| label: fig-reg22-cook
@@ -694,13 +694,13 @@ base_modelo |>
 
 El gráfico permite identificar observaciones que destacan respecto al resto de la muestra.
 
-## ¿Qué es el leverage?
+### ¿Qué es el leverage?
 
 El leverage mide qué tan alejadas se encuentran las observaciones respecto al centro de la nube de datos explicativos.
 
 Observaciones con leverage elevado tienen mayor capacidad para influir en el ajuste.
 
-## Cálculo del leverage
+### Cálculo del leverage
 
 ```{r}
 #| label: reg22-leverage
@@ -714,7 +714,7 @@ base_modelo <- base_modelo |>
   )
 ```
 
-## Resumen del leverage
+### Resumen del leverage
 
 ```{r}
 #| label: tbl-reg22-leverage
@@ -744,7 +744,7 @@ tibble(
 
 Valores elevados indican observaciones ubicadas en zonas poco representadas del espacio explicativo.
 
-## Visualización de leverage
+### Visualización de leverage
 
 ```{r}
 #| label: fig-reg22-leverage
@@ -775,7 +775,7 @@ base_modelo |>
 
 Las observaciones con leverage elevado pueden influir considerablemente en la posición de la recta de regresión.
 
-## Influencia versus leverage
+### Influencia versus leverage
 
 No todas las observaciones con leverage alto son influyentes.
 
@@ -787,7 +787,7 @@ Por ello es recomendable analizar simultáneamente:
 - Leverage.
 - Distancia de Cook.
 
-## Resumen integrado
+### Resumen integrado
 
 ```{r}
 #| label: tbl-reg22-resumen-influencia
@@ -813,7 +813,7 @@ tibble(
 
 Cada herramienta responde a una pregunta distinta sobre la calidad del modelo.
 
-## Conclusión práctica
+### Conclusión práctica
 
 En esta segunda parte aprendimos a:
 
@@ -825,7 +825,7 @@ En esta segunda parte aprendimos a:
 
 En la siguiente sección integraremos todos los diagnósticos estudiados y construiremos un procedimiento completo de validación de modelos de regresión.
 
-## Introducción
+### Introducción
 
 A estas alturas ya hemos evaluado:
 
@@ -844,7 +844,7 @@ La pregunta final es:
 
 En esta sección integraremos todos los diagnósticos en un único procedimiento práctico que podrá utilizarse en cualquier proyecto de investigación.
 
-## Cargando librerías
+### Cargando librerías
 
 ```{r}
 #| label: reg22-cargar-librerias-parte3
@@ -859,7 +859,7 @@ library(here)
 library(car)
 ```
 
-## Cargando la base analítica
+### Cargando la base analítica
 
 ```{r}
 #| label: reg22-cargar-base-parte3
@@ -874,7 +874,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## Preparación de variables
+### Preparación de variables
 
 ```{r}
 #| label: reg22-preparar-base-parte3
@@ -903,7 +903,7 @@ base_modelo <- base_analitica |>
   drop_na()
 ```
 
-## Estimación del modelo final
+### Estimación del modelo final
 
 ```{r}
 #| label: reg22-modelo-final
@@ -917,7 +917,7 @@ modelo_diag <- lm(
 )
 ```
 
-## Construcción de métricas diagnósticas
+### Construcción de métricas diagnósticas
 
 ```{r}
 #| label: reg22-construir-diagnosticos
@@ -947,7 +947,7 @@ base_modelo <- base_modelo |>
   )
 ```
 
-## Resumen global del modelo
+### Resumen global del modelo
 
 ```{r}
 #| label: tbl-reg22-resumen-global
@@ -979,7 +979,7 @@ glance(
 
 Esta tabla resume el desempeño general del modelo antes de analizar individualmente cada supuesto.
 
-## Panel básico de diagnóstico
+### Panel básico de diagnóstico
 
 ```{r}
 #| label: fig-reg22-panel-diagnostico
@@ -1015,7 +1015,7 @@ Este panel reúne cuatro gráficos clásicos utilizados en diagnóstico de regre
 
 Con frecuencia constituye el primer paso en la validación de modelos.
 
-## Evaluación integrada de residuos
+### Evaluación integrada de residuos
 
 ```{r}
 #| label: tbl-reg22-resumen-residuos-final
@@ -1052,7 +1052,7 @@ tibble(
 
 La media de los residuos debería aproximarse a cero y no deberían existir valores extremos excesivamente dominantes.
 
-## Evaluación integrada de influencia
+### Evaluación integrada de influencia
 
 ```{r}
 #| label: tbl-reg22-resumen-influencia-final
@@ -1081,7 +1081,7 @@ tibble(
 
 Estos valores permiten identificar si existen observaciones que podrían afectar desproporcionadamente los resultados.
 
-## Identificación automática de casos a revisar
+### Identificación automática de casos a revisar
 
 ```{r}
 #| label: tbl-reg22-casos-revision
@@ -1117,7 +1117,7 @@ base_modelo |>
 
 La presencia de observaciones en esta tabla no implica necesariamente errores. Indica únicamente que merecen una inspección adicional.
 
-## Diagnóstico de multicolinealidad
+### Diagnóstico de multicolinealidad
 
 ```{r}
 #| label: tbl-reg22-vif-final
@@ -1161,7 +1161,7 @@ vif_tabla_final |>
 
 Valores reducidos de VIF sugieren que las variables explicativas aportan información diferenciada.
 
-## Lista de verificación del modelo
+### Lista de verificación del modelo
 
 ```{r}
 #| label: tbl-reg22-checklist
@@ -1193,7 +1193,7 @@ tibble(
 
 Esta lista resume el procedimiento básico que debe seguirse antes de interpretar o reportar una regresión.
 
-## Problemas frecuentes y posibles soluciones
+### Problemas frecuentes y posibles soluciones
 
 ```{r}
 #| label: tbl-reg22-problemas-soluciones
@@ -1223,7 +1223,7 @@ tibble(
 
 El objetivo del diagnóstico no es descartar automáticamente un modelo, sino identificar posibles limitaciones y documentarlas adecuadamente, con la finalidad de obtener estimadores robustos.
 
-## Flujo recomendado de validación
+### Flujo recomendado de validación
 
 ```{r}
 #| label: tbl-reg22-flujo-validacion
@@ -1248,7 +1248,7 @@ tibble(
 
 Este flujo resume una secuencia práctica para validar modelos de regresión lineal.
 
-## Aplicación práctica
+### Aplicación práctica
 
 Antes de reportar resultados de una regresión:
 
@@ -1263,7 +1263,7 @@ Antes de reportar resultados de una regresión:
 9. Documente limitaciones.
 10. Interprete resultados únicamente después de completar el diagnóstico.
 
-## Manos a la obra
+### Manos a la obra
 
 1. Estime una regresión múltiple.
 2. Construya residuos.

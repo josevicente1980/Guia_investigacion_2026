@@ -57,7 +57,7 @@ La modelación permite responder preguntas como:
 
 En este capítulo comenzaremos el tránsito desde el análisis descriptivo hacia la construcción de modelos estadísticos.
 
-## Del resumen a la explicación
+### Del resumen a la explicación
 
 La estadística descriptiva responde preguntas como:
 
@@ -93,7 +93,7 @@ Componente aleatorio
 
 Ningún modelo representa perfectamente la realidad. Su utilidad depende de su capacidad para aproximarse razonablemente al fenómeno estudiado.
 
-## Variables dependientes e independientes
+### Variables dependientes e independientes
 
 Es importante mencionar a uno de los autores más relevantes en econometría, quien sistematiza la terminología empleada para distinguir las variables de un modelo [@gujarati2010econometria].
 
@@ -135,7 +135,7 @@ La matriz analítica debe:
 - Minimizar problemas de calidad de datos.
 - Mantener coherencia conceptual.
 
-## Construcción de la matriz analítica
+### Construcción de la matriz analítica
 
 ```{r}
 #| label: tbl-ch18-matriz-analitica
@@ -156,7 +156,7 @@ matriz_modelo |>
 
 La matriz contiene las variables que utilizaremos para ilustrar los conceptos básicos de modelación.
 
-## Exploración inicial de la matriz
+### Exploración inicial de la matriz
 
 ```{r}
 #| label: tbl-ch18-resumen-matriz
@@ -170,7 +170,7 @@ summary(
 
 El resumen permite verificar rangos mínimos y máximos, así como posibles inconsistencias antes de proceder con la modelación, dado que de esta forma podemos identificar datos atípicos que afecten la robustez del modelo.
 
-## Número de observaciones disponibles
+### Número de observaciones disponibles
 
 ```{r}
 #| label: tbl-ch18-observaciones-modelo
@@ -198,7 +198,7 @@ La correlación únicamente indica que ambas variables varían conjuntamente. Su
 
 No permite concluir que una variable cause cambios en la otra [@pearl2018].
 
-## Ejemplo conceptual
+### Ejemplo conceptual
 
 ```text
 Variable A ↑
@@ -216,11 +216,11 @@ Coincidencia estadística
 
 Por esta razón, la interpretación de modelos requiere sustento teórico y conocimiento del fenómeno estudiado.
 
-## Exploración visual previa
+### Exploración visual previa
 
 Antes de estimar modelos es recomendable examinar visualmente la relación entre variables.
 
-## Relación entre superficie y factor de expansión
+### Relación entre superficie y factor de expansión
 
 ```{r}
 #| label: fig-ch18-dispersion-inicial
@@ -248,7 +248,7 @@ ggplot(
 
 El gráfico permite identificar posibles asociaciones, concentraciones de observaciones y valores atípicos antes de construir modelos formales.
 
-## Incorporando una línea de tendencia
+### Incorporando una línea de tendencia
 
 ```{r}
 #| label: fig-ch18-dispersion-tendencia
@@ -281,7 +281,7 @@ ggplot(
 
 La línea de tendencia ayuda a visualizar la dirección general de la asociación observada entre ambas variables.
 
-## Relaciones por categoría
+### Relaciones por categoría
 
 La modelación también requiere comprender cómo se comportan las variables dentro de distintos grupos.
 
@@ -310,7 +310,7 @@ ggplot(
 
 Las diferencias observadas sugieren que la categoría de tamaño podría aportar información relevante para explicar la superficie total.
 
-## Comparación territorial
+### Comparación territorial
 
 ```{r}
 #| label: fig-ch18-provincia-modelacion
@@ -339,7 +339,7 @@ ggplot(
 
 La existencia de diferencias provinciales sugiere que la dimensión territorial podría incorporarse posteriormente dentro de modelos explicativos.
 
-## Matriz de correlación
+### Matriz de correlación
 
 Antes de estimar modelos es habitual examinar correlaciones entre variables numéricas. En este caso es importante tener en cuenta que no debe existir una correlación exacta, pues valores superiores a 0,80 pueden advertir problemas de multicolinealidad. Más adelante se detallará este problema. En términos generales, es aconsejable que la correlación entre variables explicativas sea inferior a 0,80 en valor absoluto.
 
@@ -368,7 +368,7 @@ correlacion_modelo |>
 
 La correlación proporciona una primera aproximación a la intensidad de asociación entre variables cuantitativas.
 
-## De la correlación al modelo
+### De la correlación al modelo
 
 La correlación constituye únicamente un punto de partida.
 
@@ -380,7 +380,7 @@ La modelación permitirá posteriormente:
 - Incorporar múltiples variables simultáneamente.
 - Realizar predicciones.
 
-## Flujo general de modelación
+### Flujo general de modelación
 
 ```text
 Datos
@@ -402,7 +402,7 @@ Interpretación
 Predicción
 ```
 
-## Buenas prácticas antes de modelar
+### Buenas prácticas antes de modelar
 
 Antes de estimar cualquier modelo se recomienda:
 
@@ -413,7 +413,7 @@ Antes de estimar cualquier modelo se recomienda:
 - Justificar conceptualmente las variables.
 - Evitar interpretaciones causales apresuradas.
 
-## Manos a la obra
+### Manos a la obra
 
 Utilizando la base `base_analitica`:
 
@@ -430,7 +430,7 @@ Utilizando la base `base_analitica`:
 
 # Parte 2. Introducción a la regresión lineal
 
-## Introducción
+### Introducción
 
 En la sección anterior construimos la matriz analítica y exploramos relaciones preliminares entre variables. El siguiente paso consiste en cuantificar dichas relaciones mediante modelos estadísticos.
 
@@ -454,7 +454,7 @@ donde:
 - \(\beta_1\) representa la pendiente.
 - \(\varepsilon\) representa el error aleatorio.
 
-## Interpretación intuitiva
+### Interpretación intuitiva
 
 La regresión intenta responder una pregunta sencilla:
 
@@ -470,7 +470,7 @@ Variable explicativa:
 fact_exp_fin
 ```
 
-## Construcción del primer modelo
+### Construcción del primer modelo
 
 Estimaremos una regresión lineal simple.
 
@@ -483,7 +483,7 @@ modelo_simple <- lm(
 )
 ```
 
-## Resultados del modelo
+### Resultados del modelo
 
 ```{r}
 #| label: tbl-ch18-resumen-modelo-simple
@@ -499,7 +499,7 @@ La salida proporciona información sobre los coeficientes estimados, errores est
 
 Cada coeficiente representa el cambio esperado en la variable dependiente ante una variación de una unidad en la variable explicativa.
 
-## Extracción de coeficientes
+### Extracción de coeficientes
 
 Los coeficientes pueden organizarse en formato tabular.
 
@@ -524,7 +524,7 @@ La tabla resume los parámetros estimados y facilita la presentación de resulta
 
 La significancia estadística de los coeficientes se evalúa mediante el **valor p (p-value)**. Si este es menor que el nivel de significancia previamente establecido (generalmente 0,05), se rechaza la hipótesis nula de que el coeficiente es igual a cero y se concluye que la variable explicativa tiene un efecto estadísticamente significativo sobre la variable dependiente. En la tabla presentada, tanto el intercepto como la variable `fact_exp_fin` presentan valores p inferiores a 0,001, por lo que ambos coeficientes son altamente significativos. También pueden extraerse conclusiones a partir del estadístico *t*, cuyo valor absoluto suele contrastarse con el valor crítico aproximado de 2.
 
-## Valores ajustados
+### Valores ajustados
 
 Una vez estimado el modelo podemos calcular los valores predichos.
 
@@ -541,7 +541,7 @@ matriz_modelo <-
   )
 ```
 
-## Comparación entre observados y predichos
+### Comparación entre observados y predichos
 
 ```{r}
 #| label: fig-ch18-observado-predicho
@@ -575,7 +575,7 @@ ggplot(
 
 Mientras más cercanos se encuentren los puntos a la línea diagonal, mejor será la capacidad predictiva del modelo.
 
-## Visualización del ajuste
+### Visualización del ajuste
 
 ```{r}
 #| label: fig-ch18-ajuste-regresion
@@ -608,7 +608,7 @@ ggplot(
 
 La línea representa la relación promedio estimada por el modelo.
 
-## Bondad de ajuste
+### Bondad de ajuste
 
 Una medida importante es el coeficiente de determinación \(R^2\).
 
@@ -634,7 +634,7 @@ tibble(
 
 El coeficiente \(R^2\) indica la proporción de la variabilidad de la variable dependiente que es explicada por el modelo de regresión a partir de las variables explicativas incluidas en él.
 
-## Introducción a los residuos
+### Introducción a los residuos
 
 Los residuos representan la diferencia entre los valores observados y los predichos.
 
@@ -651,7 +651,7 @@ matriz_modelo <-
   )
 ```
 
-## Distribución de residuos
+### Distribución de residuos
 
 ```{r}
 #| label: fig-ch18-residuos-histograma
@@ -679,7 +679,7 @@ ggplot(
 
 Los residuos permiten evaluar la adecuación del modelo y detectar posibles problemas de especificación.
 
-## Residuos versus valores ajustados
+### Residuos versus valores ajustados
 
 ```{r}
 #| label: fig-ch18-residuos-ajustados
@@ -707,7 +707,7 @@ ggplot(
 
 Idealmente los residuos deberían distribuirse alrededor de cero sin patrones evidentes.
 
-## Incorporando variables categóricas
+### Incorporando variables categóricas
 
 La regresión también puede incorporar variables categóricas.
 
@@ -717,7 +717,7 @@ Por ejemplo:
 tamano_upa
 ```
 
-## Modelo con tamaño de UPA
+### Modelo con tamaño de UPA
 
 ```{r}
 #| label: ch18-modelo-categorico
@@ -728,7 +728,7 @@ modelo_tamano <- lm(
 )
 ```
 
-## Resultados del modelo categórico
+### Resultados del modelo categórico
 
 ```{r}
 #| label: tbl-ch18-modelo-categorico
@@ -746,7 +746,7 @@ broom::tidy(
 
 Los coeficientes representan diferencias promedio respecto a la categoría de referencia. Tal como se mencionó anteriormente, se deben observar los valores p para extraer conclusiones acerca de la significancia estadística.
 
-## Introducción a la regresión múltiple
+### Introducción a la regresión múltiple
 
 En la práctica, los fenómenos suelen depender de múltiples factores simultáneamente.
 
@@ -756,7 +756,7 @@ Su forma general es:
 
 Y = β0 + β1X1 + β2X2 + ... + βkXk + ε
 
-## Primer modelo múltiple
+### Primer modelo múltiple
 
 ```{r}
 #| label: ch18-modelo-multiple
@@ -769,7 +769,7 @@ modelo_multiple <- lm(
 )
 ```
 
-## Resultados del modelo múltiple
+### Resultados del modelo múltiple
 
 ```{r}
 #| label: tbl-ch18-modelo-multiple
@@ -787,7 +787,7 @@ broom::tidy(
 
 Cada coeficiente representa el efecto estimado de una variable manteniendo constantes las demás variables incluidas en el modelo. Es decir, cada una de las variables regresoras ayuda a explicar las variaciones de la superficie total.
 
-## Comparación entre modelos
+### Comparación entre modelos
 
 ```{r}
 #| label: tbl-ch18-comparacion-modelos
@@ -816,7 +816,7 @@ comparacion_modelos |>
 
 La comparación permite evaluar si la incorporación de variables adicionales mejora la capacidad explicativa. Al disponer de más variables, el modelo cuenta con mayor información para ajustar los datos observados, lo que puede reducir o mantener el error de predicción y, en consecuencia, incrementar el valor de \(R^2\).
 
-## ¿Qué hemos aprendido?
+### ¿Qué hemos aprendido?
 
 Hasta este punto hemos aprendido a:
 
@@ -828,7 +828,7 @@ Hasta este punto hemos aprendido a:
 - Estimar modelos múltiples.
 - Comparar capacidad explicativa.
 
-## Manos a la obra
+### Manos a la obra
 
 Utilizando la base de datos denominada `matriz_modelo`:
 
@@ -845,7 +845,7 @@ Utilizando la base de datos denominada `matriz_modelo`:
 
 # Parte 3. Hacia modelos más complejos
 
-## Introducción
+### Introducción
 
 En la sección anterior aprendimos a construir e interpretar modelos de regresión lineal. Sin embargo, estimar un modelo es solamente una parte del proceso de modelación.
 
@@ -873,7 +873,7 @@ Por ejemplo:
 
 Aunque explicación y predicción están relacionadas, no son exactamente lo mismo.
 
-## Predicción utilizando el modelo múltiple
+### Predicción utilizando el modelo múltiple
 
 Podemos utilizar el modelo estimado anteriormente para generar predicciones.
 
@@ -890,7 +890,7 @@ matriz_modelo <-
   )
 ```
 
-## Resumen de predicciones
+### Resumen de predicciones
 
 ```{r}
 #| label: tbl-ch18-resumen-predicciones
@@ -920,7 +920,7 @@ tibble(
 
 Los valores predichos representan la respuesta estimada por el modelo para cada observación de la base de datos.
 
-## Observados versus predichos
+### Observados versus predichos
 
 ```{r}
 #| label: fig-ch18-observado-predicho-multiple
@@ -954,7 +954,7 @@ ggplot(
 
 Mientras más cercanos se encuentren los puntos a la diagonal, mejor será la capacidad predictiva del modelo.
 
-## ¿Qué es el sobreajuste?
+### ¿Qué es el sobreajuste?
 
 Uno de los problemas más importantes en modelación es el sobreajuste.
 
@@ -978,7 +978,7 @@ Mayor ajuste aparente
 Menor generalización
 ```
 
-## Complejidad y capacidad predictiva
+### Complejidad y capacidad predictiva
 
 La relación entre complejidad y capacidad predictiva suele seguir un patrón similar al siguiente.
 
@@ -1040,7 +1040,7 @@ datos_complejidad |>
 
 A medida que aumenta la complejidad del modelo, la capacidad de ajuste suele mejorar. Sin embargo, la capacidad de generalización puede deteriorarse.
 
-## Entrenamiento y validación
+### Entrenamiento y validación
 
 Una estrategia común consiste en dividir los datos en dos conjuntos:
 
@@ -1056,7 +1056,7 @@ Validación
 
 Utilizado para evaluar el desempeño del modelo.
 
-## Creando conjuntos de entrenamiento y validación
+### Creando conjuntos de entrenamiento y validación
 
 ```{r}
 #| label: ch18-dividir-muestra
@@ -1090,7 +1090,7 @@ datos_validacion <-
   ]
 ```
 
-## Verificación de tamaños
+### Verificación de tamaños
 
 ```{r}
 #| label: tbl-ch18-tamano-muestras
@@ -1118,7 +1118,7 @@ tibble(
 
 La división permite evaluar si el modelo mantiene un desempeño razonable sobre observaciones no utilizadas durante la estimación.
 
-## Estimando un modelo de entrenamiento
+### Estimando un modelo de entrenamiento
 
 ```{r}
 #| label: ch18-modelo-entrenamiento
@@ -1132,7 +1132,7 @@ modelo_entrenamiento <- lm(
 )
 ```
 
-## Predicciones en validación
+### Predicciones en validación
 
 ```{r}
 #| label: ch18-prediccion-validacion
@@ -1149,7 +1149,7 @@ datos_validacion <-
   )
 ```
 
-## Comparación observados y predichos
+### Comparación observados y predichos
 
 ```{r}
 #| label: fig-ch18-validacion
@@ -1178,12 +1178,12 @@ ggplot(
 
 La comparación permite evaluar si el modelo conserva capacidad predictiva fuera de la muestra de entrenamiento.
 
-## Error cuadrático medio
+### Error cuadrático medio
 
 Una medida ampliamente utilizada para evaluar predicciones es la raíz del error cuadrático medio (RMSE). De acuerdo con @munoz2013calculo, es una medida que cuantifica la diferencia promedio entre los valores observados y los valores predichos por un modelo de regresión. En otras palabras, indica qué tan cerca están las predicciones del modelo de los valores reales.
 
 
-## Cálculo del RMSE
+### Cálculo del RMSE
 
 ```{r}
 #| label: tbl-ch18-rmse
@@ -1213,7 +1213,7 @@ tibble(
 - Un **RMSE cercano a cero** indica que las predicciones del modelo son muy precisas y que los errores de predicción son pequeños.
 - Un **RMSE elevado** sugiere que el modelo presenta mayores discrepancias entre los valores observados y los predichos, por lo que su capacidad predictiva es menor.
 
-## Variables categóricas e interacciones
+### Variables categóricas e interacciones
 
 En muchos contextos, el efecto de una variable puede depender del nivel de otra.
 
@@ -1227,7 +1227,7 @@ Efecto de X
 Depende de Z
 ```
 
-## Ejemplo de interacción
+### Ejemplo de interacción
 
 ```{r}
 #| label: ch18-modelo-interaccion
@@ -1241,7 +1241,7 @@ modelo_interaccion <- lm(
 )
 ```
 
-## Resultados del modelo con interacción
+### Resultados del modelo con interacción
 
 ```{r}
 #| label: tbl-ch18-modelo-interaccion
@@ -1259,7 +1259,7 @@ broom::tidy(
 
 Los términos de interacción permiten evaluar si la relación entre variables cambia según la categoría observada.
 
-## Comparación de modelos
+### Comparación de modelos
 
 ```{r}
 #| label: tbl-ch18-comparacion-final
@@ -1294,7 +1294,7 @@ comparacion_final |>
 
 La comparación permite evaluar cómo cambia la capacidad explicativa a medida que incorporamos complejidad al modelo.
 
-## Flujo completo de modelación reproducible
+### Flujo completo de modelación reproducible
 
 ```text
 Datos
@@ -1318,7 +1318,7 @@ Predicción
 Interpretación
 ```
 
-## Buenas prácticas de modelación
+### Buenas prácticas de modelación
 
 Se recomienda:
 
@@ -1330,7 +1330,7 @@ Se recomienda:
 - Reportar incertidumbre.
 - Garantizar reproducibilidad.
 
-## Manos a la obra
+### Manos a la obra
 
 Utilizando la base `matriz_modelo`:
 

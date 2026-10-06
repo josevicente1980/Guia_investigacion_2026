@@ -19,7 +19,7 @@ Sin embargo, en aplicaciones reales rara vez un fenómeno depende de una sola va
 
 La regresión lineal múltiple permite incorporar varias variables explicativas dentro de una misma ecuación, proporcionando una representación más realista de los procesos observados [@montgomery2021].
 
-## Cargando librerías
+### Cargando librerías
 
 ```{r}
 #| label: reg21-cargar-librerias
@@ -33,7 +33,7 @@ library(knitr)
 library(here)
 ```
 
-## Cargando la base analítica
+### Cargando la base analítica
 
 ```{r}
 #| label: reg21-cargar-base
@@ -48,7 +48,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## Preparación de variables
+### Preparación de variables
 
 Para ilustrar la regresión múltiple construiremos una base con variables numéricas y categóricas.
 
@@ -71,7 +71,7 @@ base_modelo <- base_analitica |>
   drop_na()
 ```
 
-## Estructura de la base
+### Estructura de la base
 
 ```{r}
 #| label: tbl-reg21-estructura-base
@@ -97,7 +97,7 @@ $$Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + \v
 
 Ahora cada coeficiente mide el efecto parcial de una variable manteniendo constantes las demás.
 
-## ¿Qué significa controlar variables?
+### ¿Qué significa controlar variables?
 
 Uno de los principales aportes de la regresión múltiple consiste en controlar estadísticamente otros factores.
 
@@ -116,7 +116,7 @@ Otros factores
 
 Al incluir varias variables en el modelo podemos aislar mejor la contribución individual de cada una.
 
-## Modelo simple de referencia
+### Modelo simple de referencia
 
 Antes de construir el modelo múltiple estimaremos nuevamente un modelo simple.
 
@@ -165,7 +165,7 @@ modelo_multiple_1 <- lm(
 )
 ```
 
-## Resultados del modelo múltiple
+### Resultados del modelo múltiple
 
 ```{r}
 #| label: tbl-reg21-coeficientes-modelo1
@@ -183,7 +183,7 @@ broom::tidy(
 
 Cada coeficiente representa el cambio esperado en `log_supertotal` asociado a una variación de la variable correspondiente, manteniendo constantes las demás variables incluidas en el modelo. De igual forma, el primer paso es observar el valor p para comprobar su significancia estadística y proceder a interpretar los resultados.
 
-## Comparación entre modelos
+### Comparación entre modelos
 
 ```{r}
 #| label: tbl-reg21-comparacion-modelos
@@ -212,7 +212,7 @@ tibble(
 
 La comparación permite evaluar si la incorporación de nuevas variables mejora la capacidad explicativa del modelo.
 
-## Interpretación de coeficientes parciales
+### Interpretación de coeficientes parciales
 
 En regresión múltiple ya no interpretamos los coeficientes de forma aislada.
 
@@ -226,7 +226,7 @@ las demás variables del modelo
 
 Esta idea constituye la principal diferencia respecto a la regresión simple.
 
-## Visualización de valores ajustados
+### Visualización de valores ajustados
 
 ```{r}
 #| label: fig-reg21-observado-ajustado
@@ -261,7 +261,7 @@ base_modelo |>
 
 La proximidad de los puntos a la diagonal proporciona una evaluación visual preliminar de la capacidad predictiva del modelo.
 
-## Conclusión práctica
+### Conclusión práctica
 
 La regresión lineal múltiple amplía la lógica del modelo simple permitiendo incorporar varios factores explicativos simultáneamente.
 
@@ -275,7 +275,7 @@ En esta primera parte aprendimos a:
 
 En la siguiente sección profundizaremos en la comparación de modelos, la incorporación de variables categóricas y la evaluación del aporte de cada predictor.
 
-## Introducción
+### Introducción
 
 Una vez estimado un modelo de regresión múltiple surge una pregunta natural:
 
@@ -287,7 +287,7 @@ La regresión múltiple permite comparar especificaciones alternativas e identif
 
 En esta sección estudiaremos cómo comparar modelos, interpretar el aporte de nuevos predictores y comprender el papel de las variables de control.
 
-## Cargando librerías
+### Cargando librerías
 
 ```{r}
 #| label: reg21-cargar-librerias-parte2
@@ -301,7 +301,7 @@ library(knitr)
 library(here)
 ```
 
-## Cargando la base analítica
+### Cargando la base analítica
 
 ```{r}
 #| label: reg21-cargar-base-parte2
@@ -316,7 +316,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## Preparación de variables
+### Preparación de variables
 
 ```{r}
 #| label: reg21-preparar-base-parte2
@@ -337,7 +337,7 @@ base_modelo <- base_analitica |>
   drop_na()
 ```
 
-## Modelo de referencia
+### Modelo de referencia
 
 Comenzaremos con el modelo estimado en la sección anterior.
 
@@ -352,7 +352,7 @@ modelo_1 <- lm(
 )
 ```
 
-## Resumen del modelo base
+### Resumen del modelo base
 
 ```{r}
 #| label: tbl-reg21-resumen-modelo1
@@ -377,7 +377,7 @@ glance(
 
 Estos indicadores resumen la calidad general del ajuste y servirán como punto de comparación para modelos más complejos.
 
-## Incorporando una variable adicional
+### Incorporando una variable adicional
 
 Ahora agregaremos la variable provincia.
 
@@ -393,7 +393,7 @@ modelo_2 <- lm(
 )
 ```
 
-## Coeficientes del nuevo modelo
+### Coeficientes del nuevo modelo
 
 ```{r}
 #| label: tbl-reg21-coeficientes-modelo2
@@ -411,7 +411,7 @@ tidy(
 
 Al incorporar provincia, los coeficientes previamente estimados pueden modificarse. Esto ocurre porque parte de la variabilidad explicada anteriormente puede estar asociada a diferencias territoriales. En este caso, puede deducirse que algunas variables no son estadísticamente significativas cuando su valor p es mayor que 0,05 y, por lo tanto, su estadístico *t* en valor absoluto es inferior al valor crítico aproximado de 2; esto indica que dichas variables no aportan evidencia suficiente dentro del modelo especificado.
 
-## Comparación entre modelos
+### Comparación entre modelos
 
 ```{r}
 #| label: tbl-reg21-comparacion-modelos2
@@ -465,7 +465,7 @@ provincia
 
 Al incorporarlas al modelo reducimos posibles sesgos de omisión.
 
-## Efectos parciales
+### Efectos parciales
 
 En regresión múltiple cada coeficiente se interpreta manteniendo constantes las demás variables.
 
@@ -490,7 +490,7 @@ provincia
 
 Esta es una de las principales fortalezas del modelo múltiple.
 
-## Comparando coeficientes
+### Comparando coeficientes
 
 ```{r}
 #| label: tbl-reg21-comparacion-coeficientes
@@ -532,7 +532,7 @@ coef_modelo1 |>
 
 Cambios importantes en los coeficientes sugieren que las variables adicionales aportan información relevante.
 
-## Importancia del R² ajustado
+### Importancia del R² ajustado
 
 Al incorporar nuevas variables, el R² tradicional casi siempre aumenta.
 
@@ -561,7 +561,7 @@ tibble(
 
 El R² ajustado penaliza la incorporación de variables que no aportan información suficiente.
 
-## Visualización del ajuste
+### Visualización del ajuste
 
 ```{r}
 #| label: fig-reg21-ajuste-modelo2
@@ -600,7 +600,7 @@ base_modelo |>
 
 La gráfica permite evaluar visualmente la calidad de las predicciones generadas por el modelo.
 
-## Comparación mediante ANOVA
+### Comparación mediante ANOVA
 
 Cuando un modelo contiene todas las variables de otro más algunas adicionales, pueden compararse formalmente.
 
@@ -632,7 +632,7 @@ En la práctica, la selección de variables debe apoyarse en:
 
 No se recomienda seleccionar variables únicamente porque producen un R² más elevado.
 
-## Resumen comparativo
+### Resumen comparativo
 
 ```{r}
 #| label: tbl-reg21-resumen-comparativo
@@ -669,7 +669,7 @@ tibble(
 
 El investigador debe equilibrar capacidad explicativa y simplicidad interpretativa.
 
-## Conclusión práctica
+### Conclusión práctica
 
 En esta sección aprendimos a:
 
@@ -682,13 +682,13 @@ En esta sección aprendimos a:
 
 En la siguiente sección construiremos un flujo completo de predicción utilizando múltiples variables y sintetizaremos el proceso completo de regresión lineal múltiple.
 
-## Introducción
+### Introducción
 
 Hasta este punto hemos aprendido a estimar modelos de regresión múltiple e incorporar variables de control. El paso final consiste en utilizar el modelo para generar predicciones e interpretar conjuntamente los resultados obtenidos.
 
 En esta sección construiremos un flujo completo de análisis que servirá como referencia para futuras aplicaciones de regresión múltiple.
 
-## Cargando librerías
+### Cargando librerías
 
 ```{r}
 #| label: reg21-cargar-librerias-parte3
@@ -702,7 +702,7 @@ library(knitr)
 library(here)
 ```
 
-## Cargando la base analítica
+### Cargando la base analítica
 
 ```{r}
 #| label: reg21-cargar-base-parte3
@@ -717,7 +717,7 @@ base_analitica <- readRDS(
 )
 ```
 
-## Preparación de variables
+### Preparación de variables
 
 ```{r}
 #| label: reg21-preparar-base-parte3
@@ -760,7 +760,7 @@ modelo_final <- lm(
 )
 ```
 
-## Resumen general del modelo
+### Resumen general del modelo
 
 ```{r}
 #| label: tbl-reg21-resumen-final
@@ -785,7 +785,7 @@ glance(
 
 Esta tabla resume la capacidad explicativa del modelo, el error residual y la significancia global de la regresión.
 
-## Tabla completa de coeficientes
+### Tabla completa de coeficientes
 
 ```{r}
 #| label: tbl-reg21-coeficientes-finales
@@ -804,7 +804,7 @@ tidy(
 
 Cada coeficiente representa el efecto parcial de la variable correspondiente manteniendo constantes las demás variables del modelo. No debe olvidarse evaluar su significancia estadística.
 
-## Generación de valores ajustados
+### Generación de valores ajustados
 
 ```{r}
 #| label: reg21-valores-ajustados
@@ -818,7 +818,7 @@ base_modelo <- base_modelo |>
   )
 ```
 
-## Comparación entre valores observados y ajustados
+### Comparación entre valores observados y ajustados
 
 ```{r}
 #| label: fig-reg21-observado-ajustado-final
@@ -851,7 +851,7 @@ ggplot(
 
 La cercanía de los puntos a la diagonal indica la capacidad del modelo para reproducir los valores observados.
 
-## Error de predicción
+### Error de predicción
 
 Una forma sencilla de evaluar el desempeño consiste en calcular la diferencia entre valores observados y ajustados.
 
@@ -866,7 +866,7 @@ base_modelo <- base_modelo |>
   )
 ```
 
-## Resumen de errores
+### Resumen de errores
 
 ```{r}
 #| label: tbl-reg21-resumen-errores
@@ -896,7 +896,7 @@ tibble(
 
 Errores centrados alrededor de cero indican ausencia de sesgos sistemáticos importantes.
 
-## Distribución de errores
+### Distribución de errores
 
 ```{r}
 #| label: fig-reg21-distribucion-errores
@@ -924,7 +924,7 @@ ggplot(
 
 La distribución de errores permite evaluar si existen desviaciones sistemáticas importantes entre observaciones y predicciones.
 
-## Predicciones para nuevos casos
+### Predicciones para nuevos casos
 
 La regresión múltiple permite generar predicciones para escenarios específicos.
 
@@ -992,7 +992,7 @@ nuevos_casos |>
   )
 ```
 
-## Predicciones puntuales
+### Predicciones puntuales
 
 ```{r}
 #| label: tbl-reg21-predicciones
@@ -1015,7 +1015,7 @@ nuevos_casos |>
 
 Las predicciones representan el valor esperado de la superficie transformada para los escenarios definidos.
 
-## Intervalos de confianza
+### Intervalos de confianza
 
 ```{r}
 #| label: tbl-reg21-intervalos-confianza
@@ -1036,7 +1036,7 @@ predict(
 
 Los intervalos reflejan la incertidumbre asociada a la estimación de la media esperada.
 
-## Variables más influyentes
+### Variables más influyentes
 
 Aunque la magnitud de los coeficientes no siempre es directamente comparable, podemos examinar su importancia relativa de manera descriptiva.
 
@@ -1075,7 +1075,7 @@ tidy(
 
 Esta comparación es únicamente descriptiva y no debe interpretarse como una medida definitiva de importancia estadística.
 
-## Flujo general de una regresión múltiple
+### Flujo general de una regresión múltiple
 
 ```{r}
 #| label: tbl-reg21-flujo-modelacion
@@ -1099,7 +1099,7 @@ tibble(
 
 Estas etapas resumen el procedimiento seguido en los capítulos 20 y 21.
 
-## Aplicación práctica
+### Aplicación práctica
 
 La regresión múltiple permite responder preguntas como:
 
@@ -1109,7 +1109,7 @@ La regresión múltiple permite responder preguntas como:
 
 Estas preguntas aparecen frecuentemente en investigación aplicada, planificación y análisis de políticas públicas.
 
-## Manos a la obra
+### Manos a la obra
 
 1. Estime un modelo múltiple con al menos tres variables explicativas.
 2. Interprete todos los coeficientes.
