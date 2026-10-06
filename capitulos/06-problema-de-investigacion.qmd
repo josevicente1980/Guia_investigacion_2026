@@ -148,7 +148,7 @@ Debe establecer con claridad población, contexto y período de estudio [@hernan
 ### Pregunta mejor formulada
 
 ```{.text}
-¿Qué factores financieros influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación?
+¿Qué factores financieros se asocian con la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación?
 ```
 
 ## Tipos de preguntas de investigación
@@ -187,13 +187,15 @@ Ejemplo:
 
 ### Preguntas causales
 
-Buscan identificar efectos o impactos.
+Buscan estimar efectos causales y, por tanto, requieren un diseño que permita sostener inferencia causal. No basta con observar una asociación estadística entre variables.
 
 Ejemplo:
 
 ```{.text}
-¿Cuál es el efecto de la capacitación empresarial sobre la productividad de las microempresas?
+¿Cuál es el efecto causal de un programa de capacitación empresarial sobre la productividad de las microempresas participantes?
 ```
+
+Esta formulación solo es apropiada cuando el diseño de investigación identifica de manera defendible el efecto causal. En estudios observacionales sin una estrategia de identificación suficiente, conviene formular preguntas en términos de asociación, relación o diferencia.
 
 ## Relación entre problema, pregunta y objetivos
 
@@ -230,7 +232,7 @@ Las microempresas presentan elevadas tasas de cierre durante sus primeros años 
 ### Objetivo general
 
 ```{.text}
-Analizar los factores financieros que influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.
+Analizar la asociación entre factores financieros y la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.
 ```
 
 Obsérvese cómo el objetivo surge directamente de la pregunta planteada.
