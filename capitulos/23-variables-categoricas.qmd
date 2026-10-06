@@ -411,6 +411,11 @@ base_categorias |>
       ),
     .groups = "drop"
   ) |>
+  transmute(
+    Tamaño = tamano_empresa,
+    n = n,
+    Media = media
+  ) |>
   kable(
     digits = 3,
     caption = "Promedio de productividad por categoría"
@@ -493,28 +498,18 @@ tidy(
   modelo_cat,
   conf.int = TRUE
 ) |>
-  mutate(
-    IC95 = sprintf(
-      "[%.4f; %.4f]",
+  transmute(
+    Parámetro = etiquetar_terminos_modelo(term),
+    `Estimación (IC 95%)` = sprintf(
+      "%.3f [%.3f; %.3f]",
+      estimate,
       conf.low,
       conf.high
-    )
-  ) |>
-  select(
-    term,
-    estimate,
-    IC95,
-    p.value
-  ) |>
-  mutate(
-    term = etiquetar_terminos_modelo(term)
-  ) |>
-  setNames(
-    c("Parámetro", "Estim.", "IC 95%", "p")
+    ),
+    p = formatear_p_tabla(p.value)
   ) |>
   kable(
-    digits = 4,
-    align = c("l", "r", "c", "r"),
+    align = c("l", "c", "r"),
     caption = "Coeficientes del modelo"
   )
 ```
@@ -626,16 +621,19 @@ anova_cat |>
   transmute(
     Fuente = dplyr::recode(
       Fuente,
-      "tamano_empresa" = "Tamaño de empresa",
+      "tamano_empresa" = "Tamaño",
       "Residuals" = "Residuos",
       .default = Fuente
     ),
     gl = Df,
-    F = `F value`,
-    p = `Pr(>F)`
+    F = if_else(
+      is.na(`F value`),
+      NA_character_,
+      formatC(`F value`, format = "f", digits = 2, decimal.mark = ",")
+    ),
+    p = formatear_p_tabla(`Pr(>F)`)
   ) |>
   kable(
-    digits = 4,
     align = c("l", "r", "r", "r"),
     caption = "ANOVA del modelo categórico"
   )
@@ -674,6 +672,10 @@ nuevos_grupos <- nuevos_grupos |>
   )
 
 nuevos_grupos |>
+  transmute(
+    Tamaño = tamano_empresa,
+    Predicción = prediccion
+  ) |>
   kable(
     digits = 3,
     caption = "Predicciones promedio por categoría"

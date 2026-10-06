@@ -58,7 +58,7 @@ etiquetar_terminos_modelo <- function(x) {
     "(Intercept)" = "Intercepto",
     "capital" = "Capital",
     "edad_empresa" = "Edad",
-    "standLRT" = "Puntaje ingreso",
+    "standLRT" = "Puntaje",
     "value" = "Valor mercado",
     .default = x
   )
@@ -85,4 +85,22 @@ etiquetar_terminos_modelo <- function(x) {
   )
 
   x
+}
+
+
+formatear_p_tabla <- function(x, digits = 3) {
+  ifelse(
+    is.na(x),
+    NA_character_,
+    ifelse(
+      x < 0.001,
+      "<0,001",
+      formatC(
+        x,
+        format = "f",
+        digits = digits,
+        decimal.mark = ","
+      )
+    )
+  )
 }

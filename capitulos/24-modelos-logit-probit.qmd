@@ -937,9 +937,6 @@ left_join(
   mutate(
     term = etiquetar_terminos_modelo(term)
   ) |>
-  mutate(
-    term = etiquetar_terminos_modelo(term)
-  ) |>
   setNames(
     c("Parámetro", "Logit", "Probit")
   ) |>

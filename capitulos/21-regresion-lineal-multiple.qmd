@@ -651,17 +651,19 @@ anova_modelos <- anova(
 anova_modelos |>
   transmute(
     Modelo = c(
-      "Modelo 1",
-      "Modelo 2"
+      "Base",
+      "Ampliado"
     ),
-    gl_res = Res.Df,
-    gl = Df,
-    F = F,
-    p = `Pr(>F)`
+    `gl resid.` = Res.Df,
+    F = if_else(
+      is.na(F),
+      NA_character_,
+      formatC(F, format = "f", digits = 2, decimal.mark = ",")
+    ),
+    p = formatear_p_tabla(`Pr(>F)`)
   ) |>
   kable(
-    digits = 4,
-    align = c("l", "r", "r", "r", "r"),
+    align = c("l", "r", "r", "r"),
     caption = "Comparación ANOVA entre modelos anidados"
   )
 ```
