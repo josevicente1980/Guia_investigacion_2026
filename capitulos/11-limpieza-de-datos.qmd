@@ -72,7 +72,8 @@ Trabajaremos con el módulo de uso del suelo de la ESPAC 2025.
 
 ```{r}
 #| label: cap11-cargar-datos-sunac
-#| eval: false\n#| warning: false
+#| eval: false
+#| warning: false
 #| message: false
 
 
