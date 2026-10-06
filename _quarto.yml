@@ -1,6 +1,6 @@
 project:
   type: book
-  output-dir: reportes
+  output-dir: .render_tmp
   pre-render:
     - Rscript R/pre_render.R
   post-render:

@@ -4,8 +4,14 @@
 # 3) reconstrucción ZIP compatible con OOXML.
 
 archivo_docx <- file.path(
-  "reportes",
+  ".render_tmp",
   "Investigacion_reproducible_con_R_y_Quarto.docx"
+)
+
+dir.create(
+  "reportes",
+  showWarnings = FALSE,
+  recursive = TRUE
 )
 
 if (!file.exists(archivo_docx)) {
@@ -178,7 +184,56 @@ ok <- file.copy(
 )
 
 if (!ok) {
-  stop("No fue posible reemplazar el DOCX renderizado.")
+  stop("No fue posible reemplazar el DOCX temporal postprocesado.")
+}
+
+destino_principal <- file.path(
+  "reportes",
+  "Investigacion_reproducible_con_R_y_Quarto.docx"
+)
+
+copiado <- suppressWarnings(
+  file.copy(
+    archivo_docx,
+    destino_principal,
+    overwrite = TRUE
+  )
+)
+
+if (!copiado) {
+  sello <- format(
+    Sys.time(),
+    "%Y%m%d_%H%M%S"
+  )
+
+  destino_alternativo <- file.path(
+    "reportes",
+    paste0(
+      "Investigacion_reproducible_con_R_y_Quarto_",
+      sello,
+      ".docx"
+    )
+  )
+
+  copiado_alt <- file.copy(
+    archivo_docx,
+    destino_alternativo,
+    overwrite = FALSE
+  )
+
+  if (!copiado_alt) {
+    stop("No fue posible copiar el DOCX final a la carpeta reportes.")
+  }
+
+  message(
+    "Post-render DOCX: el archivo principal estaba abierto; se guardó una copia alternativa en ",
+    destino_alternativo
+  )
+} else {
+  message(
+    "Post-render DOCX: salida final actualizada en ",
+    destino_principal
+  )
 }
 
 message(
