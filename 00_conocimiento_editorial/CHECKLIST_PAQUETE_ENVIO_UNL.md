@@ -6,7 +6,7 @@ Estados permitidos: **PASS**, **REVIEW**, **BLOCK**.
 
 | Control | Estado |
 |---|---|
-| Tipología editorial definitiva de la obra confirmada | BLOCK |
+| Tipología editorial definitiva de la obra confirmada: **Guía** | PASS |
 | Manuscrito definitivo en un único Word editable | REVIEW |
 | Revisión de estilo, gramática y ortografía completada | REVIEW |
 | Estructura ajustada a la plantilla UNL aplicable | REVIEW |
@@ -54,7 +54,7 @@ Estados permitidos: **PASS**, **REVIEW**, **BLOCK**.
 | Control | Estado |
 |---|---|
 | Título definitivo | REVIEW |
-| Tipo de libro correcto y consistente con plantilla/formulario | BLOCK |
+| Tipo de publicación correcto y consistente con plantilla/formulario: **Guía** | PASS |
 | Palabras clave | REVIEW |
 | Resumen | REVIEW |
 | Capítulos registrados cuando aplique | REVIEW |

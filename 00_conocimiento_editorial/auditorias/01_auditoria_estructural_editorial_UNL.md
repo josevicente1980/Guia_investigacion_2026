@@ -11,7 +11,7 @@
 
 La obra dispone de una base técnica sólida: proyecto Quarto tipo libro, 35 capítulos, bibliografía BibTeX, CSL APA, salida Word y sitio HTML. Sin embargo, todavía no puede declararse lista para envío porque existen decisiones editoriales y controles críticos pendientes.
 
-El bloqueo principal inmediato es la **tipología editorial de la obra**. El formulario oficial distingue, entre otras categorías, **Guía (15 × 20 cm)** y **Monografía (17 × 24 cm)**. El repositorio se presenta como “Una guía práctica”, mientras que la plantilla oficial conservada en las fuentes permanentes corresponde a una monografía colectiva. No debe fijarse el tamaño ni reconstruirse la plantilla Word hasta resolver esta clasificación.
+**Decisión de autor confirmada:** la obra se presentará editorialmente como **Guía**, no como monografía ni como libro en su denominación editorial. El formulario oficial contempla la categoría **Guía (15 × 20 cm)**. La plantilla de monografía colectiva conservada en las fuentes permanentes se mantiene únicamente como referencia institucional y no debe aplicarse como plantilla final de esta obra.
 
 ## Controles
 
@@ -21,9 +21,9 @@ El bloqueo principal inmediato es la **tipología editorial de la obra**. El for
 | Salida editorial | Se genera Word editable mediante Quarto | PASS | Mantener y validar render final |
 | Bibliografía | Existe `referencias/referencias.bib` y CSL APA | PASS | Auditar contenido y correspondencia |
 | Tablas/figuras | Configuración coloca tablas arriba y figuras abajo | PASS | Verificar cada objeto |
-| Tipología | No está resuelto si la obra se enviará como Guía o Monografía | **BLOCK** | Confirmar categoría oficial antes de maquetar |
+| Tipología | Obra confirmada por el autor como **Guía** | **PASS** | Mantener esta clasificación en formulario, metadatos y paquete editorial |
 | Plantilla | `plantillas/plantilla.docx` está configurada como `reference-doc`, pero no se ha verificado contra la plantilla oficial aplicable | **BLOCK** | Verificar/reconstruir tras confirmar tipología |
-| Tamaño | No puede fijarse 15×20 o 17×24 sin resolver tipología | **BLOCK** | Resolver junto con tipología |
+| Tamaño | Para la categoría Guía, el formulario oficial registra **15 × 20 cm** | **PASS** | Usar como objetivo de maquetación, sujeto a plantilla oficial aplicable |
 | IA | No se encontró una declaración de uso de IA en la obra | **BLOCK** | Incorporar declaración final conforme a UNL |
 | Contraportada | No se encontró resumen editorial ≤180 palabras | **BLOCK** | Redactar y auditar |
 | Portada | No constan tres propuestas de imagen de portada en el paquete | **BLOCK** | Preparar al cierre con derechos verificados |
@@ -60,17 +60,16 @@ La regla de antigüedad bibliográfica **no debe aplicarse de forma mecánica**:
 
 ## Orden de corrección
 
-1. Confirmar **tipología editorial**: Guía o Monografía.
-2. Corregir configuración Quarto y política de archivos generados.
-3. Validar o reconstruir `reference-doc` según la plantilla oficial aplicable.
-4. Crear auditoría reproducible de citas, bibliografía, tablas, figuras y dependencias.
-5. Auditar los 35 capítulos por bloques, sin reescribir masivamente.
-6. Incorporar front matter/back matter faltante, incluida declaración de IA.
-7. Renderizar Word final y ejecutar auditoría editorial.
-8. Preparar paquete OMP y expediente administrativo.
+1. Ajustar la configuración Quarto y la política de archivos generados para una **Guía**.
+2. Localizar, validar o reconstruir el `reference-doc` según la plantilla oficial aplicable a Guía.
+3. Crear auditoría reproducible de citas, bibliografía, tablas, figuras y dependencias.
+4. Auditar los 35 capítulos por bloques, sin reescribir masivamente.
+5. Incorporar front matter/back matter faltante, incluida declaración de IA.
+6. Renderizar Word final y ejecutar auditoría editorial.
+7. Preparar paquete OMP y expediente administrativo.
 
 ## Regla de cierre
 
 **SUBMISSION READY: NO.**
 
-Persisten controles críticos en **BLOCK**. El siguiente bloqueo a resolver es la tipología editorial de la obra.
+Persisten controles críticos en **BLOCK**, pero la tipología editorial ya quedó resuelta como **Guía**. El siguiente bloqueo es validar una plantilla Word aplicable a Guía y ajustar la configuración Quarto al formato 15 × 20 cm.
