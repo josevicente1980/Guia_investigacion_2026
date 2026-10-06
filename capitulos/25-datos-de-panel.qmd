@@ -27,7 +27,7 @@ Provincias observadas durante varias décadas.
 Hogares observados en múltiples encuestas.
 ```
 
-Este tipo de información recibe el nombre de datos de panel [@wooldridge2010].
+Este tipo de información recibe el nombre de datos de panel [@wooldridge2010; @baltagi2021].
 
 ## ¿Qué son los datos de panel?
 

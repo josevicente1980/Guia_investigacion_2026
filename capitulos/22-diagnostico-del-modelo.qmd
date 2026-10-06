@@ -15,7 +15,7 @@ Al finalizar esta sección, el lector será capaz de:
 
 La estimación de una regresión no constituye el final del análisis.
 
-Una vez ajustado un modelo es necesario verificar si sus supuestos básicos resultan razonables. El incumplimiento de estos supuestos puede afectar la validez de las inferencias, los intervalos de confianza y las predicciones [@montgomery2021].
+Una vez ajustado un modelo es necesario verificar si sus supuestos básicos resultan razonables. El incumplimiento de estos supuestos puede afectar la validez de las inferencias, los intervalos de confianza y las predicciones [@montgomery2021; @fox2019].
 
 En este capítulo utilizaremos el modelo múltiple construido previamente para ilustrar las principales herramientas de diagnóstico.
 

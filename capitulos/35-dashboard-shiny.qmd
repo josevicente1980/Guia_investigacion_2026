@@ -15,7 +15,7 @@ Al finalizar este capítulo, el lector será capaz de:
 
 Un dashboard es una herramienta visual que permite explorar información mediante filtros, indicadores, gráficos y tablas. Su propósito es facilitar el análisis y apoyar la toma de decisiones.
 
-A diferencia de un informe tradicional, un dashboard permite interacción con los datos. Sin embargo, cuando se trabaja dentro de un libro Quarto que debe renderizar en HTML, PDF y Word, conviene separar dos elementos:
+A diferencia de un informe tradicional, un dashboard permite interacción con los datos. Shiny proporciona un marco para construir aplicaciones web interactivas directamente con R, mediante componentes de interfaz y programación reactiva [@wickham2023]. Sin embargo, cuando se trabaja dentro de un libro Quarto que debe renderizar en HTML, PDF y Word, conviene separar dos elementos:
 
 ```text
 Capítulo del libro
