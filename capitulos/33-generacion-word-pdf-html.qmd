@@ -25,7 +25,7 @@ A partir de un único archivo `.qmd`, es posible generar:
 
 Esto elimina la necesidad de copiar resultados manualmente entre diferentes plataformas.
 
-## Configuración inicial
+### Configuración inicial
 
 ### Carga de librerías
 
@@ -71,7 +71,7 @@ Texto del informe.
 
 El encabezado YAML controla la configuración general del documento.
 
-## Generación de HTML
+### Generación de HTML
 
 El formato HTML es el más flexible para distribución digital.
 
@@ -101,7 +101,7 @@ tibble(
 
 El documento se transforma automáticamente en una página web navegable.
 
-## Generación de PDF
+### Generación de PDF
 
 Los documentos PDF son ampliamente utilizados para tesis, artículos y reportes institucionales.
 
@@ -133,7 +133,7 @@ tibble(
 
 Quarto utiliza LaTeX para producir documentos PDF de alta calidad tipográfica.
 
-## Generación de Word
+### Generación de Word
 
 Word continúa siendo uno de los formatos más solicitados en contextos académicos y profesionales.
 
@@ -216,7 +216,7 @@ datos_exportacion |>
 
 La misma tabla aparecerá correctamente formateada en HTML, PDF y Word.
 
-## Incorporación de figuras
+### Incorporación de figuras
 
 Las figuras también se exportan automáticamente.
 
@@ -242,7 +242,7 @@ ggplot(
 
 Quarto adapta automáticamente la figura al formato de salida.
 
-## Tabla de contenidos automática
+### Tabla de contenidos automática
 
 ### Configuración
 
@@ -262,7 +262,7 @@ format:
 
 La tabla de contenidos mejora la navegación en documentos extensos.
 
-## Numeración automática
+### Numeración automática
 
 ### Configuración
 
@@ -319,7 +319,7 @@ Renderizado
 HTML | PDF | Word
 ```
 
-## Automatización completa
+### Automatización completa
 
 ```{r}
 #| label: tbl-reg33-comandos
@@ -345,7 +345,7 @@ tibble(
 
 Estos comandos permiten automatizar completamente la generación de documentos.
 
-## Errores frecuentes
+### Errores frecuentes
 
 ### Problema
 
@@ -375,7 +375,7 @@ Las figuras no aparecen.
 
 Revisar errores dentro de los chunks.
 
-## Lista de verificación
+### Lista de verificación
 
 ```{r}
 #| label: tbl-reg33-checklist
@@ -409,7 +409,7 @@ tibble(
 
 Antes de distribuir un documento es recomendable verificar que todos los formatos se generen correctamente.
 
-## Manos a la obra
+### Manos a la obra
 
 1. Cree un archivo `.qmd`.
 2. Agregue un encabezado YAML.

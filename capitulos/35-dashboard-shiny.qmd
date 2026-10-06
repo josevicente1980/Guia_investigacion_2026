@@ -29,7 +29,7 @@ archivo independiente interactivo
 
 Esta separación evita errores de compilación y mantiene la reproducibilidad del proyecto [@allaire2024].
 
-## Configuración inicial
+### Configuración inicial
 
 ```{r}
 #| label: reg35-cargar-librerias
@@ -115,7 +115,7 @@ datos_dashboard |>
 
 Los indicadores permiten comparar rápidamente el comportamiento promedio de cada continente.
 
-## Gráfico principal del dashboard
+### Gráfico principal del dashboard
 
 ```{r}
 #| label: fig-reg35-dispersion
@@ -143,7 +143,7 @@ ggplot(
 
 El gráfico muestra una relación positiva entre ingreso y esperanza de vida. La escala logarítmica facilita la lectura porque el PIB per cápita presenta alta dispersión.
 
-## Serie temporal
+### Serie temporal
 
 ```{r}
 #| label: fig-reg35-serie-tiempo
@@ -178,7 +178,7 @@ datos_dashboard |>
 
 La serie temporal permite observar la evolución general de la esperanza de vida a lo largo del tiempo.
 
-## Tabla para exploración
+### Tabla para exploración
 
 ```{r}
 #| label: tbl-reg35-tabla-base
@@ -323,7 +323,7 @@ renderDT({
 
 Esta plantilla contiene los elementos mínimos de un dashboard Shiny: filtro, datos reactivos, indicador, gráfico interactivo y tabla dinámica.
 
-## ¿Por qué separar el dashboard del libro?
+### ¿Por qué separar el dashboard del libro?
 
 ```{r}
 #| label: tbl-reg35-separacion
@@ -367,7 +367,7 @@ Para generar el HTML:
 quarto render dashboard-gapminder.qmd
 ```
 
-## Errores frecuentes
+### Errores frecuentes
 
 ```{r}
 #| label: tbl-reg35-errores
@@ -391,7 +391,7 @@ tibble(
   )
 ```
 
-## Lista de verificación
+### Lista de verificación
 
 ```{r}
 #| label: tbl-reg35-checklist
@@ -419,7 +419,7 @@ tibble(
   )
 ```
 
-## Manos a la obra
+### Manos a la obra
 
 1. Renderice este capítulo dentro del libro.
 2. Cree un archivo independiente llamado `dashboard-gapminder.qmd`.

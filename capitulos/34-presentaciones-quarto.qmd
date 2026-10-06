@@ -18,7 +18,7 @@ Tradicionalmente los resultados obtenidos en R se copian manualmente hacia Power
 
 Quarto permite generar presentaciones completamente reproducibles utilizando una única fuente de información, donde tablas, gráficos y resultados se actualizan automáticamente cada vez que cambian los datos o el análisis [@allaire2024].
 
-## Configuración inicial
+### Configuración inicial
 
 ### Carga de librerías y datos
 
@@ -78,7 +78,7 @@ format:
 
 La opción `revealjs` indica que Quarto debe generar una presentación HTML.
 
-## Generación automática de diapositivas
+### Generación automática de diapositivas
 
 Cada encabezado de primer nivel crea una nueva diapositiva.
 
@@ -98,7 +98,7 @@ Texto.
 Texto.
 ```
 
-## Incorporación de tablas reproducibles
+### Incorporación de tablas reproducibles
 
 Las tablas se generan automáticamente a partir de los datos.
 
@@ -152,7 +152,7 @@ La figura se genera automáticamente utilizando los datos originales.
 
 Los gráficos siempre estarán sincronizados con el análisis.
 
-## Selección de temas visuales
+### Selección de temas visuales
 
 RevealJS incorpora varios temas prediseñados.
 
@@ -173,7 +173,7 @@ Temas disponibles:
 * serif
 * solarized
 
-## Numeración automática
+### Numeración automática
 
 ```yaml
 format:
@@ -185,7 +185,7 @@ format:
 
 Facilita la navegación durante exposiciones extensas.
 
-## Tabla de contenidos
+### Tabla de contenidos
 
 ```yaml
 format:
@@ -197,7 +197,7 @@ format:
 
 Permite acceder rápidamente a cualquier sección de la presentación.
 
-## Transiciones
+### Transiciones
 
 ```yaml
 format:
@@ -213,7 +213,7 @@ Opciones disponibles:
 * convex
 * concave
 
-## Diseño en columnas
+### Diseño en columnas
 
 ```markdown
 :::: {.columns}
@@ -271,7 +271,7 @@ Conclusiones
 Preguntas
 ```
 
-## Comparación entre PowerPoint y Quarto
+### Comparación entre PowerPoint y Quarto
 
 ```{r}
 #| label: tbl-reg34-comparacion
@@ -321,7 +321,7 @@ quarto::quarto_render(
 )
 ```
 
-## Lista de verificación
+### Lista de verificación
 
 ```{r}
 #| label: tbl-reg34-checklist
@@ -348,7 +348,7 @@ tibble(
   kable()
 ```
 
-## Manos a la obra
+### Manos a la obra
 
 1. Cree un archivo `.qmd`.
 2. Configure RevealJS.

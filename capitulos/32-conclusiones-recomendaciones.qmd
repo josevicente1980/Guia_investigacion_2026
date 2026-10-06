@@ -20,7 +20,7 @@ Las recomendaciones, por su parte, proponen acciones derivadas de la evidencia o
 
 Una buena conclusión no introduce resultados nuevos. Su propósito es integrar y sintetizar el conocimiento generado.
 
-## Configuración inicial
+### Configuración inicial
 
 ### Carga de librerías
 
@@ -74,7 +74,7 @@ tibble(
 
 Cada conclusión debe corresponder claramente a uno o varios objetivos de investigación.
 
-## Recuperación de resultados principales
+### Recuperación de resultados principales
 
 Las conclusiones se construyen a partir de los hallazgos obtenidos.
 
@@ -117,7 +117,7 @@ Los resultados constituyen la evidencia que sustenta las conclusiones del estudi
 
 La conclusión sintetiza el hallazgo principal en lenguaje académico y comprensible.
 
-## Construcción de conclusiones
+### Construcción de conclusiones
 
 Una conclusión efectiva suele contener tres elementos:
 
@@ -166,7 +166,7 @@ tibble(
 
 Las recomendaciones deben estar sustentadas por evidencia y no por opiniones personales.
 
-## Tipos de recomendaciones
+### Tipos de recomendaciones
 
 ```{r}
 #| label: tbl-reg32-tipos-recomendacion
@@ -214,11 +214,11 @@ Recomendaciones
 Investigaciones futuras
 ```
 
-## Ejemplo de conclusión adecuada
+### Ejemplo de conclusión adecuada
 
 > Los resultados obtenidos permiten concluir que existe una relación positiva entre ingreso y esperanza de vida. La evidencia sugiere que los países con mayores niveles de desarrollo económico tienden a registrar mejores indicadores de bienestar. Estos hallazgos respaldan investigaciones previas y contribuyen a la comprensión de los determinantes socioeconómicos de la salud poblacional.
 
-## Ejemplo de recomendación adecuada
+### Ejemplo de recomendación adecuada
 
 > Se recomienda fortalecer políticas orientadas al crecimiento económico sostenible y a la reducción de desigualdades, considerando la relación observada entre ingreso y bienestar.
 
@@ -248,7 +248,7 @@ La recomendación carece de evidencia.
 
 La recomendación está sustentada en resultados.
 
-## Lista de verificación
+### Lista de verificación
 
 ```{r}
 #| label: tbl-reg32-checklist
@@ -280,7 +280,7 @@ tibble(
 
 Antes de finalizar un documento científico es recomendable verificar que las conclusiones y recomendaciones mantengan coherencia con todo el proceso de investigación.
 
-## Manos a la obra
+### Manos a la obra
 
 1. Revise los objetivos de investigación.
 2. Identifique los hallazgos principales.
