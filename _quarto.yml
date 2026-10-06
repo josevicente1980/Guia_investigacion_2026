@@ -88,6 +88,9 @@ link-citations: true
 
 lang: es
 
+filters:
+  - filters/code-left-docx.lua
+
 execute:
   echo: true
   warning: false
