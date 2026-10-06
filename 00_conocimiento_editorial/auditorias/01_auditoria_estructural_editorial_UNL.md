@@ -11,7 +11,7 @@
 
 La obra dispone de una base técnica sólida: proyecto Quarto tipo libro, 35 capítulos, bibliografía BibTeX, CSL APA, salida Word y sitio HTML. Sin embargo, todavía no puede declararse lista para envío porque existen decisiones editoriales y controles críticos pendientes.
 
-**Decisión de autor corregida y confirmada:** la obra se quiere presentar como **Libro académico**, no como guía. La Editorial UNL publica libros y, dentro de su tipología/formato, distingue principalmente monografías académicas (24 × 17 cm) y guías/folletos (20 × 15 cm). Por tanto, ya no corresponde trabajar con el formato de Guía. Antes de fijar plantilla y tamaño final debe confirmarse el subtipo institucional del libro en el formulario vigente.
+**Decisión de autor confirmada:** la obra se presentará como **Libro académico**. Por contenido y estructura, el subtipo institucional compatible es **Monografía académica**, categoría que la Editorial UNL define para obras de autoría individual o colectiva que desarrollan de manera estructurada y completa una temática con aporte disciplinar sustentado en investigación o reflexión académica. El formato objetivo es **24 × 17 cm**. Permanece pendiente únicamente confirmar la variante de plantilla aplicable: individual o colectiva por capítulos.
 
 ## Controles
 
@@ -23,7 +23,7 @@ La obra dispone de una base técnica sólida: proyecto Quarto tipo libro, 35 cap
 | Tablas/figuras | Configuración coloca tablas arriba y figuras abajo | PASS | Verificar cada objeto |
 | Naturaleza de la obra | Autor confirma **Libro académico** | **PASS** | Mantener esta decisión como objetivo editorial |
 | Plantilla | `plantillas/plantilla.docx` está configurada como `reference-doc`, pero no se ha verificado contra la plantilla oficial aplicable | **BLOCK** | Verificar/reconstruir tras confirmar tipología |
-| Subtipo y tamaño | Debe confirmarse el subtipo institucional del libro; la UNL publica monografías académicas en 24 × 17 cm y guías/folletos en 20 × 15 cm | **BLOCK** | No fijar tamaño hasta resolver el subtipo del libro |
+| Subtipo y tamaño | **Monografía académica**, formato objetivo **24 × 17 cm** | **PASS** | Confirmar márgenes/estilos con plantilla aplicable |
 | IA | No se encontró una declaración de uso de IA en la obra | **BLOCK** | Incorporar declaración final conforme a UNL |
 | Contraportada | No se encontró resumen editorial ≤180 palabras | **BLOCK** | Redactar y auditar |
 | Portada | No constan tres propuestas de imagen de portada en el paquete | **BLOCK** | Preparar al cierre con derechos verificados |
@@ -60,8 +60,8 @@ La regla de antigüedad bibliográfica **no debe aplicarse de forma mecánica**:
 
 ## Orden de corrección
 
-1. Confirmar el **subtipo institucional del Libro académico** en el formulario/plantilla UNL vigente.
-2. Ajustar la configuración Quarto y la política de archivos generados para el libro.
+1. Confirmar la variante de plantilla **obra individual vs. obra colectiva por capítulos**.
+2. Ajustar la configuración Quarto y la política de archivos generados para la monografía académica.
 3. Localizar, validar o reconstruir el `reference-doc` según la plantilla oficial aplicable.
 4. Crear auditoría reproducible de citas, bibliografía, tablas, figuras y dependencias.
 5. Auditar los 35 capítulos por bloques, sin reescribir masivamente.
@@ -73,4 +73,4 @@ La regla de antigüedad bibliográfica **no debe aplicarse de forma mecánica**:
 
 **SUBMISSION READY: NO.**
 
-Persisten controles críticos en **BLOCK**. La naturaleza de la obra ya quedó confirmada como **Libro académico**; el siguiente bloqueo es resolver el subtipo institucional y la plantilla/formato UNL aplicables.
+Persisten controles críticos en **BLOCK**. La naturaleza y el subtipo de la obra ya quedaron confirmados como **Libro académico — Monografía académica**. El siguiente punto a resolver es la variante de plantilla institucional aplicable.

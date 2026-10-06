@@ -10,7 +10,7 @@ Estados permitidos: **PASS**, **REVIEW**, **BLOCK**.
 | Manuscrito definitivo en un único Word editable | REVIEW |
 | Revisión de estilo, gramática y ortografía completada | REVIEW |
 | Estructura ajustada a la plantilla UNL aplicable | REVIEW |
-| Tamaño y márgenes ajustados a la tipología/plantilla oficial aplicable | REVIEW |
+| Tamaño objetivo de monografía académica: **24 × 17 cm**; márgenes según plantilla oficial | REVIEW |
 | Citas y referencias en APA 7 | REVIEW |
 | Bibliografía >5 años no supera el 20%, salvo justificación por fuentes clásicas/normativas | REVIEW |
 | Correspondencia completa entre citas en texto y bibliografía | REVIEW |
@@ -54,7 +54,7 @@ Estados permitidos: **PASS**, **REVIEW**, **BLOCK**.
 | Control | Estado |
 |---|---|
 | Título definitivo | REVIEW |
-| Subtipo/formato editorial UNL compatible con **Libro académico** confirmado | BLOCK |
+| Subtipo editorial confirmado: **Monografía académica** | PASS |
 | Palabras clave | REVIEW |
 | Resumen | REVIEW |
 | Capítulos registrados cuando aplique | REVIEW |
