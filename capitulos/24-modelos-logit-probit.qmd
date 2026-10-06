@@ -15,6 +15,8 @@ Al finalizar esta sección, el lector será capaz de:
 
 Los modelos lineales estudiados en capítulos anteriores son apropiados cuando la variable dependiente es continua.
 
+La regresión logística sigue siendo una herramienta central para modelar resultados binarios; su interpretación requiere distinguir entre la escala lineal del predictor, los log-odds y las probabilidades estimadas [@cetinkaya2024].
+
 Por ejemplo:
 
 ```text

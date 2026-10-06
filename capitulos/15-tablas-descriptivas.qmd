@@ -15,6 +15,8 @@ Al finalizar este capítulo, el lector será capaz de:
 
 Las tablas constituyen uno de los mecanismos más utilizados para comunicar resultados estadísticos en artículos científicos, tesis, informes técnicos y documentos institucionales.
 
+Las tablas descriptivas deben seleccionar y organizar la información necesaria para responder una pregunta concreta, evitando trasladar al lector todo el volumen de resultados disponibles [@cetinkaya2024].
+
 Una buena tabla permite resumir grandes volúmenes de información de forma clara, precisa y reproducible. Por el contrario, una tabla mal construida puede dificultar la interpretación de los resultados y reducir el impacto de una investigación [@cleveland1993; @few2012; @healy2018].
 
 En el contexto de la investigación reproducible, las tablas deben generarse automáticamente a partir de los datos y del código utilizado en el análisis. Esto evita errores manuales, facilita actualizaciones y garantiza la trazabilidad de los resultados [@peng2011; @gandrud2015].
