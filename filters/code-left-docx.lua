@@ -1,5 +1,8 @@
--- Alinea a la izquierda únicamente los bloques de código en DOCX.
--- El resto del documento conserva los estilos de la plantilla Word.
+-- Renderiza los bloques de código en DOCX como una secuencia de párrafos
+-- independientes. Esto evita que Word distribuya los caracteres cuando el
+-- estilo base del documento usa justificación completa.
+--
+-- El resto del documento conserva íntegramente los estilos de la plantilla.
 
 local function xml_escape(text)
   text = text:gsub("&", "&amp;")
@@ -8,42 +11,43 @@ local function xml_escape(text)
   return text
 end
 
-local function codeblock_to_openxml(el)
-  if FORMAT ~= "docx" then
-    return nil
+local function code_line_paragraph(line)
+  local contenido = line
+  if contenido == "" then
+    contenido = " "
   end
 
-  local lines = {}
-  for line in (el.text .. "\n"):gmatch("(.-)\n") do
-    table.insert(lines, line)
-  end
-
-  local runs = {}
-  for i, line in ipairs(lines) do
-    table.insert(
-      runs,
-      '<w:r><w:rPr><w:rStyle w:val="VerbatimChar"/></w:rPr>' ..
-      '<w:t xml:space="preserve">' .. xml_escape(line) .. '</w:t></w:r>'
-    )
-
-    if i < #lines then
-      table.insert(runs, '<w:r><w:br/></w:r>')
-    end
-  end
-
-  local xml =
+  return
     '<w:p>' ..
       '<w:pPr>' ..
         '<w:pStyle w:val="SourceCode"/>' ..
         '<w:jc w:val="left"/>' ..
         '<w:ind w:left="0" w:right="0" w:firstLine="0"/>' ..
+        '<w:spacing w:before="0" w:after="0"/>' ..
       '</w:pPr>' ..
-      table.concat(runs) ..
+      '<w:r>' ..
+        '<w:rPr><w:rStyle w:val="VerbatimChar"/></w:rPr>' ..
+        '<w:t xml:space="preserve">' .. xml_escape(contenido) .. '</w:t>' ..
+      '</w:r>' ..
     '</w:p>'
-
-  return pandoc.RawBlock("openxml", xml)
 end
 
 function CodeBlock(el)
-  return codeblock_to_openxml(el)
+  if FORMAT ~= "docx" then
+    return nil
+  end
+
+  local paragraphs = {}
+
+  for line in (el.text .. "\n"):gmatch("(.-)\n") do
+    table.insert(
+      paragraphs,
+      code_line_paragraph(line)
+    )
+  end
+
+  return pandoc.RawBlock(
+    "openxml",
+    table.concat(paragraphs)
+  )
 end
