@@ -14,6 +14,8 @@ Al finalizar este capítulo, el lector será capaz de:
 
 Las conclusiones representan el cierre formal de una investigación. Su función consiste en sintetizar los principales hallazgos y responder explícitamente a los objetivos planteados al inicio del estudio.
 
+El cierre de un trabajo científico debe sintetizar el hallazgo principal y sus implicaciones de forma proporcional a la evidencia, evitando repetir literalmente los resultados o ampliar las conclusiones más allá de lo que permite el diseño [@fontanarosa2024].
+
 Las recomendaciones, por su parte, proponen acciones derivadas de la evidencia obtenida y pueden dirigirse a tomadores de decisiones, organizaciones, investigadores o responsables de políticas públicas [@apa2020].
 
 Una buena conclusión no introduce resultados nuevos. Su propósito es integrar y sintetizar el conocimiento generado.

@@ -14,6 +14,8 @@ Al finalizar este capítulo, el lector será capaz de:
 
 La discusión constituye el espacio donde el investigador interpreta los resultados obtenidos y los relaciona con el conocimiento existente.
 
+Una discusión sólida interpreta los hallazgos, los compara con la literatura, considera explicaciones alternativas y reconoce fortalezas y limitaciones sin introducir resultados nuevos ni afirmaciones que excedan la evidencia [@fontanarosa2024].
+
 Mientras la sección de resultados responde a la pregunta "¿qué encontramos?", la discusión responde a la pregunta "¿qué significan estos hallazgos?" [@apa2020].
 
 Una buena discusión conecta los resultados con la teoría, la evidencia previa y las implicaciones derivadas del estudio [@belcher2019].

@@ -14,6 +14,8 @@ Al finalizar este capítulo, el lector será capaz de:
 
 La sección de resultados tiene como objetivo presentar de forma objetiva los hallazgos obtenidos durante el análisis de datos. Su función no consiste en explicar causas ni discutir implicaciones teóricas. Estas tareas corresponden a la discusión.
 
+La sección de resultados debe seleccionar los hallazgos esenciales y coordinarlos con tablas y figuras, evitando convertirla en una transcripción extensa de toda la salida estadística [@robinson2023].
+
 Los resultados deben responder directamente a los objetivos y preguntas de investigación formulados previamente [@apa2020].
 
 ## Configuración inicial

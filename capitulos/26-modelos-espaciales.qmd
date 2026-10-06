@@ -15,6 +15,8 @@ Al finalizar esta sección, el lector será capaz de:
 
 En los capítulos anteriores asumimos que las observaciones eran independientes.
 
+El análisis espacial moderno exige considerar explícitamente la representación geométrica, los sistemas de referencia, las relaciones de vecindad y las consecuencias analíticas de trabajar con datos geográficos [@pebesma2023].
+
 Sin embargo, en numerosos fenómenos económicos, sociales y territoriales esta condición no se cumple.
 
 Por ejemplo:
