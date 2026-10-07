@@ -500,8 +500,8 @@ tidy(
 ) |>
   transmute(
     Parámetro = etiquetar_terminos_modelo(term),
-    `Estimación (IC 95%)` = sprintf(
-      "%.3f [%.3f; %.3f]",
+    `β (IC 95%)` = sprintf(
+      "%.2f [%.2f; %.2f]",
       estimate,
       conf.low,
       conf.high

@@ -428,17 +428,16 @@ modelo_lm <- lm(
 tidy(
   modelo_lm
 ) |>
-  select(
-    term,
-    estimate,
-    std.error,
-    p.value
-  ) |>
-  mutate(
-    term = etiquetar_terminos_modelo(term)
-  ) |>
-  setNames(
-    c("Parámetro", "Estim.", "EE", "p")
+  transmute(
+    Parámetro = dplyr::recode(
+      term,
+      "(Intercept)" = "Intercepto",
+      "standLRT" = "Puntaje",
+      .default = term
+    ),
+    Estim. = estimate,
+    EE = std.error,
+    p = formatear_p_tabla(p.value)
   ) |>
   kable(
     digits = 4,
@@ -475,17 +474,16 @@ tidy(
   modelo_ml,
   effects = "fixed"
 ) |>
-  select(
-    term,
-    estimate,
-    std.error,
-    statistic
-  ) |>
-  mutate(
-    term = etiquetar_terminos_modelo(term)
-  ) |>
-  setNames(
-    c("Parámetro", "Estim.", "EE", "Estad.")
+  transmute(
+    Parámetro = dplyr::recode(
+      term,
+      "(Intercept)" = "Intercepto",
+      "standLRT" = "Puntaje",
+      .default = term
+    ),
+    Estim. = estimate,
+    EE = std.error,
+    Estad. = statistic
   ) |>
   kable(
     digits = 4,
@@ -496,7 +494,7 @@ tidy(
 
 **Interpretación**
 
-El coeficiente de `standLRT` representa el efecto promedio entre todas las escuelas.
+El coeficiente de `standLRT` resume la asociación promedio entre el puntaje de ingreso y el rendimiento académico, condicionada a la estructura multinivel especificada.
 
 ### Componentes de varianza
 
@@ -508,9 +506,14 @@ as.data.frame(
     modelo_ml
   )
 ) |>
-  select(
-    grp,
-    vcov
+  transmute(
+    Componente = dplyr::recode(
+      grp,
+      "school" = "Escuela",
+      "Residual" = "Residual",
+      .default = grp
+    ),
+    Varianza = vcov
   ) |>
   kable(
     digits = 4,
@@ -533,6 +536,9 @@ ranef(
   head() |>
   tibble::rownames_to_column(
     "Escuela"
+  ) |>
+  rename(
+    Desviación = `(Intercept)`
   ) |>
   kable(
     digits = 4,
