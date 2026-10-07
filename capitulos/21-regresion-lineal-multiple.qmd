@@ -178,17 +178,11 @@ modelo_multiple_1 <- lm(
 broom::tidy(
   modelo_multiple_1
 ) |>
-  select(
-    term,
-    estimate,
-    std.error,
-    p.value
-  ) |>
-  mutate(
-    term = etiquetar_terminos_modelo(term)
-  ) |>
-  setNames(
-    c("Parámetro", "Estim.", "EE", "p")
+  transmute(
+    Parámetro = etiquetar_terminos_modelo(term),
+    Estim. = estimate,
+    EE = std.error,
+    p = formatear_p_tabla(p.value)
   ) |>
   kable(
     digits = 4,
@@ -211,11 +205,11 @@ tibble(
     "Simple",
     "Múltiple"
   ),
-  R2 = c(
+  `R²` = c(
     summary(modelo_simple)$r.squared,
     summary(modelo_multiple_1)$r.squared
   ),
-  R2_Ajustado = c(
+  `R² aj.` = c(
     summary(modelo_simple)$adj.r.squared,
     summary(modelo_multiple_1)$adj.r.squared
   )
@@ -413,17 +407,11 @@ modelo_2 <- lm(
 tidy(
   modelo_2
 ) |>
-  select(
-    term,
-    estimate,
-    std.error,
-    p.value
-  ) |>
-  mutate(
-    term = etiquetar_terminos_modelo(term)
-  ) |>
-  setNames(
-    c("Parámetro", "Estim.", "EE", "p")
+  transmute(
+    Parámetro = etiquetar_terminos_modelo(term),
+    Estim. = estimate,
+    EE = std.error,
+    p = formatear_p_tabla(p.value)
   ) |>
   kable(
     digits = 4,
@@ -446,11 +434,11 @@ tibble(
     "Modelo 1",
     "Modelo 2"
   ),
-  R2 = c(
+  `R²` = c(
     summary(modelo_1)$r.squared,
     summary(modelo_2)$r.squared
   ),
-  R2_Ajustado = c(
+  `R² aj.` = c(
     summary(modelo_1)$adj.r.squared,
     summary(modelo_2)$adj.r.squared
   ),
@@ -550,9 +538,6 @@ coef_modelo1 |>
   mutate(
     term = etiquetar_terminos_modelo(term)
   ) |>
-  mutate(
-    term = etiquetar_terminos_modelo(term)
-  ) |>
   setNames(
     c("Parámetro", "Modelo 1", "Modelo 2")
   ) |>
@@ -581,7 +566,7 @@ tibble(
     "Modelo 1",
     "Modelo 2"
   ),
-  R2_Ajustado = c(
+  `R² aj.` = c(
     summary(modelo_1)$adj.r.squared,
     summary(modelo_2)$adj.r.squared
   )
@@ -812,12 +797,12 @@ modelo_final <- lm(
 glance(
   modelo_final
 ) |>
-  select(
-    r.squared,
-    adj.r.squared,
-    sigma,
-    statistic,
-    p.value
+  transmute(
+    `R²` = r.squared,
+    `R² aj.` = adj.r.squared,
+    Error = sigma,
+    F = statistic,
+    p = formatear_p_tabla(p.value)
   ) |>
   kable(
     digits = 4,
@@ -838,28 +823,18 @@ tidy(
   modelo_final,
   conf.int = TRUE
 ) |>
-  mutate(
-    IC95 = sprintf(
-      "[%.4f; %.4f]",
+  transmute(
+    Parámetro = etiquetar_terminos_modelo(term),
+    `β (IC 95%)` = sprintf(
+      "%.3f [%.3f; %.3f]",
+      estimate,
       conf.low,
       conf.high
-    )
-  ) |>
-  select(
-    term,
-    estimate,
-    IC95,
-    p.value
-  ) |>
-  mutate(
-    term = etiquetar_terminos_modelo(term)
-  ) |>
-  setNames(
-    c("Parámetro", "Estim.", "IC 95%", "p")
+    ),
+    p = formatear_p_tabla(p.value)
   ) |>
   kable(
-    digits = 4,
-    align = c("l", "r", "c", "r"),
+    align = c("l", "c", "r"),
     caption = "Coeficientes estimados del modelo final"
   )
 ```

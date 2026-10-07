@@ -928,19 +928,12 @@ base_modelo <- base_modelo |>
 glance(
   modelo_diag
 ) |>
-  select(
-    r.squared,
-    adj.r.squared,
-    sigma,
-    statistic,
-    p.value
-  ) |>
-  rename(
-    R2 = r.squared,
-    R2_Ajustado = adj.r.squared,
-    Error_Residual = sigma,
-    Estadistico_F = statistic,
-    Valor_p = p.value
+  transmute(
+    `R²` = r.squared,
+    `R² aj.` = adj.r.squared,
+    Error = sigma,
+    F = statistic,
+    p = formatear_p_tabla(p.value)
   ) |>
   kable(
     digits = 4,

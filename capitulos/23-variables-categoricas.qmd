@@ -826,14 +826,11 @@ modelo_aditivo <- lm(
 glance(
   modelo_aditivo
 ) |>
-  select(
-    r.squared,
-    adj.r.squared,
-    statistic,
-    p.value
-  ) |>
-  setNames(
-    c("R²", "R² aj.", "F", "p")
+  transmute(
+    `R²` = r.squared,
+    `R² aj.` = adj.r.squared,
+    F = statistic,
+    p = formatear_p_tabla(p.value)
   ) |>
   kable(
     digits = 4,
@@ -868,14 +865,11 @@ modelo_interaccion <- lm(
 glance(
   modelo_interaccion
 ) |>
-  select(
-    r.squared,
-    adj.r.squared,
-    statistic,
-    p.value
-  ) |>
-  setNames(
-    c("R²", "R² aj.", "F", "p")
+  transmute(
+    `R²` = r.squared,
+    `R² aj.` = adj.r.squared,
+    F = statistic,
+    p = formatear_p_tabla(p.value)
   ) |>
   kable(
     digits = 4,
@@ -896,28 +890,18 @@ tidy(
   modelo_interaccion,
   conf.int = TRUE
 ) |>
-  mutate(
-    IC95 = sprintf(
-      "[%.4f; %.4f]",
+  transmute(
+    Parámetro = etiquetar_terminos_modelo(term),
+    `β (IC 95%)` = sprintf(
+      "%.3f [%.3f; %.3f]",
+      estimate,
       conf.low,
       conf.high
-    )
-  ) |>
-  select(
-    term,
-    estimate,
-    IC95,
-    p.value
-  ) |>
-  mutate(
-    term = etiquetar_terminos_modelo(term)
-  ) |>
-  setNames(
-    c("Parámetro", "Estim.", "IC 95%", "p")
+    ),
+    p = formatear_p_tabla(p.value)
   ) |>
   kable(
-    digits = 4,
-    align = c("l", "r", "c", "r"),
+    align = c("l", "c", "r"),
     caption = "Coeficientes del modelo con interacción"
   )
 ```
@@ -944,7 +928,7 @@ tibble(
     "Aditivo",
     "Interacción"
   ),
-  R2 = c(
+  `R²` = c(
     summary(
       modelo_aditivo
     )$r.squared,
@@ -952,7 +936,7 @@ tibble(
       modelo_interaccion
     )$r.squared
   ),
-  R2_Ajustado = c(
+  `R² aj.` = c(
     summary(
       modelo_aditivo
     )$adj.r.squared,
@@ -991,14 +975,16 @@ anova_interaccion |>
       "Aditivo",
       "Interacción"
     ),
-    gl_res = Res.Df,
-    gl = Df,
-    F = F,
-    p = `Pr(>F)`
+    `gl resid.` = Res.Df,
+    F = if_else(
+      is.na(F),
+      NA_character_,
+      formatC(F, format = "f", digits = 2, decimal.mark = ",")
+    ),
+    p = formatear_p_tabla(`Pr(>F)`)
   ) |>
   kable(
-    digits = 4,
-    align = c("l", "r", "r", "r", "r"),
+    align = c("l", "r", "r", "r"),
     caption = "Comparación entre modelos anidados"
   )
 ```
@@ -1065,6 +1051,11 @@ nuevos_datos |>
         modelo_interaccion,
         newdata = nuevos_datos
       )
+  ) |>
+  transmute(
+    Capital = capital,
+    Tamaño = tamano_empresa,
+    Predicción = prediccion
   ) |>
   kable(
     digits = 3,

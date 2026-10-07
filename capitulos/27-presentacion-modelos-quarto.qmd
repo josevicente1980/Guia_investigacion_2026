@@ -97,6 +97,17 @@ modelo_1 <- lm(
 broom::tidy(
   modelo_1
 ) |>
+  transmute(
+    Parámetro = dplyr::recode(
+      term,
+      "(Intercept)" = "Intercepto",
+      "gdpPercap" = "PIB pc",
+      .default = term
+    ),
+    Estim. = estimate,
+    EE = std.error,
+    p = formatear_p_tabla(p.value)
+  ) |>
   kable(
     digits = 4,
     caption = "Resultados básicos del modelo"
@@ -117,8 +128,16 @@ El paquete `modelsummary` permite construir tablas reproducibles y adaptables a 
 modelsummary(
   modelo_1,
   stars = FALSE,
-  title = "Modelo de esperanza de vida"
-)
+  coef_map = c(
+    "(Intercept)" = "Intercepto",
+    "gdpPercap" = "PIB pc"
+  ),
+  gof_map = c("nobs", "r.squared"),
+  output = "data.frame"
+) |>
+  kable(
+    caption = "Modelo de esperanza de vida"
+  )
 ```
 
 **Interpretación**
@@ -140,9 +159,16 @@ modelsummary(
   modelo_1,
   stars = FALSE,
   statistic = "std.error",
-  gof_omit = "IC|Log|F",
-  title = "Modelo lineal simple"
-)
+  coef_map = c(
+    "(Intercept)" = "Intercepto",
+    "gdpPercap" = "PIB pc"
+  ),
+  gof_map = c("nobs", "r.squared"),
+  output = "data.frame"
+) |>
+  kable(
+    caption = "Modelo lineal simple"
+  )
 ```
 
 **Interpretación**
@@ -176,13 +202,24 @@ modelo_3 <- lm(
 
 modelsummary(
   list(
-    "Modelo 1" = modelo_1,
-    "Modelo 2" = modelo_2,
-    "Modelo 3" = modelo_3
+    "M1" = modelo_1,
+    "M2" = modelo_2,
+    "M3" = modelo_3
   ),
   stars = FALSE,
-  title = "Comparación de modelos"
-)
+  statistic = "std.error",
+  coef_map = c(
+    "(Intercept)" = "Intercepto",
+    "gdpPercap" = "PIB pc",
+    "year" = "Año",
+    "pop" = "Población"
+  ),
+  gof_map = c("nobs", "r.squared"),
+  output = "data.frame"
+) |>
+  kable(
+    caption = "Comparación de modelos"
+  )
 ```
 
 **Interpretación**
@@ -204,8 +241,25 @@ broom::tidy(
   modelo_3,
   conf.int = TRUE
 ) |>
+  transmute(
+    Parámetro = dplyr::recode(
+      term,
+      "(Intercept)" = "Intercepto",
+      "gdpPercap" = "PIB pc",
+      "year" = "Año",
+      "pop" = "Población",
+      .default = term
+    ),
+    `β (IC 95%)` = sprintf(
+      "%.3f [%.3f; %.3f]",
+      estimate,
+      conf.low,
+      conf.high
+    ),
+    p = formatear_p_tabla(p.value)
+  ) |>
   kable(
-    digits = 4,
+    align = c("l", "c", "r"),
     caption = "Coeficientes e intervalos de confianza"
   )
 ```
