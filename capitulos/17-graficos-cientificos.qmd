@@ -482,7 +482,7 @@ Utilizando la base `base_analitica`:
 9. Explique la diferencia entre un gráfico exploratorio y uno científico.
 10. Justifique la importancia de la reproducibilidad gráfica.
 
-# Parte 2. Gráficos científicos para tesis, informes y artículos
+**Gráficos científicos para tesis, informes y artículos.**
 
 **Introducción.**
 
@@ -886,7 +886,7 @@ Utilizando la base `base_analitica`:
 9. Mejore el etiquetado de una figura.
 10. Evalúe cuáles figuras serían apropiadas para una tesis.
 
-# Parte 3. Figuras avanzadas para publicaciones científicas
+**Figuras avanzadas para publicaciones científicas.**
 
 **Introducción.**
 

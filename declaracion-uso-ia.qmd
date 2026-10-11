@@ -1,0 +1,11 @@
+# Declaración de uso de inteligencia artificial {.unnumbered}
+
+Durante la preparación de esta obra se utilizó **ChatGPT, desarrollado por OpenAI**, como herramienta auxiliar de apoyo editorial y técnico. Su uso se orientó a la organización de contenidos, revisión de coherencia y claridad expositiva, propuestas de reestructuración, revisión lingüística, apoyo en la depuración de código R y Quarto, identificación preliminar de posibles inconsistencias metodológicas y preparación de listas de comprobación para la auditoría del manuscrito.
+
+Las instrucciones proporcionadas a la herramienta se formularon de manera iterativa y estuvieron dirigidas, entre otros aspectos, a mejorar la estructura pedagógica de los capítulos, revisar fragmentos de código, detectar problemas de interpretación estadística, proponer redacciones alternativas y apoyar la verificación de requisitos editoriales.
+
+Las respuestas generadas no se incorporaron de manera automática. Los autores revisaron, adaptaron, contrastaron y, cuando correspondía, descartaron las propuestas antes de integrarlas al manuscrito. La herramienta de inteligencia artificial no fue considerada fuente académica ni sustituyó la consulta de literatura científica, documentación oficial, datos originales o resultados obtenidos mediante código reproducible.
+
+Las referencias bibliográficas, afirmaciones metodológicas, resultados cuantitativos y decisiones editoriales fueron sometidos a verificación humana y, cuando correspondía, contrastados con fuentes académicas, documentación institucional o ejecución reproducible del código. Los autores asumen la responsabilidad íntegra por el contenido final de la obra.
+
+Entre las limitaciones consideradas se encuentran la posibilidad de respuestas inexactas, referencias incorrectas, simplificaciones metodológicas y formulaciones que requieran revisión especializada. Por esta razón, el uso de la herramienta se mantuvo bajo supervisión humana y con criterios de transparencia, trazabilidad y responsabilidad académica.

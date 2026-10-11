@@ -18,7 +18,6 @@ book:
 
   chapters:
     - index.qmd
-    - prologo.qmd
     - como-utilizar-este-libro.qmd
 
     - part: "Parte I. Fundamentos de la investigación reproducible"
@@ -81,6 +80,7 @@ book:
         - capitulos/35-dashboard-shiny.qmd
 
     - bibliografia.qmd
+    - declaracion-uso-ia.qmd
     
 bibliography: referencias/referencias.bib
 csl: referencias/apa.csl

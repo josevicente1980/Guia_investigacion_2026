@@ -1,4 +1,4 @@
-# Cómo utilizar este libro
+# Cómo utilizar este libro {.unnumbered}
 
 Este libro ha sido diseñado para ser utilizado de manera progresiva. Cada capítulo incorpora nuevos conceptos, herramientas y procedimientos que se apoyan en los conocimientos desarrollados previamente.
 

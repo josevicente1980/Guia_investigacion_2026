@@ -1,4 +1,4 @@
-# Presentación
+# Presentación {.unnumbered}
 
 La investigación científica ha experimentado una transformación profunda durante las últimas décadas. La disponibilidad de grandes volúmenes de información, el acceso a bases de datos abiertas, el desarrollo de software libre y el crecimiento de la ciencia abierta han modificado la forma en que se generan, analizan y comunican los resultados de investigación.
 
@@ -8,7 +8,7 @@ Este libro surge como una respuesta a esa necesidad. Su propósito es enseñar a
 
 A lo largo de esta guía se utilizarán principalmente R y Quarto, dos herramientas de código abierto ampliamente utilizadas por investigadores, universidades y centros de investigación alrededor del mundo. Estas herramientas permitirán automatizar procesos que tradicionalmente se realizan de manera manual, reduciendo errores y mejorando la calidad de los productos científicos.
 
-# ¿Por qué este libro?
+## ¿Por qué este libro?
 
 La investigación contemporánea exige mucho más que la aplicación de técnicas estadísticas. Los investigadores deben ser capaces de formular preguntas relevantes, gestionar información científica, analizar datos de manera rigurosa, construir modelos explicativos y comunicar sus hallazgos de forma clara y transparente.
 
@@ -16,7 +16,7 @@ Este libro ha sido diseñado para acompañar al estudiante durante todo ese proc
 
 El lector aprenderá a construir un proyecto completo, desde la definición del problema de investigación hasta la generación automática de informes, presentaciones y productos interactivos.
 
-# ¿A quién está dirigido?
+## ¿A quién está dirigido?
 
 Esta obra está dirigida a:
 
@@ -28,7 +28,7 @@ Esta obra está dirigida a:
 
 No se requieren conocimientos previos de programación, ya que cada procedimiento será desarrollado paso a paso mediante ejemplos prácticos.
 
-# Competencias que desarrollará el lector
+## Competencias que desarrollará el lector
 
 Al finalizar este libro, el lector será capaz de:
 
@@ -42,13 +42,13 @@ Al finalizar este libro, el lector será capaz de:
 - Generar automáticamente documentos en formatos HTML, PDF y Word.
 - Elaborar presentaciones académicas y productos interactivos para la difusión de resultados.
 
-# ¿Cómo está organizado el libro?
+## ¿Cómo está organizado el libro?
 
 El contenido se encuentra estructurado en ocho partes.
 
 La primera aborda los fundamentos de la investigación reproducible y la ciencia abierta. La segunda se centra en la organización del proyecto y el entorno de trabajo. La tercera desarrolla los elementos fundamentales del diseño de investigación. La cuarta y quinta introducen la gestión y análisis descriptivo de datos. La sexta incorpora técnicas de modelación econométrica aplicadas a la investigación. La séptima se enfoca en la redacción científica y la construcción del informe final. Finalmente, la octava presenta herramientas para la generación de productos académicos y de divulgación científica.
 
-# Recursos necesarios
+## Recursos necesarios
 
 Antes de iniciar el desarrollo de los ejercicios propuestos, es importante preparar un entorno de trabajo adecuado. Las herramientas y recursos que se presentan a continuación constituyen la base para implementar un flujo de investigación reproducible, permitiendo desarrollar, documentar y comunicar cada etapa del proceso científico de manera organizada y eficiente. Aunque al inicio algunos programas puedan resultar nuevos para el lector, su uso será introducido progresivamente a lo largo del libro mediante ejemplos prácticos.
 
@@ -69,7 +69,7 @@ Para desarrollar las actividades propuestas en este libro se recomienda disponer
 
 Todas las herramientas utilizadas son de acceso libre o cuentan con alternativas gratuitas.
 
-# Convenciones utilizadas en el libro
+## Convenciones utilizadas en el libro
 
 El propósito de las convenciones no es únicamente facilitar la lectura, sino promover una forma organizada y reproducible de trabajar. Para facilitar la lectura, se emplearán diferentes elementos para distinguir conceptos, procedimientos y ejemplos.
 

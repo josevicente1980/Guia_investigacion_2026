@@ -432,7 +432,7 @@ Utilizando la base `base_analitica`:
 9. Justifique conceptualmente la inclusión de cada variable.
 10. Diseñe un esquema preliminar de modelación.
 
-# Parte 2. Introducción a la regresión lineal
+**Introducción a la regresión lineal.**
 
 **Introducción.**
 
@@ -847,7 +847,7 @@ Utilizando la base de datos denominada `matriz_modelo`:
 9. Evalúe qué modelo explica mejor la variabilidad observada.
 10. Redacte una interpretación sustantiva de los resultados.
 
-# Parte 3. Hacia modelos más complejos
+**Hacia modelos más complejos.**
 
 **Introducción.**
 
