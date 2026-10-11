@@ -222,6 +222,7 @@ author:
   - name: José Vicente Ordóñez Yaguache
   - name: Yomara Karolina Ruiz Reyes
   - name: Kevin Marlow Jiménez Villavicencio
+  - name: Andrea Yolanda Jaramillo Castillo
 ```
 
 ### Capítulos
