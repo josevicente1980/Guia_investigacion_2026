@@ -9,63 +9,147 @@ if (-not (Test-Path -LiteralPath $Path)) {
   throw "No se encontró el DOCX: $Path"
 }
 
-$word = $null
-$doc = $null
+Add-Type -AssemblyName System.IO.Compression
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+$fullPath = (Resolve-Path -LiteralPath $Path).Path
+$stream = [System.IO.File]::Open(
+  $fullPath,
+  [System.IO.FileMode]::Open,
+  [System.IO.FileAccess]::ReadWrite,
+  [System.IO.FileShare]::None
+)
 
 try {
-  $fullPath = (Resolve-Path -LiteralPath $Path).Path
-
-  $word = New-Object -ComObject Word.Application
-  $word.Visible = $false
-  $word.DisplayAlerts = 0
-
-  $doc = $word.Documents.Open(
-    $fullPath,
-    $false,  # ConfirmConversions
-    $false,  # ReadOnly
-    $false,  # AddToRecentFiles
-    "",      # PasswordDocument
-    "",      # PasswordTemplate
-    $false,  # Revert
-    "",      # WritePasswordDocument
-    "",      # WritePasswordTemplate
-    0,       # Format: auto
-    0,       # Encoding: auto
-    $false,  # Visible
-    $true    # OpenAndRepair
+  $zip = New-Object System.IO.Compression.ZipArchive(
+    $stream,
+    [System.IO.Compression.ZipArchiveMode]::Update,
+    $false
   )
 
-  $count = $doc.Tables.Count
+  try {
+    $entry = $zip.GetEntry("word/document.xml")
+    if ($null -eq $entry) {
+      throw "El DOCX no contiene word/document.xml."
+    }
 
-  for ($i = 1; $i -le $count; $i++) {
-    $table = $doc.Tables.Item($i)
+    $reader = New-Object System.IO.StreamReader($entry.Open(), [System.Text.Encoding]::UTF8, $true)
+    $xml = $reader.ReadToEnd()
+    $reader.Close()
 
-    # wdAutoFitWindow = 2: ajusta la tabla al ancho disponible
-    # entre los márgenes de la sección.
-    $table.AllowAutoFit = -1
-    $table.AutoFitBehavior(2)
+    $page = [regex]::Match($xml, '<w:pgSz\b[^>]*w:w="(\d+)"[^>]*/?>')
+    $margins = [regex]::Match($xml, '<w:pgMar\b[^>]*w:right="(\d+)"[^>]*w:left="(\d+)"[^>]*/?>')
 
-    # wdPreferredWidthPercent = 2
-    $table.PreferredWidthType = 2
-    $table.PreferredWidth = 100
+    if (-not $page.Success -or -not $margins.Success) {
+      throw "No fue posible determinar el ancho útil del documento."
+    }
+
+    $pageWidth = [int]$page.Groups[1].Value
+    $rightMargin = [int]$margins.Groups[1].Value
+    $leftMargin = [int]$margins.Groups[2].Value
+    $usableWidth = $pageWidth - $leftMargin - $rightMargin
+
+    if ($usableWidth -le 0) {
+      throw "El ancho útil calculado no es válido."
+    }
+
+    $adjusted = 0
+
+    $xml = [regex]::Replace(
+      $xml,
+      '(?s)<w:tbl\b.*?</w:tbl>',
+      {
+        param($match)
+
+        $table = $match.Value
+        $gridMatches = [regex]::Matches(
+          $table,
+          '<w:gridCol\b[^>]*w:w="(\d+)"[^>]*/?>'
+        )
+
+        if ($gridMatches.Count -eq 0) {
+          return $table
+        }
+
+        $gridTotal = 0
+        foreach ($gridMatch in $gridMatches) {
+          $gridTotal += [int]$gridMatch.Groups[1].Value
+        }
+
+        if ($gridTotal -le $usableWidth) {
+          return $table
+        }
+
+        $factor = $usableWidth / [double]$gridTotal
+
+        $table = [regex]::Replace(
+          $table,
+          '<w:gridCol\b([^>]*?)w:w="(\d+)"([^>]*)/?>',
+          {
+            param($grid)
+            $oldWidth = [int]$grid.Groups[2].Value
+            $newWidth = [math]::Max(1, [math]::Floor($oldWidth * $factor))
+            '<w:gridCol' + $grid.Groups[1].Value +
+              'w:w="' + $newWidth + '"' + $grid.Groups[3].Value + '/>'
+          }
+        )
+
+        $table = [regex]::Replace(
+          $table,
+          '<w:tcW\b([^>]*?)w:w="(\d+)"([^>]*?)w:type="dxa"([^>]*)/?>',
+          {
+            param($cell)
+            $oldWidth = [int]$cell.Groups[2].Value
+            $newWidth = [math]::Max(1, [math]::Floor($oldWidth * $factor))
+            '<w:tcW' + $cell.Groups[1].Value +
+              'w:w="' + $newWidth + '"' + $cell.Groups[3].Value +
+              'w:type="dxa"' + $cell.Groups[4].Value + '/>'
+          }
+        )
+
+        $table = [regex]::Replace(
+          $table,
+          '<w:tblW\b[^>]*/>',
+          '<w:tblW w:type="pct" w:w="5000"/>',
+          1
+        )
+
+        if ([regex]::IsMatch($table, '<w:tblLayout\b[^>]*/>')) {
+          $table = [regex]::Replace(
+            $table,
+            '<w:tblLayout\b[^>]*/>',
+            '<w:tblLayout w:type="fixed"/>',
+            1
+          )
+        }
+        else {
+          $table = [regex]::Replace(
+            $table,
+            '(<w:tblPr\b[^>]*>)',
+            '$1<w:tblLayout w:type="fixed"/>',
+            1
+          )
+        }
+
+        $adjusted++
+        return $table
+      }
+    )
+
+    $entry.Delete()
+    $newEntry = $zip.CreateEntry("word/document.xml", [System.IO.Compression.CompressionLevel]::Optimal)
+    $writer = New-Object System.IO.StreamWriter($newEntry.Open(), (New-Object System.Text.UTF8Encoding($false)))
+    $writer.Write($xml)
+    $writer.Flush()
+    $writer.Close()
+
+    Write-Output ("Tablas ajustadas al ancho útil del documento: " + $adjusted)
+    Write-Output ("Ancho útil OOXML: " + $usableWidth + " twips")
   }
-
-  $doc.Save()
-  $doc.Close()
-  $doc = $null
-
-  Write-Output ("Tablas ajustadas por Microsoft Word: " + $count)
+  finally {
+    $zip.Dispose()
+  }
 }
 finally {
-  if ($null -ne $doc) {
-    try { $doc.Close($false) } catch {}
-  }
-
-  if ($null -ne $word) {
-    try { $word.Quit() } catch {}
-    [void][System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($word)
-  }
-
-  [GC]::Collect()
-  [GC]::WaitForPendingFinalizers()
+  $stream.Dispose()
 }
