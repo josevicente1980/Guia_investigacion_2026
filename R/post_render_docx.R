@@ -96,7 +96,7 @@ if (!is.null(estado_tablas) && estado_tablas != 0) {
 }
 
 message(
-  "Post-render DOCX: tablas ajustadas mediante Microsoft Word sobre la copia final."
+  "Post-render DOCX: tablas ajustadas al ancho útil de la página."
 )
 
 message(
