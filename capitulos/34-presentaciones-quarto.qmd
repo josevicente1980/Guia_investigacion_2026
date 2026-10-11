@@ -31,7 +31,7 @@ Quarto permite generar presentaciones completamente reproducibles utilizando una
 
 **Configuración inicial.**
 
-### Carga de librerías y datos
+**Carga de librerías y datos.**
 
 ```{r}
 #| label: reg34-cargar-librerias-datos
@@ -91,7 +91,7 @@ La opción `revealjs` indica que Quarto debe generar una presentación HTML.
 
 En una presentación RevealJS, los encabezados de nivel 2 (`##`) suelen crear diapositivas, mientras que los de nivel 1 (`#`) pueden utilizarse como divisores de sección. Quarto determina automáticamente el nivel de diapositiva si no se especifica `slide-level`, por lo que conviene fijarlo explícitamente cuando la estructura del documento lo requiera.
 
-### Ejemplo
+**Ejemplo.**
 
 ```markdown
 ### Introducción
@@ -125,7 +125,7 @@ datos_presentacion |>
   )
 ```
 
-### Interpretación
+**Interpretación.**
 
 La tabla se actualizará automáticamente cuando cambien los datos utilizados.
 
@@ -153,7 +153,7 @@ ggplot(
   theme_minimal()
 ```
 
-### Interpretación
+**Interpretación.**
 
 La figura se genera automáticamente utilizando los datos originales.
 
@@ -165,7 +165,7 @@ Los gráficos siempre estarán sincronizados con el análisis.
 
 RevealJS incorpora varios temas prediseñados.
 
-### Configuración
+**Configuración.**
 
 ```yaml
 format:
@@ -182,7 +182,7 @@ Temas disponibles:
 * serif
 * solarized
 
-### Numeración automática
+**Numeración automática.**
 
 ```yaml
 format:
@@ -190,11 +190,11 @@ format:
     slide-number: true
 ```
 
-### Interpretación
+**Interpretación.**
 
 Facilita la navegación durante exposiciones extensas.
 
-### Tabla de contenidos
+**Tabla de contenidos.**
 
 ```yaml
 format:
@@ -202,11 +202,11 @@ format:
     toc: true
 ```
 
-### Interpretación
+**Interpretación.**
 
 Permite acceder rápidamente a cualquier sección de la presentación.
 
-### Transiciones
+**Transiciones.**
 
 ```yaml
 format:
@@ -222,7 +222,7 @@ Opciones disponibles:
 * convex
 * concave
 
-### Diseño en columnas
+**Diseño en columnas.**
 
 ```markdown
 :::: {.columns}
@@ -242,7 +242,7 @@ Gráfico
 :::
 ```
 
-### Interpretación
+**Interpretación.**
 
 Permite combinar explicaciones y visualizaciones en una misma diapositiva.
 
@@ -309,7 +309,7 @@ tibble(
   kable()
 ```
 
-### Interpretación
+**Interpretación.**
 
 Quarto permite mantener coherencia entre análisis, resultados y presentación.
 
@@ -330,7 +330,7 @@ quarto::quarto_render(
 )
 ```
 
-### Lista de verificación
+**Lista de verificación.**
 
 ```{r}
 #| label: tbl-reg34-checklist

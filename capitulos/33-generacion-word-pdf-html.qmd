@@ -36,9 +36,9 @@ A partir de un único archivo `.qmd`, es posible generar:
 
 Esto elimina la necesidad de copiar resultados manualmente entre diferentes plataformas.
 
-### Configuración inicial
+**Configuración inicial.**
 
-### Carga de librerías
+**Carga de librerías.**
 
 ```{r}
 #| label: reg33-cargar-librerias
@@ -49,7 +49,7 @@ Esto elimina la necesidad de copiar resultados manualmente entre diferentes plat
 
 ```
 
-### Carga de datos
+**Carga de datos.**
 
 ```{r}
 #| label: reg33-cargar-datos
@@ -85,7 +85,7 @@ El encabezado YAML controla la configuración general del documento.
 
 El formato HTML es el más flexible para distribución digital.
 
-### Configuración
+**Configuración.**
 
 ```yaml
 ---
@@ -94,7 +94,7 @@ format: html
 ---
 ```
 
-### Renderización
+**Renderización.**
 
 ```{r}
 #| label: tbl-reg33-html
@@ -115,7 +115,7 @@ El documento se transforma automáticamente en una página web navegable.
 
 Los documentos PDF son ampliamente utilizados para tesis, artículos y reportes institucionales.
 
-### Configuración
+**Configuración.**
 
 ```yaml
 ---
@@ -126,7 +126,7 @@ format:
 ---
 ```
 
-### Renderización
+**Renderización.**
 
 ```{r}
 #| label: tbl-reg33-pdf
@@ -147,7 +147,7 @@ Quarto utiliza LaTeX para producir documentos PDF de alta calidad tipográfica.
 
 Word continúa siendo uno de los formatos más solicitados en contextos académicos y profesionales.
 
-### Configuración
+**Configuración.**
 
 ```yaml
 ---
@@ -157,7 +157,7 @@ format:
 ---
 ```
 
-### Renderización
+**Renderización.**
 
 ```{r}
 #| label: tbl-reg33-word
@@ -178,7 +178,7 @@ El documento generado puede editarse posteriormente mediante Microsoft Word.
 
 Una de las ventajas más importantes de Quarto es la posibilidad de producir varios formatos desde el mismo documento.
 
-### YAML
+**YAML.**
 
 ```yaml
 ---
@@ -254,7 +254,7 @@ Quarto adapta automáticamente la figura al formato de salida.
 
 ### Tabla de contenidos automática
 
-### Configuración
+**Configuración.**
 
 ```yaml
 format:
@@ -274,7 +274,7 @@ La tabla de contenidos mejora la navegación en documentos extensos.
 
 ### Numeración automática
 
-### Configuración
+**Configuración.**
 
 ```yaml
 number-sections: true
@@ -286,14 +286,14 @@ Las secciones se numeran automáticamente durante la compilación.
 
 ## Referencias bibliográficas automáticas
 
-### YAML
+**YAML.**
 
 ```yaml
 bibliography: referencias.bib
 csl: apa.csl
 ```
 
-### Ejemplo
+**Ejemplo.**
 
 ```markdown
 Según @peng2011 la reproducibilidad constituye un principio fundamental de la ciencia moderna.
@@ -357,11 +357,11 @@ Estos comandos permiten automatizar la generación de documentos. Durante la esc
 
 ### Errores frecuentes
 
-### Problema
+**Problema.**
 
 No encuentra LaTeX.
 
-### Solución
+**Solución.**
 
 Instalar TinyTeX:
 
@@ -369,23 +369,23 @@ Instalar TinyTeX:
 tinytex::install_tinytex()
 ```
 
-### Problema
+**Problema.**
 
 No encuentra bibliografía.
 
-### Solución
+**Solución.**
 
 Verificar la ruta del archivo `.bib`.
 
-### Problema
+**Problema.**
 
 Las figuras no aparecen.
 
-### Solución
+**Solución.**
 
 Revisar errores dentro de los chunks.
 
-### Lista de verificación
+**Lista de verificación.**
 
 ```{r}
 #| label: tbl-reg33-checklist
@@ -414,7 +414,7 @@ tibble(
 
 Antes de distribuir un documento deben verificarse únicamente los formatos exigidos por el destino editorial o institucional, además de revisar que tablas, figuras, referencias y resultados se hayan generado desde el código vigente.
 
-### Manos a la obra
+**Manos a la obra.**
 
 1. Cree un archivo `.qmd`.
 2. Agregue un encabezado YAML.
