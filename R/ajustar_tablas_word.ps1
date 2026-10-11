@@ -37,16 +37,28 @@ try {
     $xml = $reader.ReadToEnd()
     $reader.Close()
 
-    $page = [regex]::Match($xml, '<w:pgSz\b[^>]*w:w="(\d+)"[^>]*/?>')
-    $margins = [regex]::Match($xml, '<w:pgMar\b[^>]*w:right="(\d+)"[^>]*w:left="(\d+)"[^>]*/?>')
+    $pageTag = [regex]::Match($xml, '<w:pgSz\b[^>]*>')
+    $marginTag = [regex]::Match($xml, '<w:pgMar\b[^>]*>')
 
-    if (-not $page.Success -or -not $margins.Success) {
+    if (-not $pageTag.Success -or -not $marginTag.Success) {
+      throw "No fue posible localizar el tamaño de página o los márgenes del documento."
+    }
+
+    $pageWidthMatch = [regex]::Match($pageTag.Value, 'w:w="(\d+)"')
+    $leftMarginMatch = [regex]::Match($marginTag.Value, 'w:left="(\d+)"')
+    $rightMarginMatch = [regex]::Match($marginTag.Value, 'w:right="(\d+)"')
+
+    if (
+      -not $pageWidthMatch.Success -or
+      -not $leftMarginMatch.Success -or
+      -not $rightMarginMatch.Success
+    ) {
       throw "No fue posible determinar el ancho útil del documento."
     }
 
-    $pageWidth = [int]$page.Groups[1].Value
-    $rightMargin = [int]$margins.Groups[1].Value
-    $leftMargin = [int]$margins.Groups[2].Value
+    $pageWidth = [int]$pageWidthMatch.Groups[1].Value
+    $leftMargin = [int]$leftMarginMatch.Groups[1].Value
+    $rightMargin = [int]$rightMarginMatch.Groups[1].Value
     $usableWidth = $pageWidth - $leftMargin - $rightMargin
 
     if ($usableWidth -le 0) {
