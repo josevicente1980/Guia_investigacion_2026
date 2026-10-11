@@ -1,22 +1,27 @@
--- Evita que las tablas DOCX hereden anchos de columna que excedan
--- el ancho útil de la página. En Word, dejar el ancho sin especificar
--- permite que el escritor DOCX de Pandoc adapte las columnas al espacio
--- disponible del documento de referencia.
+-- Ajusta las tablas DOCX al ancho disponible mediante proporciones
+-- explícitas de columna. Dejar ColWidthDefault hacía que Pandoc/Word
+-- repartiera el ancho según el contenido y algunas tablas quedaban
+-- cortadas o con columnas prácticamente invisibles.
 --
--- Solo actúa sobre DOCX; no modifica HTML, PDF u otros formatos.
+-- Para DOCX se asigna a cada columna una fracción igual del ancho total.
+-- Pandoc interpreta estas fracciones de forma relativa dentro del ancho
+-- disponible de la página definido por el reference-doc.
 
 function Table(tbl)
   if FORMAT ~= "docx" then
     return nil
   end
 
-  if tbl.colspecs == nil then
+  if tbl.colspecs == nil or #tbl.colspecs == 0 then
     return tbl
   end
 
-  tbl.colspecs = tbl.colspecs:map(function(colspec)
-    return { colspec[1], nil }
-  end)
+  local n = #tbl.colspecs
+  local width = 1 / n
+
+  for i = 1, n do
+    tbl.colspecs[i][2] = width
+  end
 
   return tbl
 end
