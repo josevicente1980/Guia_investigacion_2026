@@ -258,19 +258,52 @@ coef_comparacion <- dplyr::bind_rows(
     values_from = Valor
   )
 
-coef_comparacion_larga <- coef_comparacion |>
-  tidyr::pivot_longer(
-    cols = c(M1, M2, M3),
-    names_to = "Modelo",
-    values_to = "Estimación (EE)"
-  ) |>
-  filter(!is.na(`Estimación (EE)`)) |>
-  select(Modelo, Parámetro, `Estimación (EE)`)
+coef_comparacion_larga <- dplyr::bind_rows(
+  broom::tidy(modelo_1) |>
+    transmute(
+      Modelo = "M1",
+      Parámetro = dplyr::recode(
+        term,
+        "(Intercept)" = "Intercepto",
+        "gdpPercap" = "PIB pc",
+        .default = term
+      ),
+      Estim. = formatear_num_tabla(estimate, 3),
+      EE = formatear_num_tabla(std.error, 3)
+    ),
+  broom::tidy(modelo_2) |>
+    transmute(
+      Modelo = "M2",
+      Parámetro = dplyr::recode(
+        term,
+        "(Intercept)" = "Intercepto",
+        "gdpPercap" = "PIB pc",
+        "year" = "Año",
+        .default = term
+      ),
+      Estim. = formatear_num_tabla(estimate, 3),
+      EE = formatear_num_tabla(std.error, 3)
+    ),
+  broom::tidy(modelo_3) |>
+    transmute(
+      Modelo = "M3",
+      Parámetro = dplyr::recode(
+        term,
+        "(Intercept)" = "Intercepto",
+        "gdpPercap" = "PIB pc",
+        "year" = "Año",
+        "pop" = "Población",
+        .default = term
+      ),
+      Estim. = formatear_num_tabla(estimate, 3),
+      EE = formatear_num_tabla(std.error, 3)
+    )
+)
 
 coef_comparacion_larga |>
   kable(
-    align = c("l", "l", "c"),
-    caption = "Comparación de modelos; error estándar entre paréntesis"
+    align = c("l", "l", "r", "r"),
+    caption = "Comparación de modelos"
   )
 ```
 
@@ -289,7 +322,7 @@ En ocasiones es necesario construir tablas personalizadas.
 ```{r}
 #| label: tbl-reg27-coeficientes
 
-broom::tidy(
+tabla_ic <- broom::tidy(
   modelo_3,
   conf.int = TRUE
 ) |>
@@ -302,13 +335,20 @@ broom::tidy(
       "pop" = "Población",
       .default = term
     ),
-    β = formatear_num_tabla(estimate, 3),
-    `IC inf.` = formatear_num_tabla(conf.low, 3),
-    `IC sup.` = formatear_num_tabla(conf.high, 3),
+    `β` = formatear_num_tabla(estimate, 3),
+    `IC inferior` = formatear_num_tabla(conf.low, 3),
+    `IC superior` = formatear_num_tabla(conf.high, 3),
     p = formatear_p_tabla(p.value)
   ) |>
+  tidyr::pivot_longer(
+    cols = c(`β`, `IC inferior`, `IC superior`, p),
+    names_to = "Medida",
+    values_to = "Valor"
+  )
+
+tabla_ic |>
   kable(
-    align = c("l", "r", "r", "r", "r"),
+    align = c("l", "l", "r"),
     caption = "Coeficientes e intervalos de confianza"
   )
 ```
