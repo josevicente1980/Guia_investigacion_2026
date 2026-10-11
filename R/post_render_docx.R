@@ -12,36 +12,6 @@ if (!file.exists(archivo_docx)) {
   quit(save = "no", status = 0)
 }
 
-script_tablas <- file.path("R", "ajustar_tablas_docx.ps1")
-
-if (!file.exists(script_tablas)) {
-  stop("No se encontró el script para ajustar las tablas del DOCX.")
-}
-
-resultado_tablas <- system2(
-  "powershell",
-  c(
-    "-NoProfile",
-    "-ExecutionPolicy", "Bypass",
-    "-File", shQuote(normalizePath(script_tablas, winslash = "\\", mustWork = TRUE)),
-    "-Path", shQuote(normalizePath(archivo_docx, winslash = "\\", mustWork = TRUE))
-  ),
-  stdout = TRUE,
-  stderr = TRUE
-)
-
-estado_tablas <- attr(resultado_tablas, "status")
-if (!is.null(estado_tablas) && estado_tablas != 0) {
-  stop(
-    "Falló el ajuste automático de tablas del DOCX:\n",
-    paste(resultado_tablas, collapse = "\n")
-  )
-}
-
-message(
-  "Post-render DOCX: tablas ajustadas al ancho útil de la página."
-)
-
 dir.create(
   "reportes",
   showWarnings = FALSE,
@@ -96,5 +66,5 @@ if (!copiado) {
 }
 
 message(
-  "Post-render DOCX: salida final copiada después del ajuste automático de tablas."
+  "Post-render DOCX: archivo copiado sin modificar su estructura OOXML."
 )
