@@ -31,56 +31,54 @@ if (necesita_actualizar(origen, archivo_raw)) {
   sunac_raw <- readRDS(archivo_raw)
 }
 
-if (necesita_actualizar(archivo_raw, archivo_limpio)) {
-  message("Pre-render: construyendo objeto limpio...")
-  sunac_limpio <- sunac_raw |>
-    dplyr::mutate(
-      su_tenencia = haven::as_factor(su_tenencia)
-    )
-  saveRDS(sunac_limpio, archivo_limpio, compress = FALSE)
-} else {
-  sunac_limpio <- readRDS(archivo_limpio)
-}
+# Los objetos derivados se reconstruyen en cada pre-render. Esta decisión evita
+# reutilizar un RDS obsoleto cuando cambia el código de limpieza o transformación,
+# aun si el archivo fuente permanece idéntico. El coste es bajo frente a la
+# importación del SAV, que sí conserva caché por fecha de modificación.
+message("Pre-render: reconstruyendo objeto limpio...")
+sunac_limpio <- sunac_raw |>
+  dplyr::mutate(
+    su_tenencia = haven::as_factor(su_tenencia)
+  )
+saveRDS(sunac_limpio, archivo_limpio, compress = FALSE)
 
-if (necesita_actualizar(archivo_limpio, archivo_transformado)) {
-  message("Pre-render: construyendo base analítica reutilizable...")
-  sunac_transformado <- sunac_limpio |>
-    dplyr::mutate(
-      su_categoria = haven::as_factor(su_categoria),
-      provincia = haven::as_factor(ual_prov),
-      tamano_upa = dplyr::case_when(
-        is.na(supertotal) ~ NA_character_,
-        supertotal < 1 ~ "Micro",
-        supertotal < 5 ~ "Pequeña",
-        supertotal < 20 ~ "Mediana",
-        TRUE ~ "Grande"
-      ),
-      tiene_bosque = dplyr::if_else(
-        is.na(us_montesha),
-        NA_character_,
-        dplyr::if_else(us_montesha > 0, "Sí", "No")
-      ),
-      tiene_transitorios = dplyr::if_else(
-        is.na(us_transiha),
-        NA_character_,
-        dplyr::if_else(us_transiha > 0, "Sí", "No")
-      ),
-      pct_bosque = dplyr::if_else(
-        !is.na(supertotal) & supertotal > 0,
-        (us_montesha / supertotal) * 100,
-        NA_real_
-      ),
-      grupo_tamano = dplyr::case_when(
-        is.na(supertotal) ~ NA_character_,
-        supertotal < 5 ~ "Pequeños productores",
-        TRUE ~ "Medianos y grandes productores"
-      )
+message("Pre-render: reconstruyendo base analítica reutilizable...")
+sunac_transformado <- sunac_limpio |>
+  dplyr::mutate(
+    su_categoria = haven::as_factor(su_categoria),
+    provincia = haven::as_factor(ual_prov),
+    tamano_upa = dplyr::case_when(
+      is.na(supertotal) ~ NA_character_,
+      supertotal < 1 ~ "Micro",
+      supertotal < 5 ~ "Pequeña",
+      supertotal < 20 ~ "Mediana",
+      TRUE ~ "Grande"
+    ),
+    tiene_bosque = dplyr::if_else(
+      is.na(us_montesha),
+      NA_character_,
+      dplyr::if_else(us_montesha > 0, "Sí", "No")
+    ),
+    tiene_transitorios = dplyr::if_else(
+      is.na(us_transiha),
+      NA_character_,
+      dplyr::if_else(us_transiha > 0, "Sí", "No")
+    ),
+    pct_bosque = dplyr::if_else(
+      !is.na(supertotal) & supertotal > 0,
+      (us_montesha / supertotal) * 100,
+      NA_real_
+    ),
+    grupo_tamano = dplyr::case_when(
+      is.na(supertotal) ~ NA_character_,
+      supertotal < 5 ~ "Pequeños productores",
+      TRUE ~ "Medianos y grandes productores"
     )
+  )
 
-  # Se conserva la base completa transformada: capítulos posteriores necesitan
-  # variables originales y derivadas. No se reduce aquí la unidad de análisis.
-  saveRDS(sunac_transformado, archivo_transformado, compress = FALSE)
-}
+# Se conserva la base completa transformada: capítulos posteriores necesitan
+# variables originales y derivadas. No se reduce aquí la unidad de análisis.
+saveRDS(sunac_transformado, archivo_transformado, compress = FALSE)
 
 message("Pre-render: objetos ESPAC disponibles y actualizados.")
 
