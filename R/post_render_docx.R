@@ -31,31 +31,10 @@ copiado <- suppressWarnings(
 )
 
 if (!copiado) {
-  sello <- format(Sys.time(), "%Y%m%d_%H%M%S")
-
-  destino_alternativo <- file.path(
-    "reportes",
-    paste0(
-      "Investigacion_reproducible_con_R_y_Quarto_",
-      sello,
-      ".docx"
-    )
-  )
-
-  copiado_alt <- file.copy(
-    archivo_docx,
-    destino_alternativo,
-    overwrite = FALSE
-  )
-
-  if (!copiado_alt) {
-    stop("No fue posible copiar el DOCX final a la carpeta reportes.")
-  }
-
-  message(
-    "Post-render DOCX: el archivo principal estaba abierto; ",
-    "se guardó una copia alternativa en ",
-    destino_alternativo
+  stop(
+    "Post-render DOCX: no se pudo actualizar el archivo principal. ",
+    "Cierre el DOCX en Microsoft Word y vuelva a renderizar. ",
+    "No se creó ninguna copia alternativa."
   )
 } else {
   message(
