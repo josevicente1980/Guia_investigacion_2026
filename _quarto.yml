@@ -97,7 +97,7 @@ execute:
   echo: true
   warning: false
   message: false
-  freeze: auto
+  freeze: false
   fig-dpi: 300
 
 format:
