@@ -53,23 +53,23 @@ No todos los problemas son apropiados para una investigación científica.
 
 Un problema de investigación debe reunir al menos las siguientes características:
 
-### Relevancia
+**Relevancia.**
 
 Debe abordar una situación que posea importancia teórica, práctica o social.
 
-### Claridad
+**Claridad.**
 
 Debe formularse de manera comprensible y precisa.
 
-### Viabilidad
+**Viabilidad.**
 
 Debe poder investigarse considerando los recursos, el tiempo y la información disponible.
 
-### Originalidad
+**Originalidad.**
 
 No necesariamente implica estudiar algo completamente nuevo, sino aportar evidencia, contexto o perspectivas adicionales sobre un fenómeno existente.
 
-### Fundamentación
+**Fundamentación.**
 
 Debe apoyarse en literatura científica que justifique su importancia [@machi2016].
 
@@ -105,23 +105,23 @@ La pregunta de investigación se convierte en el eje articulador de:
 
 Una pregunta de investigación efectiva debe ser:
 
-### Clara
+**Clara.**
 
 Debe comprenderse sin ambigüedades.
 
-### Específica
+**Específica.**
 
 Debe delimitar claramente el fenómeno de interés.
 
-### Investigable
+**Investigable.**
 
 Debe poder responderse mediante evidencia empírica.
 
-### Relevante
+**Relevante.**
 
 Debe aportar conocimiento útil para la comunidad científica o para la sociedad.
 
-### Delimitada
+**Delimitada.**
 
 Debe establecer con claridad población, contexto y período de estudio [@hernandezsampieri2018].
 

@@ -29,7 +29,7 @@ Los documentos dinámicos surgieron precisamente para resolver este problema. Su
 
 Quarto representa una evolución de esta filosofía y proporciona una plataforma moderna para generar documentos científicos reproducibles, artículos académicos, libros, presentaciones y sitios web a partir de una única fuente de información [@quarto2024].
 
-### Del documento al proyecto
+**Del documento al proyecto.**
 
 Una diferencia fundamental entre Quarto y los procesadores de texto tradicionales radica en la forma de organizar el trabajo.
 
@@ -120,7 +120,7 @@ capitulos/
 └── ...
 ```
 
-### Carpeta de datos
+**Carpeta de datos.**
 
 Almacena las bases de datos utilizadas en la investigación.
 
@@ -131,7 +131,7 @@ datos/
 └── procesado/
 ```
 
-### Carpeta de scripts
+**Carpeta de scripts.**
 
 Contiene los programas desarrollados en R.
 
@@ -144,15 +144,15 @@ scripts/
 └── 04-modelos.R
 ```
 
-### Carpeta de figuras
+**Carpeta de figuras.**
 
 Almacena gráficos, mapas e imágenes generados durante el análisis.
 
-### Carpeta de tablas
+**Carpeta de tablas.**
 
 Contiene tablas producidas automáticamente mediante R.
 
-### Carpeta de referencias
+**Carpeta de referencias.**
 
 Almacena la base de datos bibliográfica y el estilo de citación.
 
@@ -197,7 +197,7 @@ Cuando Quarto renderiza un proyecto, este archivo es el primero que consulta.
 
 ### Comprendiendo la estructura del YAML
 
-### Tipo de proyecto
+**Tipo de proyecto.**
 
 ```{.yaml}
 project:
@@ -206,7 +206,7 @@ project:
 
 Esta instrucción indica que el proyecto será compilado como un libro.
 
-### Información general
+**Información general.**
 
 ```{.yaml}
 book:
@@ -215,7 +215,7 @@ book:
 
 Permite definir el título y otros metadatos.
 
-### Autores
+**Autores.**
 
 ```{.yaml}
 author:

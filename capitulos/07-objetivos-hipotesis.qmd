@@ -90,13 +90,13 @@ Descomponen el propósito principal en tareas más concretas y operativas.
 
 Continuando con el ejemplo anterior:
 
-### Objetivo general
+**Objetivo general.**
 
 ```{.text}
 Analizar los factores financieros que influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.
 ```
 
-### Objetivos específicos
+**Objetivos específicos.**
 
 ```{.text}
 1. Caracterizar el perfil financiero de las microempresas analizadas.
@@ -132,19 +132,19 @@ La coherencia entre estos elementos constituye uno de los principales criterios 
 
 Entre los errores más comunes destacan:
 
-### Objetivos excesivamente amplios
+**Objetivos excesivamente amplios.**
 
 ```{.text}
 Analizar todos los factores que afectan la economía ecuatoriana.
 ```
 
-### Objetivos ambiguos
+**Objetivos ambiguos.**
 
 ```{.text}
 Estudiar algunos aspectos relacionados con la educación.
 ```
 
-### Objetivos que describen actividades
+**Objetivos que describen actividades.**
 
 ```{.text}
 Aplicar encuestas a los estudiantes.
@@ -152,7 +152,7 @@ Aplicar encuestas a los estudiantes.
 
 Aplicar encuestas es una actividad metodológica, no un objetivo de investigación.
 
-### Objetivos desconectados de la pregunta
+**Objetivos desconectados de la pregunta.**
 
 Cuando los objetivos no responden directamente a la pregunta planteada, la investigación pierde coherencia interna.
 
@@ -184,7 +184,7 @@ En investigaciones cuantitativas suelen ocupar un papel central, mientras que en
 
 ## Tipos de hipótesis
 
-### Hipótesis descriptivas
+**Hipótesis descriptivas.**
 
 Plantean características esperadas de un fenómeno.
 
@@ -194,7 +194,7 @@ Ejemplo:
 La mayoría de los emprendedores rurales posee educación secundaria completa.
 ```
 
-### Hipótesis correlacionales
+**Hipótesis correlacionales.**
 
 Proponen asociaciones entre variables.
 
@@ -204,7 +204,7 @@ Ejemplo:
 Existe una relación positiva entre educación e ingreso laboral.
 ```
 
-### Hipótesis causales
+**Hipótesis causales.**
 
 Proponen relaciones de causa y efecto.
 
@@ -214,7 +214,7 @@ Ejemplo:
 La capacitación empresarial incrementa la productividad de las microempresas.
 ```
 
-### Hipótesis comparativas
+**Hipótesis comparativas.**
 
 Plantean diferencias entre grupos.
 
@@ -271,7 +271,7 @@ Elevada mortalidad de microempresas durante sus primeros años de operación.
 ¿Qué factores financieros influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación?
 ```
 
-### Objetivo general
+**Objetivo general.**
 
 ```{.text}
 Analizar los factores financieros que influyen en la supervivencia de las microempresas ecuatorianas durante sus primeros tres años de operación.

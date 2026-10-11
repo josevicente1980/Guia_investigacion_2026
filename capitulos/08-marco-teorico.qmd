@@ -150,19 +150,19 @@ La construcción del marco teórico debe mantener una relación directa con la p
 
 Por ejemplo:
 
-### Problema
+**Problema.**
 
 ```{.text}
 Alta mortalidad de microempresas durante sus primeros años de operación.
 ```
 
-### Pregunta
+**Pregunta.**
 
 ```{.text}
 ¿Qué factores financieros influyen en la supervivencia de las microempresas ecuatorianas?
 ```
 
-### Marco teórico
+**Marco teórico.**
 
 Posibles secciones:
 
@@ -216,13 +216,13 @@ En investigaciones cuantitativas, las hipótesis suelen derivarse directamente d
 
 Por ejemplo:
 
-### Teoría
+**Teoría.**
 
 ```{.text}
 Las empresas con mayores recursos poseen ventajas competitivas sostenibles.
 ```
 
-### Hipótesis
+**Hipótesis.**
 
 ```{.text}
 Las microempresas con mayores niveles de liquidez presentan una mayor probabilidad de supervivencia.
