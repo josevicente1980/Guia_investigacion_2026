@@ -1,6 +1,5 @@
 # Post-render seguro: copiar la salida Word sin modificar su OOXML.
-# La alineación de los bloques de código se resuelve antes de Pandoc
-# mediante filters/code-left-docx.lua.
+# Los ajustes de tablas se resuelven antes de Pandoc mediante filtros Lua.
 
 archivo_docx <- file.path(
   ".render_tmp",
@@ -64,40 +63,6 @@ if (!copiado) {
     destino_principal
   )
 }
-
-script_tablas <- file.path("R", "ajustar_tablas_word.ps1")
-
-if (!file.exists(script_tablas)) {
-  stop("No se encontró el script de ajuste de tablas para Word.")
-}
-
-destino_ajuste <- if (copiado) destino_principal else destino_alternativo
-
-Sys.sleep(1)
-
-resultado_tablas <- system2(
-  "powershell",
-  c(
-    "-NoProfile",
-    "-ExecutionPolicy", "Bypass",
-    "-File", shQuote(normalizePath(script_tablas, winslash = "\\", mustWork = TRUE)),
-    "-Path", shQuote(normalizePath(destino_ajuste, winslash = "\\", mustWork = TRUE))
-  ),
-  stdout = TRUE,
-  stderr = TRUE
-)
-
-estado_tablas <- attr(resultado_tablas, "status")
-if (!is.null(estado_tablas) && estado_tablas != 0) {
-  stop(
-    "El DOCX fue generado y copiado, pero falló el ajuste de tablas mediante Microsoft Word:\n",
-    paste(resultado_tablas, collapse = "\n")
-  )
-}
-
-message(
-  "Post-render DOCX: tablas ajustadas al ancho útil de la página."
-)
 
 message(
   "Post-render DOCX: archivo copiado sin modificar su estructura OOXML."
