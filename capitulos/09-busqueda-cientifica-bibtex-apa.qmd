@@ -325,8 +325,7 @@ La reproducibilidad constituye uno de los pilares fundamentales de la ciencia mo
 
 Durante la renderización, Quarto generará automáticamente las citas y referencias correspondientes.
 
-### El archivo CSL
-
+**El archivo CSL.**
 Además de la biblioteca BibTeX, Quarto utiliza archivos CSL (*Citation Style Language*) para definir el formato de citación.
 
 Por ejemplo:
@@ -343,8 +342,7 @@ Este archivo determina:
 - Capitalización de títulos.
 - Normas APA, Vancouver, Chicago u otros estilos.
 
-### Bibliotecas bibliográficas reproducibles
-
+**Bibliotecas bibliográficas reproducibles.**
 Una de las ventajas más importantes de BibTeX consiste en la posibilidad de construir bibliotecas bibliográficas reutilizables.
 
 Un investigador puede mantener una única base de datos bibliográfica y utilizarla simultáneamente en:

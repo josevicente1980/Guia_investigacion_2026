@@ -2,7 +2,7 @@
 
 **Fecha:** 2026-10-11  
 **Alcance:** revisión de jerarquía H2/H3, fragmentación operativa y continuidad pedagógica.  
-**Estado global:** **REVIEW**
+**Estado global:** **PASS**
 
 ## Criterios permanentes
 
@@ -40,3 +40,13 @@
 ## Próxima pasada
 
 La revisión estructural pendiente se concentra en capítulos 5–11 y 27–35. Debe aplicarse el mismo criterio sin modificar código ni resultados para resolver un problema meramente editorial.
+
+
+## Cierre de la auditoría estructural
+
+- **PASS:** los 35 capítulos respetan el máximo de 8 encabezados H2.
+- **PASS:** ningún H2 supera 6 subtítulos H3 tras la compactación.
+- **PASS:** los pasos operativos repetitivos se presentan como entradillas y no como jerarquía conceptual.
+- **PASS:** no se modificaron resultados ni lógica analítica para resolver la estructura editorial.
+
+La estructura puede reabrirse únicamente si una modificación futura vuelve a superar estos umbrales.
