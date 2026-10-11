@@ -82,7 +82,7 @@ book:
     - reflexion-final.qmd
     - bibliografia.qmd
     - declaracion-uso-ia.qmd
-    
+
 bibliography: referencias/referencias.bib
 csl: referencias/apa.csl
 link-citations: true
@@ -97,6 +97,7 @@ execute:
   warning: false
   message: false
   freeze: auto
+  fig-dpi: 300
 
 format:
   docx:
