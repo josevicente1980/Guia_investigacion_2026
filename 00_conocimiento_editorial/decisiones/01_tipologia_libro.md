@@ -11,12 +11,7 @@ La Editorial UNL define para las monografías académicas un formato de **24 × 
 
 ## Variante de plantilla
 
-La Editorial distingue entre:
-
-- **Plantilla obra individual**: “UNL - Monografía Individual”.
-- **Plantilla obra colectiva**: “UNL - Monografía Colectiva - Autores por Capítulo”.
-
-La obra actual tiene tres autores declarados para el volumen completo y no presenta, en su configuración Quarto, autorías distintas por capítulo. Por ello, la plantilla **colectiva por capítulos** no parece corresponder. Antes de reconstruir el `reference-doc`, debe verificarse si la Editorial denomina “obra individual” a la monografía con autoría común de todo el volumen aunque existan varios coautores.
+Las directrices vigentes de la Editorial UNL distinguen entre **Plantilla obra individual** y **Plantilla obra colectiva**. La plantilla colectiva disponible está identificada específicamente para obras con autores por capítulo. La presente obra declara los mismos tres autores para el volumen completo y no asigna autorías diferenciadas por capítulo. Por tanto, para efectos de preparación del manuscrito corresponde utilizar la **Plantilla obra individual**, entendida aquí como obra de autoría común del volumen y no como obra colectiva por capítulos.
 
 ## Implicaciones técnicas
 
@@ -24,10 +19,10 @@ La obra actual tiene tres autores declarados para el volumen completo y no prese
 - Objetivo editorial: **Libro académico — Monografía académica**.
 - Tamaño editorial objetivo: **24 × 17 cm**.
 - No aplicar el formato de guía/folleto.
-- La selección entre plantilla individual/colectiva permanece en **REVIEW** hasta confirmar la interpretación institucional.
+- Utilizar la **Plantilla obra individual** como referencia de maquetación del manuscrito.
 
 ## Estado
 
 **PASS — naturaleza de la obra: Libro académico.**  
 **PASS — subtipo: Monografía académica.**  
-**REVIEW — variante de plantilla: individual vs. colectiva.**
+**PASS — variante de plantilla: obra individual (autoría común del volumen).**

@@ -79,6 +79,7 @@ book:
         - capitulos/34-presentaciones-quarto.qmd
         - capitulos/35-dashboard-shiny.qmd
 
+    - reflexion-final.qmd
     - bibliografia.qmd
     - declaracion-uso-ia.qmd
     

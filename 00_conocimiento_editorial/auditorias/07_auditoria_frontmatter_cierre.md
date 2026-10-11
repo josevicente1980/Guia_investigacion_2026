@@ -20,6 +20,7 @@
 - Bibliografía no numerada: **PASS**
 - Declaración de IA: **PASS**
 - Resumen de contraportada <=180 palabras: **PASS**
-- Reflexión/conclusión final propia de la obra: **REVIEW**
+- Reflexión/conclusión final propia de la obra: **PASS**
 - Tres propuestas de imagen de portada: **BLOCK**
+- Variante de plantilla aplicable identificada: **PASS**
 - Plantilla UNL individual aplicada al Word: **REVIEW**

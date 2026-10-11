@@ -21,7 +21,7 @@ Estados permitidos: **PASS**, **REVIEW**, **BLOCK**.
 | Figuras y tablas numeradas, citadas y con títulos/fuentes correctos | REVIEW |
 | Ecuaciones editables; no capturas de pantalla | REVIEW |
 | Bibliografía y citas cruzadas auditadas | REVIEW |
-| Resumen editorial para contraportada ≤180 palabras | REVIEW |
+| Resumen editorial para contraportada ≤180 palabras | PASS |
 | Tres imágenes propuestas para portada, nítidas y con derechos de uso | REVIEW |
 
 ## B. Expediente administrativo
@@ -44,8 +44,8 @@ Estados permitidos: **PASS**, **REVIEW**, **BLOCK**.
 | Originalidad e ineditud verificadas | REVIEW |
 | Derechos de terceros verificados | REVIEW |
 | Permisos/licencias de imágenes y material externo documentados | REVIEW |
-| Declaración de uso de IA incluida al final, después de referencias, cuando corresponda | REVIEW |
-| Declaración IA documenta herramienta, propósito, instrucciones/prompts, integración, revisión humana y limitaciones | REVIEW |
+| Declaración de uso de IA incluida al final, después de referencias, cuando corresponda | PASS |
+| Declaración IA documenta herramienta, propósito, instrucciones/prompts, integración, revisión humana y limitaciones | PASS |
 | Toda salida asistida por IA revisada y validada por autores | REVIEW |
 | Ninguna referencia incorporada sin verificación de existencia y correspondencia | REVIEW |
 
@@ -71,7 +71,7 @@ Estados permitidos: **PASS**, **REVIEW**, **BLOCK**.
 | Documentos administrativos cargados como “Otro” | REVIEW |
 | Todos los archivos del expediente presentes | BLOCK |
 | Tres propuestas de portada presentes | REVIEW |
-| Resumen de contraportada ≤180 palabras presente | REVIEW |
+| Resumen de contraportada ≤180 palabras presente | PASS |
 | Revisión final de metadatos realizada | REVIEW |
 | Auditoría final sin BLOCK | BLOCK |
 | Confirmación de “Envío completo” archivada | REVIEW |
