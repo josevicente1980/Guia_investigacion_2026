@@ -258,9 +258,18 @@ coef_comparacion <- dplyr::bind_rows(
     values_from = Valor
   )
 
-coef_comparacion |>
+coef_comparacion_larga <- coef_comparacion |>
+  tidyr::pivot_longer(
+    cols = c(M1, M2, M3),
+    names_to = "Modelo",
+    values_to = "Estimación (EE)"
+  ) |>
+  filter(!is.na(`Estimación (EE)`)) |>
+  select(Modelo, Parámetro, `Estimación (EE)`)
+
+coef_comparacion_larga |>
   kable(
-    align = c("l", "c", "c", "c"),
+    align = c("l", "l", "c"),
     caption = "Comparación de modelos; error estándar entre paréntesis"
   )
 ```
@@ -293,15 +302,13 @@ broom::tidy(
       "pop" = "Población",
       .default = term
     ),
-    `β [IC 95%]` = formatear_estimacion_ic(
-      estimate,
-      conf.low,
-      conf.high
-    ),
+    β = formatear_num_tabla(estimate, 3),
+    `IC inf.` = formatear_num_tabla(conf.low, 3),
+    `IC sup.` = formatear_num_tabla(conf.high, 3),
     p = formatear_p_tabla(p.value)
   ) |>
   kable(
-    align = c("l", "c", "r"),
+    align = c("l", "r", "r", "r", "r"),
     caption = "Coeficientes e intervalos de confianza"
   )
 ```

@@ -363,18 +363,22 @@ modelo_1 <- lm(
 ```{r}
 #| label: tbl-reg21-resumen-modelo1
 
-glance(
+indicadores_base <- glance(
   modelo_1
+)
+
+tibble(
+  Indicador = c("R²", "R² ajustado", "σ", "AIC", "BIC"),
+  Valor = c(
+    formatear_num_tabla(indicadores_base$r.squared, 3),
+    formatear_num_tabla(indicadores_base$adj.r.squared, 3),
+    formatear_num_tabla(indicadores_base$sigma, 3),
+    formatear_num_tabla(indicadores_base$AIC, 2),
+    formatear_num_tabla(indicadores_base$BIC, 2)
+  )
 ) |>
-  transmute(
-    `R²` = r.squared,
-    `R² aj.` = adj.r.squared,
-    `σ` = sigma,
-    AIC = AIC,
-    BIC = BIC
-  ) |>
   kable(
-    digits = 3,
+    align = c("l", "r"),
     caption = "Indicadores del modelo base"
   )
 ```
