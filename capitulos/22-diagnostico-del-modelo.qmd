@@ -287,7 +287,7 @@ qqline(
 
 Mientras más próximos se encuentren los puntos a la línea de referencia, más compatible será la distribución observada con una distribución normal.
 
-### Evaluación de normalidad
+**Evaluación de normalidad.**
 
 La forma de los residuos se evalúa principalmente mediante el gráfico Q-Q y la magnitud de las desviaciones relevantes para el propósito inferencial. Las pruebas automáticas de normalidad, como Shapiro-Wilk, pueden rechazar desviaciones pequeñas en muestras grandes y no deberían utilizarse como regla mecánica para aceptar o descartar un modelo.
 
@@ -298,7 +298,7 @@ En regresión lineal, la normalidad exacta de los residuos no es un requisito pa
 
 La homoscedasticidad implica que la variabilidad de los residuos permanece aproximadamente constante a lo largo de los valores ajustados.
 
-### Visualización de dispersión residual
+**Visualización de dispersión residual.**
 
 ```{r}
 #| label: fig-reg22-homoscedasticidad
@@ -425,7 +425,7 @@ base_modelo <- base_analitica |>
   drop_na()
 ```
 
-### Reestimación del modelo
+**Reestimación del modelo.**
 
 ```{r}
 #| label: reg22-modelo-parte2

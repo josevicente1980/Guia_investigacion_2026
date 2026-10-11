@@ -17,7 +17,7 @@
 - **PASS:** capítulos 17–26 permanecen dentro del máximo de 8 H2.
 - **PASS:** se retiró el rótulo interno “Parte 3” del capítulo 19.
 - **PASS:** encabezados operativos repetidos en capítulos 17–26 dejaron de funcionar como H3 numerados.
-- **REVIEW:** los capítulos 17–26 siguen siendo extensos y conservan entre 29 y 55 H3 conceptuales; requieren una segunda pasada para comprobar que cada H2 no acumule más de aproximadamente 5–6 subtítulos.
+- **PASS:** tras la segunda pasada, los capítulos 12–26 quedan con un máximo de 6 H3 por cada H2; los pasos operativos permanecen como entradillas y los conceptos conservan jerarquía.
 - **REVIEW:** capítulos 5–16 presentan fragmentación importante, especialmente 12–16.
 - **REVIEW:** capítulos 28–35 deben revisarse por consistencia de estructura, aunque la mayoría no presenta la severidad de los capítulos de modelación.
 
@@ -39,4 +39,4 @@
 
 ## Próxima pasada
 
-La siguiente intervención debe agrupar H3 conceptualmente cercanos, comenzando por capítulos 12–18 y 20–26. No se modificarán código ni resultados para resolver un problema meramente editorial.
+La revisión estructural pendiente se concentra en capítulos 5–11 y 27–35. Debe aplicarse el mismo criterio sin modificar código ni resultados para resolver un problema meramente editorial.

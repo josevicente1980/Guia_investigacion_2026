@@ -304,8 +304,7 @@ La regresión lineal simple permite construir una ecuación que resume la relaci
 
 En la siguiente sección estudiaremos cómo evaluar la calidad del ajuste mediante el coeficiente de determinación, intervalos de confianza y medidas básicas de desempeño.
 
-### Evaluar representación de datos 
-
+**Evaluar representación de datos.**
 Una vez estimada la ecuación de regresión, el siguiente paso consiste en evaluar qué tan bien representa los datos observados.
 
 La pregunta fundamental es:
