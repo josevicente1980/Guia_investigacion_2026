@@ -173,8 +173,8 @@ Cuando hay multicolinealidad:
 
 1. Los errores estándar de los coeficientes pueden aumentar.
 2. Los coeficientes pueden volverse inestables.
-3. La significancia individual de las variables puede reducirse.
-4. Es difícil interpretar el efecto individual de cada variable.
+3. La precisión de algunos coeficientes puede reducirse.
+4. Se vuelve más difícil separar la asociación parcial atribuida a cada predictor.
 
 ### Visualización de Pearson
 
@@ -325,7 +325,7 @@ tibble(
 
 **Interpretación**
 
-El valor p permite evaluar si la correlación observada podría explicarse por azar bajo la hipótesis de correlación poblacional igual a cero, es decir, permite observar si dicha correlación es estadísticamente significativa.
+El valor p resume qué tan incompatibles son los datos observados con la hipótesis nula de correlación poblacional igual a cero, bajo los supuestos de la prueba. No representa la probabilidad de que la asociación se deba al azar ni mide su importancia sustantiva.
 
 ## Matriz de correlación
 
@@ -351,7 +351,7 @@ round(
 
 **Interpretación**
 
-La matriz permite observar simultáneamente las asociaciones entre todas las variables numéricas seleccionadas. Tal como se detalló anteriormente, se debe tener cuidado cuando las variables independientes presentan una correlación superior a 0,80 en valor absoluto, pues puede existir un problema de multicolinealidad. En ese caso, es aconsejable evaluar la exclusión de una de las variables altamente correlacionadas.
+La matriz permite observar simultáneamente las asociaciones entre las variables numéricas seleccionadas. Correlaciones muy altas entre predictores pueden advertir colinealidad, pero no justifican eliminar automáticamente una variable. La decisión debe apoyarse en la teoría, la estructura del modelo y diagnósticos como el VIF.
 
 ### Preparando datos para un mapa de calor
 

@@ -839,7 +839,7 @@ tibble(
 
 Los residuos deberían distribuirse alrededor de cero. Valores muy extremos podrían indicar observaciones atípicas o limitaciones del modelo.
 
-El histograma de los residuos permite evaluar visualmente la forma de la distribución de los errores. Si presenta una forma aproximadamente de campana y está centrado en cero, existe evidencia de que los residuos siguen una distribución cercana a la normal. En cambio, una distribución asimétrica o con colas pronunciadas puede indicar un posible incumplimiento del supuesto de normalidad.
+El histograma permite evaluar visualmente la forma de la distribución de los residuos. Una forma aproximadamente simétrica y centrada en cero puede ser compatible con normalidad, pero no la demuestra. Asimetrías o colas pronunciadas sugieren revisar con mayor detalle el supuesto y el propósito inferencial.
 
 **Histograma de residuos.**
 

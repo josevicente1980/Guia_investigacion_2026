@@ -322,7 +322,7 @@ ggplot(
 
 **Interpretación**
 
-Una dispersión relativamente uniforme favorece el supuesto de homoscedasticidad.
+Una dispersión relativamente uniforme es compatible con homoscedasticidad. La evaluación visual debe complementarse con el contexto y, cuando la inferencia lo requiera, con procedimientos robustos ante heterocedasticidad.
 
 ### Resumen de supuestos evaluados
 
@@ -506,18 +506,7 @@ vif_tabla |>
 
 **Interpretación**
 
-Como regla práctica:
-
-```text
-VIF < 5
-Multicolinealidad baja
-
-VIF entre 5 y 10
-Posible preocupación
-
-VIF > 10
-Problema importante
-```
+Los valores de VIF deben interpretarse como indicadores continuos de inflación de la varianza. Umbrales como 5 o 10 pueden utilizarse como referencias pedagógicas, pero no constituyen reglas universales para conservar o eliminar predictores. La decisión debe considerar el diseño, la teoría y la estabilidad de los coeficientes.
 
 ### Visualización de VIF
 
@@ -1137,7 +1126,7 @@ vif_tabla_final |>
 
 **Interpretación**
 
-Valores reducidos de VIF sugieren que las variables explicativas aportan información diferenciada.
+Valores reducidos de VIF sugieren menor inflación de la varianza asociada a colinealidad, pero no prueban que la especificación sea correcta ni que cada predictor aporte información sustantivamente relevante.
 
 ### Lista de verificación del modelo
 

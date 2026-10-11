@@ -105,11 +105,11 @@ En un modelo distinguimos dos tipos principales de variables.
 
 ### Variable dependiente
 
-Representa el fenómeno que deseamos explicar, donde también se la puede denominar variable explicada, predicha, regresada, respuesta, endógena, resultado y, en algunos contextos, variable controlada.
+Representa el fenómeno de interés. Según el propósito y la disciplina, puede denominarse variable dependiente, respuesta, resultado, explicada u objetivo de predicción. El término «endógena» no es un sinónimo automático: implica supuestos específicos sobre su relación con el término de error.
 
 ### Variables independientes
 
-Representan el factor o conjunto de factores utilizados para explicar o predecir la variable dependiente. También reciben los nombres de variables independientes, predictoras, regresoras, estímulo, exógenas, covariables o variables de control.
+Representan el factor o conjunto de factores utilizados para describir, explicar estadísticamente o predecir la variable dependiente. Pueden denominarse variables explicativas, predictoras, regresoras o covariables. El término «exógena» debe reservarse para situaciones en las que el supuesto de exogeneidad esté justificado.
 
 En nuestro caso utilizaremos como ejemplo:
 
@@ -345,7 +345,7 @@ La existencia de diferencias regionles sugiere que la dimensión territorial pod
 
 ### Matriz de correlación
 
-Antes de estimar modelos es habitual examinar correlaciones entre variables numéricas. En este caso es importante tener en cuenta que no debe existir una correlación exacta, pues valores superiores a 0,80 pueden advertir problemas de multicolinealidad. Más adelante se detallará este problema. En términos generales, es aconsejable que la correlación entre variables explicativas sea inferior a 0,80 en valor absoluto.
+Antes de estimar modelos es habitual examinar correlaciones entre variables numéricas. Una correlación muy alta entre predictores puede advertir colinealidad, pero no existe un umbral universal que determine por sí solo un problema de multicolinealidad. La evaluación debe considerar la matriz de diseño, medidas como el VIF y, sobre todo, la justificación sustantiva de las variables.
 
 ```{r}
 #| label: tbl-ch18-correlacion-inicial
@@ -379,7 +379,7 @@ La correlación constituye únicamente un punto de partida.
 La modelación permitirá posteriormente:
 
 - Cuantificar relaciones.
-- Estimar efectos.
+- Estimar asociaciones; hablar de efectos requiere un diseño y supuestos causales adecuados.
 - Evaluar incertidumbre.
 - Incorporar múltiples variables simultáneamente.
 - Realizar predicciones.
@@ -501,7 +501,7 @@ summary(
 
 La salida proporciona información sobre los coeficientes estimados, errores estándar, niveles de significancia y capacidad explicativa del modelo.
 
-Cada coeficiente representa el cambio esperado en la variable dependiente ante una variación de una unidad en la variable explicativa.
+Cada coeficiente resume el cambio promedio esperado en la variable dependiente asociado con una variación de una unidad en la variable explicativa dentro de la especificación estimada; no implica causalidad por sí solo.
 
 ### Extracción de coeficientes
 

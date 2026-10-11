@@ -100,7 +100,7 @@ La regresión múltiple amplía esta estructura:
 
 $$Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + \varepsilon_i$$
 
-Ahora cada coeficiente mide el efecto parcial de una variable manteniendo constantes las demás.
+Ahora cada coeficiente resume una asociación parcial de una variable manteniendo constantes las demás variables incluidas en el modelo.
 
 ### ¿Qué significa controlar variables?
 
@@ -231,7 +231,7 @@ En regresión múltiple ya no interpretamos los coeficientes de forma aislada.
 La interpretación correcta es:
 
 ```text
-Efecto de Xi
+Asociación parcial de Xi
 manteniendo constantes
 las demás variables del modelo
 ```
@@ -480,9 +480,9 @@ tamano_empresa
 region
 ```
 
-Al incorporarlas al modelo reducimos posibles sesgos de omisión.
+Al incorporarlas al modelo podemos describir asociaciones condicionadas a esas covariables y, bajo supuestos específicos, reducir parte de la confusión. Esto no garantiza eliminar sesgo por variables omitidas ni identifica efectos causales.
 
-### Efectos parciales
+### Asociaciones parciales
 
 En regresión múltiple cada coeficiente se interpreta manteniendo constantes las demás variables.
 
@@ -492,7 +492,7 @@ Por ejemplo:
 β1
 ```
 
-representa el efecto de:
+representa la asociación parcial de:
 
 ```text
 capital
@@ -659,7 +659,7 @@ anova_modelos |>
 
 **Interpretación**
 
-Esta prueba evalúa si la incorporación de nuevas variables mejora significativamente el ajuste.
+Esta prueba compara modelos anidados y evalúa, bajo sus supuestos, si la reducción de la suma de cuadrados residual al incorporar nuevas variables es mayor de la esperada bajo la hipótesis nula.
 
 ## Selección de variables
 
@@ -937,7 +937,7 @@ tibble(
 
 **Interpretación**
 
-Errores centrados alrededor de cero indican ausencia de sesgos sistemáticos importantes.
+En mínimos cuadrados con intercepto, los residuos de ajuste quedan centrados alrededor de cero por construcción. Este hecho no demuestra ausencia de sesgo predictivo ni garantiza buen desempeño fuera de muestra.
 
 **Distribución de errores.**
 
@@ -1079,9 +1079,9 @@ predict(
 
 Los intervalos reflejan la incertidumbre asociada a la estimación de la media esperada.
 
-### Variables más influyentes
+### Magnitud de los coeficientes
 
-Aunque la magnitud de los coeficientes no siempre es directamente comparable, podemos examinar su importancia relativa de manera descriptiva.
+La magnitud de los coeficientes puede examinarse descriptivamente, pero no constituye una medida de importancia relativa cuando los predictores están en escalas distintas o representan contrastes categóricos.
 
 ```{r}
 #| label: tbl-reg21-importancia-relativa
@@ -1119,7 +1119,7 @@ tidy(
 
 **Interpretación**
 
-Esta comparación es únicamente descriptiva y no debe interpretarse como una medida definitiva de importancia estadística.
+Esta comparación es únicamente descriptiva. No debe utilizarse para ordenar la importancia de los predictores sin considerar escalas, codificación, incertidumbre y objetivo del modelo.
 
 **Flujo general de una regresión múltiple.**
 
