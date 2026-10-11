@@ -54,7 +54,7 @@ Grande / No grande
 
 Cuando la variable respuesta solo puede tomar dos valores, la regresión lineal deja de ser apropiada y es necesario utilizar modelos de respuesta binaria [@hosmer2013].
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg24-cargar-librerias
@@ -67,7 +67,7 @@ Cuando la variable respuesta solo puede tomar dos valores, la regresión lineal 
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg24-cargar-base
@@ -312,7 +312,7 @@ ggplot(
 
 La relación entre la variable explicativa y la probabilidad presenta una forma no lineal característica de los modelos logísticos.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 En esta primera parte aprendimos a:
 
@@ -323,7 +323,7 @@ En esta primera parte aprendimos a:
 - Obtener probabilidades válidas.
 - Interpretar coeficientes logísticos.
 
-### Introducción
+**Introducción.**
 
 En la sección anterior aprendimos a estimar modelos Logit y obtener probabilidades.
 
@@ -337,7 +337,7 @@ Para interpretar adecuadamente los resultados es necesario comprender tres conce
 
 Estos conceptos constituyen la base de la interpretación de modelos Logit [@hosmer2013].
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg24-cargar-librerias-parte2
@@ -350,7 +350,7 @@ Estos conceptos constituyen la base de la interpretación de modelos Logit [@hos
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg24-cargar-base-parte2
@@ -745,7 +745,7 @@ nuevos_casos |>
 
 Las probabilidades permiten evaluar escenarios futuros bajo diferentes niveles de capital productivo.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 En esta sección aprendimos a:
 
@@ -759,7 +759,7 @@ En esta sección aprendimos a:
 
 En la siguiente sección estudiaremos el modelo Probit y compararemos sus resultados con el modelo Logit.
 
-### Introducción
+**Introducción.**
 
 El modelo Logit no es el único modelo disponible para analizar variables binarias.
 
@@ -776,7 +776,7 @@ La principal diferencia radica en la función matemática utilizada para transfo
 
 En la práctica, Logit y Probit suelen producir resultados muy similares.
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg24-cargar-librerias-parte3
@@ -789,7 +789,7 @@ En la práctica, Logit y Probit suelen producir resultados muy similares.
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg24-cargar-base-parte3
@@ -1146,7 +1146,7 @@ tibble(
   )
 ```
 
-### Manos a la obra
+**Manos a la obra.**
 
 1. Construya una variable binaria.
 2. Explore su distribución.

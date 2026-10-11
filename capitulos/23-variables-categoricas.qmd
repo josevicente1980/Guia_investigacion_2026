@@ -41,7 +41,7 @@ Estas variables contienen información relevante para explicar fenómenos econó
 
 La regresión lineal permite incorporar variables categóricas mediante procesos de codificación automática conocidos como variables dummy o indicadoras [@montgomery2021].
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg23-cargar-librerias
@@ -54,7 +54,7 @@ La regresión lineal permite incorporar variables categóricas mediante procesos
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg23-cargar-base
@@ -63,7 +63,7 @@ La regresión lineal permite incorporar variables categóricas mediante procesos
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Preparación de variables
+**Preparación de variables.**
 
 ```{r}
 #| label: reg23-preparar-base
@@ -318,7 +318,7 @@ model.matrix(
 
 Cada columna representa una variable dummy generada automáticamente.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 En esta primera parte aprendimos a:
 
@@ -330,7 +330,7 @@ En esta primera parte aprendimos a:
 
 En la siguiente sección incorporaremos estas variables dentro de modelos de regresión y aprenderemos a interpretar correctamente los coeficientes asociados a categorías.
 
-### Introducción
+**Introducción.**
 
 Una vez comprendida la lógica de las variables dummy, podemos incorporarlas directamente dentro de modelos de regresión.
 
@@ -348,7 +348,7 @@ para explicar variaciones en:
 log_productividad
 ```
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg23-cargar-librerias-parte2
@@ -361,7 +361,7 @@ log_productividad
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg23-cargar-base-parte2
@@ -370,7 +370,7 @@ log_productividad
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Preparación de variables
+**Preparación de variables.**
 
 ```{r}
 #| eval: false
@@ -725,7 +725,7 @@ tamano_empresa
 
 Este tipo de especificación será el punto de partida de la siguiente sección.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 En esta sección aprendimos a:
 
@@ -738,7 +738,7 @@ En esta sección aprendimos a:
 
 En la siguiente sección estudiaremos variables categóricas con múltiples niveles e introduciremos interacciones básicas entre variables numéricas y categóricas.
 
-### Introducción
+**Introducción.**
 
 Hasta ahora hemos incorporado variables categóricas simples dentro de modelos lineales.
 
@@ -757,7 +757,7 @@ sobre la productividad total para todos los tamaños de empresa?
 
 Para responder este tipo de preguntas utilizamos interacciones entre variables numéricas y categóricas [@kutner2004].
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg23-cargar-librerias-parte3
@@ -770,7 +770,7 @@ Para responder este tipo de preguntas utilizamos interacciones entre variables n
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg23-cargar-base-parte3
@@ -779,7 +779,7 @@ Para responder este tipo de preguntas utilizamos interacciones entre variables n
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Preparación de variables
+**Preparación de variables.**
 
 ```{r}
 #| label: reg23-preparar-base-parte3
@@ -1117,7 +1117,7 @@ tibble(
 
 Este procedimiento resume el uso práctico de variables categóricas dentro de modelos lineales.
 
-### Manos a la obra
+**Manos a la obra.**
 
 1. Convierta una variable categórica en factor.
 2. Identifique su categoría de referencia.

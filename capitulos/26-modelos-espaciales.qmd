@@ -59,7 +59,7 @@ que los distantes.
 
 Este principio es conocido como la Primera Ley de la Geografía de Tobler.
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg26-cargar-librerias
@@ -262,7 +262,7 @@ broom::tidy(
 
 En un modelo SAR, los coeficientes no deben interpretarse de forma idéntica a una regresión lineal convencional porque la retroalimentación espacial genera impactos directos e indirectos. El parámetro espacial resume la dependencia asociada al rezago de la variable dependiente.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 En esta primera parte aprendimos a:
 
@@ -272,7 +272,7 @@ En esta primera parte aprendimos a:
 - Interpretar autocorrelación espacial.
 - Estimar un modelo SAR.
 
-### Introducción
+**Introducción.**
 
 En los capítulos anteriores asumimos que todas las observaciones pertenecían a un mismo nivel de análisis.
 
@@ -306,7 +306,7 @@ Variación entre grupos
 
 La idea central consiste en reconocer que observaciones pertenecientes al mismo grupo tienden a parecerse entre sí.
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg26-cargar-librerias-multinivel
@@ -319,7 +319,7 @@ La idea central consiste en reconocer que observaciones pertenecientes al mismo 
 
 ```
 
-### Cargando la base de datos
+**Cargando la base de datos.**
 
 Utilizaremos la base `Exam` incluida en el paquete `mlmRev`.
 
@@ -645,7 +645,7 @@ tibble(
   )
 ```
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 En esta sección aprendimos a:
 
@@ -660,7 +660,7 @@ En la siguiente sección estudiaremos modelos de frontera estocástica para medi
 
 ## Frontera estocástica y medición de eficiencia
 
-### Introducción
+**Introducción.**
 
 Hasta ahora hemos utilizado modelos orientados a explicar relaciones entre variables. Sin embargo, en muchos contextos el interés principal consiste en responder una pregunta diferente:
 
@@ -670,7 +670,7 @@ Hasta ahora hemos utilizado modelos orientados a explicar relaciones entre varia
 
 Los modelos de frontera estocástica permiten estimar eficiencia técnica comparando el desempeño observado con una frontera de producción [@kumbhakar2015].
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg26-cargar-librerias-sfa
@@ -1045,7 +1045,7 @@ Universidades
 
 Su principal aporte consiste en distinguir entre bajo desempeño por ruido aleatorio y bajo desempeño por ineficiencia.
 
-### Manos a la obra
+**Manos a la obra.**
 
 1. Construya una base de producción con insumos y producto.
 2. Estime una función de producción convencional.

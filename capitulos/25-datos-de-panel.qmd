@@ -73,7 +73,7 @@ Los datos de panel permiten:
 - Mejorar la precisión de las estimaciones.
 - Evaluar dinámicas de comportamiento.
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg25-cargar-librerias
@@ -85,7 +85,7 @@ Los datos de panel permiten:
 
 ```
 
-### Cargando la base de datos
+**Cargando la base de datos.**
 
 Utilizaremos la base `Grunfeld` incluida en el paquete `plm`.
 
@@ -272,7 +272,7 @@ R reconoce explícitamente:
 
 Esta estructura será utilizada en los modelos econométricos posteriores.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 En esta primera parte aprendimos a:
 
@@ -285,7 +285,7 @@ En esta primera parte aprendimos a:
 
 En la siguiente sección estimaremos modelos pooled OLS, efectos fijos y efectos aleatorios.
 
-### Introducción
+**Introducción.**
 
 Una vez definida la estructura panel, el siguiente paso consiste en estimar modelos econométricos.
 
@@ -301,7 +301,7 @@ Efectos Aleatorios
 
 Cada uno realiza supuestos distintos sobre la heterogeneidad existente entre individuos [@wooldridge2010].
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg25-cargar-librerias-parte2
@@ -313,7 +313,7 @@ Cada uno realiza supuestos distintos sobre la heterogeneidad existente entre ind
 
 ```
 
-### Cargando la base Grunfeld
+**Cargando la base Grunfeld.**
 
 ```{r}
 #| label: reg25-cargar-datos-parte2
@@ -766,7 +766,7 @@ tibble(
   )
 ```
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 En esta sección aprendimos a:
 
@@ -779,7 +779,7 @@ En esta sección aprendimos a:
 
 En la siguiente sección utilizaremos pruebas formales como parte del diagnóstico entre especificaciones, sin convertirlas en una regla automática de selección.
 
-### Introducción
+**Introducción.**
 
 Después de estimar modelos pooled OLS, efectos fijos y efectos aleatorios surge una pregunta fundamental:
 
@@ -791,7 +791,7 @@ La respuesta depende de los supuestos sobre la heterogeneidad individual.
 
 En esta sección combinaremos supuestos sustantivos, estructura de los datos y pruebas formales para evaluar especificaciones de panel [@wooldridge2010].
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg25-cargar-librerias-parte3
@@ -803,7 +803,7 @@ En esta sección combinaremos supuestos sustantivos, estructura de los datos y p
 
 ```
 
-### Cargando la base de datos
+**Cargando la base de datos.**
 
 ```{r}
 #| label: reg25-cargar-datos-parte3
@@ -1155,7 +1155,7 @@ Los modelos de panel son ampliamente utilizados en:
 - Mercados laborales.
 - Estudios regionales.
 
-### Manos a la obra
+**Manos a la obra.**
 
 1. Identifique individuos y períodos.
 2. Construya un objeto `pdata.frame`.

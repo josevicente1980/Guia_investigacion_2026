@@ -29,7 +29,7 @@ Tradicionalmente los resultados obtenidos en R se copian manualmente hacia Power
 
 Quarto permite generar presentaciones completamente reproducibles utilizando una única fuente de información, donde tablas, gráficos y resultados se actualizan automáticamente cada vez que cambian los datos o el análisis [@allaire2024].
 
-### Configuración inicial
+**Configuración inicial.**
 
 ### Carga de librerías y datos
 
@@ -62,11 +62,11 @@ title: "Mi presentación"
 format: revealjs
 ---
 
-## Primera diapositiva
+### Primera diapositiva
 
 Contenido
 
-## Segunda diapositiva
+### Segunda diapositiva
 
 Contenido
 ```
@@ -94,15 +94,15 @@ En una presentación RevealJS, los encabezados de nivel 2 (`##`) suelen crear di
 ### Ejemplo
 
 ```markdown
-## Introducción
+### Introducción
 
 Texto.
 
-## Objetivos
+### Objetivos
 
 Texto.
 
-## Resultados
+### Resultados
 
 Texto.
 ```
@@ -129,7 +129,7 @@ datos_presentacion |>
 
 La tabla se actualizará automáticamente cuando cambien los datos utilizados.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 No es necesario copiar tablas manualmente a PowerPoint.
 
@@ -157,7 +157,7 @@ ggplot(
 
 La figura se genera automáticamente utilizando los datos originales.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 Los gráficos siempre estarán sincronizados con el análisis.
 
@@ -357,7 +357,7 @@ tibble(
   kable()
 ```
 
-### Manos a la obra
+**Manos a la obra.**
 
 1. Cree un archivo `.qmd`.
 2. Configure RevealJS.
