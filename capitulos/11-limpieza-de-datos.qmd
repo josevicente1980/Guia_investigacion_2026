@@ -66,7 +66,7 @@ La reproducibilidad requiere que todas las transformaciones realizadas sobre la 
 
 Por esta razón, nunca se recomienda modificar manualmente una base de datos descargada desde una fuente oficial.
 
-### Cargando la base de trabajo
+**Cargando la base de trabajo.**
 
 Trabajaremos con el módulo de uso del suelo de la ESPAC 2025.
 
@@ -105,7 +105,7 @@ data.frame(
 
 La ESPAC contiene decenas de miles de observaciones y múltiples variables asociadas al uso del suelo, tenencia y superficie agropecuaria.
 
-### Exploración general de la base
+**Exploración general de la base.**
 
 Una primera inspección puede realizarse mediante:
 
@@ -169,7 +169,7 @@ Si ambas cantidades son diferentes, significa que una misma unidad productiva pu
 
 Esto ocurre en la ESPAC porque un productor puede registrar múltiples usos del suelo dentro de una misma unidad de producción agropecuaria.
 
-### Identificando registros por productor
+**Identificando registros por productor.**
 
 Podemos examinar cuántas veces aparece cada identificador.
 

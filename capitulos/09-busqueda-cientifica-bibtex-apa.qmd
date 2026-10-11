@@ -41,7 +41,7 @@ Documentar estos elementos fortalece la transparencia metodológica del estudio.
 
 Actualmente existen múltiples plataformas especializadas para la búsqueda de literatura académica.
 
-### Google Scholar
+**Google Scholar.**
 
 Google Scholar constituye uno de los motores de búsqueda académica más utilizados a nivel mundial.
 
@@ -58,7 +58,7 @@ Su principal ventaja radica en su amplitud de cobertura y facilidad de acceso.
 
 No obstante, sus criterios de indexación son menos estrictos que los utilizados por bases de datos especializadas.
 
-### Scopus
+**Scopus.**
 
 Scopus es una de las mayores bases de datos bibliográficas multidisciplinarias del mundo.
 
@@ -71,7 +71,7 @@ Además de facilitar la búsqueda de literatura científica, proporciona indicad
 
 Su cobertura internacional la convierte en una herramienta ampliamente utilizada para revisiones sistemáticas y estudios bibliométricos [@martinmartin2018].
 
-### Web of Science
+**Web of Science.**
 
 Web of Science constituye una de las bases de datos científicas más influyentes a nivel mundial.
 
@@ -84,19 +84,19 @@ Es frecuentemente utilizada para:
 - Estudios de impacto científico.
 - Evaluaciones de producción académica.
 
-### Scielo
+**Scielo.**
 
 Scielo representa una de las principales iniciativas de acceso abierto en América Latina.
 
 Su importancia radica en la visibilidad que proporciona a investigaciones desarrolladas en contextos regionales frecuentemente subrepresentados en bases de datos internacionales.
 
-### Redalyc
+**Redalyc.**
 
 Redalyc promueve la difusión de conocimiento científico producido principalmente en Iberoamérica bajo principios de acceso abierto.
 
 Su utilización resulta especialmente relevante para investigaciones en ciencias sociales y humanidades.
 
-### Dialnet
+**Dialnet.**
 
 Dialnet constituye una importante fuente de literatura científica en español.
 
@@ -131,7 +131,7 @@ AND
 
 Los operadores booleanos permiten mejorar significativamente la precisión de las búsquedas [@booth2024].
 
-### Operador AND
+**Operador AND.**
 
 Recupera documentos que contienen simultáneamente varios términos.
 
@@ -139,7 +139,7 @@ Recupera documentos que contienen simultáneamente varios términos.
 entrepreneurship AND innovation
 ```
 
-### Operador OR
+**Operador OR.**
 
 Recupera documentos que contienen cualquiera de los términos especificados.
 
@@ -147,7 +147,7 @@ Recupera documentos que contienen cualquiera de los términos especificados.
 startup OR entrepreneurship
 ```
 
-### Operador NOT
+**Operador NOT.**
 
 Excluye determinados términos.
 
@@ -238,7 +238,7 @@ Dependiendo del tipo de documento pueden existir campos adicionales.
 
 ### Tipos de registros BibTeX
 
-### Artículo científico
+**Artículo científico.**
 
 ```{.text}
 @article{clave,
@@ -246,7 +246,7 @@ Dependiendo del tipo de documento pueden existir campos adicionales.
 }
 ```
 
-### Libro
+**Libro.**
 
 ```{.text}
 @book{clave,
@@ -254,7 +254,7 @@ Dependiendo del tipo de documento pueden existir campos adicionales.
 }
 ```
 
-### Capítulo de libro
+**Capítulo de libro.**
 
 ```{.text}
 @incollection{clave,
@@ -262,7 +262,7 @@ Dependiendo del tipo de documento pueden existir campos adicionales.
 }
 ```
 
-### Documento institucional
+**Documento institucional.**
 
 ```{.text}
 @misc{clave,
@@ -270,7 +270,7 @@ Dependiendo del tipo de documento pueden existir campos adicionales.
 }
 ```
 
-### Tesis
+**Tesis.**
 
 ```{.text}
 @phdthesis{clave,
@@ -305,19 +305,19 @@ Esta instrucción permite que Quarto localice automáticamente la biblioteca bib
 
 Una vez configurada la biblioteca, las citas pueden incorporarse directamente dentro del texto.
 
-### Cita narrativa
+**Cita narrativa.**
 
 ```{.markdown}
 Según @peng2011, la reproducibilidad constituye uno de los pilares fundamentales de la ciencia moderna.
 ```
 
-### Cita parentética
+**Cita parentética.**
 
 ```{.markdown}
 La reproducibilidad constituye uno de los pilares fundamentales de la ciencia moderna [@peng2011].
 ```
 
-### Múltiples referencias
+**Múltiples referencias.**
 
 ```{.markdown}
 [@peng2011; @baker2016; @munafo2017]

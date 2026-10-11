@@ -200,7 +200,7 @@ El objeto `sunac` contiene ahora la información almacenada en el archivo origin
 
 ## Primera revisión de la base
 
-### Explorando las dimensiones de la base
+**Explorando las dimensiones de la base.**
 
 Una de las primeras preguntas que debemos responder es cuántas observaciones y variables contiene la base.
 
@@ -223,7 +223,7 @@ ncol(sunac)
 
 Estos resultados permiten dimensionar el tamaño del archivo y verificar si la importación fue exitosa.
 
-### Explorando los nombres de las variables
+**Explorando los nombres de las variables.**
 
 Para conocer las variables disponibles utilizamos:
 
@@ -287,7 +287,7 @@ sunac |>
 
 Esta función ofrece una visualización compacta de la estructura. En el libro mostramos solo variables representativas para conservar la legibilidad; el objeto original permanece completo.
 
-### Visualizando las primeras observaciones
+**Visualizando las primeras observaciones.**
 
 Antes de iniciar cualquier análisis es recomendable inspeccionar visualmente los datos.
 
