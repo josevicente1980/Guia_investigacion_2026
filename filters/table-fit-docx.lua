@@ -1,15 +1,15 @@
 -- Ajuste de tablas para DOCX -------------------------------------------------
 -- El reference-doc del libro usa 17 x 24 cm con márgenes de 2,5 cm.
--- Pandoc calcula las proporciones de tabla sobre un ancho base mayor que
--- el ancho útil real de esta plantilla. Por ello se usa TARGET_TOTAL = 0.85,
--- que deja la tabla dentro del ancho útil y evita desbordamientos.
+-- Pandoc distribuye las proporciones dentro del ancho útil definido por
+-- el reference-doc. Se utiliza el 100 % del ancho disponible para evitar
+-- que los encabezados y valores se fragmenten innecesariamente.
 --
 -- Además, las celdas se fuerzan al estilo "Table Text" de la plantilla
 -- (Times New Roman 10 pt, sin sangría de primera línea). Esto evita que
 -- hereden la sangría del estilo Normal, que estrechaba artificialmente las
 -- celdas y partía encabezados y valores en varias líneas.
 
-local TARGET_TOTAL = 0.85
+local TARGET_TOTAL = 1.00
 local MIN_WEIGHT = 4
 local MAX_WEIGHT = 18
 
