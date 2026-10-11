@@ -220,7 +220,7 @@ Coincidencia estadística
 
 Por esta razón, la interpretación de modelos requiere sustento teórico y conocimiento del fenómeno estudiado.
 
-### Exploración visual previa
+**Exploración visual previa.**
 
 Antes de estimar modelos es recomendable examinar visualmente la relación entre variables.
 
@@ -252,7 +252,7 @@ ggplot(
 
 El gráfico permite identificar posibles asociaciones, concentraciones de observaciones y valores atípicos antes de construir modelos formales.
 
-### Incorporando una línea de tendencia
+**Incorporando una línea de tendencia.**
 
 ```{r}
 #| label: fig-ch18-dispersion-tendencia
@@ -314,7 +314,7 @@ ggplot(
 
 Las diferencias observadas sugieren que la categoría de tamaño podría aportar información relevante para explicar la productividad total.
 
-### Comparación territorial
+**Comparación territorial.**
 
 ```{r}
 #| label: fig-ch18-region-modelacion
@@ -384,7 +384,7 @@ La modelación permitirá posteriormente:
 - Incorporar múltiples variables simultáneamente.
 - Realizar predicciones.
 
-### Flujo general de modelación
+**Flujo general de modelación.**
 
 ```text
 Datos
@@ -487,7 +487,7 @@ modelo_simple <- lm(
 )
 ```
 
-### Resultados del modelo
+**Resultados del modelo.**
 
 ```{r}
 #| label: out-ch18-resumen-modelo-simple
@@ -579,7 +579,7 @@ ggplot(
 
 Mientras más cercanos se encuentren los puntos a la línea diagonal, mejor será la capacidad predictiva del modelo.
 
-### Visualización del ajuste
+**Visualización del ajuste.**
 
 ```{r}
 #| label: fig-ch18-ajuste-regresion
@@ -655,7 +655,7 @@ matriz_modelo <-
   )
 ```
 
-### Distribución de residuos
+**Distribución de residuos.**
 
 ```{r}
 #| label: fig-ch18-residuos-histograma
@@ -683,7 +683,7 @@ ggplot(
 
 Los residuos permiten evaluar la adecuación del modelo y detectar posibles problemas de especificación.
 
-### Residuos versus valores ajustados
+**Residuos versus valores ajustados.**
 
 ```{r}
 #| label: fig-ch18-residuos-ajustados
@@ -711,7 +711,7 @@ ggplot(
 
 Idealmente los residuos deberían distribuirse alrededor de cero sin patrones evidentes.
 
-### Incorporando variables categóricas
+**Incorporando variables categóricas.**
 
 La regresión también puede incorporar variables categóricas.
 
@@ -721,7 +721,7 @@ Por ejemplo:
 tamano_empresa
 ```
 
-### Modelo con tamaño de empresa
+**Modelo con tamaño de empresa.**
 
 ```{r}
 #| label: ch18-modelo-categorico
@@ -732,7 +732,7 @@ modelo_tamano <- lm(
 )
 ```
 
-### Resultados del modelo categórico
+**Resultados del modelo categórico.**
 
 ```{r}
 #| label: tbl-ch18-modelo-categorico
@@ -750,7 +750,7 @@ broom::tidy(
 
 Los coeficientes representan diferencias promedio respecto a la categoría de referencia. Su interpretación debe considerar la magnitud estimada, la incertidumbre y la relevancia sustantiva; el valor p es solo una pieza de esa evaluación y no debe utilizarse como criterio automático de importancia.
 
-### Introducción a la regresión múltiple
+**Introducción a la regresión múltiple.**
 
 En la práctica, los fenómenos suelen depender de múltiples factores simultáneamente.
 
@@ -760,7 +760,7 @@ Su forma general es:
 
 Y = β0 + β1X1 + β2X2 + ... + βkXk + ε
 
-### Primer modelo múltiple
+**Primer modelo múltiple.**
 
 ```{r}
 #| label: ch18-modelo-multiple
@@ -773,7 +773,7 @@ modelo_multiple <- lm(
 )
 ```
 
-### Resultados del modelo múltiple
+**Resultados del modelo múltiple.**
 
 ```{r}
 #| label: tbl-ch18-modelo-multiple
@@ -791,7 +791,7 @@ broom::tidy(
 
 Cada coeficiente representa una asociación condicional entre una variable y la respuesta, manteniendo constantes las demás variables incluidas. En este ejemplo pedagógico no debe interpretarse como un efecto causal.
 
-### Comparación entre modelos
+**Comparación entre modelos.**
 
 ```{r}
 #| label: tbl-ch18-comparacion-modelos
@@ -820,7 +820,7 @@ comparacion_modelos |>
 
 La comparación permite evaluar si la incorporación de variables adicionales mejora la capacidad explicativa. Al disponer de más variables, el modelo cuenta con mayor información para ajustar los datos observados, lo que puede reducir o mantener el error de predicción y, en consecuencia, incrementar el valor de \(R^2\).
 
-### ¿Qué hemos aprendido?
+**¿Qué hemos aprendido?.**
 
 Hasta este punto hemos aprendido a:
 
@@ -894,7 +894,7 @@ matriz_modelo <-
   )
 ```
 
-### Resumen de predicciones
+**Resumen de predicciones.**
 
 ```{r}
 #| label: tbl-ch18-resumen-predicciones
@@ -924,7 +924,7 @@ tibble(
 
 Los valores predichos representan la respuesta estimada por el modelo para cada observación de la base de datos.
 
-### Observados versus predichos
+**Observados versus predichos.**
 
 ```{r}
 #| label: fig-ch18-observado-predicho-multiple
@@ -982,7 +982,7 @@ Mayor ajuste aparente
 Menor generalización
 ```
 
-### Complejidad y capacidad predictiva
+**Complejidad y capacidad predictiva.**
 
 La relación entre complejidad y capacidad predictiva suele seguir un patrón similar al siguiente.
 
@@ -1060,7 +1060,7 @@ Validación
 
 Utilizado para evaluar el desempeño del modelo.
 
-### Creando conjuntos de entrenamiento y validación
+**Creando conjuntos de entrenamiento y validación.**
 
 ```{r}
 #| label: ch18-dividir-muestra
@@ -1094,7 +1094,7 @@ datos_validacion <-
   ]
 ```
 
-### Verificación de tamaños
+**Verificación de tamaños.**
 
 ```{r}
 #| label: tbl-ch18-tamano-muestras
@@ -1122,7 +1122,7 @@ tibble(
 
 La división permite evaluar si el modelo mantiene un desempeño razonable sobre observaciones no utilizadas durante la estimación.
 
-### Estimando un modelo de entrenamiento
+**Estimando un modelo de entrenamiento.**
 
 ```{r}
 #| label: ch18-modelo-entrenamiento
@@ -1136,7 +1136,7 @@ modelo_entrenamiento <- lm(
 )
 ```
 
-### Predicciones en validación
+**Predicciones en validación.**
 
 ```{r}
 #| label: ch18-prediccion-validacion
@@ -1153,7 +1153,7 @@ datos_validacion <-
   )
 ```
 
-### Comparación observados y predichos
+**Comparación observados y predichos.**
 
 ```{r}
 #| label: fig-ch18-validacion
@@ -1187,7 +1187,7 @@ La comparación permite evaluar si el modelo conserva capacidad predictiva fuera
 Una medida ampliamente utilizada para evaluar predicciones es la raíz del error cuadrático medio (RMSE). De acuerdo con @munoz2013calculo, es una medida que cuantifica la diferencia promedio entre los valores observados y los valores predichos por un modelo de regresión. En otras palabras, indica qué tan cerca están las predicciones del modelo de los valores reales.
 
 
-### Cálculo del RMSE
+**Cálculo del RMSE.**
 
 ```{r}
 #| label: tbl-ch18-rmse
@@ -1231,7 +1231,7 @@ Efecto de X
 Depende de Z
 ```
 
-### Ejemplo de interacción
+**Ejemplo de interacción.**
 
 ```{r}
 #| label: ch18-modelo-interaccion
@@ -1245,7 +1245,7 @@ modelo_interaccion <- lm(
 )
 ```
 
-### Resultados del modelo con interacción
+**Resultados del modelo con interacción.**
 
 ```{r}
 #| label: tbl-ch18-modelo-interaccion
@@ -1263,7 +1263,7 @@ broom::tidy(
 
 Los términos de interacción permiten evaluar si la relación entre variables cambia según la categoría observada.
 
-### Comparación de modelos
+**Comparación de modelos.**
 
 ```{r}
 #| label: tbl-ch18-comparacion-final
@@ -1322,7 +1322,7 @@ Predicción
 Interpretación
 ```
 
-### Buenas prácticas de modelación
+**Buenas prácticas de modelación.**
 
 Se recomienda:
 

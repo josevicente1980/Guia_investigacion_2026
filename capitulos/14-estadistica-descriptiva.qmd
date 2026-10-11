@@ -258,7 +258,7 @@ data.frame(
 
 La mediana es especialmente útil cuando la distribución presenta valores extremos o asimetría. Si la media y la mediana son muy diferentes, esto sugiere que la distribución no es simétrica.
 
-### Comparación entre media y mediana
+**Comparación entre media y mediana.**
 
 Podemos presentar ambas medidas en una sola tabla.
 
@@ -313,7 +313,7 @@ base_analitica |>
 
 La tabla muestra la categoría más frecuente de tamaño de UPA dentro de la base analítica.
 
-### Función para calcular la moda
+**Función para calcular la moda.**
 
 Podemos crear una función simple para calcular la moda de una variable.
 
@@ -344,7 +344,7 @@ data.frame(
 
 El resultado permite identificar automáticamente la categoría más frecuente.
 
-### Estadísticas descriptivas básicas
+**Estadísticas descriptivas básicas.**
 
 Podemos reunir media, mediana, mínimo y máximo en una tabla resumen.
 
@@ -378,7 +378,7 @@ data.frame(
 
 La tabla resume el comportamiento general de la superficie total. Esta información permite identificar el nivel promedio, el valor central y la amplitud de la variable.
 
-### Interpretación inicial
+**Interpretación inicial.**
 
 La estadística descriptiva no debe limitarse a producir tablas. Cada resultado requiere interpretación.
 
@@ -405,7 +405,7 @@ Las medidas más utilizadas son:
 - Desviación estándar.
 - Coeficiente de variación.
 
-### Rango
+**Rango.**
 
 El rango representa la diferencia entre el valor máximo y el valor mínimo de una variable.
 
@@ -435,7 +435,7 @@ El rango proporciona una primera aproximación a la amplitud de la distribución
 
 Sin embargo, esta medida utiliza únicamente dos observaciones y puede verse fuertemente afectada por valores extremos.
 
-### Varianza
+**Varianza.**
 
 La varianza mide la dispersión promedio de los datos respecto a la media.
 
@@ -459,7 +459,7 @@ data.frame(
 
 La principal limitación de la varianza es que sus unidades se encuentran elevadas al cuadrado, dificultando su interpretación directa.
 
-### Desviación estándar
+**Desviación estándar.**
 
 La desviación estándar corrige esta limitación al expresar la dispersión en las mismas unidades originales de la variable.
 
@@ -481,7 +481,7 @@ data.frame(
 
 La desviación estándar es una de las medidas de dispersión más utilizadas en investigación aplicada [@moore2017].
 
-### Interpretación de la desviación estándar
+**Interpretación de la desviación estándar.**
 
 Podemos comparar simultáneamente la media y la desviación estándar.
 
@@ -549,7 +549,7 @@ data.frame(
 
 Valores elevados indican una fuerte heterogeneidad entre las observaciones.
 
-### Resumen de medidas de dispersión
+**Resumen de medidas de dispersión.**
 
 ```{r}
 #| label: tbl-ch14-resumen-dispersion
@@ -662,7 +662,7 @@ data.frame(
 
 Los percentiles permiten estudiar con mayor detalle la distribución de una variable.
 
-### Visualización mediante diagrama de caja
+**Visualización mediante diagrama de caja.**
 
 Los diagramas de caja constituyen una herramienta fundamental para visualizar medidas de posición y dispersión.
 
@@ -752,7 +752,7 @@ data.frame(
 
 Valores elevados suelen indicar la presencia de observaciones extremas.
 
-### Histograma de la superficie total
+**Histograma de la superficie total.**
 
 Podemos visualizar simultáneamente la forma de la distribución.
 
@@ -775,7 +775,7 @@ La figura permite interpretar visualmente:
 - Valores extremos.
 - Forma general de la distribución.
 
-### Interpretación general
+**Interpretación general.**
 
 Hasta este punto hemos aprendido a describir una variable numérica utilizando:
 
@@ -853,7 +853,7 @@ base_analitica |>
 
 Los porcentajes facilitan la comparación entre categorías.
 
-### Distribución de la tenencia de la tierra
+**Distribución de la tenencia de la tierra.**
 
 Ahora analizaremos una variable de gran importancia para los estudios agrarios.
 
@@ -881,7 +881,7 @@ base_analitica |>
 
 Esta tabla permite identificar cuáles son las modalidades predominantes de tenencia de la tierra dentro de la población estudiada.
 
-### Visualización de frecuencias
+**Visualización de frecuencias.**
 
 Los gráficos de barras constituyen la representación visual más utilizada para variables categóricas.
 
@@ -992,7 +992,7 @@ Observe que los resultados son completamente distintos.
 
 La muestra contiene observaciones reales, mientras que la suma de factores de expansión aproxima el tamaño de la población representada.
 
-### Media ponderada
+**Media ponderada.**
 
 También podemos calcular medias ponderadas.
 
@@ -1021,7 +1021,7 @@ data.frame(
 
 La media ponderada incorpora el diseño de la encuesta y suele proporcionar estimaciones más representativas de la realidad nacional.
 
-### Comparación entre media simple y media ponderada
+**Comparación entre media simple y media ponderada.**
 
 ```{r}
 #| label: tbl-ch14-comparacion-medias
@@ -1052,7 +1052,7 @@ data.frame(
 
 Las diferencias observadas reflejan el efecto del diseño muestral sobre las estimaciones.
 
-### Tabla descriptiva reproducible
+**Tabla descriptiva reproducible.**
 
 Una práctica frecuente consiste en generar tablas resumen para informes y artículos científicos.
 
@@ -1090,7 +1090,7 @@ data.frame(
 
 Esta tabla resume las principales características estadísticas de una variable.
 
-### Interpretación integrada
+**Interpretación integrada.**
 
 La estadística descriptiva permite transformar grandes volúmenes de datos en información comprensible.
 

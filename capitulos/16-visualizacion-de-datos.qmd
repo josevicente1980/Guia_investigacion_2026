@@ -283,7 +283,7 @@ ggplot(
 
 La densidad suavizada muestra la forma general de la distribución transformada y facilita la identificación de concentraciones de observaciones.
 
-### Histograma y densidad combinados
+**Histograma y densidad combinados.**
 
 Una práctica frecuente consiste en combinar ambas representaciones.
 
@@ -329,7 +329,7 @@ Analizaremos la variable:
 tamano_upa
 ```
 
-### Tabla de frecuencias
+**Tabla de frecuencias.**
 
 ```{r}
 #| label: tbl-ch16-frecuencia-tamano
@@ -378,7 +378,7 @@ ggplot(
 
 La altura de cada barra representa el número de observaciones registradas en cada categoría.
 
-### Comparaciones territoriales
+**Comparaciones territoriales.**
 
 También podemos analizar la distribución de observaciones entre provincias.
 
@@ -436,7 +436,7 @@ ggplot(
 
 Las diferencias observadas entre las cajas sugieren que las categorías de tamaño presentan comportamientos distintos en términos de superficie total.
 
-### Comparación provincial de la superficie
+**Comparación provincial de la superficie.**
 
 ```{r}
 #| label: fig-ch16-boxplot-provincia-log
@@ -582,7 +582,7 @@ ggplot(
 
 El color permite identificar si las categorías de tamaño presentan patrones diferenciados dentro de la relación entre superficie y factor de expansión.
 
-### Gráficos de burbujas
+**Gráficos de burbujas.**
 
 Los gráficos de burbujas permiten incorporar una dimensión adicional mediante el tamaño de los puntos.
 
@@ -621,7 +621,7 @@ Las facetas permiten dividir un gráfico en varios paneles según una variable c
 
 Esto facilita la comparación entre grupos sin saturar una sola figura.
 
-### Histograma por tamaño de UPA
+**Histograma por tamaño de UPA.**
 
 ```{r}
 #| label: fig-ch16-facetas-tamano
@@ -652,7 +652,7 @@ ggplot(
 
 Cada panel muestra la distribución de la superficie transformada dentro de una categoría específica de tamaño de UPA.
 
-### Histograma por provincia
+**Histograma por provincia.**
 
 ```{r}
 #| label: fig-ch16-facetas-provincia
@@ -695,7 +695,7 @@ y
 tamano_upa
 ```
 
-### Preparando los datos para el mapa de calor
+**Preparando los datos para el mapa de calor.**
 
 ```{r}
 #| label: tbl-ch16-datos-heatmap
@@ -719,7 +719,7 @@ head(
 
 La tabla resume el número de observaciones para cada combinación entre provincia y tamaño de UPA.
 
-### Mapa de calor
+**Mapa de calor.**
 
 ```{r}
 #| label: fig-ch16-heatmap-provincia-tamano
@@ -746,7 +746,7 @@ ggplot(
 
 Las celdas con mayor intensidad representan combinaciones con mayor cantidad de observaciones. Esta visualización permite identificar patrones estructurales entre provincia y tamaño de UPA.
 
-### Tabla de correlación
+**Tabla de correlación.**
 
 Cuando trabajamos con variables numéricas, también podemos evaluar asociaciones lineales mediante una matriz de correlación.
 
@@ -778,7 +778,7 @@ base_analitica |>
 
 La matriz de correlación muestra la dirección y fuerza de la asociación lineal entre las variables numéricas seleccionadas.
 
-### Visualización simple de correlación
+**Visualización simple de correlación.**
 
 Para evitar depender de paquetes adicionales, podemos representar la correlación mediante un gráfico de dispersión con línea de tendencia, como se mostró anteriormente.
 
@@ -810,7 +810,7 @@ ggplot(
 
 El gráfico complementa la tabla de correlación al permitir observar visualmente la dispersión de los datos y la tendencia promedio.
 
-### Buenas prácticas para visualizaciones multivariadas
+**Buenas prácticas para visualizaciones multivariadas.**
 
 Las visualizaciones multivariadas pueden ser muy útiles, pero también pueden volverse confusas si se incorporan demasiadas dimensiones al mismo tiempo.
 
@@ -827,13 +827,13 @@ La visualización debe ayudar a comprender los datos, no complicar innecesariame
 
 ## Visualización territorial
 
-### Visualizaciones territoriales: de tablas planas a mapas inteligentes
+**Visualizaciones territoriales: de tablas planas a mapas inteligentes.**
 
 Los datos territoriales permiten pasar de una tabla tradicional a una representación espacial del fenómeno estudiado. Cuando una base contiene provincias, cantones, coordenadas o cualquier referencia geográfica, es posible construir mapas que ayuden a identificar patrones regionales, concentraciones y diferencias espaciales [@lovelace2025].
 
 En esta sección construiremos una introducción práctica al análisis espacial en R utilizando Ecuador como referencia. El objetivo no es desarrollar todavía un análisis espacial avanzado, sino comprender la lógica básica de los mapas estáticos, los puntos georreferenciados, los sistemas de coordenadas, los buffers y los mapas interactivos.
 
-### Preparación del laboratorio espacial
+**Preparación del laboratorio espacial.**
 
 Para trabajar con datos espaciales utilizaremos `sf`, que permite manejar geometrías geográficas, y `leaflet`, que permite construir mapas interactivos. Para asegurar que el capítulo se renderice correctamente en HTML, Word y PDF, los mapas interactivos se mostrarán solo cuando el formato de salida sea HTML. En Word y PDF se mostrará una versión estática.
 
@@ -870,7 +870,7 @@ sf::st_crs(
 ) <- 4326
 ```
 
-### Explorando el objeto espacial
+**Explorando el objeto espacial.**
 
 ```{r}
 #| label: tbl-ch16-estructura-ecuador-sf
@@ -886,7 +886,7 @@ ecuador_sf |>
 
 El objeto `ecuador_sf` contiene una columna especial llamada `geom`. Esa columna almacena la geometría del territorio. Sin esa columna tendríamos una tabla tradicional; con ella tenemos un objeto espacial.
 
-### Visualizando la geometría pura
+**Visualizando la geometría pura.**
 
 ```{r}
 #| label: fig-ch16-geometria-ecuador
@@ -978,7 +978,7 @@ ciudades_df |>
 
 La tabla contiene nombres de ciudades y sus coordenadas aproximadas. Todavía no es un objeto espacial, pero contiene la información necesaria para convertirse en uno.
 
-### Conversión de tabla a objeto espacial
+**Conversión de tabla a objeto espacial.**
 
 ```{r}
 #| label: ch16-ciudades-sf
@@ -1007,7 +1007,7 @@ ciudades_sf |>
 
 La columna de coordenadas se convierte en geometría. Ahora `ciudades_sf` puede representarse sobre el mapa del Ecuador.
 
-### Verificando compatibilidad espacial
+**Verificando compatibilidad espacial.**
 
 ```{r}
 #| label: tbl-ch16-verificar-crs
@@ -1074,7 +1074,7 @@ mapa_ciudades
 
 El mapa muestra varias ciudades ubicadas sobre el territorio ecuatoriano. Este tipo de visualización permite representar información puntual, como sedes, mercados, estaciones, encuestas o proyectos.
 
-### Fase 5: el centro de gravedad territorial
+**Fase 5: el centro de gravedad territorial.**
 
 El centroide es un punto que representa el centro geométrico aproximado de una geometría. Puede utilizarse para ubicar etiquetas, símbolos o referencias territoriales.
 
@@ -1110,7 +1110,7 @@ ggplot() +
 
 El punto dorado representa el centroide geométrico aproximado del Ecuador. Esta idea será útil más adelante para ubicar etiquetas o símbolos en mapas.
 
-### Fase 6: análisis de proximidad mediante buffers
+**Fase 6: análisis de proximidad mediante buffers.**
 
 Un buffer representa un área de influencia alrededor de un punto, línea o polígono. Para construir buffers en metros, transformaremos las ciudades a un sistema proyectado. En este ejemplo utilizaremos EPSG:3857, suficiente para una demostración pedagógica.
 
@@ -1129,7 +1129,7 @@ ciudades_buffer <- ciudades_sf |>
   )
 ```
 
-### Mapa de áreas de influencia
+**Mapa de áreas de influencia.**
 
 ```{r}
 #| label: fig-ch16-buffer-ciudades
@@ -1165,7 +1165,7 @@ mapa_buffer
 
 Los círculos representan áreas de influencia aproximadas de 50 kilómetros alrededor de cada ciudad. Esta técnica puede utilizarse para analizar cobertura territorial, accesibilidad o cercanía a servicios.
 
-### Fase 7: indicadores provinciales sin polígonos provinciales
+**Fase 7: indicadores provinciales sin polígonos provinciales.**
 
 Aun cuando no tengamos cartografía provincial detallada, podemos representar indicadores territoriales mediante coordenadas aproximadas de provincias. Primero calculamos la superficie promedio ponderada por provincia.
 
@@ -1204,7 +1204,7 @@ indicadores_provincia |>
 
 La tabla resume la superficie promedio ponderada por provincia. Este indicador será representado mediante puntos sobre el mapa.
 
-### Coordenadas aproximadas de provincias
+**Coordenadas aproximadas de provincias.**
 
 ```{r}
 #| label: tbl-ch16-coordenadas-provincia
@@ -1301,7 +1301,7 @@ coords_provincia |>
 
 Estas coordenadas no sustituyen una cartografía oficial, pero son útiles para construir un ejemplo didáctico estable y reproducible.
 
-### Unión entre indicadores y coordenadas
+**Unión entre indicadores y coordenadas.**
 
 ```{r}
 #| label: ch16-normalizar-provincias
@@ -1365,7 +1365,7 @@ mapa_provincial_puntos |>
 
 La base resultante combina coordenadas aproximadas con indicadores provinciales. Esto permite representar información estadística en el mapa.
 
-### Mapa provincial de puntos
+**Mapa provincial de puntos.**
 
 ```{r}
 #| label: fig-ch16-mapa-provincial-puntos
@@ -1402,7 +1402,7 @@ mapa_provincial
 
 El tamaño de cada punto representa la superficie promedio ponderada de la provincia. Esta visualización permite comparar territorios sin requerir polígonos provinciales.
 
-### Mapa provincial con etiquetas
+**Mapa provincial con etiquetas.**
 
 ```{r}
 #| label: fig-ch16-mapa-provincial-etiquetas
@@ -1512,7 +1512,7 @@ if (
 
 En HTML, el mapa permite explorar cada provincia mediante ventanas emergentes. En Word y PDF se mantiene la versión estática, garantizando que el capítulo se renderice correctamente.
 
-### Mapa dinámico con capas
+**Mapa dinámico con capas.**
 
 ```{r}
 #| label: fig-ch16-mapa-leaflet-capas
@@ -1589,7 +1589,7 @@ if (
 
 El mapa dinámico con capas permite activar o desactivar información. Esta lógica es muy útil en tableros de control, informes digitales y plataformas de visualización territorial.
 
-### ¿Mapa estático o mapa dinámico?
+**¿Mapa estático o mapa dinámico?.**
 
 Un mapa estático es como una fotografía: el investigador controla completamente el diseño final. Es ideal para tesis, artículos, documentos PDF e informes impresos.
 
@@ -1597,7 +1597,7 @@ Un mapa dinámico es una experiencia interactiva: el lector decide qué explorar
 
 Ambos tipos de mapas son útiles. La elección depende del objetivo de comunicación y del formato final del documento.
 
-### Buenas prácticas para visualización espacial
+**Buenas prácticas para visualización espacial.**
 
 Al construir mapas se recomienda:
 

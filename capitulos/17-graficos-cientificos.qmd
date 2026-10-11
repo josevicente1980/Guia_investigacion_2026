@@ -146,7 +146,7 @@ Esto implica:
 - Simplificar rejillas.
 - Destacar los datos.
 
-### Ejemplo de gráfico básico
+**Ejemplo de gráfico básico.**
 
 Comenzaremos con un histograma sencillo.
 
@@ -233,9 +233,9 @@ temas_ggplot |>
 
 No existe un único tema correcto. La elección depende del contexto de publicación y de los requisitos editoriales.
 
-### Comparación de temas
+**Comparación de temas.**
 
-### Tema clásico
+**Tema clásico.**
 
 ```{r}
 #| label: fig-ch17-theme-classic
@@ -254,7 +254,7 @@ ggplot(
   theme_classic()
 ```
 
-### Tema minimalista
+**Tema minimalista.**
 
 ```{r}
 #| label: fig-ch17-theme-minimal
@@ -301,7 +301,7 @@ Sus ventajas incluyen:
 - Legibilidad para personas con daltonismo.
 - Gradientes perceptualmente uniformes.
 
-### Ejemplo utilizando Viridis
+**Ejemplo utilizando Viridis.**
 
 ```{r}
 #| label: fig-ch17-viridis
@@ -339,7 +339,7 @@ Los gráficos pueden inducir interpretaciones erróneas cuando:
 
 La comunicación científica exige representar los datos de forma honesta y transparente [@cairo2016].
 
-### Ejemplo de mala práctica
+**Ejemplo de mala práctica.**
 
 ```{r}
 #| label: fig-ch17-mala-practica
@@ -379,7 +379,7 @@ ggplot(
 
 El gráfico exagera visualmente una diferencia relativamente pequeña. Este tipo de prácticas debe evitarse en publicaciones científicas.
 
-### Ejemplo corregido
+**Ejemplo corregido.**
 
 ```{r}
 #| label: fig-ch17-buena-practica
@@ -426,7 +426,7 @@ tema_cientifico <- theme_minimal() +
   )
 ```
 
-### Aplicando el tema científico
+**Aplicando el tema científico.**
 
 ```{r}
 #| label: fig-ch17-tema-cientifico
@@ -524,7 +524,7 @@ ggplot(
 
 La transformación logarítmica mejora significativamente la capacidad de visualizar la distribución de la superficie agrícola, reduciendo la influencia de observaciones extremadamente grandes.
 
-### Histograma con densidad
+**Histograma con densidad.**
 
 En muchas publicaciones científicas se recomienda complementar el histograma con una curva de densidad.
 
@@ -593,7 +593,7 @@ ggplot(
 
 Las diferencias observadas entre cajas sugieren heterogeneidad en la distribución de la superficie según el tamaño de la unidad productiva.
 
-### Gráficos de violín
+**Gráficos de violín.**
 
 Los gráficos de violín combinan características de los diagramas de caja y de las curvas de densidad.
 
@@ -670,7 +670,7 @@ resumen_tamano |>
 
 La tabla resume medias, errores estándar e intervalos de confianza aproximados para cada categoría.
 
-### Barras con intervalos
+**Barras con intervalos.**
 
 ```{r}
 #| label: fig-ch17-barras-ic
@@ -772,7 +772,7 @@ ggplot(
 
 Las facetas permiten comparar distribuciones territoriales manteniendo la misma escala visual.
 
-### Importancia de las etiquetas
+**Importancia de las etiquetas.**
 
 Un gráfico científico debe ser comprensible sin necesidad de consultar el texto principal.
 
@@ -783,7 +783,7 @@ Las etiquetas deben:
 - Evitar abreviaturas ambiguas.
 - Mantener consistencia terminológica.
 
-### Ejemplo de etiquetado profesional
+**Ejemplo de etiquetado profesional.**
 
 ```{r}
 #| label: fig-ch17-etiquetado-profesional
@@ -848,7 +848,7 @@ ggplot(
 
 La estandarización de escalas mejora la consistencia visual y facilita comparaciones entre figuras.
 
-### Leyendas y consistencia gráfica
+**Leyendas y consistencia gráfica.**
 
 Las leyendas deben mantenerse simples y claras.
 
@@ -859,7 +859,7 @@ Se recomienda:
 - Evitar leyendas redundantes.
 - Utilizar títulos descriptivos.
 
-### Recomendaciones para tesis y artículos
+**Recomendaciones para tesis y artículos.**
 
 Al preparar figuras para publicaciones se recomienda:
 
@@ -909,11 +909,11 @@ Una figura científica avanzada suele presentar:
 
 La Figura compuesta es uno de los formatos más utilizados en artículos científicos.
 
-### Construyendo una colección de gráficos
+**Construyendo una colección de gráficos.**
 
 Primero construiremos varios gráficos que posteriormente integraremos en una figura compuesta.
 
-### Distribución de superficie
+**Distribución de superficie.**
 
 ```{r}
 #| label: fig-ch17-panel-histograma
@@ -943,7 +943,7 @@ grafico_histograma
 
 Este gráfico resume la distribución de la superficie agrícola transformada.
 
-### Comparación por tamaño de UPA
+**Comparación por tamaño de UPA.**
 
 ```{r}
 #| label: fig-ch17-panel-boxplot
@@ -976,7 +976,7 @@ grafico_boxplot
 
 El gráfico permite comparar la distribución de la superficie entre categorías de tamaño.
 
-### Relación entre variables
+**Relación entre variables.**
 
 ```{r}
 #| label: fig-ch17-panel-dispersion
@@ -1023,7 +1023,7 @@ Para ello utilizaremos el paquete `patchwork`.
 
 ```
 
-### Construcción de una figura compuesta
+**Construcción de una figura compuesta.**
 
 ```{r}
 #| label: fig-ch17-figura-compuesta
@@ -1053,7 +1053,7 @@ Las figuras multipanel permiten:
 
 Este tipo de figuras es particularmente frecuente en revistas indexadas.
 
-### Etiquetado automático de paneles
+**Etiquetado automático de paneles.**
 
 Muchas revistas solicitan identificar paneles mediante letras.
 
@@ -1123,7 +1123,7 @@ La calidad de una figura depende de:
 
 Las revistas científicas suelen solicitar resoluciones entre 300 y 600 dpi [@wilke2019].
 
-### Exportación en formato PNG
+**Exportación en formato PNG.**
 
 ```{r}
 #| label: ch17-exportar-png
@@ -1139,7 +1139,7 @@ ggsave(
 )
 ```
 
-### Exportación en formato PDF
+**Exportación en formato PDF.**
 
 ```{r}
 #| label: ch17-exportar-pdf
@@ -1154,7 +1154,7 @@ ggsave(
 )
 ```
 
-### Exportación en formato TIFF
+**Exportación en formato TIFF.**
 
 Muchas revistas siguen solicitando TIFF para las figuras finales.
 
@@ -1183,7 +1183,7 @@ Esto permite:
 - Consistencia visual.
 - Menor riesgo de errores.
 
-### Reproducibilidad gráfica
+**Reproducibilidad gráfica.**
 
 La reproducibilidad implica que cualquier investigador pueda reconstruir exactamente la misma figura utilizando:
 
@@ -1193,7 +1193,7 @@ La reproducibilidad implica que cualquier investigador pueda reconstruir exactam
 
 La visualización reproducible constituye un componente esencial de la ciencia abierta [@peng2011].
 
-### Lista de verificación para publicaciones
+**Lista de verificación para publicaciones.**
 
 Antes de enviar una figura a una revista científica conviene verificar:
 
@@ -1223,7 +1223,7 @@ checklist_figuras |>
 
 La lista permite revisar sistemáticamente la calidad de las figuras antes de su publicación.
 
-### Errores frecuentes
+**Errores frecuentes.**
 
 Entre los errores más comunes se encuentran:
 
@@ -1234,7 +1234,7 @@ Entre los errores más comunes se encuentran:
 - Exportación en baja resolución.
 - Falta de reproducibilidad.
 
-### Flujo recomendado para producción científica
+**Flujo recomendado para producción científica.**
 
 ```text
 Datos

@@ -37,7 +37,7 @@ En este capítulo aprenderemos a construir tablas descriptivas utilizando inform
 
 ## Principios y tablas básicas
 
-### Cargando la base de trabajo
+**Cargando la base de trabajo.**
 
 ```{r}
 #| label: ch15-cargar-paquetes
@@ -122,7 +122,7 @@ Las variables numéricas suelen describirse mediante:
 
 Estas estadísticas permiten resumir el comportamiento general de una variable [@moore2017].
 
-### Tabla descriptiva básica
+**Tabla descriptiva básica.**
 
 Analizaremos la variable `supertotal`.
 
@@ -296,7 +296,7 @@ base_analitica |>
 
 Las frecuencias acumuladas permiten conocer qué porcentaje de observaciones se concentra hasta una determinada categoría.
 
-### Tablas descriptivas de la tenencia de la tierra
+**Tablas descriptivas de la tenencia de la tierra.**
 
 La variable `su_tenencia` resulta particularmente relevante en estudios agropecuarios.
 
@@ -336,7 +336,7 @@ y
 tiene_bosque
 ```
 
-### Construcción de una tabla cruzada
+**Construcción de una tabla cruzada.**
 
 ```{r}
 #| label: tbl-ch15-tabla-cruzada
@@ -352,7 +352,7 @@ table(
 
 La tabla muestra la distribución conjunta de ambas variables.
 
-### Tabla cruzada con porcentajes
+**Tabla cruzada con porcentajes.**
 
 También podemos calcular porcentajes por fila.
 
@@ -374,7 +374,7 @@ prop.table(
 
 Estos porcentajes facilitan la comparación entre grupos.
 
-### Interpretación de tablas cruzadas
+**Interpretación de tablas cruzadas.**
 
 Las tablas cruzadas permiten responder preguntas como:
 
@@ -551,7 +551,7 @@ Para ello podemos utilizar el paquete `gt`.
 
 ```
 
-### Primera tabla con gt
+**Primera tabla con gt.**
 
 ```{r}
 #| label: tbl-ch15-primer-gt
@@ -640,7 +640,7 @@ data.frame(
 
 Esta práctica facilita la interpretación de los resultados.
 
-### Tabla descriptiva profesional
+**Tabla descriptiva profesional.**
 
 Podemos combinar varias estadísticas en una sola tabla.
 
@@ -734,7 +734,7 @@ Tablas actualizadas
 
 Todo el documento se actualiza automáticamente sin intervención manual.
 
-### Recomendaciones para artículos científicos
+**Recomendaciones para artículos científicos.**
 
 Antes de finalizar este capítulo conviene considerar algunas recomendaciones prácticas:
 

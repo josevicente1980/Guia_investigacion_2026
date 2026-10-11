@@ -73,7 +73,7 @@ Diversos autores han propuesto marcos conceptuales para evaluar la calidad de lo
 
 En este libro trabajaremos con cinco dimensiones fundamentales:
 
-### Completitud
+**Completitud.**
 
 La completitud evalúa la presencia de información necesaria para el análisis.
 
@@ -89,7 +89,7 @@ Provincia = NA
 
 Una base con numerosos valores faltantes puede limitar la capacidad analítica del investigador.
 
-### Unicidad
+**Unicidad.**
 
 La unicidad hace referencia a la ausencia de registros duplicados.
 
@@ -97,7 +97,7 @@ Idealmente, cada unidad de análisis debería estar representada una única vez 
 
 La existencia de duplicados puede generar sesgos en estimaciones descriptivas y modelos estadísticos.
 
-### Consistencia
+**Consistencia.**
 
 La consistencia evalúa si los datos respetan reglas lógicas y relaciones esperadas entre variables.
 
@@ -109,7 +109,7 @@ Superficie de bosque > Superficie total
 
 Esta situación sería inconsistente desde un punto de vista lógico.
 
-### Validez
+**Validez.**
 
 La validez verifica que los valores observados se encuentren dentro de rangos permitidos.
 
@@ -121,7 +121,7 @@ Porcentaje de bosque = 150%
 
 Este valor sería inválido porque supera el límite teórico de 100%.
 
-### Exactitud
+**Exactitud.**
 
 La exactitud evalúa el grado en que los datos representan correctamente la realidad observada.
 
@@ -129,7 +129,7 @@ Esta dimensión suele ser la más difícil de evaluar debido a que requiere cont
 
 ## Diagnóstico general
 
-### Cargando la base de trabajo
+**Cargando la base de trabajo.**
 
 Para evaluar la calidad de los datos utilizaremos la base transformada construida en el capítulo anterior.
 
@@ -171,7 +171,7 @@ La tabla presenta el número total de observaciones y variables disponibles para
 
 Estos indicadores permiten verificar rápidamente que la base fue cargada correctamente y facilitan la documentación del proyecto.
 
-### Explorando la estructura de los datos
+**Explorando la estructura de los datos.**
 
 ```{r}
 #| label: ch13-glimpse-base
@@ -234,7 +234,7 @@ En la ESPAC, una misma unidad productiva puede generar múltiples registros debi
 
 Por esta razón, la evaluación de calidad siempre debe realizarse considerando el diseño metodológico de la operación estadística [@groves2009].
 
-### Frecuencia de registros por identificador
+**Frecuencia de registros por identificador.**
 
 Podemos identificar productores con múltiples registros.
 
@@ -309,7 +309,7 @@ data.frame(
 
 La tabla permite identificar rápidamente las variables con menor nivel de completitud.
 
-### Porcentaje de valores perdidos
+**Porcentaje de valores perdidos.**
 
 La cantidad absoluta de valores faltantes puede resultar difícil de interpretar.
 
@@ -342,7 +342,7 @@ data.frame(
 
 Los porcentajes permiten comparar variables independientemente del tamaño de la base de datos.
 
-### Visualizando la completitud
+**Visualizando la completitud.**
 
 Las representaciones gráficas facilitan la interpretación de los resultados.
 
@@ -364,7 +364,7 @@ porcentaje_na |>
 
 La figura permite identificar visualmente cuáles son las variables que requieren mayor atención durante el análisis.
 
-### Interpretando los valores perdidos
+**Interpretando los valores perdidos.**
 
 La presencia de valores perdidos no implica necesariamente problemas de calidad.
 
@@ -388,7 +388,7 @@ Superficie de bosque > Superficie total
 
 Esta situación sería inconsistente porque una parte no puede ser mayor que el todo.
 
-### Verificando consistencia de superficies
+**Verificando consistencia de superficies.**
 
 Podemos evaluar esta condición dentro de la ESPAC.
 
@@ -412,7 +412,7 @@ data.frame(
 
 Idealmente el número de inconsistencias debería ser igual a cero.
 
-### Verificando porcentajes inválidos
+**Verificando porcentajes inválidos.**
 
 En el capítulo anterior construimos una variable denominada:
 
@@ -435,7 +435,7 @@ sum(
 
 Si el resultado es mayor que cero, existirían observaciones que requieren revisión.
 
-### Distribución de la superficie total
+**Distribución de la superficie total.**
 
 Otra estrategia útil consiste en analizar distribuciones.
 
@@ -616,7 +616,7 @@ data.frame(
 
 La calidad de estas variables es especialmente relevante porque serán utilizadas en capítulos posteriores.
 
-### Detección de registros incompletos
+**Detección de registros incompletos.**
 
 Otra medida útil consiste en identificar observaciones con múltiples valores faltantes.
 
@@ -634,7 +634,7 @@ summary(
 
 Este resumen muestra cuántos valores faltantes existen por observación.
 
-### Distribución de valores faltantes por registro
+**Distribución de valores faltantes por registro.**
 
 ```{r}
 #| label: fig-ch13-na-por-fila
@@ -650,7 +650,7 @@ hist(
 
 La figura permite identificar si existen observaciones particularmente problemáticas.
 
-### Evaluación de duplicados
+**Evaluación de duplicados.**
 
 Los registros duplicados representan una fuente frecuente de problemas en bases de datos.
 
@@ -674,7 +674,7 @@ data.frame(
 
 Un resultado distinto de cero requiere revisión, pero solo constituye un problema cuando las filas representan duplicados no previstos por el diseño de la fuente.
 
-### Verificación de identificadores faltantes
+**Verificación de identificadores faltantes.**
 
 Los identificadores constituyen la columna vertebral de cualquier base de datos.
 

@@ -39,7 +39,7 @@ Durante este capítulo trabajaremos con información real de la Encuesta de Supe
 
 ## Del dato original a la variable analítica
 
-### ¿Qué significa transformar datos?
+**¿Qué significa transformar datos?.**
 
 Transformar datos implica modificar la estructura, formato o contenido de una variable para facilitar su interpretación y análisis.
 
@@ -56,7 +56,7 @@ La transformación constituye el puente entre la preparación de datos y el aná
 
 Mientras la limpieza busca identificar y corregir problemas potenciales de calidad, la transformación busca convertir los datos en variables útiles para responder preguntas de investigación.
 
-### Cargando la base procesada
+**Cargando la base procesada.**
 
 Trabajaremos con la base generada en el capítulo anterior.
 
@@ -80,7 +80,7 @@ sunac <- readRDS(
 )
 ```
 
-### Conociendo la base de trabajo
+**Conociendo la base de trabajo.**
 
 Antes de realizar cualquier transformación es recomendable recordar las dimensiones de la información disponible.
 
@@ -224,7 +224,7 @@ class(sunac$su_categoria)
 
 Ahora ambas variables pueden utilizarse directamente en tablas, gráficos y modelos estadísticos.
 
-### Explorando las categorías transformadas
+**Explorando las categorías transformadas.**
 
 Una vez realizada la transformación podemos observar la distribución de frecuencias.
 
@@ -278,7 +278,7 @@ summary(sunac$supertotal)
 
 Aunque esta variable es informativa, en muchos casos resulta más útil trabajar con categorías de tamaño.
 
-### Construcción de categorías de tamaño de explotación
+**Construcción de categorías de tamaño de explotación.**
 
 La clasificación de explotaciones agropecuarias por tamaño constituye una práctica habitual en estudios agrícolas y rurales.
 
@@ -311,7 +311,7 @@ La tabla permite identificar la estructura productiva observada en la encuesta.
 
 Esta transformación convierte una variable continua en una categoría fácilmente interpretable.
 
-### Visualizando el tamaño de las explotaciones
+**Visualizando el tamaño de las explotaciones.**
 
 Podemos representar gráficamente la distribución de las categorías creadas.
 
@@ -358,7 +358,7 @@ us_montesha
 
 que representa superficie de monte o bosque.
 
-### Indicador de presencia de bosque
+**Indicador de presencia de bosque.**
 
 Podemos construir una variable que indique si existe o no bosque en el registro.
 
@@ -387,7 +387,7 @@ La nueva variable simplifica considerablemente la interpretación.
 
 En lugar de analizar hectáreas específicas, podemos distinguir rápidamente entre productores con y sin cobertura boscosa.
 
-### Indicador de cultivos transitorios
+**Indicador de cultivos transitorios.**
 
 También podemos crear una variable relacionada con actividades agrícolas.
 
@@ -440,7 +440,7 @@ summary(sunac$pct_bosque)
 
 Este indicador permite comparar explotaciones de distinto tamaño utilizando una misma escala.
 
-### Visualizando indicadores porcentuales
+**Visualizando indicadores porcentuales.**
 
 ```{r} 
 #| label: fig-cap12-histograma-porcentaje-bosque
@@ -638,7 +638,7 @@ glimpse(base_analitica)
 
 La nueva base contiene variables interpretables y listas para análisis descriptivos y econométricos.
 
-### Explorando la base analítica
+**Explorando la base analítica.**
 
 Podemos visualizar las primeras observaciones.
 
@@ -649,7 +649,7 @@ head(base_analitica)
 
 Observe cómo las variables transformadas permiten comprender la información con mucha mayor facilidad que las variables originales codificadas.
 
-### Guardando los resultados
+**Guardando los resultados.**
 
 Una vez finalizado el proceso de transformación es recomendable almacenar la base resultante.
 
@@ -731,7 +731,7 @@ table(base_analitica$tiene_bosque)
 
 Estas verificaciones permiten detectar errores tempranamente.
 
-### Transformación de datos y análisis estadístico
+**Transformación de datos y análisis estadístico.**
 
 La calidad de cualquier análisis depende directamente de la calidad de las transformaciones realizadas previamente.
 
