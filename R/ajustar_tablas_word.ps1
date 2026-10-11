@@ -21,8 +21,18 @@ try {
 
   $doc = $word.Documents.Open(
     $fullPath,
-    $false,
-    $false
+    $false,  # ConfirmConversions
+    $false,  # ReadOnly
+    $false,  # AddToRecentFiles
+    "",      # PasswordDocument
+    "",      # PasswordTemplate
+    $false,  # Revert
+    "",      # WritePasswordDocument
+    "",      # WritePasswordTemplate
+    0,       # Format: auto
+    0,       # Encoding: auto
+    $false,  # Visible
+    $true    # OpenAndRepair
   )
 
   $count = $doc.Tables.Count
