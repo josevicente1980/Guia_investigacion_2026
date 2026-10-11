@@ -462,7 +462,7 @@ modelo_cat <- lm(
 )
 ```
 
-### Resumen del modelo
+**Resumen del modelo.**
 
 ```{r}
 #| label: tbl-reg23-resumen-modelo
@@ -520,7 +520,7 @@ El intercepto representa la media esperada para la categoría de referencia.
 
 Los demás coeficientes representan diferencias respecto a dicha categoría.
 
-### Interpretación del intercepto
+**Interpretación del intercepto.**
 
 Supongamos que la categoría de referencia es:
 
@@ -558,7 +558,7 @@ Las empresa medianas presentan en promedio
 que las empresas pequeñas.
 ```
 
-### Valores ajustados
+**Valores ajustados.**
 
 ```{r}
 #| label: reg23-ajustados
@@ -572,7 +572,7 @@ base_categorias <- base_categorias |>
   )
 ```
 
-### Comparación observado versus ajustado
+**Comparación observado versus ajustado.**
 
 ```{r}
 #| label: fig-reg23-observado-ajustado
@@ -686,7 +686,7 @@ nuevos_grupos |>
 
 Las predicciones representan los valores medios esperados para cada grupo.
 
-### Visualización de medias estimadas
+**Visualización de medias estimadas.**
 
 ```{r}
 #| label: fig-reg23-medias-estimadas
@@ -709,7 +709,7 @@ ggplot(
 
 Las diferencias de altura reflejan diferencias promedio estimadas entre categorías.
 
-### Variable categórica y variable numérica
+**Variable categórica y variable numérica.**
 
 En la práctica es frecuente combinar variables categóricas y numéricas.
 
@@ -818,7 +818,7 @@ modelo_aditivo <- lm(
 )
 ```
 
-### Resumen del modelo aditivo
+**Resumen del modelo aditivo.**
 
 ```{r}
 #| label: tbl-reg23-modelo-aditivo
@@ -857,7 +857,7 @@ modelo_interaccion <- lm(
 )
 ```
 
-### Resumen del modelo con interacción
+**Resumen del modelo con interacción.**
 
 ```{r}
 #| label: tbl-reg23-modelo-interaccion
@@ -917,7 +917,7 @@ representan interacciones.
 
 Estos coeficientes indican cuánto cambia la pendiente respecto a la categoría de referencia.
 
-### Comparación entre modelos
+**Comparación entre modelos.**
 
 ```{r}
 #| label: tbl-reg23-comparacion-modelos
@@ -992,7 +992,7 @@ anova_interaccion |>
 
 Esta prueba evalúa si incorporar la interacción mejora significativamente el ajuste.
 
-### Visualización de la interacción
+**Visualización de la interacción.**
 
 ```{r}
 #| label: fig-reg23-interaccion
@@ -1022,7 +1022,7 @@ Si las pendientes son similares, la interacción es débil.
 
 Si las pendientes difieren claramente, la interacción puede resultar relevante.
 
-### Predicciones por categoría
+**Predicciones por categoría.**
 
 ```{r}
 #| label: tbl-reg23-predicciones-interaccion
@@ -1083,7 +1083,7 @@ R genera automáticamente todas las variables dummy necesarias.
 
 El investigador únicamente debe declarar correctamente el factor.
 
-### Buenas prácticas
+**Buenas prácticas.**
 
 Antes de utilizar variables categóricas:
 

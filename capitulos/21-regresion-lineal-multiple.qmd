@@ -170,7 +170,7 @@ modelo_multiple_1 <- lm(
 )
 ```
 
-### Resultados del modelo múltiple
+**Resultados del modelo múltiple.**
 
 ```{r}
 #| label: tbl-reg21-coeficientes-modelo1
@@ -195,7 +195,7 @@ broom::tidy(
 
 Cada coeficiente representa una asociación condicional con `log_productividad`, manteniendo constantes las demás variables incluidas en el modelo. La interpretación debe comenzar por la magnitud, el signo, la escala y el intervalo de confianza; el valor p complementa esa lectura, pero no determina por sí solo la importancia del resultado.
 
-### Comparación entre modelos
+**Comparación entre modelos.**
 
 ```{r}
 #| label: tbl-reg21-comparacion-modelos
@@ -238,7 +238,7 @@ las demás variables del modelo
 
 Esta idea constituye la principal diferencia respecto a la regresión simple.
 
-### Visualización de valores ajustados
+**Visualización de valores ajustados.**
 
 ```{r}
 #| label: fig-reg21-observado-ajustado
@@ -343,7 +343,7 @@ base_modelo <- base_analitica |>
   drop_na()
 ```
 
-### Modelo de referencia
+**Modelo de referencia.**
 
 Comenzaremos con el modelo estimado en la sección anterior.
 
@@ -358,7 +358,7 @@ modelo_1 <- lm(
 )
 ```
 
-### Resumen del modelo base
+**Resumen del modelo base.**
 
 ```{r}
 #| label: tbl-reg21-resumen-modelo1
@@ -428,7 +428,7 @@ tidy(
 
 Al incorporar `region`, los coeficientes previamente estimados pueden modificarse porque el modelo redistribuye la variación explicada entre los predictores. La relevancia de una variable debe evaluarse mediante magnitud, incertidumbre, coherencia sustantiva y propósito analítico, no únicamente con un umbral de significancia.
 
-### Comparación entre modelos
+**Comparación entre modelos.**
 
 ```{r}
 #| label: tbl-reg21-comparacion-modelos2
@@ -793,7 +793,7 @@ modelo_final <- lm(
 )
 ```
 
-### Resumen general del modelo
+**Resumen general del modelo.**
 
 ```{r}
 #| label: tbl-reg21-resumen-final
@@ -818,7 +818,7 @@ glance(
 
 Esta tabla resume la capacidad explicativa del modelo, el error residual y la significancia global de la regresión.
 
-### Tabla completa de coeficientes
+**Tabla completa de coeficientes.**
 
 ```{r}
 #| label: tbl-reg21-coeficientes-finales
@@ -847,7 +847,7 @@ tidy(
 
 Cada coeficiente representa una asociación parcial condicionada a las demás variables del modelo. Sin una estrategia de identificación causal, no debe describirse como un efecto. La interpretación debe integrar magnitud, incertidumbre y coherencia sustantiva.
 
-### Generación de valores ajustados
+**Generación de valores ajustados.**
 
 ```{r}
 #| label: reg21-valores-ajustados
@@ -909,7 +909,7 @@ base_modelo <- base_modelo |>
   )
 ```
 
-### Resumen de errores
+**Resumen de errores.**
 
 ```{r}
 #| label: tbl-reg21-resumen-errores
@@ -939,7 +939,7 @@ tibble(
 
 Errores centrados alrededor de cero indican ausencia de sesgos sistemáticos importantes.
 
-### Distribución de errores
+**Distribución de errores.**
 
 ```{r}
 #| label: fig-reg21-distribucion-errores
@@ -1035,7 +1035,7 @@ nuevos_casos |>
   )
 ```
 
-### Predicciones puntuales
+**Predicciones puntuales.**
 
 ```{r}
 #| label: tbl-reg21-predicciones
@@ -1058,7 +1058,7 @@ nuevos_casos |>
 
 Las predicciones representan el valor esperado de la productividad transformada para los escenarios definidos.
 
-### Intervalos de confianza
+**Intervalos de confianza.**
 
 ```{r}
 #| label: tbl-reg21-intervalos-confianza
@@ -1121,7 +1121,7 @@ tidy(
 
 Esta comparación es únicamente descriptiva y no debe interpretarse como una medida definitiva de importancia estadística.
 
-### Flujo general de una regresión múltiple
+**Flujo general de una regresión múltiple.**
 
 ```{r}
 #| label: tbl-reg21-flujo-modelacion
@@ -1145,7 +1145,7 @@ tibble(
 
 Estas etapas resumen el procedimiento seguido en los capítulos 20 y 21.
 
-### Aplicación práctica
+**Aplicación práctica.**
 
 La regresión múltiple permite responder preguntas como:
 

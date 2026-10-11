@@ -76,7 +76,7 @@ Cuando la variable respuesta solo puede tomar dos valores, la regresión lineal 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Construcción de la variable binaria
+**Construcción de la variable binaria.**
 
 Para fines pedagógicos utilizaremos una variable binaria que identifica observaciones con productividad superior a la mediana de la base simulada.
 
@@ -164,7 +164,7 @@ La forma general es:
 
 $$P(Y_i = 1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_i)}}$$
 
-### Exploración inicial
+**Exploración inicial.**
 
 ```{r}
 #| label: fig-reg24-dispersion-binaria
@@ -203,7 +203,7 @@ modelo_logit <- glm(
 )
 ```
 
-### Resumen del modelo
+**Resumen del modelo.**
 
 ```{r}
 #| label: tbl-reg24-resumen-logit
@@ -253,7 +253,7 @@ base_logit <- base_logit |>
   )
 ```
 
-### Resumen de probabilidades
+**Resumen de probabilidades.**
 
 ```{r}
 #| label: tbl-reg24-probabilidades
@@ -359,7 +359,7 @@ Estos conceptos constituyen la base de la interpretación de modelos Logit [@hos
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Reconstrucción de la variable binaria
+**Reconstrucción de la variable binaria.**
 
 ```{r}
 #| eval: false
@@ -387,7 +387,7 @@ base_logit <- base_analitica |>
   drop_na()
 ```
 
-### Reestimación del modelo
+**Reestimación del modelo.**
 
 ```{r}
 #| label: reg24-modelo-logit-parte2
@@ -444,7 +444,7 @@ Odds = 3
 
 lo que significa que las *odds* del evento son 3 a 1 frente a su alternativa. Esto no equivale a afirmar que el evento sea tres veces más probable en términos de probabilidad.
 
-### Conversión de probabilidades a odds
+**Conversión de probabilidades a odds.**
 
 ```{r}
 #| label: tbl-reg24-ejemplo-odds
@@ -479,7 +479,7 @@ $$\text{logit}(P) = \log\left(\frac{P(Y=1)}{1 - P(Y=1)}\right) = \beta_0 + \beta
 
 Esta transformación permite modelar probabilidades mediante una combinación lineal de variables explicativas.
 
-### Coeficientes estimados
+**Coeficientes estimados.**
 
 ```{r}
 #| label: tbl-reg24-coeficientes-logit
@@ -608,7 +608,7 @@ base_logit <- base_logit |>
   )
 ```
 
-### Distribución de probabilidades
+**Distribución de probabilidades.**
 
 ```{r}
 #| label: fig-reg24-histograma-probabilidades
@@ -646,7 +646,7 @@ Probabilidad < 0.50
 → Clase 0
 ```
 
-### Construcción de clases predichas
+**Construcción de clases predichas.**
 
 ```{r}
 #| label: reg24-clasificacion
@@ -682,7 +682,7 @@ table(
 
 La tabla resume los aciertos y errores del modelo.
 
-### Exactitud de clasificación
+**Exactitud de clasificación.**
 
 ```{r}
 #| label: tbl-reg24-exactitud
@@ -798,7 +798,7 @@ En la práctica, Logit y Probit suelen producir resultados muy similares.
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Construcción de la variable binaria
+**Construcción de la variable binaria.**
 
 ```{r}
 #| label: reg24-variable-binaria-parte3
@@ -825,7 +825,7 @@ base_binaria <- base_analitica |>
   drop_na()
 ```
 
-### Reestimación del modelo Logit
+**Reestimación del modelo Logit.**
 
 ```{r}
 #| label: reg24-modelo-logit-parte3
@@ -871,7 +871,7 @@ Probit
 
 Ambos garantizan probabilidades válidas entre 0 y 1.
 
-### Resumen del modelo Probit
+**Resumen del modelo Probit.**
 
 ```{r}
 #| label: tbl-reg24-resumen-probit
@@ -973,7 +973,7 @@ base_binaria <- base_binaria |>
   )
 ```
 
-### Comparación de probabilidades
+**Comparación de probabilidades.**
 
 ```{r}
 #| label: tbl-reg24-resumen-probabilidades
@@ -1002,7 +1002,7 @@ tibble(
 
 Las diferencias suelen ser pequeñas en aplicaciones reales.
 
-### Comparación gráfica
+**Comparación gráfica.**
 
 ```{r}
 #| label: fig-reg24-logit-vs-probit
@@ -1031,7 +1031,7 @@ ggplot(
 
 Mientras más próximos se encuentren los puntos a la diagonal, más similares serán las predicciones.
 
-### Exactitud de clasificación
+**Exactitud de clasificación.**
 
 ```{r}
 #| label: tbl-reg24-comparacion-exactitud
@@ -1091,7 +1091,7 @@ El modelo Probit suele utilizarse cuando:
 - Se utilizan modelos de elección discreta.
 - Se desea mantener consistencia con literatura previa.
 
-### Comparación resumida
+**Comparación resumida.**
 
 ```{r}
 #| label: tbl-reg24-comparacion-final
@@ -1125,7 +1125,7 @@ tibble(
 
 Ambos modelos constituyen alternativas válidas para variables binarias.
 
-### Flujo de trabajo recomendado
+**Flujo de trabajo recomendado.**
 
 ```{r}
 #| label: tbl-reg24-flujo

@@ -100,7 +100,7 @@ data(
 panel_datos <- Grunfeld
 ```
 
-### Explorando la estructura
+**Explorando la estructura.**
 
 ```{r}
 #| label: out-reg25-estructura
@@ -120,7 +120,7 @@ La base contiene:
 - Valor de mercado (`value`)
 - Capital (`capital`)
 
-### Primeras observaciones
+**Primeras observaciones.**
 
 ```{r}
 #| label: tbl-reg25-primeras-filas
@@ -140,7 +140,7 @@ Cada empresa aparece repetidamente en distintos años.
 
 Esta característica define la estructura panel.
 
-### Identificando individuos
+**Identificando individuos.**
 
 ```{r}
 #| label: tbl-reg25-num-empresas
@@ -157,7 +157,7 @@ panel_datos |>
   )
 ```
 
-### Identificando períodos
+**Identificando períodos.**
 
 ```{r}
 #| label: tbl-reg25-num-periodos
@@ -178,7 +178,7 @@ panel_datos |>
 
 La combinación empresa-año constituye la unidad básica de observación.
 
-### Visualización temporal
+**Visualización temporal.**
 
 ```{r}
 #| label: fig-reg25-serie-empresa
@@ -246,7 +246,7 @@ panel_grunfeld <- pdata.frame(
 )
 ```
 
-### Verificación del índice
+**Verificación del índice.**
 
 ```{r}
 #| label: tbl-reg25-indices
@@ -350,7 +350,7 @@ value    = valor de mercado
 capital  = stock de capital
 ```
 
-### Exploración inicial
+**Exploración inicial.**
 
 ```{r}
 #| label: tbl-reg25-resumen-variables
@@ -372,7 +372,7 @@ panel_grunfeld |>
 
 Las tres variables presentan una dispersión considerable, lo que resulta adecuado para la estimación econométrica.
 
-### Relación inversión y valor de mercado
+**Relación inversión y valor de mercado.**
 
 ```{r}
 #| label: fig-reg25-dispersion-value
@@ -822,7 +822,7 @@ panel_grunfeld <- pdata.frame(
 )
 ```
 
-### Reestimación de modelos
+**Reestimación de modelos.**
 
 ```{r}
 #| label: reg25-modelos-finales
@@ -846,7 +846,7 @@ modelo_re <- plm(
 )
 ```
 
-### Comparación inicial
+**Comparación inicial.**
 
 ```{r}
 #| label: tbl-reg25-r2-modelos
@@ -954,7 +954,7 @@ Los efectos aleatorios son inconsistentes.
 
 La prueba de Hausman informa sobre la compatibilidad entre los supuestos de efectos aleatorios y los datos observados. Un valor p pequeño aporta evidencia contra esa especificación, pero un valor p grande no demuestra que efectos aleatorios sea el modelo correcto. La decisión debe considerar también la pregunta de investigación, la relación esperada entre heterogeneidad no observada y regresores, la estructura del panel y la robustez de la inferencia.
 
-### Coeficientes del modelo seleccionado
+**Coeficientes del modelo seleccionado.**
 
 Para fines pedagógicos continuaremos utilizando el modelo de efectos fijos.
 
@@ -1005,7 +1005,7 @@ se asocia con un incremento de la inversión,
 manteniendo constante el capital.
 ```
 
-### Predicciones del modelo
+**Predicciones del modelo.**
 
 ```{r}
 #| label: reg25-predicciones
@@ -1021,7 +1021,7 @@ panel_pred <- panel_grunfeld |>
   )
 ```
 
-### Resumen de predicciones
+**Resumen de predicciones.**
 
 ```{r}
 #| label: tbl-reg25-predicciones
@@ -1045,7 +1045,7 @@ panel_pred |>
 
 Las predicciones representan los niveles esperados de inversión para cada observación del panel.
 
-### Observado versus predicho
+**Observado versus predicho.**
 
 ```{r}
 #| label: fig-reg25-observado-predicho
@@ -1073,7 +1073,7 @@ ggplot(
 
 Mientras más próximos estén los puntos a la diagonal, mejor será el ajuste del modelo.
 
-### Residuos del modelo
+**Residuos del modelo.**
 
 ```{r}
 #| label: reg25-residuos
@@ -1093,7 +1093,7 @@ panel_pred <- as.data.frame(
   )
 ```
 
-### Distribución de residuos
+**Distribución de residuos.**
 
 ```{r}
 #| label: fig-reg25-residuos
@@ -1122,7 +1122,7 @@ ggplot(
 
 La distribución permite evaluar visualmente el comportamiento de los errores del modelo e identificar si siguen una distribución normal; es decir, si el histograma presenta una forma aproximadamente de campana y está centrado en cero, existe evidencia de que los residuos siguen una distribución cercana a la normal.
 
-### Flujo completo de análisis
+**Flujo completo de análisis.**
 
 ```{r}
 #| label: tbl-reg25-flujo-completo
@@ -1144,7 +1144,7 @@ tibble(
   )
 ```
 
-### Aplicaciones de los datos de panel
+**Aplicaciones de los datos de panel.**
 
 Los modelos de panel son ampliamente utilizados en:
 

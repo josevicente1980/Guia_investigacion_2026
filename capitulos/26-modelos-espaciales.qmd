@@ -73,7 +73,7 @@ Este principio es conocido como la Primera Ley de la Geografía de Tobler.
 
 ```
 
-### Cargando la base espacial
+**Cargando la base espacial.**
 
 Utilizaremos la base `columbus` incluida en `spData`.
 
@@ -101,7 +101,7 @@ columbus_sf <- sf::st_read(
 vecinos <- col.gal.nb
 ```
 
-### Explorando la base
+**Explorando la base.**
 
 ```{r}
 #| label: out-reg26-estructura
@@ -115,7 +115,7 @@ glimpse(
 
 Cada observación corresponde a un área geográfica de la ciudad de Columbus.
 
-### Visualización espacial
+**Visualización espacial.**
 
 ```{r}
 #| label: fig-reg26-mapa-columbus
@@ -136,7 +136,7 @@ Cada polígono representa una unidad espacial.
 
 La dependencia espacial requiere identificar relaciones de vecindad.
 
-### Resumen de vecinos
+**Resumen de vecinos.**
 
 ```{r}
 #| label: tbl-reg26-vecinos
@@ -201,7 +201,7 @@ No existe autocorrelación espacial.
 
 Un valor p pequeño aporta evidencia contra la hipótesis nula de ausencia de autocorrelación espacial para la matriz de pesos especificada. La magnitud y el signo del índice de Moran deben interpretarse conjuntamente con esa evidencia.
 
-### Diagrama de Moran
+**Diagrama de Moran.**
 
 ```{r}
 #| label: fig-reg26-moran
@@ -334,7 +334,7 @@ data(
 datos_exam <- Exam
 ```
 
-### Explorando la base
+**Explorando la base.**
 
 ```{r}
 #| label: out-reg26-estructura-exam
@@ -350,7 +350,7 @@ Cada observación corresponde a un estudiante.
 
 Los estudiantes están agrupados dentro de escuelas.
 
-### Número de escuelas
+**Número de escuelas.**
 
 ```{r}
 #| label: tbl-reg26-num-escuelas
@@ -367,7 +367,7 @@ datos_exam |>
   )
 ```
 
-### Número de estudiantes
+**Número de estudiantes.**
 
 ```{r}
 #| label: tbl-reg26-num-estudiantes
@@ -381,7 +381,7 @@ datos_exam |>
   )
 ```
 
-### Visualización jerárquica
+**Visualización jerárquica.**
 
 ```{r}
 #| label: fig-reg26-score-escuela
@@ -420,7 +420,7 @@ modelo_lm <- lm(
 )
 ```
 
-### Resultados del modelo lineal
+**Resultados del modelo lineal.**
 
 ```{r}
 #| label: tbl-reg26-lm
@@ -465,7 +465,7 @@ modelo_ml <- lmer(
 )
 ```
 
-### Resultados del modelo multinivel
+**Resultados del modelo multinivel.**
 
 ```{r}
 #| label: tbl-reg26-multinivel
@@ -550,7 +550,7 @@ ranef(
 
 Cada escuela presenta una desviación específica respecto al promedio general.
 
-### Visualización de efectos aleatorios
+**Visualización de efectos aleatorios.**
 
 ```{r}
 #| label: fig-reg26-efectos-aleatorios
@@ -619,7 +619,7 @@ Los modelos multinivel son apropiados cuando existen:
 - Variación entre organizaciones.
 - Variación territorial.
 
-### Aplicaciones frecuentes
+**Aplicaciones frecuentes.**
 
 ```{r}
 #| label: tbl-reg26-aplicaciones
@@ -682,7 +682,7 @@ Los modelos de frontera estocástica permiten estimar eficiencia técnica compar
 
 ```
 
-### Creación de base simulada reproducible
+**Creación de base simulada reproducible.**
 
 Para asegurar que el capítulo renderice correctamente en cualquier equipo, construiremos una base simulada de producción. La base sigue la lógica de una función Cobb-Douglas con capital, trabajo, ruido aleatorio e ineficiencia técnica.
 
@@ -729,7 +729,7 @@ datos_sfa <- tibble(
   )
 ```
 
-### Explorando la base
+**Explorando la base.**
 
 ```{r}
 #| label: out-reg26-estructura-sfa
@@ -743,7 +743,7 @@ glimpse(
 
 La base contiene una variable de producción (`output`) y dos insumos productivos (`capital` y `labour`). Además, incluye componentes simulados de error e ineficiencia para fines pedagógicos.
 
-### Resumen descriptivo
+**Resumen descriptivo.**
 
 ```{r}
 #| label: tbl-reg26-resumen-sfa
@@ -765,7 +765,7 @@ datos_sfa |>
 
 El resumen permite verificar que existe variabilidad suficiente en producción, capital y trabajo para estimar una función de producción.
 
-### Relación entre capital y producción
+**Relación entre capital y producción.**
 
 ```{r}
 #| label: fig-reg26-produccion-capital
@@ -813,7 +813,7 @@ modelo_lm_sfa <- lm(
 )
 ```
 
-### Resultados de la regresión convencional
+**Resultados de la regresión convencional.**
 
 ```{r}
 #| label: tbl-reg26-regresion-produccion
@@ -859,7 +859,7 @@ modelo_sfa <- frontier::sfa(
 )
 ```
 
-### Resultados del modelo SFA
+**Resultados del modelo SFA.**
 
 ```{r}
 #| label: out-reg26-sfa
@@ -883,7 +883,7 @@ eficiencia <- efficiencies(
 )
 ```
 
-### Resumen de eficiencia
+**Resumen de eficiencia.**
 
 ```{r}
 #| label: tbl-reg26-resumen-eficiencia
@@ -914,7 +914,7 @@ tibble(
 
 La eficiencia técnica estimada toma valores entre 0 y 1 dentro de esta especificación. Valores cercanos a 1 indican unidades más próximas a la frontera estimada, pero las magnitudes dependen de la forma funcional y de los supuestos distributivos del modelo.
 
-### Distribución de eficiencia
+**Distribución de eficiencia.**
 
 ```{r}
 #| label: fig-reg26-distribucion-eficiencia
@@ -946,7 +946,7 @@ tibble(
 
 El histograma permite identificar si la mayoría de unidades se encuentran cerca o lejos de la frontera eficiente.
 
-### Ranking de eficiencia
+**Ranking de eficiencia.**
 
 ```{r}
 #| label: tbl-reg26-ranking-eficiencia

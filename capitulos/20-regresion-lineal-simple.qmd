@@ -273,7 +273,7 @@ base_regresion <-
   )
 ```
 
-### Primer vistazo a las predicciones
+**Primer vistazo a las predicciones.**
 
 ```{r}
 #| label: tbl-reg20-ajustados
@@ -366,7 +366,7 @@ base_regresion <- base_analitica |>
   )
 ```
 
-### Reestimando el modelo
+**Reestimando el modelo.**
 
 ```{r}
 #| label: reg20-modelo-simple-parte2
@@ -765,7 +765,7 @@ base_regresion <- base_analitica |>
   )
 ```
 
-### Reestimación del modelo
+**Reestimación del modelo.**
 
 ```{r}
 #| label: reg20-modelo-parte3
@@ -792,7 +792,7 @@ donde:
 
 Un buen modelo debería producir residuos pequeños y sin patrones sistemáticos.
 
-### Generando residuos
+**Generando residuos.**
 
 ```{r}
 #| label: reg20-generar-residuos
@@ -810,7 +810,7 @@ base_regresion <- base_regresion |>
   )
 ```
 
-### Exploración inicial de residuos
+**Exploración inicial de residuos.**
 
 ```{r}
 #| label: tbl-reg20-resumen-residuos
@@ -842,7 +842,7 @@ Los residuos deberían distribuirse alrededor de cero. Valores muy extremos podr
 
 El histograma de los residuos permite evaluar visualmente la forma de la distribución de los errores. Si presenta una forma aproximadamente de campana y está centrado en cero, existe evidencia de que los residuos siguen una distribución cercana a la normal. En cambio, una distribución asimétrica o con colas pronunciadas puede indicar un posible incumplimiento del supuesto de normalidad.
 
-### Histograma de residuos
+**Histograma de residuos.**
 
 ```{r}
 #| label: fig-reg20-histograma-residuos
@@ -870,7 +870,7 @@ ggplot(
 
 El histograma permite evaluar si los residuos presentan una distribución aproximadamente simétrica alrededor de cero.
 
-### Curva de densidad de residuos
+**Curva de densidad de residuos.**
 
 ```{r}
 #| label: fig-reg20-densidad-residuos
@@ -977,7 +977,7 @@ base_regresion <- base_regresion |>
   )
 ```
 
-### Resumen de residuos estandarizados
+**Resumen de residuos estandarizados.**
 
 ```{r}
 #| label: tbl-reg20-residuos-estandarizados
@@ -1059,7 +1059,7 @@ qqline(
 
 Mientras más próximos se encuentren los puntos a la línea de referencia, más compatible será la distribución de residuos con una distribución normal.
 
-### Resumen integrado del diagnóstico
+**Resumen integrado del diagnóstico.**
 
 ```{r}
 #| label: tbl-reg20-resumen-diagnostico
@@ -1089,7 +1089,7 @@ tibble(
 
 Estos elementos constituyen una primera aproximación al análisis de calidad del modelo.
 
-### Aplicación práctica
+**Aplicación práctica.**
 
 A partir de los resultados obtenidos podemos responder tres preguntas fundamentales:
 

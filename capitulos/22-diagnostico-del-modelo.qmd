@@ -294,7 +294,7 @@ La forma de los residuos se evalúa principalmente mediante el gráfico Q-Q y la
 En regresión lineal, la normalidad exacta de los residuos no es un requisito para obtener estimadores por mínimos cuadrados; su importancia depende del objetivo inferencial, del tamaño de muestra y de los procedimientos utilizados para cuantificar la incertidumbre.
 
 
-## Homoscedasticidad
+### Homoscedasticidad
 
 La homoscedasticidad implica que la variabilidad de los residuos permanece aproximadamente constante a lo largo de los valores ajustados.
 
@@ -582,7 +582,7 @@ base_modelo <- base_modelo |>
   )
 ```
 
-### Resumen de Distancia de Cook
+**Resumen de Distancia de Cook.**
 
 ```{r}
 #| label: tbl-reg22-cook-resumen
@@ -612,7 +612,7 @@ tibble(
 
 Valores elevados sugieren observaciones que merecen revisión adicional.
 
-### Observaciones más influyentes
+**Observaciones más influyentes.**
 
 ```{r}
 #| label: tbl-reg22-casos-influyentes
@@ -643,7 +643,7 @@ base_modelo |>
 
 Estas observaciones son candidatas para una revisión detallada.
 
-### Visualización de Distancia de Cook
+**Visualización de Distancia de Cook.**
 
 ```{r}
 #| label: fig-reg22-cook
@@ -680,7 +680,7 @@ El leverage mide qué tan alejadas se encuentran las observaciones respecto al c
 
 Observaciones con leverage elevado tienen mayor capacidad para influir en el ajuste.
 
-### Cálculo del leverage
+**Cálculo del leverage.**
 
 ```{r}
 #| label: reg22-leverage
@@ -694,7 +694,7 @@ base_modelo <- base_modelo |>
   )
 ```
 
-### Resumen del leverage
+**Resumen del leverage.**
 
 ```{r}
 #| label: tbl-reg22-leverage
@@ -724,7 +724,7 @@ tibble(
 
 Valores elevados indican observaciones ubicadas en zonas poco representadas del espacio explicativo.
 
-### Visualización de leverage
+**Visualización de leverage.**
 
 ```{r}
 #| label: fig-reg22-leverage
@@ -767,7 +767,7 @@ Por ello es recomendable analizar simultáneamente:
 - Leverage.
 - Distancia de Cook.
 
-### Resumen integrado
+**Resumen integrado.**
 
 ```{r}
 #| label: tbl-reg22-resumen-influencia
@@ -876,7 +876,9 @@ base_modelo <- base_analitica |>
   drop_na()
 ```
 
-### Estimación del modelo final
+## Diagnóstico integrado del modelo
+
+**Estimación del modelo final.**
 
 ```{r}
 #| label: reg22-modelo-final
@@ -890,7 +892,7 @@ modelo_diag <- lm(
 )
 ```
 
-### Construcción de métricas diagnósticas
+**Construcción de métricas diagnósticas.**
 
 ```{r}
 #| label: reg22-construir-diagnosticos
@@ -955,7 +957,7 @@ tibble(
 
 Esta tabla resume el desempeño general del modelo antes de analizar individualmente cada supuesto.
 
-### Panel básico de diagnóstico
+**Panel básico de diagnóstico.**
 
 ```{r}
 #| label: fig-reg22-panel-diagnostico
@@ -991,7 +993,7 @@ Este panel reúne cuatro gráficos clásicos utilizados en diagnóstico de regre
 
 Con frecuencia constituye el primer paso en la validación de modelos.
 
-### Evaluación integrada de residuos
+**Evaluación integrada de residuos.**
 
 ```{r}
 #| label: tbl-reg22-resumen-residuos-final
@@ -1028,7 +1030,7 @@ tibble(
 
 La media de los residuos debería aproximarse a cero y no deberían existir valores extremos excesivamente dominantes.
 
-### Evaluación integrada de influencia
+**Evaluación integrada de influencia.**
 
 ```{r}
 #| label: tbl-reg22-resumen-influencia-final
@@ -1057,7 +1059,7 @@ tibble(
 
 Estos valores permiten identificar si existen observaciones que podrían afectar desproporcionadamente los resultados.
 
-### Identificación automática de casos a revisar
+**Identificación automática de casos a revisar.**
 
 ```{r}
 #| label: tbl-reg22-casos-revision
@@ -1093,7 +1095,7 @@ base_modelo |>
 
 La presencia de observaciones en esta tabla no implica necesariamente errores. Indica únicamente que merecen una inspección adicional.
 
-### Diagnóstico de multicolinealidad
+**Diagnóstico de multicolinealidad.**
 
 ```{r}
 #| label: tbl-reg22-vif-final
@@ -1169,7 +1171,7 @@ tibble(
 
 Esta lista resume el procedimiento básico que debe seguirse antes de interpretar o reportar una regresión.
 
-### Problemas frecuentes y posibles soluciones
+**Problemas frecuentes y posibles soluciones.**
 
 ```{r}
 #| label: tbl-reg22-problemas-soluciones
@@ -1224,7 +1226,7 @@ tibble(
 
 Este flujo resume una secuencia práctica para validar modelos de regresión lineal.
 
-### Aplicación práctica
+**Aplicación práctica.**
 
 Antes de reportar resultados de una regresión:
 

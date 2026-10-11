@@ -630,7 +630,7 @@ X aparece asociado con Y
 
 Esto puede generar una asociación que no representa un efecto causal directo.
 
-### Ejemplo simulado de confusión
+**Ejemplo simulado de confusión.**
 
 ```{r}
 #| label: tbl-ch19-simulacion-confusion
@@ -669,7 +669,7 @@ datos_confusion |>
 
 En esta simulación, `z` afecta tanto a `x` como a `y`. Por tanto, puede aparecer una asociación entre `x` e `y` aunque no exista una relación causal directa entre ellas.
 
-### Asociación aparente
+**Asociación aparente.**
 
 ```{r}
 #| label: fig-ch19-asociacion-aparente
@@ -697,7 +697,7 @@ ggplot(
 
 El gráfico muestra una asociación positiva entre `x` e `y`. Sin embargo, en la simulación esta asociación se debe a la variable `z`.
 
-### Correlación aparente
+**Correlación aparente.**
 
 ```{r}
 #| label: tbl-ch19-correlacion-aparente
@@ -732,7 +732,7 @@ Z → Y
 
 En este caso, la asociación entre X e Y puede surgir porque ambas variables tienen una causa común.
 
-### Aplicación conceptual a la base pedagógica
+**Aplicación conceptual a la base pedagógica.**
 
 En la base base pedagógica simulada podemos explorar asociaciones entre:
 
@@ -744,7 +744,7 @@ log_productividad
 
 Sin embargo, no debemos concluir automáticamente que una region causa determinada productividad. La region puede reflejar diferencias estructurales, sectoriales o institucionales y otros factores no observados.
 
-### Diferencias regionles
+**Diferencias regionles.**
 
 ```{r}
 #| label: fig-ch19-diferencias-region-causalidad
@@ -779,7 +779,7 @@ Una correlación espuria ocurre cuando dos variables parecen relacionadas, pero 
 
 En investigación aplicada, las correlaciones espurias son frecuentes cuando se analizan muchas variables sin una hipótesis previa.
 
-### Ejemplo conceptual de correlación espuria
+**Ejemplo conceptual de correlación espuria.**
 
 ```{r}
 #| label: fig-ch19-correlacion-espuria
@@ -826,7 +826,7 @@ ggplot(
 
 Las variables `x` e `y` parecen asociadas, pero ambas comparten una tendencia común generada por `tiempo`.
 
-### Correlación espuria estimada
+**Correlación espuria estimada.**
 
 ```{r}
 #| label: tbl-ch19-correlacion-espuria
@@ -881,7 +881,7 @@ Por ello, la inferencia causal requiere especial cuidado [@angrist2009].
 
 En estos casos, las asociaciones pueden ser útiles para generar hipótesis, pero no siempre permiten establecer efectos causales.
 
-### Evidencia descriptiva y evidencia causal
+**Evidencia descriptiva y evidencia causal.**
 
 ```{r}
 #| label: tbl-ch19-evidencia-descriptiva-causal
@@ -909,7 +909,7 @@ tibble(
 
 La evidencia descriptiva es fundamental, pero no debe confundirse con evidencia causal.
 
-### Buenas prácticas
+**Buenas prácticas.**
 
 Para interpretar asociaciones de manera rigurosa se recomienda:
 
