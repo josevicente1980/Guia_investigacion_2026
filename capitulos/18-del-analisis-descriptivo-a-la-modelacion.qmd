@@ -528,7 +528,7 @@ La tabla resume los parámetros estimados y facilita la presentación de resulta
 
 La inferencia no debe reducirse a una regla automática basada en valores p. Los coeficientes deben interpretarse junto con sus intervalos de confianza, magnitud sustantiva, supuestos del modelo y propósito del análisis. En esta base simulada los resultados ilustran el procedimiento de estimación, no una conclusión empírica sobre empresas reales.
 
-### Valores ajustados
+**Valores ajustados.**
 
 Una vez estimado el modelo podemos calcular los valores predichos.
 

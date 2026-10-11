@@ -263,7 +263,7 @@ class(sunac$provincia)
 
 La nueva variable permitirá realizar análisis territoriales utilizando nombres de provincias en lugar de códigos numéricos.
 
-### Creación de nuevas variables
+**Creación de nuevas variables.**
 
 Uno de los principales objetivos de la transformación consiste en construir variables que no existen originalmente en la base de datos.
 
@@ -414,7 +414,7 @@ table(sunac$tiene_transitorios)
 
 Este tipo de indicadores resulta especialmente útil en análisis comparativos.
 
-### Construcción de indicadores porcentuales
+**Construcción de indicadores porcentuales.**
 
 En investigación aplicada suele ser más informativo trabajar con proporciones que con valores absolutos.
 
