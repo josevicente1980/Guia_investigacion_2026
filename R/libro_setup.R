@@ -104,3 +104,41 @@ formatear_p_tabla <- function(x, digits = 3) {
     )
   )
 }
+
+
+formatear_num_tabla <- function(x, digits = 3) {
+  vapply(
+    x,
+    function(z) {
+      if (is.na(z)) return(NA_character_)
+      if (z != 0 && abs(z) < 0.001) {
+        return(
+          formatC(
+            z,
+            format = "e",
+            digits = 2,
+            decimal.mark = ","
+          )
+        )
+      }
+      formatC(
+        z,
+        format = "f",
+        digits = digits,
+        decimal.mark = ","
+      )
+    },
+    character(1)
+  )
+}
+
+formatear_estimacion_ic <- function(estimate, low, high) {
+  paste0(
+    formatear_num_tabla(estimate, 3),
+    " [",
+    formatear_num_tabla(low, 3),
+    "; ",
+    formatear_num_tabla(high, 3),
+    "]"
+  )
+}

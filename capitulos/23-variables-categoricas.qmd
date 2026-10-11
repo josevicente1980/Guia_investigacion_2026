@@ -892,8 +892,7 @@ tidy(
 ) |>
   transmute(
     Parámetro = etiquetar_terminos_modelo(term),
-    `β (IC 95%)` = sprintf(
-      "%.3f [%.3f; %.3f]",
+    `β [IC 95%]` = formatear_estimacion_ic(
       estimate,
       conf.low,
       conf.high
@@ -972,8 +971,8 @@ anova_interaccion <- anova(
 anova_interaccion |>
   transmute(
     Modelo = c(
-      "Aditivo",
-      "Interacción"
+      "Base",
+      "Interac."
     ),
     `gl resid.` = Res.Df,
     F = if_else(

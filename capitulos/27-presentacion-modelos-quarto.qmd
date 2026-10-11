@@ -200,25 +200,68 @@ modelo_3 <- lm(
 ```{r}
 #| label: tbl-reg27-comparacion-modelos
 
-modelsummary(
-  list(
-    "M1" = modelo_1,
-    "M2" = modelo_2,
-    "M3" = modelo_3
-  ),
-  stars = FALSE,
-  statistic = "std.error",
-  coef_map = c(
-    "(Intercept)" = "Intercepto",
-    "gdpPercap" = "PIB pc",
-    "year" = "Año",
-    "pop" = "Población"
-  ),
-  gof_map = c("nobs", "r.squared"),
-  output = "data.frame"
+coef_comparacion <- dplyr::bind_rows(
+  broom::tidy(modelo_1) |>
+    transmute(
+      Parámetro = dplyr::recode(
+        term,
+        "(Intercept)" = "Intercepto",
+        "gdpPercap" = "PIB pc",
+        .default = term
+      ),
+      Modelo = "M1",
+      Valor = paste0(
+        formatear_num_tabla(estimate, 3),
+        " (",
+        formatear_num_tabla(std.error, 3),
+        ")"
+      )
+    ),
+  broom::tidy(modelo_2) |>
+    transmute(
+      Parámetro = dplyr::recode(
+        term,
+        "(Intercept)" = "Intercepto",
+        "gdpPercap" = "PIB pc",
+        "year" = "Año",
+        .default = term
+      ),
+      Modelo = "M2",
+      Valor = paste0(
+        formatear_num_tabla(estimate, 3),
+        " (",
+        formatear_num_tabla(std.error, 3),
+        ")"
+      )
+    ),
+  broom::tidy(modelo_3) |>
+    transmute(
+      Parámetro = dplyr::recode(
+        term,
+        "(Intercept)" = "Intercepto",
+        "gdpPercap" = "PIB pc",
+        "year" = "Año",
+        "pop" = "Población",
+        .default = term
+      ),
+      Modelo = "M3",
+      Valor = paste0(
+        formatear_num_tabla(estimate, 3),
+        " (",
+        formatear_num_tabla(std.error, 3),
+        ")"
+      )
+    )
 ) |>
+  tidyr::pivot_wider(
+    names_from = Modelo,
+    values_from = Valor
+  )
+
+coef_comparacion |>
   kable(
-    caption = "Comparación de modelos"
+    align = c("l", "c", "c", "c"),
+    caption = "Comparación de modelos; error estándar entre paréntesis"
   )
 ```
 
@@ -250,8 +293,7 @@ broom::tidy(
       "pop" = "Población",
       .default = term
     ),
-    `β (IC 95%)` = sprintf(
-      "%.3f [%.3f; %.3f]",
+    `β [IC 95%]` = formatear_estimacion_ic(
       estimate,
       conf.low,
       conf.high

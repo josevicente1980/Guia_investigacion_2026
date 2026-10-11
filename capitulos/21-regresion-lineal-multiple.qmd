@@ -366,15 +366,15 @@ modelo_1 <- lm(
 glance(
   modelo_1
 ) |>
-  select(
-    r.squared,
-    adj.r.squared,
-    sigma,
-    AIC,
-    BIC
+  transmute(
+    `R²` = r.squared,
+    `R² aj.` = adj.r.squared,
+    `σ` = sigma,
+    AIC = AIC,
+    BIC = BIC
   ) |>
   kable(
-    digits = 4,
+    digits = 3,
     caption = "Indicadores del modelo base"
   )
 ```
@@ -681,14 +681,14 @@ tibble(
     "Complejidad",
     "Interpretación"
   ),
-  Modelo_1 = c(
+  `Modelo 1` = c(
     "2",
     round(summary(modelo_1)$r.squared, 4),
     round(summary(modelo_1)$adj.r.squared, 4),
     "Menor",
     "Más sencilla"
   ),
-  Modelo_2 = c(
+  `Modelo 2` = c(
     "3+",
     round(summary(modelo_2)$r.squared, 4),
     round(summary(modelo_2)$adj.r.squared, 4),

@@ -925,18 +925,28 @@ base_modelo <- base_modelo |>
 ```{r}
 #| label: tbl-reg22-resumen-global
 
-glance(
+resumen_global <- glance(
   modelo_diag
+)
+
+tibble(
+  Indicador = c(
+    "R²",
+    "R² ajustado",
+    "Error residual",
+    "F",
+    "p global"
+  ),
+  Valor = c(
+    formatear_num_tabla(resumen_global$r.squared, 3),
+    formatear_num_tabla(resumen_global$adj.r.squared, 3),
+    formatear_num_tabla(resumen_global$sigma, 3),
+    formatear_num_tabla(resumen_global$statistic, 2),
+    formatear_p_tabla(resumen_global$p.value)
+  )
 ) |>
-  transmute(
-    `R²` = r.squared,
-    `R² aj.` = adj.r.squared,
-    Error = sigma,
-    F = statistic,
-    p = formatear_p_tabla(p.value)
-  ) |>
   kable(
-    digits = 4,
+    align = c("l", "r"),
     caption = "Resumen global del modelo"
   )
 ```
