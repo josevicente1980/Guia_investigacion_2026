@@ -108,7 +108,14 @@ También podemos revisar la estructura de las variables.
 ```{r}
 #| label: ch14-estructura-base
 
-glimpse(base_analitica)
+base_analitica |>
+  mutate(
+    across(
+      where(haven::is.labelled),
+      ~ haven::as_factor(.x)
+    )
+  ) |>
+  glimpse()
 ```
 
 La salida permite identificar variables categóricas, numéricas y derivadas. Esta revisión es importante porque el tipo de variable determina qué estadísticas descriptivas son apropiadas.

@@ -72,9 +72,14 @@ Antes de construir gráficos conviene verificar la estructura de la información
 ```{r}
 #| label: tbl-ch16-estructura-base
 
-glimpse(
-  base_analitica
-)
+base_analitica |>
+  mutate(
+    across(
+      where(haven::is.labelled),
+      ~ haven::as_factor(.x)
+    )
+  ) |>
+  glimpse()
 ```
 
 **Interpretación**

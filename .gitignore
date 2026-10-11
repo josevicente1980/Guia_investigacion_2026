@@ -15,3 +15,5 @@ datos/procesado/ESPAC_2025/*.rds
 00_conocimiento_editorial/auditorias/resultados/
 *_VALIDADO_*.docx
 ~$*
+
+/.quarto/
