@@ -232,11 +232,7 @@ tidy(
 
 **Interpretación**
 
-Los coeficientes indican la dirección del efecto sobre la probabilidad de pertenecer a la categoría 1.
-
-El signo positivo implica aumento de probabilidad.
-
-El signo negativo implica disminución de probabilidad.
+Los coeficientes se expresan en la escala del logit y describen asociaciones condicionadas a los demás predictores. En un modelo Logit estándar, un coeficiente positivo implica mayores log-odds y, manteniendo constantes las demás variables, una mayor probabilidad predicha del evento; un coeficiente negativo implica lo contrario. Esta interpretación no es causal por sí sola.
 
 ### Probabilidades estimadas
 
@@ -545,29 +541,27 @@ Los Odds Ratio permiten una interpretación mucho más sencilla.
 
 ### Interpretación del Odds Ratio
 
-Si:
+Para un incremento de una unidad en el predictor, manteniendo constantes las demás variables:
 
 ```text
 Odds Ratio = 1
 ```
 
-no existe efecto.
-
-Si:
+no cambia multiplicativamente el odds estimado.
 
 ```text
 Odds Ratio > 1
 ```
 
-la probabilidad aumenta.
-
-Si:
+el odds estimado aumenta.
 
 ```text
 Odds Ratio < 1
 ```
 
-la probabilidad disminuye.
+el odds estimado disminuye.
+
+El Odds Ratio describe cambios en odds, no cambios porcentuales directos en probabilidad.
 
 ### Ejemplos prácticos
 
@@ -582,10 +576,10 @@ tibble(
     2.50
   ),
   Interpretacion = c(
-    "Disminuye la probabilidad",
-    "Sin efecto",
-    "Incremento moderado",
-    "Incremento importante"
+    "Reduce el odds estimado",
+    "Sin cambio en el odds",
+    "Aumenta el odds estimado",
+    "Aumenta el odds estimado"
   )
 ) |>
   kable(
@@ -951,7 +945,7 @@ left_join(
 
 Las magnitudes suelen diferir porque cada modelo utiliza una escala distinta.
 
-Lo importante es que normalmente mantienen el mismo signo y dirección del efecto.
+Lo importante es que normalmente mantienen el mismo signo y una dirección de asociación similar, aunque sus coeficientes no son directamente comparables porque utilizan escalas distintas.
 
 ### Probabilidades estimadas
 

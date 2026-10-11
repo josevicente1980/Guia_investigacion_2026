@@ -745,14 +745,13 @@ Hasta ahora hemos incorporado variables categóricas simples dentro de modelos l
 Sin embargo, en muchas investigaciones resulta necesario responder preguntas más complejas:
 
 ```text
-¿El efecto de una variable numérica es igual para todos los grupos?
+¿La asociación entre una variable numérica y la respuesta es igual para todos los grupos?
 ```
 
 Por ejemplo:
 
 ```text
-¿La capital productivo tiene el mismo efecto
-sobre la productividad total para todos los tamaños de empresa?
+¿La asociación entre el capital productivo y la productividad total presenta la misma pendiente en todos los tamaños de empresa?
 ```
 
 Para responder este tipo de preguntas utilizamos interacciones entre variables numéricas y categóricas [@kutner2004].
@@ -840,7 +839,7 @@ glance(
 
 **Interpretación**
 
-El modelo supone que el efecto de la capital productivo es idéntico para todas las categorías de tamaño.
+El modelo aditivo supone una misma pendiente para la asociación entre capital productivo y productividad en todas las categorías de tamaño.
 
 ## Modelo con interacción
 
@@ -879,7 +878,7 @@ glance(
 
 **Interpretación**
 
-El modelo permite que el efecto de la capital productivo sea diferente según el tamaño de la empresa.
+El modelo con interacción permite que la pendiente asociada al capital productivo difiera según el tamaño de la empresa.
 
 ### Coeficientes del modelo
 
@@ -990,7 +989,7 @@ anova_interaccion |>
 
 **Interpretación**
 
-Esta prueba evalúa si incorporar la interacción mejora significativamente el ajuste.
+Esta prueba compara los modelos anidados y evalúa, bajo sus supuestos, si la reducción del error residual asociada a la interacción es mayor de la esperada bajo la hipótesis nula.
 
 **Visualización de la interacción.**
 
@@ -1136,6 +1135,6 @@ En este capítulo aprendimos a incorporar variables categóricas dentro de model
 
 Posteriormente utilizamos regresiones con categorías múltiples para comparar grupos respecto a una categoría de referencia.
 
-Finalmente introdujimos interacciones entre variables numéricas y categóricas, permitiendo modelar efectos diferenciados entre grupos.
+Finalmente introdujimos interacciones entre variables numéricas y categóricas, permitiendo modelar pendientes diferenciadas entre grupos sin atribuirles automáticamente una interpretación causal.
 
 Las variables categóricas constituyen una herramienta fundamental en investigación aplicada porque permiten incorporar características cualitativas dentro de modelos cuantitativos sin perder interpretabilidad.

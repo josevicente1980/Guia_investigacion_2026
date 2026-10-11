@@ -68,7 +68,7 @@ La misma unidad aparece repetidamente a través del tiempo.
 Los datos de panel permiten:
 
 - Analizar cambios temporales.
-- Controlar heterogeneidad individual.
+- Modelar heterogeneidad individual bajo supuestos explícitos.
 - Incrementar el número de observaciones.
 - Mejorar la precisión de las estimaciones.
 - Evaluar dinámicas de comportamiento.
@@ -919,9 +919,7 @@ Un valor p pequeño aporta evidencia contra la especificación pooled en favor d
 
 ### Prueba de Hausman
 
-La prueba de Hausman constituye una de las herramientas más utilizadas en econometría de panel. La prueba mide si existe correlación entre los efectos individuales y las variables explicativas del modelo.
-
-En otras palabras, analiza si las características propias de cada unidad —empresa, país o persona— están relacionadas con las variables independientes [@hausman1978specification].
+La prueba de Hausman compara la compatibilidad de los estimadores de efectos fijos y efectos aleatorios bajo la hipótesis de consistencia del estimador de efectos aleatorios. En el planteamiento clásico, una diferencia sistemática entre ambos estimadores es consistente con que la heterogeneidad individual no observada esté correlacionada con los regresores [@hausman1978specification].
 
 **Efectos fijos:** se asume que cada unidad del panel tiene características propias constantes que pueden afectar la variable dependiente.
 
@@ -1120,7 +1118,7 @@ ggplot(
 ```
 **Interpretación**
 
-La distribución permite evaluar visualmente el comportamiento de los errores del modelo e identificar si siguen una distribución normal; es decir, si el histograma presenta una forma aproximadamente de campana y está centrado en cero, existe evidencia de que los residuos siguen una distribución cercana a la normal.
+El histograma permite examinar visualmente la forma de los residuos. Una distribución aproximadamente simétrica y centrada en cero puede ser compatible con normalidad, pero no la demuestra. En modelos de panel, la validez inferencial también depende de la estructura de dependencia temporal y transversal y de la estimación adecuada de la varianza.
 
 **Flujo completo de análisis.**
 

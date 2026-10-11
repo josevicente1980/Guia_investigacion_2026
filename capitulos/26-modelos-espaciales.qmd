@@ -582,7 +582,7 @@ ggplot(
 
 **Interpretación**
 
-Las escuelas con valores positivos presentan rendimientos superiores al promedio esperado.
+Las escuelas con valores positivos presentan interceptos condicionales estimados por encima del intercepto promedio del modelo. Esta diferencia no debe interpretarse automáticamente como un efecto causal de la escuela.
 
 ### Comparación de modelos
 
@@ -607,7 +607,7 @@ tibble(
 
 **Interpretación**
 
-Menores valores de AIC indican mejor ajuste relativo.
+Entre modelos estimados sobre la misma respuesta y muestra, un AIC menor indica mejor compromiso relativo entre ajuste y complejidad dentro del conjunto comparado; no demuestra que el modelo sea verdadero ni sustantivamente adecuado.
 
 ### ¿Cuándo utilizar modelos multinivel?
 
@@ -846,7 +846,7 @@ Los coeficientes representan elasticidades de producción. Un coeficiente positi
 
 ### Estimación de frontera estocástica
 
-Ahora estimaremos una frontera estocástica. A diferencia de la regresión convencional, este modelo separa el error aleatorio de la ineficiencia técnica.
+Ahora estimaremos una frontera estocástica. El modelo descompone el término de error en ruido aleatorio e ineficiencia técnica de acuerdo con una forma funcional y supuestos distributivos explícitos; esa separación es inferida por el modelo y no observada directamente.
 
 ```{r}
 #| label: reg26-modelo-sfa
@@ -871,7 +871,7 @@ summary(
 
 **Interpretación**
 
-El modelo estima una frontera de producción. Los coeficientes de capital y trabajo indican cómo se relacionan los insumos con la producción potencial. Los parámetros adicionales del modelo permiten separar ruido estadístico e ineficiencia técnica.
+El modelo estima una frontera de producción. Los coeficientes de capital y trabajo indican cómo se relacionan los insumos con la producción potencial. Los parámetros adicionales permiten estimar la descomposición entre ruido estadístico e ineficiencia técnica bajo los supuestos de la especificación.
 
 ### Eficiencia técnica estimada
 
@@ -1043,7 +1043,7 @@ Hospitales
 Universidades
 ```
 
-Su principal aporte consiste en distinguir entre bajo desempeño por ruido aleatorio y bajo desempeño por ineficiencia.
+Su principal aporte consiste en modelar por separado ruido aleatorio e ineficiencia bajo supuestos explícitos. La interpretación de las eficiencias depende de la forma funcional, la distribución asumida para la ineficiencia y la calidad de la especificación.
 
 **Manos a la obra.**
 
