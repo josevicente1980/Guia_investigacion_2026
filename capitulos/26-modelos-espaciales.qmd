@@ -171,7 +171,7 @@ Cada área posee un conjunto de vecinos espaciales que influirá en el análisis
 ```{r}
 #| label: reg26-pesos
 
-pesos <- nb2listw(
+pesos <- spdep::nb2listw(
   vecinos,
   style = "W"
 )
@@ -185,7 +185,7 @@ El índice de Moran evalúa autocorrelación espacial.
 ```{r}
 #| label: out-reg26-moran
 
-moran.test(
+spdep::moran.test(
   columbus_sf$CRIME,
   pesos
 )
@@ -207,7 +207,7 @@ Un valor p pequeño aporta evidencia contra la hipótesis nula de ausencia de au
 #| label: fig-reg26-moran
 #| fig-cap: "Diagrama de Moran"
 
-moran.plot(
+spdep::moran.plot(
   columbus_sf$CRIME,
   pesos
 )
@@ -224,7 +224,7 @@ Cuando existe dependencia espacial podemos estimar un modelo autorregresivo espa
 ```{r}
 #| label: reg26-sar
 
-modelo_sar <- lagsarlm(
+modelo_sar <- spatialreg::lagsarlm(
   CRIME ~ INC + HOVAL,
   data = columbus_sf,
   listw = pesos
@@ -457,7 +457,7 @@ Ahora permitimos que cada escuela tenga su propio intercepto.
 ```{r}
 #| label: reg26-modelo-multinivel
 
-modelo_ml <- lmer(
+modelo_ml <- lme4::lmer(
   normexam ~
     standLRT +
     (1 | school),
@@ -502,7 +502,7 @@ El coeficiente de `standLRT` resume la asociación promedio entre el puntaje de 
 #| label: tbl-reg26-varianza
 
 as.data.frame(
-  VarCorr(
+  lme4::VarCorr(
     modelo_ml
   )
 ) |>
@@ -530,7 +530,7 @@ La varianza asociada a las escuelas indica cuánto difieren los interceptos entr
 ```{r}
 #| label: tbl-reg26-efectos-aleatorios
 
-ranef(
+lme4::ranef(
   modelo_ml
 )$school |>
   head() |>
@@ -556,7 +556,7 @@ Cada escuela presenta una desviación específica respecto al promedio general.
 #| label: fig-reg26-efectos-aleatorios
 #| fig-cap: "Interceptos aleatorios por escuela"
 
-efectos_escuela <- ranef(
+efectos_escuela <- lme4::ranef(
   modelo_ml
 )$school |>
   tibble::rownames_to_column(
@@ -878,7 +878,7 @@ El modelo estima una frontera de producción. Los coeficientes de capital y trab
 ```{r}
 #| label: reg26-eficiencia-sfa
 
-eficiencia <- efficiencies(
+eficiencia <- frontier::efficiencies(
   modelo_sfa
 )
 ```

@@ -2,7 +2,7 @@
 
 **Fecha:** 2026-10-11  
 **Alcance:** transición a modelación, correlación y causalidad, regresión lineal, diagnóstico, variables categóricas, Logit/Probit, panel, espacial, multinivel y frontera estocástica.  
-**Estado global:** **REVIEW**
+**Estado global:** **PASS**
 
 ## Correcciones realizadas
 
@@ -31,14 +31,13 @@
 | 23 | PASS | Interacciones expresadas como diferencias de pendientes |
 | 24 | PASS | Logit/Probit y Odds Ratio corregidos |
 | 25 | PASS | Hausman, heterogeneidad y residuos precisados |
-| 26 | REVIEW | Enfoques avanzados correctos a nivel pedagógico; falta comprobar que las referencias y paquetes utilizados correspondan exactamente a las funciones y afirmaciones reportadas |
+| 26 | PASS | Funciones espaciales, multinivel y frontera estocástica contrastadas con documentación oficial y explicitadas mediante namespaces |
 
 ## Controles todavía pendientes
 
-1. Verificar referencias metodológicas específicas y metadatos bibliográficos.
-2. Confirmar versiones de paquetes y reproducibilidad del entorno.
-3. Ejecutar render completo tras cerrar auditorías de contenido.
-4. Revisar advertencias ocultas en un modo de auditoría con mensajes visibles.
-5. Comprobar que ejemplos simulados estén identificados como tales en toda aparición relevante.
+1. Confirmar versiones de paquetes y reproducibilidad del entorno.
+2. Ejecutar render completo tras cerrar auditorías de contenido.
+3. Revisar advertencias ocultas en un modo de auditoría con mensajes visibles.
+4. Comprobar que ejemplos simulados estén identificados como tales en toda aparición relevante.
 
 La modelación de los capítulos 18–26 ya no debe usar lenguaje causal salvo que se expliciten diseño y supuestos de identificación.
