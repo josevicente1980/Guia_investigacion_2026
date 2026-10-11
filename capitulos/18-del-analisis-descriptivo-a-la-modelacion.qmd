@@ -417,7 +417,7 @@ Antes de estimar cualquier modelo se recomienda:
 - Justificar conceptualmente las variables.
 - Evitar interpretaciones causales apresuradas.
 
-### Manos a la obra
+**Manos a la obra.**
 
 Utilizando la base `base_analitica`:
 
@@ -434,7 +434,7 @@ Utilizando la base `base_analitica`:
 
 # Parte 2. Introducción a la regresión lineal
 
-### Introducción
+**Introducción.**
 
 En la sección anterior construimos la matriz analítica y exploramos relaciones preliminares entre variables. El siguiente paso consiste en cuantificar dichas relaciones mediante modelos estadísticos.
 
@@ -832,7 +832,7 @@ Hasta este punto hemos aprendido a:
 - Estimar modelos múltiples.
 - Comparar capacidad explicativa.
 
-### Manos a la obra
+**Manos a la obra.**
 
 Utilizando la base de datos denominada `matriz_modelo`:
 
@@ -849,7 +849,7 @@ Utilizando la base de datos denominada `matriz_modelo`:
 
 # Parte 3. Hacia modelos más complejos
 
-### Introducción
+**Introducción.**
 
 En la sección anterior aprendimos a construir e interpretar modelos de regresión lineal. Sin embargo, estimar un modelo es solamente una parte del proceso de modelación.
 
@@ -1334,7 +1334,7 @@ Se recomienda:
 - Reportar incertidumbre.
 - Garantizar reproducibilidad.
 
-### Manos a la obra
+**Manos a la obra.**
 
 Utilizando la base `matriz_modelo`:
 

@@ -31,7 +31,7 @@ Una vez ajustado un modelo es necesario verificar si sus supuestos básicos resu
 
 En este capítulo utilizaremos el modelo múltiple construido previamente para ilustrar las principales herramientas de diagnóstico.
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg22-cargar-librerias
@@ -45,7 +45,7 @@ En este capítulo utilizaremos el modelo múltiple construido previamente para i
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg22-cargar-base
@@ -54,7 +54,7 @@ En este capítulo utilizaremos el modelo múltiple construido previamente para i
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Preparación de variables
+**Preparación de variables.**
 
 ```{r}
 #| label: reg22-preparar-base
@@ -350,7 +350,7 @@ tibble(
 
 Estas herramientas constituyen la base del diagnóstico de cualquier modelo lineal.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 En esta primera parte aprendimos a:
 
@@ -360,7 +360,7 @@ En esta primera parte aprendimos a:
 - Evaluar normalidad.
 - Evaluar homoscedasticidad.
 
-### Introducción
+**Introducción.**
 
 En la sección anterior evaluamos la distribución de los residuos y verificamos los supuestos básicos del modelo lineal.
 
@@ -372,7 +372,7 @@ Ahora analizaremos tres aspectos adicionales que pueden afectar la calidad de un
 
 Estos elementos son especialmente importantes cuando se trabaja con múltiples variables explicativas [@montgomery2021].
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg22-cargar-librerias-parte2
@@ -386,7 +386,7 @@ Estos elementos son especialmente importantes cuando se trabaja con múltiples v
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg22-cargar-base-parte2
@@ -395,7 +395,7 @@ Estos elementos son especialmente importantes cuando se trabaja con múltiples v
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Preparación de variables
+**Preparación de variables.**
 
 ```{r}
 #| eval: false
@@ -793,7 +793,7 @@ tibble(
 
 Cada herramienta responde a una pregunta distinta sobre la calidad del modelo.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 En esta segunda parte aprendimos a:
 
@@ -805,7 +805,7 @@ En esta segunda parte aprendimos a:
 
 En la siguiente sección integraremos todos los diagnósticos estudiados y construiremos un procedimiento completo de validación de modelos de regresión.
 
-### Introducción
+**Introducción.**
 
 A estas alturas ya hemos evaluado:
 
@@ -824,7 +824,7 @@ La pregunta final es:
 
 En esta sección integraremos todos los diagnósticos en un único procedimiento práctico que podrá utilizarse en cualquier proyecto de investigación.
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg22-cargar-librerias-parte3
@@ -838,7 +838,7 @@ En esta sección integraremos todos los diagnósticos en un único procedimiento
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg22-cargar-base-parte3
@@ -847,7 +847,7 @@ En esta sección integraremos todos los diagnósticos en un único procedimiento
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Preparación de variables
+**Preparación de variables.**
 
 ```{r}
 #| label: reg22-preparar-base-parte3
@@ -1239,7 +1239,7 @@ Antes de reportar resultados de una regresión:
 9. Documente limitaciones.
 10. Interprete resultados únicamente después de completar el diagnóstico.
 
-### Manos a la obra
+**Manos a la obra.**
 
 1. Estime una regresión múltiple.
 2. Construya residuos.

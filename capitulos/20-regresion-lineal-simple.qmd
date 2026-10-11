@@ -31,7 +31,7 @@ La regresión lineal simple constituye uno de los modelos estadísticos más uti
 
 En este capítulo utilizaremos una base pedagógica simulada y reproducible para ilustrar la estimación e interpretación de una regresión lineal simple.
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg20-cargar-librerias
@@ -44,7 +44,7 @@ En este capítulo utilizaremos una base pedagógica simulada y reproducible para
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg20-cargar-base
@@ -53,7 +53,7 @@ En este capítulo utilizaremos una base pedagógica simulada y reproducible para
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Preparación de variables
+**Preparación de variables.**
 
 ```{r}
 #| label: reg20-preparar-base
@@ -292,7 +292,7 @@ base_regresion |>
 
 Los valores ajustados representan la respuesta estimada por el modelo para cada observación.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 La regresión lineal simple permite construir una ecuación que resume la relación promedio entre dos variables. En esta primera parte aprendimos a:
 
@@ -325,7 +325,7 @@ Para responderla utilizaremos:
 
 Estas herramientas permiten evaluar la capacidad explicativa y predictiva del modelo [@montgomery2021].
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg20-cargar-librerias-parte2
@@ -338,7 +338,7 @@ Estas herramientas permiten evaluar la capacidad explicativa y predictiva del mo
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg20-cargar-base-parte2
@@ -347,7 +347,7 @@ Estas herramientas permiten evaluar la capacidad explicativa y predictiva del mo
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Preparación de variables
+**Preparación de variables.**
 
 ```{r}
 #| eval: false
@@ -703,7 +703,7 @@ glance(
 
 Un valor p pequeño aporta evidencia contra la hipótesis nula global. No implica por sí solo que el modelo tenga una capacidad explicativa o predictiva importante; esa valoración requiere considerar también el tamaño de los coeficientes, el R², la incertidumbre y el contexto.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 Hasta este punto hemos aprendido a:
 
@@ -725,7 +725,7 @@ Sin embargo, antes de confiar en cualquier modelo estadístico es necesario veri
 
 En esta sección realizaremos un diagnóstico introductorio utilizando residuos. El estudio detallado de los supuestos será desarrollado en el Capítulo 22, pero aquí construiremos las herramientas fundamentales para comprender cómo se evalúa un modelo lineal.
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg20-cargar-librerias-parte3
@@ -738,7 +738,7 @@ En esta sección realizaremos un diagnóstico introductorio utilizando residuos.
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg20-cargar-base-parte3
@@ -747,7 +747,7 @@ En esta sección realizaremos un diagnóstico introductorio utilizando residuos.
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Preparación de variables
+**Preparación de variables.**
 
 ```{r}
 #| label: reg20-preparar-base-parte3
@@ -1099,7 +1099,7 @@ A partir de los resultados obtenidos podemos responder tres preguntas fundamenta
 
 Estas preguntas constituyen la base de cualquier evaluación preliminar de modelos lineales.
 
-### Manos a la obra
+**Manos a la obra.**
 
 1. Estime una regresión lineal simple.
 2. Obtenga valores ajustados.

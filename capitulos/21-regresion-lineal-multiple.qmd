@@ -31,7 +31,7 @@ Sin embargo, en aplicaciones reales rara vez un fenómeno depende de una sola va
 
 La regresión lineal múltiple permite incorporar varias variables explicativas dentro de una misma ecuación, proporcionando una representación más realista de los procesos observados [@montgomery2021].
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg21-cargar-librerias
@@ -44,7 +44,7 @@ La regresión lineal múltiple permite incorporar varias variables explicativas 
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg21-cargar-base
@@ -53,7 +53,7 @@ La regresión lineal múltiple permite incorporar varias variables explicativas 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Preparación de variables
+**Preparación de variables.**
 
 Para ilustrar la regresión múltiple construiremos una base con variables numéricas y categóricas.
 
@@ -273,7 +273,7 @@ base_modelo |>
 
 La proximidad de los puntos a la diagonal proporciona una evaluación visual preliminar de la capacidad predictiva del modelo.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 La regresión lineal múltiple amplía la lógica del modelo simple permitiendo incorporar varios factores explicativos simultáneamente.
 
@@ -287,7 +287,7 @@ En esta primera parte aprendimos a:
 
 En la siguiente sección profundizaremos en la comparación de modelos, la incorporación de variables categóricas y la evaluación del aporte de cada predictor.
 
-### Introducción
+**Introducción.**
 
 Una vez estimado un modelo de regresión múltiple surge una pregunta natural:
 
@@ -299,7 +299,7 @@ La regresión múltiple permite comparar especificaciones alternativas e identif
 
 En esta sección estudiaremos cómo comparar modelos, interpretar el aporte de nuevos predictores y comprender el papel de las variables de control.
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg21-cargar-librerias-parte2
@@ -312,7 +312,7 @@ En esta sección estudiaremos cómo comparar modelos, interpretar el aporte de n
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg21-cargar-base-parte2
@@ -321,7 +321,7 @@ En esta sección estudiaremos cómo comparar modelos, interpretar el aporte de n
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Preparación de variables
+**Preparación de variables.**
 
 ```{r}
 #| eval: false
@@ -709,7 +709,7 @@ tibble(
 
 El investigador debe equilibrar capacidad explicativa y simplicidad interpretativa.
 
-### Conclusión práctica
+**Conclusión práctica.**
 
 En esta sección aprendimos a:
 
@@ -722,13 +722,13 @@ En esta sección aprendimos a:
 
 En la siguiente sección construiremos un flujo completo de predicción utilizando múltiples variables y sintetizaremos el proceso completo de regresión lineal múltiple.
 
-### Introducción
+**Introducción.**
 
 Hasta este punto hemos aprendido a estimar modelos de regresión múltiple e incorporar variables de control. El paso final consiste en utilizar el modelo para generar predicciones e interpretar conjuntamente los resultados obtenidos.
 
 En esta sección construiremos un flujo completo de análisis que servirá como referencia para futuras aplicaciones de regresión múltiple.
 
-### Cargando librerías
+**Cargando librerías.**
 
 ```{r}
 #| label: reg21-cargar-librerias-parte3
@@ -741,7 +741,7 @@ En esta sección construiremos un flujo completo de análisis que servirá como 
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| label: reg21-cargar-base-parte3
@@ -750,7 +750,7 @@ En esta sección construiremos un flujo completo de análisis que servirá como 
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-### Preparación de variables
+**Preparación de variables.**
 
 ```{r}
 #| label: reg21-preparar-base-parte3
@@ -1155,7 +1155,7 @@ La regresión múltiple permite responder preguntas como:
 
 Estas preguntas aparecen frecuentemente en investigación aplicada, planificación y análisis de políticas públicas.
 
-### Manos a la obra
+**Manos a la obra.**
 
 1. Estime un modelo múltiple con al menos tres variables explicativas.
 2. Interprete todos los coeficientes.

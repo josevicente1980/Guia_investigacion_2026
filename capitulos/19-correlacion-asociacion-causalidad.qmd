@@ -20,7 +20,7 @@ La correlación permite resumir la dirección y la intensidad de la relación en
 
 En esta sección trabajaremos con tres medidas: Pearson, Spearman y Kendall. Cada una responde a supuestos distintos y permite observar la asociación desde una perspectiva diferente [@pearson1895; @spearman1904; @kendall1938].
 
-### Cargando paquetes y base de trabajo
+**Cargando paquetes y base de trabajo.**
 
 Cada capítulo debe poder renderizarse de forma independiente. Por ello cargamos nuevamente las librerías y la base analítica.
 
@@ -505,7 +505,7 @@ La correlación tiene varias limitaciones:
 
 Por estas razones, la correlación debe interpretarse como una herramienta descriptiva y no como una prueba causal [@hernan2020].
 
-### Manos a la obra
+**Manos a la obra.**
 
 Utilizando la base `base_correlacion`:
 
@@ -520,17 +520,17 @@ Utilizando la base `base_correlacion`:
 9. Explique por qué una transformación puede mejorar la lectura visual.
 10. Discuta por qué la correlación no demuestra causalidad.
 
-## Parte 3. Correlación no implica causalidad
+## Correlación no implica causalidad
 
 La inferencia causal moderna exige explicitar el diseño, los supuestos de identificación y las fuentes potenciales de sesgo antes de interpretar una asociación como un efecto causal [@imbens2024].
 
-### Introducción
+**Introducción.**
 
 Una de las advertencias más importantes en investigación cuantitativa es que una asociación estadística no demuestra causalidad. Dos variables pueden estar correlacionadas y, aun así, no existir una relación causal directa entre ellas [@pearl2018; @hernan2020].
 
 En esta sección estudiaremos por qué ocurre esto y cómo pensar de manera más rigurosa sobre asociaciones, variables de confusión y causalidad.
 
-### Cargando paquetes y base de trabajo
+**Cargando paquetes y base de trabajo.**
 
 ```{r}
 #| label: ch19-cargar-paquetes-parte3
@@ -920,7 +920,7 @@ Para interpretar asociaciones de manera rigurosa se recomienda:
 - Distinguir entre descripción, predicción y explicación causal.
 - Reportar limitaciones del análisis.
 
-### Manos a la obra
+**Manos a la obra.**
 
 Utilizando la base `base_causalidad`:
 

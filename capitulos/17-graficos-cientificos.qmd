@@ -33,7 +33,7 @@ La visualización científica busca maximizar la comunicación de la informació
 
 En este capítulo utilizaremos la base analítica construida a partir de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC 2025) para ilustrar los principios de diseño gráfico científico.
 
-### Cargando paquetes
+**Cargando paquetes.**
 
 ```{r}
 #| label: ch17-cargar-paquetes
@@ -48,7 +48,7 @@ En este capítulo utilizaremos la base analítica construida a partir de la Encu
 
 ```
 
-### Cargando la base analítica
+**Cargando la base analítica.**
 
 ```{r}
 #| eval: false
@@ -467,7 +467,7 @@ Al construir figuras destinadas a publicaciones se recomienda:
 - Garantizar reproducibilidad.
 - Conservar una misma línea gráfica en todo el documento.
 
-### Manos a la obra
+**Manos a la obra.**
 
 Utilizando la base `base_analitica`:
 
@@ -484,7 +484,7 @@ Utilizando la base `base_analitica`:
 
 # Parte 2. Gráficos científicos para tesis, informes y artículos
 
-### Introducción
+**Introducción.**
 
 En la sección anterior aprendimos los principios fundamentales de la comunicación visual científica. Sin embargo, la calidad de una figura no depende únicamente de su apariencia estética. Los gráficos utilizados en tesis, artículos científicos e informes técnicos deben facilitar la interpretación estadística de los resultados y comunicar evidencia de manera clara y precisa [@tufte2001; @cairo2016].
 
@@ -871,7 +871,7 @@ Al preparar figuras para publicaciones se recomienda:
 - Exportar figuras reproduciblemente.
 - Documentar completamente el código utilizado.
 
-### Manos a la obra
+**Manos a la obra.**
 
 Utilizando la base `base_analitica`:
 
@@ -888,7 +888,7 @@ Utilizando la base `base_analitica`:
 
 # Parte 3. Figuras avanzadas para publicaciones científicas
 
-### Introducción
+**Introducción.**
 
 Los artículos científicos, tesis doctorales, informes técnicos y documentos institucionales suelen requerir figuras más complejas que las utilizadas durante el análisis exploratorio. En estos contextos, no basta con construir gráficos individuales; es necesario diseñar figuras coherentes, comparables y reproducibles que comuniquen múltiples resultados de manera integrada [@wilkinson2005; @tufte2001].
 
