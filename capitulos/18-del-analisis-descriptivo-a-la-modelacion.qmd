@@ -359,25 +359,17 @@ correlacion_modelo <- matriz_modelo |>
     use = "complete.obs"
   )
 
-as.data.frame(
-  round(
-    correlacion_modelo,
-    3
-  )
+tibble(
+  `Par de variables` = "Log productividad - Capital",
+  r = correlacion_modelo[
+    "log_productividad",
+    "capital"
+  ]
 ) |>
-  tibble::rownames_to_column(
-    var = "Variable"
-  ) |>
-  setNames(
-    c(
-      "Variable",
-      "Log prod.",
-      "Capital"
-    )
-  ) |>
   kable(
-    align = c("l", "r", "r"),
-    caption = "Matriz de correlación preliminar"
+    digits = 3,
+    align = c("l", "r"),
+    caption = "Correlación preliminar entre variables"
   )
 ```
 
