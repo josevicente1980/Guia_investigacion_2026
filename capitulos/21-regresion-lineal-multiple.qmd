@@ -1057,17 +1057,26 @@ nuevos_casos |>
       predict(
         modelo_final,
         newdata = nuevos_casos
-      )
+      ),
+    Caso = paste(
+      "Caso",
+      row_number()
+    ),
+    Escenario = sprintf(
+      "Capital %.3f; %s; %s",
+      capital,
+      as.character(tamano_empresa),
+      as.character(region)
+    )
   ) |>
-  transmute(
-    Capital = capital,
-    Tamaño = tamano_empresa,
-    Región = region,
+  select(
+    Caso,
+    Escenario,
     Predicción = prediccion
   ) |>
   kable(
     digits = 3,
-    align = c("r", "l", "l", "r"),
+    align = c("l", "l", "r"),
     caption = "Predicciones del modelo"
   )
 ```
