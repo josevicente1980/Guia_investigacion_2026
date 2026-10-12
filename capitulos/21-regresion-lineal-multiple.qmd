@@ -802,14 +802,19 @@ glance(
   modelo_final
 ) |>
   transmute(
-    `R²` = r.squared,
-    `R² aj.` = adj.r.squared,
-    Error = sigma,
-    F = statistic,
-    p = formatear_p_tabla(p.value)
+    `R²` = formatear_num_tabla(r.squared, 4),
+    `R² ajustado` = formatear_num_tabla(adj.r.squared, 4),
+    `Error residual` = formatear_num_tabla(sigma, 4),
+    `Estadístico F` = formatear_num_tabla(statistic, 2),
+    `Valor p` = formatear_p_tabla(p.value)
+  ) |>
+  tidyr::pivot_longer(
+    cols = everything(),
+    names_to = "Indicador",
+    values_to = "Valor"
   ) |>
   kable(
-    digits = 4,
+    align = c("l", "r"),
     caption = "Resumen general del modelo final"
   )
 ```
@@ -1029,8 +1034,14 @@ nuevos_casos <- tibble(
 )
 
 nuevos_casos |>
+  transmute(
+    Capital = capital,
+    Tamaño = tamano_empresa,
+    Región = region
+  ) |>
   kable(
     digits = 2,
+    align = c("r", "l", "l"),
     caption = "Casos utilizados para predicción"
   )
 ```
@@ -1048,8 +1059,15 @@ nuevos_casos |>
         newdata = nuevos_casos
       )
   ) |>
+  transmute(
+    Capital = capital,
+    Tamaño = tamano_empresa,
+    Región = region,
+    Predicción = prediccion
+  ) |>
   kable(
     digits = 3,
+    align = c("r", "l", "l", "r"),
     caption = "Predicciones del modelo"
   )
 ```
