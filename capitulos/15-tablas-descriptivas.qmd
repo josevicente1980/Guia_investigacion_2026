@@ -129,31 +129,40 @@ Analizaremos la variable `supertotal`.
 ```{r}
 #| label: tbl-ch15-descriptiva-superficie
 
-data.frame(
-  Variable = "Superficie total",
-  Media = mean(
-    base_analitica$supertotal,
-    na.rm = TRUE
+tibble(
+  Estadístico = c(
+    "Media",
+    "Mediana",
+    "Desviación estándar",
+    "Mínimo",
+    "Máximo"
   ),
-  Mediana = median(
-    base_analitica$supertotal,
-    na.rm = TRUE
-  ),
-  Desviacion = sd(
-    base_analitica$supertotal,
-    na.rm = TRUE
-  ),
-  Minimo = min(
-    base_analitica$supertotal,
-    na.rm = TRUE
-  ),
-  Maximo = max(
-    base_analitica$supertotal,
-    na.rm = TRUE
+  Valor = c(
+    mean(
+      base_analitica$supertotal,
+      na.rm = TRUE
+    ),
+    median(
+      base_analitica$supertotal,
+      na.rm = TRUE
+    ),
+    sd(
+      base_analitica$supertotal,
+      na.rm = TRUE
+    ),
+    min(
+      base_analitica$supertotal,
+      na.rm = TRUE
+    ),
+    max(
+      base_analitica$supertotal,
+      na.rm = TRUE
+    )
   )
 ) |>
   kable(
     digits = 2,
+    align = c("l", "r"),
     caption = "Estadísticas descriptivas de la superficie total"
   )
 ```
