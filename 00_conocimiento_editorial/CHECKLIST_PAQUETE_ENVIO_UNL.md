@@ -31,8 +31,8 @@ Estados permitidos: **PASS**, **REVIEW**, **BLOCK**.
 | Solicitud de publicación completada y firmada | REVIEW |
 | Cesión de derechos completada y firmada por autores requeridos | REVIEW |
 | Formulario de presentación completado | REVIEW |
-| Documento de identificación de cada autor/editor | BLOCK |
-| Micro-CV de cada autor/editor con fotografía | BLOCK |
+| Documento de identificación de cada autor/editor | PASS |
+| Micro-CV de cada autor/editor con fotografía | PASS |
 | Autor/a de correspondencia definido | REVIEW |
 | Información de autores consistente entre manuscrito, formularios y OMP | REVIEW |
 | Nomenclatura de archivos clara y descriptiva | REVIEW |
