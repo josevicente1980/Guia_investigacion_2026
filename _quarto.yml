@@ -91,7 +91,6 @@ link-citations: true
 lang: es
 
 filters:
-  - filters/table-fit-docx.lua
   - filters/code-left-docx.lua
 
 execute:
