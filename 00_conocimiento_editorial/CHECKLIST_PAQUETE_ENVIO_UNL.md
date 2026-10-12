@@ -33,7 +33,7 @@ Estados permitidos: **PASS**, **REVIEW**, **BLOCK**.
 | Formulario de presentación completado | REVIEW |
 | Documento de identificación de cada autor/editor | PASS |
 | Micro-CV de cada autor/editor con fotografía | PASS |
-| Autor/a de correspondencia definido | REVIEW |
+| Autor/a de correspondencia definido | PASS |
 | Información de autores consistente entre manuscrito, formularios y OMP | REVIEW |
 | Nomenclatura de archivos clara y descriptiva | REVIEW |
 
