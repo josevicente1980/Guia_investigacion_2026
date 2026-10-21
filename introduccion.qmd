@@ -1,0 +1,7 @@
+# Introducción {.unnumbered}
+
+Esta obra tiene como propósito enseñar a desarrollar investigaciones académicas mediante un flujo de trabajo reproducible que integre la gestión de información, el análisis de datos, la modelación estadística y la redacción científica. Para ello, combina el enfoque metodológico con el uso de R y Quarto como herramientas de código abierto.
+
+La obra se dirige a estudiantes universitarios, docentes, profesionales e investigadores interesados en la investigación reproducible.
+
+El libro se estructura en ocho partes. La primera aborda los fundamentos de la investigación reproducible y la ciencia abierta; la segunda, la organización del proyecto y el entorno de trabajo; y la tercera, los elementos fundamentales del diseño de investigación. La cuarta y la quinta desarrollan la gestión de datos y el análisis descriptivo. La sexta incorpora la modelación econométrica; la séptima se centra en la redacción científica y la construcción del informe final; y la octava presenta herramientas para generar productos académicos y de divulgación científica.

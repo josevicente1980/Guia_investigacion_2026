@@ -19,7 +19,7 @@ book:
 
   chapters:
     - index.qmd
-    - como-utilizar-este-libro.qmd
+    - introduccion.qmd
 
     - part: "Parte I. Fundamentos de la investigación reproducible"
       chapters:
