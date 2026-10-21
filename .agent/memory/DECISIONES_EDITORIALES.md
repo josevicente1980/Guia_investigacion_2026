@@ -15,3 +15,4 @@
 **DEC-013.** Formato institucional objetivo: 170 × 240 mm, márgenes de 25 mm en los cuatro lados.
 **DEC-014.** La plantilla original no se sobrescribe durante experimentación.
 **DEC-015.** Las correcciones aceptadas no se reabren salvo que exista un conflicto nuevo real y evidencia.
+**DEC-016.** La extensión aproximada de 315 páginas en Word con formato 17 × 24 es aceptable. No reducir contenido con el objetivo exclusivo de disminuir el número de páginas.
