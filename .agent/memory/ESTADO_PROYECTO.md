@@ -17,6 +17,8 @@ Autores comunes: José Vicente Ordóñez Yaguache, Yomara Karolina Ruiz Reyes, K
 - Versión compacta A4: 223 páginas antes de hacer visibles las partes.
 - Con partes visibles: 226 páginas.
 - 17 × 24 en Word: 315 páginas.
+- La extensión aproximada de 315 páginas en Word es aceptable.
+- No reducir contenido con el objetivo exclusivo de disminuir el número de páginas.
 - LibreOffice puede paginar distinto; Word es la referencia editorial.
 
 # Estado del formato
@@ -29,4 +31,4 @@ Autores comunes: José Vicente Ordóñez Yaguache, Yomara Karolina Ruiz Reyes, K
 
 Formato 17 × 24: REVIEW favorable.
 
-Pendientes principales: optimización quirúrgica para 17 × 24; figuras y captions; tablas; APA 7; INEN; actualización final de TOC; expediente editorial; auditoría final sin BLOCK.
+Pendientes principales: figuras y captions; tablas; APA 7; INEN; actualización final de TOC; expediente editorial; auditoría final sin BLOCK.
