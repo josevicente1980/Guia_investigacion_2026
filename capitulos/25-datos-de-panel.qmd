@@ -48,6 +48,7 @@ Por ejemplo:
 | B | 2020 | 80 |
 | B | 2021 | 95 |
 | B | 2022 | 110 |
+: Ejemplo de observaciones organizadas como datos de panel {#tbl-ejemplo-panel}
 
 La misma unidad aparece repetidamente a través del tiempo.
 

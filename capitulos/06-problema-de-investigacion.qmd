@@ -32,6 +32,7 @@ Considere los siguientes ejemplos:
 | Educación | Bajo rendimiento académico en estudiantes universitarios |
 | Cambio climático | Impacto del cambio climático sobre la disponibilidad hídrica |
 | Emprendimiento | Alta tasa de mortalidad empresarial durante los primeros años de operación |
+: Ejemplos de temas y problemas de investigación {#tbl-temas-problemas}
 
 El tema representa un campo amplio de estudio, mientras que el problema delimita una situación concreta susceptible de análisis científico.
 

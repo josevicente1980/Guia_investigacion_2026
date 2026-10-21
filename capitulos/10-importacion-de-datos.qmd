@@ -73,6 +73,7 @@ Entre los principales módulos disponibles se encuentran:
 | `gpnac2025` | Ganado porcino                          |
 | `acnac2025` | Aves de campo                           |
 | `apnac2025` | Planteles avícolas                      |
+: Módulos temáticos principales de la ESPAC 2025 {#tbl-modulos-espac}
 
 En este capítulo trabajaremos inicialmente con el archivo:
 
@@ -297,6 +298,7 @@ Toda base de datos contiene distintos tipos de variables.
 | `factor`    | Categorías                                  |
 | `labelled`  | Variables etiquetadas importadas desde SPSS |
 | `Date`      | Fechas                                      |
+: Tipos de variables y sus descripciones {#tbl-tipos-variables}
 
 Cuando importamos archivos SPSS mediante `haven`, muchas variables pueden conservar etiquetas provenientes del archivo original.
 

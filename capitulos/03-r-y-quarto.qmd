@@ -49,6 +49,7 @@ Entre los paquetes más utilizados destacan:
 | sf           | Análisis espacial                      |
 | modelsummary | Presentación de modelos estadísticos   |
 | quarto       | Integración con documentos Quarto      |
+: Paquetes principales utilizados en el libro {#tbl-paquetes-r}
 
 El conjunto de paquetes conocido como *tidyverse* ha contribuido significativamente a simplificar el trabajo con datos mediante una sintaxis consistente y orientada a la legibilidad del código [@wickham2019].
 

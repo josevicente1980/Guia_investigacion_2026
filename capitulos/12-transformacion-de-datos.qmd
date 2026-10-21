@@ -67,7 +67,8 @@ sunac <- readRDS(
 Antes de realizar cualquier transformación es recomendable recordar las dimensiones de la información disponible.
 
 ```{r}
-#| label: tab-cap12-resumen-dimensiones-sunac
+#| label: tbl-cap12-resumen-dimensiones-sunac
+#| tbl-cap: "Dimensiones de la base transformada"
 
 data.frame(
   Registros = nrow(sunac),
@@ -232,7 +233,8 @@ sunac <- sunac |>
 Verifiquemos la distribución de la nueva variable.
 
 ```{r} 
-#| label: tab-cap12-distribucion-tamano-upa
+#| label: tbl-cap12-distribucion-tamano-upa
+#| tbl-cap: "Frecuencia de unidades productivas agropecuarias según tamaño"
 sunac |>
   count(tamano_upa) |>
   arrange(desc(n))
@@ -248,6 +250,7 @@ Podemos representar gráficamente la distribución de las categorías creadas.
 
 ```{r} 
 #| label: fig-cap12-distribucion-tamano-upa
+#| fig-cap: "Frecuencia de unidades productivas agropecuarias según tamaño"
 sunac |>
   count(tamano_upa) |>
   ggplot(
@@ -260,8 +263,7 @@ sunac |>
   coord_flip() +
   labs(
     x = "Tamaño de UPA",
-    y = "Frecuencia",
-    title = "Distribución de explotaciones por tamaño"
+    y = "Frecuencia"
   )
 ```
 
@@ -310,7 +312,7 @@ sunac <- sunac |>
 Analicemos la distribución resultante.
 
 ```{r} 
-#| label: tab-cap12-frecuencia-tiene-bosque
+#| label: out-cap12-frecuencia-tiene-bosque
 table(sunac$tiene_bosque)
 ```
 
@@ -339,7 +341,7 @@ sunac <- sunac |>
 Verificamos el resultado.
 
 ```{r} 
-#| label: tab-cap12-frecuencia-tiene-transitorios
+#| label: out-cap12-frecuencia-tiene-transitorios
 table(sunac$tiene_transitorios)
 ```
 
@@ -375,9 +377,9 @@ Este indicador permite comparar explotaciones de distinto tamaño utilizando una
 
 ```{r} 
 #| label: fig-cap12-histograma-porcentaje-bosque
+#| fig-cap: "Distribución del porcentaje de superficie cubierta por bosque"
 hist(
   sunac$pct_bosque,
-  main = "Porcentaje de bosque",
   xlab = "Porcentaje",
   breaks = 30
 )
@@ -408,7 +410,7 @@ sunac <- sunac |>
 Analizamos la distribución.
 
 ```{r} 
-#| label: tab-cap12-frecuencia-grupo-tamano
+#| label: out-cap12-frecuencia-grupo-tamano
 table(sunac$grupo_tamano)
 ```
 
@@ -419,7 +421,8 @@ Las categorías agregadas permiten simplificar la interpretación cuando existen
 Una buena práctica consiste en verificar inmediatamente los resultados de cada transformación.
 
 ```{r} 
-#| label: tab-cap12-ejemplo-clasificacion-productores
+#| label: tbl-cap12-ejemplo-clasificacion-productores
+#| tbl-cap: "Ejemplos de variables transformadas y grupo de tamaño"
 sunac |>
   select(
     supertotal,
@@ -433,10 +436,10 @@ Esta inspección permite validar que las reglas aplicadas generan resultados coh
 
 ### Construcción de indicadores para análisis posteriores
 
-Una vez transformadas las variables podemos generar una tabla resumen.
+Una vez transformadas las variables podemos obtener un resumen de sus categorías.
 
 ```{r} 
-#| label: tab-cap12-resumen-variables-creadas
+#| label: out-cap12-resumen-variables-creadas
 sunac |>
   select(
     tamano_upa,
@@ -574,7 +577,8 @@ La nueva base contiene variables interpretables y listas para análisis descript
 Podemos visualizar las primeras observaciones.
 
 ```{r} 
-#| label: tab-cap12-primeras-observaciones-base-analitica
+#| label: tbl-cap12-primeras-observaciones-base-analitica
+#| tbl-cap: "Primeras observaciones de la base analítica"
 head(base_analitica)
 ```
 
@@ -654,7 +658,7 @@ summary(base_analitica$pct_bosque)
 También podemos revisar distribuciones.
 
 ```{r} 
-#| label: tab-cap12-frecuencias-variables-principales
+#| label: out-cap12-frecuencias-variables-principales
 table(base_analitica$tamano_upa)
 
 table(base_analitica$tiene_bosque)

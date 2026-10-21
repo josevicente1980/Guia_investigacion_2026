@@ -331,7 +331,7 @@ Primero deben contrastarse con la documentación metodológica y el contexto de 
 Analicemos la variable de superficie total.
 
 ```{r}
-#| label: tab-cap11-resumen-dimensiones-sunac
+#| label: out-cap11-resumen-superficie
 summary(sunac$supertotal)
 ```
 
@@ -343,9 +343,9 @@ Los diagramas de caja permiten identificar observaciones alejadas del comportami
 
 ```{r}
 #| label: fig-cap11-boxplot-supertotal
+#| fig-cap: "Distribución de la superficie total de las unidades de producción agropecuaria"
 boxplot(
-  sunac$supertotal,
-  main = "Distribución de la superficie total"
+  sunac$supertotal
 )
 ```
 
@@ -358,7 +358,8 @@ La presencia de estos valores no implica necesariamente errores.
 Podemos localizar las observaciones con mayores superficies.
 
 ```{r}
-#| label: tab-cap11-mayores-superficies
+#| label: tbl-cap11-mayores-superficies
+#| tbl-cap: "Observaciones con mayores superficies registradas"
 sunac |>
   arrange(desc(supertotal)) |>
   select(

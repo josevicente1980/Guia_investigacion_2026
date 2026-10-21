@@ -411,7 +411,7 @@ Dado que representa un porcentaje, sus valores deberían encontrarse entre 0 y 1
 Podemos verificar esta condición.
 
 ```{r}
-#| label: tbl-ch13-validacion-porcentajes
+#| label: out-ch13-validacion-porcentajes
 
 sum(
   sunac$pct_bosque > 100,
@@ -665,7 +665,7 @@ Un resultado distinto de cero requiere revisión, pero solo constituye un proble
 Los identificadores constituyen la columna vertebral de cualquier base de datos.
 
 ```{r}
-#| label: tbl-ch13-id-faltantes
+#| label: out-ch13-id-faltantes
 
 sum(
   is.na(

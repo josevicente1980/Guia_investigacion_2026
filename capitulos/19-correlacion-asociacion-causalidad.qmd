@@ -591,6 +591,7 @@ En investigación aplicada, las correlaciones espurias son frecuentes cuando se 
 
 ```{r}
 #| label: fig-ch19-correlacion-espuria
+#| fig-cap: "Correlación espuria entre dos series con tendencia común"
 
 set.seed(
   321
