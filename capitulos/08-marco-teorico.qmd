@@ -10,7 +10,7 @@ El marco teórico cumple precisamente esta función. Su propósito es proporcion
 
 ## ¿Qué es el marco teórico?
 
-El marco teórico es la integración sistemática de teorías, conceptos, antecedentes y evidencias científicas relacionadas con el problema de investigación [@hernandezsampieri2018].
+El marco teórico es la integración sistemática de teorías, conceptos, antecedentes y evidencias científicas relacionadas con el problema de investigación [@hernandezsampieri2023].
 
 Su función principal consiste en situar la investigación dentro del conocimiento existente y demostrar cómo el estudio contribuye a ampliar, contrastar o complementar dicho conocimiento.
 

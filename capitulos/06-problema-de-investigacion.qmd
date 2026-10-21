@@ -4,7 +4,7 @@
 
 Toda investigación comienza con una inquietud. Un investigador observa una situación, identifica una necesidad de conocimiento o detecta una contradicción entre la teoría y la realidad. Sin embargo, no toda inquietud constituye automáticamente un problema de investigación.
 
-Uno de los errores más frecuentes entre estudiantes e investigadores noveles consiste en confundir el tema de investigación con el problema de investigación. Mientras el tema representa un área general de interés, el problema constituye una situación específica cuya comprensión requiere la generación de nuevo conocimiento científico [@hernandezsampieri2018].
+Uno de los errores más frecuentes entre estudiantes e investigadores noveles consiste en confundir el tema de investigación con el problema de investigación. Mientras el tema representa un área general de interés, el problema constituye una situación específica cuya comprensión requiere la generación de nuevo conocimiento científico [@hernandezsampieri2023].
 
 La calidad de una investigación depende en gran medida de la claridad con la que se formule el problema que pretende resolver.
 
@@ -114,7 +114,7 @@ Debe aportar conocimiento útil para la comunidad científica o para la sociedad
 
 **Delimitada.**
 
-Debe establecer con claridad población, contexto y período de estudio [@hernandezsampieri2018].
+Debe establecer con claridad población, contexto y período de estudio [@hernandezsampieri2023].
 
 ### Ejemplos de formulación de preguntas
 

@@ -4,7 +4,7 @@
 
 Una vez identificado el problema y formulada la pregunta de investigación, el siguiente paso consiste en establecer con precisión qué se pretende lograr mediante el estudio.
 
-Los objetivos representan la traducción operativa de la pregunta de investigación. Mientras la pregunta expresa una interrogante, los objetivos describen las acciones que permitirán responderla [@hernandezsampieri2018].
+Los objetivos representan la traducción operativa de la pregunta de investigación. Mientras la pregunta expresa una interrogante, los objetivos describen las acciones que permitirán responderla [@hernandezsampieri2023].
 
 Por su parte, las hipótesis constituyen proposiciones tentativas acerca de las relaciones esperadas entre variables y desempeñan un papel central en numerosos estudios cuantitativos [@creswell2022].
 
@@ -234,7 +234,7 @@ Representa la existencia del efecto esperado.
 H₁: La capacitación empresarial influye positivamente en la productividad de las microempresas.
 ```
 
-Los procedimientos estadísticos permiten evaluar la compatibilidad de los datos con una hipótesis nula bajo supuestos explícitos; un valor p, por sí solo, no demuestra que la hipótesis alternativa sea verdadera [@wooldridge2020].
+Los procedimientos estadísticos permiten evaluar la compatibilidad de los datos con una hipótesis nula bajo supuestos explícitos; un valor p, por sí solo, no demuestra que la hipótesis alternativa sea verdadera [@wooldridge2025].
 
 ## Relación entre teoría e hipótesis
 

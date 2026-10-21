@@ -45,16 +45,16 @@ Estado: **PASS para APA 7 y consistencia bibliográfica**. APA 7 y actualidad bi
 - `wooldridge2020` sigue siendo la única referencia Wooldridge visible y está identificada como séptima edición. La posible actualización corresponde al bloque de actualidad bibliográfica.
 - Render DOCX exitoso. Se verificaron 8 partes, capítulos numerados 1–29 y cero tokens tipo cita sin resolver fuera del código.
 
-## Actualidad bibliográfica / justificación de fuentes antiguas — pendiente independiente
+## Actualidad bibliográfica / justificación de fuentes >5 años — 2026-10-21
 
-El checklist dice: «Bibliografía >5 años no supera el 20%, salvo justificación por fuentes clásicas/normativas». El propio checklist aclara que no se deben eliminar mecánicamente fuentes clásicas, metodológicas, normativas o históricas necesarias. La fuente no define denominador ni método de justificación.
+Estado: **REVIEW favorable**, a la espera de valoración editorial de la excepción documentada. APA 7 y actualidad bibliográfica son controles distintos.
 
-- Referencias visibles: 88; con más de cinco años: 69 (78,4 % bruto).
-- Clasificación funcional: 16 fundacionales, 43 metodológicas, 2 normativas/institucionales, 3 históricas y 5 potencialmente actualizables.
-- Candidatas para revisión posterior, sin sustituirlas todavía: `wooldridge2020`, `hernandezsampieri2018`, `martinmartin2018`, `rossheller2017` y `swales2004`.
+- La matriz `00_conocimiento_editorial/justificacion_actualidad_bibliografica.md` documenta las 69 referencias antiguas del punto de partida y sus capítulos, función, clasificación, justificación y decisión.
+- De las cinco candidatas, se actualizaron Hernández Sampieri a la 2.ª edición (2023), Wooldridge a la 8.ª edición (2025) y Swales a la 3.ª edición (2012). Se mantuvieron Martín-Martín (estudio comparativo acotado a su periodo) y Ross-Hellauer (fuente de la taxonomía de revisión abierta).
+- Referencias visibles: 88; >5 años al inicio: 69 (78,4 %); después de las actualizaciones: 67 (76,1 %).
+- Las 67 restantes están justificadas en la matriz: 17 fundacionales, 44 metodológicas, 2 normativas/institucionales y 4 históricas. Referencias antiguas no justificadas: 0; indicador operativo: 0/88 = 0 %. Este indicador no es una fórmula oficial de la Editorial.
+- No se eliminaron referencias por antigüedad. Las 15 entradas BibTeX no citadas se mantuvieron intactas.
 
 # Próxima acción
 
-Actualidad bibliográfica y justificación editorial de fuentes >5 años.
-
-Después, ejecutar la auditoría INEN. No reducir contenido para disminuir páginas ni hacer compactación masiva o cambios arbitrarios de márgenes o tipografía.
+Auditoría INEN. No reducir contenido para disminuir páginas ni hacer compactación masiva o cambios arbitrarios de márgenes o tipografía.
