@@ -21,58 +21,50 @@ book:
     - index.qmd
     - introduccion.qmd
 
-    - part: "Parte I. Fundamentos de la investigación reproducible"
-      chapters:
-        - capitulos/01-investigacion-reproducible.qmd
-        - capitulos/02-ciencia-abierta.qmd
-        - capitulos/03-r-y-quarto.qmd
+    - partes/parte-01.qmd
+    - capitulos/01-investigacion-reproducible.qmd
+    - capitulos/02-ciencia-abierta.qmd
+    - capitulos/03-r-y-quarto.qmd
 
-    - part: "Parte II. Preparando el proyecto de investigación"
-      chapters:
-        - capitulos/04-organizacion-del-proyecto.qmd
-        - capitulos/05-primer-libro-quarto.qmd
+    - partes/parte-02.qmd
+    - capitulos/04-organizacion-del-proyecto.qmd
+    - capitulos/05-primer-libro-quarto.qmd
 
-    - part: "Parte III. Construcción de la investigación"
-      chapters:
-        - capitulos/06-problema-de-investigacion.qmd
-        - capitulos/07-objetivos-hipotesis.qmd
-        - capitulos/08-marco-teorico.qmd
-        - capitulos/09-busqueda-cientifica-bibtex-apa.qmd
+    - partes/parte-03.qmd
+    - capitulos/06-problema-de-investigacion.qmd
+    - capitulos/07-objetivos-hipotesis.qmd
+    - capitulos/08-marco-teorico.qmd
+    - capitulos/09-busqueda-cientifica-bibtex-apa.qmd
 
-    - part: "Parte IV. Gestión y preparación de datos con R"
-      chapters:
-        - capitulos/10-importacion-de-datos.qmd
-        - capitulos/11-limpieza-de-datos.qmd
-        - capitulos/12-transformacion-de-datos.qmd
-        - capitulos/13-calidad-de-datos.qmd
+    - partes/parte-04.qmd
+    - capitulos/10-importacion-de-datos.qmd
+    - capitulos/11-limpieza-de-datos.qmd
+    - capitulos/12-transformacion-de-datos.qmd
+    - capitulos/13-calidad-de-datos.qmd
 
-    - part: "Parte V. Estadística descriptiva y visualización"
-      chapters:
-        - capitulos/14-estadistica-descriptiva.qmd
-        - capitulos/16-visualizacion-de-datos.qmd
+    - partes/parte-05.qmd
+    - capitulos/14-estadistica-descriptiva.qmd
+    - capitulos/16-visualizacion-de-datos.qmd
 
-    - part: "Parte VI. Modelación econométrica aplicada"
-      chapters:
-        - capitulos/19-correlacion-asociacion-causalidad.qmd
-        - capitulos/20-regresion-lineal-simple.qmd
-        - capitulos/22-diagnostico-del-modelo.qmd
-        - capitulos/24-modelos-logit-probit.qmd
-        - capitulos/25-datos-de-panel.qmd
-        - capitulos/26-modelos-espaciales.qmd
+    - partes/parte-06.qmd
+    - capitulos/19-correlacion-asociacion-causalidad.qmd
+    - capitulos/20-regresion-lineal-simple.qmd
+    - capitulos/22-diagnostico-del-modelo.qmd
+    - capitulos/24-modelos-logit-probit.qmd
+    - capitulos/25-datos-de-panel.qmd
+    - capitulos/26-modelos-espaciales.qmd
 
-    - part: "Parte VII. Redacción científica del informe"
-      chapters:
-        - capitulos/28-introduccion.qmd
-        - capitulos/29-metodologia.qmd
-        - capitulos/30-resultados.qmd
-        - capitulos/31-discusion.qmd
-        - capitulos/32-conclusiones-recomendaciones.qmd
+    - partes/parte-07.qmd
+    - capitulos/28-introduccion.qmd
+    - capitulos/29-metodologia.qmd
+    - capitulos/30-resultados.qmd
+    - capitulos/31-discusion.qmd
+    - capitulos/32-conclusiones-recomendaciones.qmd
 
-    - part: "Parte VIII. Difusión y comunicación científica"
-      chapters:
-        - capitulos/33-generacion-word-pdf-html.qmd
-        - capitulos/34-presentaciones-quarto.qmd
-        - capitulos/35-dashboard-shiny.qmd
+    - partes/parte-08.qmd
+    - capitulos/33-generacion-word-pdf-html.qmd
+    - capitulos/34-presentaciones-quarto.qmd
+    - capitulos/35-dashboard-shiny.qmd
 
     - reflexion-final.qmd
     - bibliografia.qmd
