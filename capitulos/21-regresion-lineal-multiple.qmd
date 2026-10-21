@@ -12,7 +12,7 @@ base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar esta sección, el lector será capaz de:
 
@@ -86,9 +86,7 @@ glimpse(
 )
 ```
 
-**Interpretación**
-
-La variable dependiente será `log_productividad`, mientras que `capital`, `tamano_empresa` y `region` actuarán como predictores dentro de una base pedagógica simulada.
+**Interpretación.** La variable dependiente será `log_productividad`, mientras que `capital`, `tamano_empresa` y `region` actuarán como predictores dentro de una base pedagógica simulada.
 
 ## Del modelo simple al modelo múltiple
 
@@ -151,9 +149,7 @@ broom::glance(
   )
 ```
 
-**Interpretación**
-
-Este modelo servirá como punto de comparación para evaluar cuánto mejora el ajuste cuando incorporamos variables adicionales.
+**Interpretación.** Este modelo servirá como punto de comparación para evaluar cuánto mejora el ajuste cuando incorporamos variables adicionales.
 
 ## Construcción del primer modelo múltiple
 
@@ -191,9 +187,7 @@ broom::tidy(
   )
 ```
 
-**Interpretación**
-
-Cada coeficiente representa una asociación condicional con `log_productividad`, manteniendo constantes las demás variables incluidas en el modelo. La interpretación debe comenzar por la magnitud, el signo, la escala y el intervalo de confianza; el valor p complementa esa lectura, pero no determina por sí solo la importancia del resultado.
+**Interpretación.** Cada coeficiente representa una asociación condicional con `log_productividad`, manteniendo constantes las demás variables incluidas en el modelo. La interpretación debe comenzar por la magnitud, el signo, la escala y el intervalo de confianza; el valor p complementa esa lectura, pero no determina por sí solo la importancia del resultado.
 
 **Comparación entre modelos.**
 
@@ -220,9 +214,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La comparación permite evaluar si la incorporación de nuevas variables mejora la capacidad explicativa del modelo.
+**Interpretación.** La comparación permite evaluar si la incorporación de nuevas variables mejora la capacidad explicativa del modelo.
 
 ### Interpretación de coeficientes parciales
 
@@ -269,9 +261,7 @@ base_modelo |>
   theme_minimal()
 ```
 
-**Interpretación**
-
-La proximidad de los puntos a la diagonal proporciona una evaluación visual preliminar de la capacidad predictiva del modelo.
+**Interpretación.** La proximidad de los puntos a la diagonal proporciona una evaluación visual preliminar de la capacidad predictiva del modelo.
 
 **Conclusión práctica.**
 
@@ -383,9 +373,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Estos indicadores resumen la calidad general del ajuste y servirán como punto de comparación para modelos más complejos.
+**Interpretación.** Estos indicadores resumen la calidad general del ajuste y servirán como punto de comparación para modelos más complejos.
 
 ### Incorporando una variable adicional
 
@@ -424,9 +412,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-Al incorporar `region`, los coeficientes previamente estimados pueden modificarse porque el modelo redistribuye la variación explicada entre los predictores. La relevancia de una variable debe evaluarse mediante magnitud, incertidumbre, coherencia sustantiva y propósito analítico, no únicamente con un umbral de significancia.
+**Interpretación.** Al incorporar `region`, los coeficientes previamente estimados pueden modificarse porque el modelo redistribuye la variación explicada entre los predictores. La relevancia de una variable debe evaluarse mediante magnitud, incertidumbre, coherencia sustantiva y propósito analítico, no únicamente con un umbral de significancia.
 
 **Comparación entre modelos.**
 
@@ -457,9 +443,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La comparación permite evaluar si la nueva variable aporta información adicional relevante al modelo.
+**Interpretación.** La comparación permite evaluar si la nueva variable aporta información adicional relevante al modelo.
 
 ## ¿Qué es una variable de control?
 
@@ -552,9 +536,7 @@ coef_modelo1 |>
   )
 ```
 
-**Interpretación**
-
-Cambios importantes en los coeficientes sugieren que las variables adicionales aportan información relevante.
+**Interpretación.** Cambios importantes en los coeficientes sugieren que las variables adicionales aportan información relevante.
 
 ### Importancia del R² ajustado
 
@@ -581,9 +563,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El R² ajustado penaliza la incorporación de variables que no aportan información suficiente.
+**Interpretación.** El R² ajustado penaliza la incorporación de variables que no aportan información suficiente.
 
 ### Visualización del ajuste
 
@@ -620,9 +600,7 @@ base_modelo |>
   )
 ```
 
-**Interpretación**
-
-La gráfica permite evaluar visualmente la calidad de las predicciones generadas por el modelo.
+**Interpretación.** La gráfica permite evaluar visualmente la calidad de las predicciones generadas por el modelo.
 
 ### Comparación mediante ANOVA
 
@@ -657,9 +635,7 @@ anova_modelos |>
   )
 ```
 
-**Interpretación**
-
-Esta prueba compara modelos anidados y evalúa, bajo sus supuestos, si la reducción de la suma de cuadrados residual al incorporar nuevas variables es mayor de la esperada bajo la hipótesis nula.
+**Interpretación.** Esta prueba compara modelos anidados y evalúa, bajo sus supuestos, si la reducción de la suma de cuadrados residual al incorporar nuevas variables es mayor de la esperada bajo la hipótesis nula.
 
 ## Selección de variables
 
@@ -705,9 +681,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El investigador debe equilibrar capacidad explicativa y simplicidad interpretativa.
+**Interpretación.** El investigador debe equilibrar capacidad explicativa y simplicidad interpretativa.
 
 **Conclusión práctica.**
 
@@ -819,9 +793,7 @@ glance(
   )
 ```
 
-**Interpretación**
-
-Esta tabla resume la capacidad explicativa del modelo, el error residual y la significancia global de la regresión.
+**Interpretación.** Esta tabla resume la capacidad explicativa del modelo, el error residual y la significancia global de la regresión.
 
 **Tabla completa de coeficientes.**
 
@@ -848,9 +820,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-Cada coeficiente representa una asociación parcial condicionada a las demás variables del modelo. Sin una estrategia de identificación causal, no debe describirse como un efecto. La interpretación debe integrar magnitud, incertidumbre y coherencia sustantiva.
+**Interpretación.** Cada coeficiente representa una asociación parcial condicionada a las demás variables del modelo. Sin una estrategia de identificación causal, no debe describirse como un efecto. La interpretación debe integrar magnitud, incertidumbre y coherencia sustantiva.
 
 **Generación de valores ajustados.**
 
@@ -895,9 +865,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La cercanía de los puntos a la diagonal indica la capacidad del modelo para reproducir los valores observados.
+**Interpretación.** La cercanía de los puntos a la diagonal indica la capacidad del modelo para reproducir los valores observados.
 
 ### Error de predicción
 
@@ -940,9 +908,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-En mínimos cuadrados con intercepto, los residuos de ajuste quedan centrados alrededor de cero por construcción. Este hecho no demuestra ausencia de sesgo predictivo ni garantiza buen desempeño fuera de muestra.
+**Interpretación.** En mínimos cuadrados con intercepto, los residuos de ajuste quedan centrados alrededor de cero por construcción. Este hecho no demuestra ausencia de sesgo predictivo ni garantiza buen desempeño fuera de muestra.
 
 **Distribución de errores.**
 
@@ -968,9 +934,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La distribución de errores permite evaluar si existen desviaciones sistemáticas importantes entre observaciones y predicciones.
+**Interpretación.** La distribución de errores permite evaluar si existen desviaciones sistemáticas importantes entre observaciones y predicciones.
 
 ### Predicciones para nuevos casos
 
@@ -1081,9 +1045,7 @@ nuevos_casos |>
   )
 ```
 
-**Interpretación**
-
-Las predicciones representan el valor esperado de la productividad transformada para los escenarios definidos.
+**Interpretación.** Las predicciones representan el valor esperado de la productividad transformada para los escenarios definidos.
 
 **Intervalos de confianza.**
 
@@ -1102,9 +1064,7 @@ predict(
   )
 ```
 
-**Interpretación**
-
-Los intervalos reflejan la incertidumbre asociada a la estimación de la media esperada.
+**Interpretación.** Los intervalos reflejan la incertidumbre asociada a la estimación de la media esperada.
 
 ### Magnitud de los coeficientes
 
@@ -1144,9 +1104,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-Esta comparación es únicamente descriptiva. No debe utilizarse para ordenar la importancia de los predictores sin considerar escalas, codificación, incertidumbre y objetivo del modelo.
+**Interpretación.** Esta comparación es únicamente descriptiva. No debe utilizarse para ordenar la importancia de los predictores sin considerar escalas, codificación, incertidumbre y objetivo del modelo.
 
 **Flujo general de una regresión múltiple.**
 
@@ -1168,9 +1126,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Estas etapas resumen el procedimiento seguido en los capítulos 20 y 21.
+**Interpretación.** Estas etapas resumen el procedimiento seguido en los capítulos 20 y 21.
 
 **Aplicación práctica.**
 

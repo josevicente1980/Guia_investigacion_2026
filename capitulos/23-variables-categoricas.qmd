@@ -12,7 +12,7 @@ base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar esta sección, el lector será capaz de:
 
@@ -102,9 +102,7 @@ glimpse(
 )
 ```
 
-**Interpretación**
-
-Las variables `region` y `tamano_empresa` aparecen como factores. Esto indica que R las reconocerá automáticamente como variables categóricas.
+**Interpretación.** Las variables `region` y `tamano_empresa` aparecen como factores. Esto indica que R las reconocerá automáticamente como variables categóricas.
 
 ### Frecuencia de categorías
 
@@ -123,9 +121,7 @@ base_categorias |>
   )
 ```
 
-**Interpretación**
-
-La tabla muestra la distribución de observaciones entre categorías territoriales.
+**Interpretación.** La tabla muestra la distribución de observaciones entre categorías territoriales.
 
 ### Visualización de categorías
 
@@ -146,9 +142,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-El gráfico permite identificar diferencias en el tamaño relativo de las categorías.
+**Interpretación.** El gráfico permite identificar diferencias en el tamaño relativo de las categorías.
 
 ### ¿Por qué no usar texto directamente?
 
@@ -216,9 +210,7 @@ base_categorias |>
   )
 ```
 
-**Interpretación**
-
-La nueva variable identifica observaciones pertenecientes a la región de Loja.
+**Interpretación.** La nueva variable identifica observaciones pertenecientes a la región de Loja.
 
 ## Categoría de referencia
 
@@ -251,9 +243,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La primera categoría suele actuar como referencia en los modelos lineales.
+**Interpretación.** La primera categoría suele actuar como referencia en los modelos lineales.
 
 ### Cambio de categoría de referencia
 
@@ -290,9 +280,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Todos los coeficientes asociados a region serán interpretados respecto a esta categoría.
+**Interpretación.** Todos los coeficientes asociados a region serán interpretados respecto a esta categoría.
 
 ### Matriz de diseño
 
@@ -314,9 +302,7 @@ model.matrix(
   )
 ```
 
-**Interpretación**
-
-Cada columna representa una variable dummy generada automáticamente.
+**Interpretación.** Cada columna representa una variable dummy generada automáticamente.
 
 **Conclusión práctica.**
 
@@ -422,9 +408,7 @@ base_categorias |>
   )
 ```
 
-**Interpretación**
-
-Las medias sugieren diferencias entre categorías de tamaño. La regresión permitirá cuantificar estas diferencias formalmente.
+**Interpretación.** Las medias sugieren diferencias entre categorías de tamaño. La regresión permitirá cuantificar estas diferencias formalmente.
 
 ### Visualización preliminar
 
@@ -446,9 +430,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Las diferencias observadas sugieren que el tamaño de la empresa podría estar asociado con la productividad total.
+**Interpretación.** Las diferencias observadas sugieren que el tamaño de la empresa podría estar asociado con la productividad total.
 
 ## Modelo con variable categórica
 
@@ -485,9 +467,7 @@ glance(
   )
 ```
 
-**Interpretación**
-
-El modelo evalúa si existen diferencias sistemáticas entre categorías de tamaño.
+**Interpretación.** El modelo evalúa si existen diferencias sistemáticas entre categorías de tamaño.
 
 ### Coeficientes estimados
 
@@ -514,9 +494,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-El intercepto representa la media esperada para la categoría de referencia.
+**Interpretación.** El intercepto representa la media esperada para la categoría de referencia.
 
 Los demás coeficientes representan diferencias respecto a dicha categoría.
 
@@ -598,9 +576,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Los puntos rojos representan las medias estimadas por el modelo para cada categoría.
+**Interpretación.** Los puntos rojos representan las medias estimadas por el modelo para cada categoría.
 
 ### Comparación mediante ANOVA
 
@@ -639,9 +615,7 @@ anova_cat |>
   )
 ```
 
-**Interpretación**
-
-La prueba evalúa si las medias poblacionales difieren entre categorías.
+**Interpretación.** La prueba evalúa si las medias poblacionales difieren entre categorías.
 
 La prueba F del ANOVA evalúa si las diferencias entre categorías son compatibles con la hipótesis nula de igualdad de medias bajo los supuestos del modelo. Un valor p pequeño aporta evidencia contra esa igualdad, pero no demuestra influencia causal ni indica por sí solo que las diferencias sean sustantivamente importantes. La magnitud de las diferencias y su incertidumbre también deben examinarse.
 
@@ -682,9 +656,7 @@ nuevos_grupos |>
   )
 ```
 
-**Interpretación**
-
-Las predicciones representan los valores medios esperados para cada grupo.
+**Interpretación.** Las predicciones representan los valores medios esperados para cada grupo.
 
 **Visualización de medias estimadas.**
 
@@ -705,9 +677,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Las diferencias de altura reflejan diferencias promedio estimadas entre categorías.
+**Interpretación.** Las diferencias de altura reflejan diferencias promedio estimadas entre categorías.
 
 **Variable categórica y variable numérica.**
 
@@ -837,9 +807,7 @@ glance(
   )
 ```
 
-**Interpretación**
-
-El modelo aditivo supone una misma pendiente para la asociación entre capital productivo y productividad en todas las categorías de tamaño.
+**Interpretación.** El modelo aditivo supone una misma pendiente para la asociación entre capital productivo y productividad en todas las categorías de tamaño.
 
 ## Modelo con interacción
 
@@ -876,9 +844,7 @@ glance(
   )
 ```
 
-**Interpretación**
-
-El modelo con interacción permite que la pendiente asociada al capital productivo difiera según el tamaño de la empresa.
+**Interpretación.** El modelo con interacción permite que la pendiente asociada al capital productivo difiera según el tamaño de la empresa.
 
 ### Coeficientes del modelo
 
@@ -904,9 +870,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-Los términos que contienen el símbolo:
+**Interpretación.** Los términos que contienen el símbolo:
 
 ```text
 :
@@ -949,9 +913,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La comparación permite evaluar si la interacción aporta capacidad explicativa adicional.
+**Interpretación.** La comparación permite evaluar si la interacción aporta capacidad explicativa adicional.
 
 ### Comparación formal mediante ANOVA
 
@@ -987,9 +949,7 @@ anova_interaccion |>
   )
 ```
 
-**Interpretación**
-
-Esta prueba compara los modelos anidados y evalúa, bajo sus supuestos, si la reducción del error residual asociada a la interacción es mayor de la esperada bajo la hipótesis nula.
+**Interpretación.** Esta prueba compara los modelos anidados y evalúa, bajo sus supuestos, si la reducción del error residual asociada a la interacción es mayor de la esperada bajo la hipótesis nula.
 
 **Visualización de la interacción.**
 
@@ -1015,9 +975,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Si las pendientes son similares, la interacción es débil.
+**Interpretación.** Si las pendientes son similares, la interacción es débil.
 
 Si las pendientes difieren claramente, la interacción puede resultar relevante.
 
@@ -1061,9 +1019,7 @@ nuevos_datos |>
   )
 ```
 
-**Interpretación**
-
-Las predicciones permiten comparar escenarios manteniendo explícitamente las categorías analizadas.
+**Interpretación.** Las predicciones permiten comparar escenarios manteniendo explícitamente las categorías analizadas.
 
 ### Variables categóricas con muchos niveles
 
@@ -1112,9 +1068,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Este procedimiento resume el uso práctico de variables categóricas dentro de modelos lineales.
+**Interpretación.** Este procedimiento resume el uso práctico de variables categóricas dentro de modelos lineales.
 
 **Manos a la obra.**
 

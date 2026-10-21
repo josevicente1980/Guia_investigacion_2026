@@ -11,7 +11,7 @@ cargar_paquetes_libro("comunicacion", extra = c("gapminder"))
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 
@@ -83,9 +83,7 @@ broom::tidy(
   )
 ```
 
-**Interpretación**
-
-Los coeficientes constituyen la evidencia empírica que servirá de base para la construcción de la discusión.
+**Interpretación.** Los coeficientes constituyen la evidencia empírica que servirá de base para la construcción de la discusión.
 
 ## Del resultado a la interpretación
 
@@ -97,9 +95,7 @@ Los coeficientes constituyen la evidencia empírica que servirá de base para la
 
 > Este resultado sugiere que mayores niveles de ingreso se encuentran asociados con una mayor esperanza de vida. La comparación con estudios previos debe distinguir entre evidencia asociativa y causal y considerar si sus diseños, poblaciones y períodos son realmente comparables [@deaton2013].
 
-**Interpretación**
-
-La discusión no repite números. Explica el significado de los hallazgos.
+**Interpretación.** La discusión no repite números. Explica el significado de los hallazgos.
 
 ## Comparación con estudios previos
 
@@ -125,9 +121,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La discusión debe indicar si los resultados respaldan, amplían o contradicen investigaciones anteriores.
+**Interpretación.** La discusión debe indicar si los resultados respaldan, amplían o contradicen investigaciones anteriores.
 
 ### Identificación de aportes
 
@@ -153,9 +147,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Todo estudio debe explicar explícitamente cuál es su aporte al conocimiento existente.
+**Interpretación.** Todo estudio debe explicar explícitamente cuál es su aporte al conocimiento existente.
 
 ### Implicaciones prácticas
 
@@ -179,9 +171,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Las implicaciones conectan los hallazgos con preguntas sustantivas y posibles decisiones, pero deben ser proporcionales al diseño. Una asociación observacional no basta, por sí sola, para recomendar una intervención.
+**Interpretación.** Las implicaciones conectan los hallazgos con preguntas sustantivas y posibles decisiones, pero deben ser proporcionales al diseño. Una asociación observacional no basta, por sí sola, para recomendar una intervención.
 
 ## Limitaciones del estudio
 
@@ -202,9 +192,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Reconocer limitaciones fortalece la credibilidad del trabajo científico.
+**Interpretación.** Reconocer limitaciones fortalece la credibilidad del trabajo científico.
 
 ### Propuestas para futuras investigaciones
 
@@ -225,9 +213,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Las investigaciones científicas generan nuevas preguntas además de responder las existentes.
+**Interpretación.** Las investigaciones científicas generan nuevas preguntas además de responder las existentes.
 
 ## Estructura recomendada para la discusión
 
@@ -305,9 +291,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Antes de finalizar un manuscrito es recomendable verificar que todos los componentes fundamentales de la discusión estén presentes.
+**Interpretación.** Antes de finalizar un manuscrito es recomendable verificar que todos los componentes fundamentales de la discusión estén presentes.
 
 ### Manos a la obra
 

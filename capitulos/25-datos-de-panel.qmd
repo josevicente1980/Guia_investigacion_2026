@@ -11,7 +11,7 @@ cargar_paquetes_libro("comunicacion", extra = c("plm"))
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar esta sección, el lector será capaz de:
 
@@ -110,9 +110,7 @@ glimpse(
 )
 ```
 
-**Interpretación**
-
-La base contiene:
+**Interpretación.** La base contiene:
 
 - Empresa (`firm`)
 - Año (`year`)
@@ -134,9 +132,7 @@ panel_datos |>
   )
 ```
 
-**Interpretación**
-
-Cada empresa aparece repetidamente en distintos años.
+**Interpretación.** Cada empresa aparece repetidamente en distintos años.
 
 Esta característica define la estructura panel.
 
@@ -174,9 +170,7 @@ panel_datos |>
   )
 ```
 
-**Interpretación**
-
-La combinación empresa-año constituye la unidad básica de observación.
+**Interpretación.** La combinación empresa-año constituye la unidad básica de observación.
 
 **Visualización temporal.**
 
@@ -201,9 +195,7 @@ panel_datos |>
   theme_minimal()
 ```
 
-**Interpretación**
-
-La inversión cambia a lo largo del tiempo para una misma empresa.
+**Interpretación.** La inversión cambia a lo largo del tiempo para una misma empresa.
 
 ### Panel balanceado
 
@@ -228,9 +220,7 @@ pdata.frame(
   )
 ```
 
-**Interpretación**
-
-Un valor TRUE indica que todas las empresas poseen información completa.
+**Interpretación.** Un valor TRUE indica que todas las empresas poseen información completa.
 
 ### Conversión a objeto panel
 
@@ -263,9 +253,7 @@ index(
   )
 ```
 
-**Interpretación**
-
-R reconoce explícitamente:
+**Interpretación.** R reconoce explícitamente:
 
 - Individuo: empresa.
 - Tiempo: año.
@@ -368,9 +356,7 @@ panel_grunfeld |>
   )
 ```
 
-**Interpretación**
-
-Las tres variables presentan una dispersión considerable, lo que resulta adecuado para la estimación econométrica.
+**Interpretación.** Las tres variables presentan una dispersión considerable, lo que resulta adecuado para la estimación econométrica.
 
 **Relación inversión y valor de mercado.**
 
@@ -396,9 +382,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Existe una relación positiva entre valor de mercado e inversión, es decir, a medida que aumenta el valor de mercado, la inversión también se incrementa.
+**Interpretación.** Existe una relación positiva entre valor de mercado e inversión, es decir, a medida que aumenta el valor de mercado, la inversión también se incrementa.
 
 ## Modelo pooled OLS
 
@@ -441,9 +425,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-Los coeficientes describen asociaciones promedio entre los regresores y la inversión dentro de la especificación estimada. No deben interpretarse automáticamente como efectos causales; la lectura debe considerar magnitud, incertidumbre, supuestos y diseño.
+**Interpretación.** Los coeficientes describen asociaciones promedio entre los regresores y la inversión dentro de la especificación estimada. No deben interpretarse automáticamente como efectos causales; la lectura debe considerar magnitud, incertidumbre, supuestos y diseño.
 
 ### Coeficiente de determinación
 
@@ -462,9 +444,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El R² indica la proporción de variabilidad de la inversión explicada por el modelo.
+**Interpretación.** El R² indica la proporción de variabilidad de la inversión explicada por el modelo.
 
 ### ¿Cuál es el problema del pooled OLS?
 
@@ -525,9 +505,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-Los coeficientes reflejan cambios dentro de cada empresa a través del tiempo.
+**Interpretación.** Los coeficientes reflejan cambios dentro de cada empresa a través del tiempo.
 
 ### Efectos individuales
 
@@ -548,9 +526,7 @@ fixef(
   )
 ```
 
-**Interpretación**
-
-Cada empresa posee un intercepto propio.
+**Interpretación.** Cada empresa posee un intercepto propio.
 
 ### Visualización de efectos individuales
 
@@ -594,9 +570,7 @@ ggplot(
 ```
 
 
-**Interpretación**
-
-Las diferencias observadas representan heterogeneidad específica entre empresas.
+**Interpretación.** Las diferencias observadas representan heterogeneidad específica entre empresas.
 
 ## Modelo de efectos aleatorios
 
@@ -639,9 +613,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-Los coeficientes suelen ser similares a los de efectos fijos, aunque los supuestos subyacentes son diferentes.
+**Interpretación.** Los coeficientes suelen ser similares a los de efectos fijos, aunque los supuestos subyacentes son diferentes.
 
 ### Comparación de coeficientes
 
@@ -706,9 +678,7 @@ coef_pooled |>
   )
 ```
 
-**Interpretación**
-
-Las diferencias entre coeficientes reflejan la forma en que cada modelo trata la heterogeneidad individual.
+**Interpretación.** Las diferencias entre coeficientes reflejan la forma en que cada modelo trata la heterogeneidad individual.
 
 ### Comparación gráfica
 
@@ -740,9 +710,7 @@ bind_rows(
   theme_minimal()
 ```
 
-**Interpretación**
-
-La comparación visual facilita identificar diferencias entre estimadores.
+**Interpretación.** La comparación visual facilita identificar diferencias entre estimadores.
 
 ## ¿Cuándo utilizar cada modelo?
 
@@ -869,9 +837,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Los valores de R² permiten evaluar la capacidad explicativa de cada especificación.
+**Interpretación.** Los valores de R² permiten evaluar la capacidad explicativa de cada especificación.
 
 ### Prueba de Breusch-Pagan para panel
 
@@ -886,9 +852,7 @@ plmtest(
 )
 ```
 
-**Interpretación**
-
-Hipótesis nula:
+**Interpretación.** Hipótesis nula:
 
 ```text
 No existen efectos individuales.
@@ -907,9 +871,7 @@ pFtest(
 )
 ```
 
-**Interpretación**
-
-Hipótesis nula:
+**Interpretación.** Hipótesis nula:
 
 ```text
 No existen efectos fijos.
@@ -934,9 +896,7 @@ phtest(
 )
 ```
 
-**Interpretación**
-
-Hipótesis nula:
+**Interpretación.** Hipótesis nula:
 
 ```text
 Los efectos aleatorios son consistentes.
@@ -981,9 +941,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-Los coeficientes representan cambios dentro de cada empresa a lo largo del tiempo.
+**Interpretación.** Los coeficientes representan cambios dentro de cada empresa a lo largo del tiempo.
 
 ### Interpretación económica
 
@@ -1039,9 +997,7 @@ panel_pred |>
   )
 ```
 
-**Interpretación**
-
-Las predicciones representan los niveles esperados de inversión para cada observación del panel.
+**Interpretación.** Las predicciones representan los niveles esperados de inversión para cada observación del panel.
 
 **Observado versus predicho.**
 
@@ -1067,9 +1023,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Mientras más próximos estén los puntos a la diagonal, mejor será el ajuste del modelo.
+**Interpretación.** Mientras más próximos estén los puntos a la diagonal, mejor será el ajuste del modelo.
 
 **Residuos del modelo.**
 
@@ -1116,9 +1070,7 @@ ggplot(
     y = "Frecuencia"
   )
 ```
-**Interpretación**
-
-El histograma permite examinar visualmente la forma de los residuos. Una distribución aproximadamente simétrica y centrada en cero puede ser compatible con normalidad, pero no la demuestra. En modelos de panel, la validez inferencial también depende de la estructura de dependencia temporal y transversal y de la estimación adecuada de la varianza.
+**Interpretación.** El histograma permite examinar visualmente la forma de los residuos. Una distribución aproximadamente simétrica y centrada en cero puede ser compatible con normalidad, pero no la demuestra. En modelos de panel, la validez inferencial también depende de la estructura de dependencia temporal y transversal y de la estimación adecuada de la varianza.
 
 **Flujo completo de análisis.**
 

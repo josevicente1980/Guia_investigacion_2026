@@ -12,7 +12,7 @@ base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar esta sección, el lector será capaz de:
 
@@ -127,9 +127,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El gráfico permite visualizar la relación observada entre ambas variables. La dispersión sugiere la existencia de una tendencia general que puede modelarse mediante una recta de regresión.
+**Interpretación.** El gráfico permite visualizar la relación observada entre ambas variables. La dispersión sugiere la existencia de una tendencia general que puede modelarse mediante una recta de regresión.
 
 ## Estimación del modelo
 
@@ -154,9 +152,7 @@ summary(
 )
 ```
 
-**Interpretación**
-
-El resumen contiene la información principal del modelo:
+**Interpretación.** El resumen contiene la información principal del modelo:
 
 - Coeficientes estimados.
 - Errores estándar.
@@ -193,9 +189,7 @@ broom::tidy(
   )
 ```
 
-**Interpretación**
-
-La tabla resume los parámetros estimados de la ecuación de regresión.
+**Interpretación.** La tabla resume los parámetros estimados de la ecuación de regresión.
 
 ### Interpretación del intercepto
 
@@ -252,9 +246,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La línea representa la relación promedio estimada por el modelo. La banda sombreada corresponde al intervalo de confianza de la recta estimada.
+**Interpretación.** La línea representa la relación promedio estimada por el modelo. La banda sombreada corresponde al intervalo de confianza de la recta estimada.
 
 ### Valores ajustados
 
@@ -288,9 +280,7 @@ base_regresion |>
   )
 ```
 
-**Interpretación**
-
-Los valores ajustados representan la respuesta estimada por el modelo para cada observación.
+**Interpretación.** Los valores ajustados representan la respuesta estimada por el modelo para cada observación.
 
 **Conclusión práctica.**
 
@@ -413,9 +403,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El R² indica qué proporción de la variabilidad observada en `log_productividad` es explicada por `capital`.
+**Interpretación.** El R² indica qué proporción de la variabilidad observada en `log_productividad` es explicada por `capital`.
 
 ### R² ajustado
 
@@ -440,9 +428,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-En regresión simple ambos indicadores suelen presentar valores muy similares.
+**Interpretación.** En regresión simple ambos indicadores suelen presentar valores muy similares.
 
 ### Error estándar residual
 
@@ -461,9 +447,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Valores menores indican que las predicciones se encuentran más próximas a los valores observados.
+**Interpretación.** Valores menores indican que las predicciones se encuentran más próximas a los valores observados.
 
 ### Observado versus ajustado
 
@@ -508,9 +492,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Mientras más cercanos se encuentren los puntos a la línea roja, mejor será el ajuste del modelo.
+**Interpretación.** Mientras más cercanos se encuentren los puntos a la línea roja, mejor será el ajuste del modelo.
 
 ### Intervalos de confianza de los coeficientes
 
@@ -534,9 +516,7 @@ confint(
   )
 ```
 
-**Interpretación**
-
-Los intervalos reflejan el rango plausible de valores para cada parámetro poblacional.
+**Interpretación.** Los intervalos reflejan el rango plausible de valores para cada parámetro poblacional.
 
 ## Predicción para nuevos valores
 
@@ -589,9 +569,7 @@ nuevos_datos |>
   )
 ```
 
-**Interpretación**
-
-Cada valor corresponde a la respuesta esperada de `log_productividad` para un valor específico del capital.
+**Interpretación.** Cada valor corresponde a la respuesta esperada de `log_productividad` para un valor específico del capital.
 
 ### Intervalos de confianza para la media estimada
 
@@ -611,9 +589,7 @@ predict(
   )
 ```
 
-**Interpretación**
-
-Estos intervalos representan la incertidumbre asociada a la estimación de la media condicional.
+**Interpretación.** Estos intervalos representan la incertidumbre asociada a la estimación de la media condicional.
 
 ### Intervalos de predicción
 
@@ -635,9 +611,7 @@ predict(
   )
 ```
 
-**Interpretación**
-
-Estos intervalos indican dónde podría ubicarse una observación futura individual.
+**Interpretación.** Estos intervalos indican dónde podría ubicarse una observación futura individual.
 
 ### Visualización de predicciones
 
@@ -668,9 +642,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La línea representa la predicción promedio del modelo y la banda sombreada refleja la incertidumbre de la estimación.
+**Interpretación.** La línea representa la predicción promedio del modelo y la banda sombreada refleja la incertidumbre de la estimación.
 
 ### Significancia global del modelo
 
@@ -698,9 +670,7 @@ glance(
   )
 ```
 
-**Interpretación**
-
-Un valor p pequeño aporta evidencia contra la hipótesis nula global. No implica por sí solo que el modelo tenga una capacidad explicativa o predictiva importante; esa valoración requiere considerar también el tamaño de los coeficientes, el R², la incertidumbre y el contexto.
+**Interpretación.** Un valor p pequeño aporta evidencia contra la hipótesis nula global. No implica por sí solo que el modelo tenga una capacidad explicativa o predictiva importante; esa valoración requiere considerar también el tamaño de los coeficientes, el R², la incertidumbre y el contexto.
 
 **Conclusión práctica.**
 
@@ -835,9 +805,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Los residuos deberían distribuirse alrededor de cero. Valores muy extremos podrían indicar observaciones atípicas o limitaciones del modelo.
+**Interpretación.** Los residuos deberían distribuirse alrededor de cero. Valores muy extremos podrían indicar observaciones atípicas o limitaciones del modelo.
 
 El histograma permite evaluar visualmente la forma de la distribución de los residuos. Una forma aproximadamente simétrica y centrada en cero puede ser compatible con normalidad, pero no la demuestra. Asimetrías o colas pronunciadas sugieren revisar con mayor detalle el supuesto y el propósito inferencial.
 
@@ -865,9 +833,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El histograma permite evaluar si los residuos presentan una distribución aproximadamente simétrica alrededor de cero.
+**Interpretación.** El histograma permite evaluar si los residuos presentan una distribución aproximadamente simétrica alrededor de cero.
 
 **Curva de densidad de residuos.**
 
@@ -892,9 +858,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La densidad facilita la identificación de asimetrías, colas largas o concentraciones inusuales de observaciones.
+**Interpretación.** La densidad facilita la identificación de asimetrías, colas largas o concentraciones inusuales de observaciones.
 
 ### Residuos versus valores ajustados
 
@@ -926,9 +890,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Idealmente los residuos deberían dispersarse aleatoriamente alrededor de la línea horizontal ubicada en cero.
+**Interpretación.** Idealmente los residuos deberían dispersarse aleatoriamente alrededor de la línea horizontal ubicada en cero.
 
 Patrones sistemáticos pueden sugerir problemas de especificación.
 
@@ -956,9 +918,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Cambios importantes en la dispersión de los residuos podrían indicar problemas de varianza no constante.
+**Interpretación.** Cambios importantes en la dispersión de los residuos podrían indicar problemas de varianza no constante.
 
 ### Residuos estandarizados
 
@@ -1004,9 +964,7 @@ tibble(
 
 
 
-**Interpretación**
-
-Observaciones con residuos estandarizados muy alejados de cero pueden requerir revisión adicional.
+**Interpretación.** Observaciones con residuos estandarizados muy alejados de cero pueden requerir revisión adicional.
 
 ### Posibles observaciones extremas
 
@@ -1028,9 +986,7 @@ base_regresion |>
   )
 ```
 
-**Interpretación**
-
-Estas observaciones podrían influir de manera importante en el ajuste del modelo.
+**Interpretación.** Estas observaciones podrían influir de manera importante en el ajuste del modelo.
 
 ### Gráfico Q-Q
 
@@ -1054,9 +1010,7 @@ qqline(
 )
 ```
 
-**Interpretación**
-
-Mientras más próximos se encuentren los puntos a la línea de referencia, más compatible será la distribución de residuos con una distribución normal.
+**Interpretación.** Mientras más próximos se encuentren los puntos a la línea de referencia, más compatible será la distribución de residuos con una distribución normal.
 
 **Resumen integrado del diagnóstico.**
 
@@ -1084,9 +1038,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Estos elementos constituyen una primera aproximación al análisis de calidad del modelo.
+**Interpretación.** Estos elementos constituyen una primera aproximación al análisis de calidad del modelo.
 
 **Aplicación práctica.**
 

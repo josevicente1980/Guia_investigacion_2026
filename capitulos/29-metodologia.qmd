@@ -11,7 +11,7 @@ cargar_paquetes_libro("comunicacion", extra = c("gapminder"))
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 
@@ -88,9 +88,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La metodología debe permitir al lector identificar exactamente qué información fue utilizada en el análisis.
+**Interpretación.** La metodología debe permitir al lector identificar exactamente qué información fue utilizada en el análisis.
 
 ## Definición de variables
 
@@ -116,9 +114,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La descripción de variables facilita la comprensión del análisis y mejora la transparencia metodológica.
+**Interpretación.** La descripción de variables facilita la comprensión del análisis y mejora la transparencia metodológica.
 
 ### Preparación de los datos
 
@@ -157,9 +153,7 @@ datos_modelo |>
   )
 ```
 
-**Interpretación**
-
-La metodología debe indicar explícitamente si existen observaciones faltantes y cómo fueron tratadas.
+**Interpretación.** La metodología debe indicar explícitamente si existen observaciones faltantes y cómo fueron tratadas.
 
 ## Diseño analítico
 
@@ -190,9 +184,7 @@ broom::tidy(
   )
 ```
 
-**Interpretación**
-
-La metodología debe documentar claramente qué procedimiento estadístico fue utilizado.
+**Interpretación.** La metodología debe documentar claramente qué procedimiento estadístico fue utilizado.
 
 ### Representación gráfica del proceso metodológico
 
@@ -240,9 +232,7 @@ ggplot(
   theme_void()
 ```
 
-**Interpretación**
-
-El flujo metodológico resume las etapas principales desarrolladas durante la investigación.
+**Interpretación.** El flujo metodológico resume las etapas principales desarrolladas durante la investigación.
 
 ## Redacción reproducible de la metodología
 
@@ -292,9 +282,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Antes de finalizar un documento científico conviene verificar que todos los componentes metodológicos estén documentados.
+**Interpretación.** Antes de finalizar un documento científico conviene verificar que todos los componentes metodológicos estén documentados.
 
 ## Manos a la obra
 

@@ -72,9 +72,7 @@ glimpse(
 )
 ```
 
-**Interpretación**
-
-La base contiene tres variables numéricas. La variable `productividad` representa la productividad original, `log_productividad` corresponde a su transformación logarítmica y `capital` representa el capital.
+**Interpretación.** La base contiene tres variables numéricas. La variable `productividad` representa la productividad original, `log_productividad` corresponde a su transformación logarítmica y `capital` representa el capital.
 
 ## ¿Qué mide la correlación?
 
@@ -110,9 +108,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Esta tabla ofrece una guía básica. La interpretación final depende del contexto sustantivo, del tamaño de la muestra y de la forma de la relación entre variables.
+**Interpretación.** Esta tabla ofrece una guía básica. La interpretación final depende del contexto sustantivo, del tamaño de la muestra y de la forma de la relación entre variables.
 
 ### Covarianza
 
@@ -137,9 +133,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La covarianza indica la dirección de la relación, pero no es fácil de interpretar porque depende de las unidades de medida de las variables. Por esa razón se utiliza con mayor frecuencia la correlación.
+**Interpretación.** La covarianza indica la dirección de la relación, pero no es fácil de interpretar porque depende de las unidades de medida de las variables. Por esa razón se utiliza con mayor frecuencia la correlación.
 
 ### Correlación de Pearson
 
@@ -165,9 +159,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El coeficiente de Pearson resume la intensidad de la relación lineal entre `log_productividad` y `capital`. Cuando dos variables independientes presentan una correlación superior a 0,80 en valor absoluto, puede existir un problema de multicolinealidad [@lalinde2018uso].
+**Interpretación.** El coeficiente de Pearson resume la intensidad de la relación lineal entre `log_productividad` y `capital`. Cuando dos variables independientes presentan una correlación superior a 0,80 en valor absoluto, puede existir un problema de multicolinealidad [@lalinde2018uso].
 
 Cuando hay multicolinealidad:
 
@@ -205,9 +197,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La línea permite observar la tendencia lineal promedio. Este gráfico complementa el coeficiente de Pearson.
+**Interpretación.** La línea permite observar la tendencia lineal promedio. Este gráfico complementa el coeficiente de Pearson.
 
 ### Correlación de Spearman
 
@@ -233,9 +223,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Spearman puede ser más adecuado cuando existen valores extremos o cuando la relación no sigue una forma estrictamente lineal.
+**Interpretación.** Spearman puede ser más adecuado cuando existen valores extremos o cuando la relación no sigue una forma estrictamente lineal.
 
 ### Correlación de Kendall
 
@@ -261,9 +249,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Kendall suele entregar valores más conservadores. Es útil cuando se desea evaluar asociación ordinal o basada en rangos.
+**Interpretación.** Kendall suele entregar valores más conservadores. Es útil cuando se desea evaluar asociación ordinal o basada en rangos.
 
 ## Comparación entre métodos
 
@@ -288,9 +274,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Si los tres coeficientes son similares, la asociación parece estable bajo diferentes criterios. Si difieren mucho, conviene revisar la forma de la relación, la presencia de valores extremos y la distribución de las variables.
+**Interpretación.** Si los tres coeficientes son similares, la asociación parece estable bajo diferentes criterios. Si difieren mucho, conviene revisar la forma de la relación, la presencia de valores extremos y la distribución de las variables.
 
 ### Prueba de significancia para Pearson
 
@@ -323,9 +307,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El valor p resume qué tan incompatibles son los datos observados con la hipótesis nula de correlación poblacional igual a cero, bajo los supuestos de la prueba. No representa la probabilidad de que la asociación se deba al azar ni mide su importancia sustantiva.
+**Interpretación.** El valor p resume qué tan incompatibles son los datos observados con la hipótesis nula de correlación poblacional igual a cero, bajo los supuestos de la prueba. No representa la probabilidad de que la asociación se deba al azar ni mide su importancia sustantiva.
 
 ## Matriz de correlación
 
@@ -349,9 +331,7 @@ round(
   )
 ```
 
-**Interpretación**
-
-La matriz permite observar simultáneamente las asociaciones entre las variables numéricas seleccionadas. Correlaciones muy altas entre predictores pueden advertir colinealidad, pero no justifican eliminar automáticamente una variable. La decisión debe apoyarse en la teoría, la estructura del modelo y diagnósticos como el VIF.
+**Interpretación.** La matriz permite observar simultáneamente las asociaciones entre las variables numéricas seleccionadas. Correlaciones muy altas entre predictores pueden advertir colinealidad, pero no justifican eliminar automáticamente una variable. La decisión debe apoyarse en la teoría, la estructura del modelo y diagnósticos como el VIF.
 
 ### Preparando datos para un mapa de calor
 
@@ -382,9 +362,7 @@ correlacion_larga |>
   )
 ```
 
-**Interpretación**
-
-El formato largo permite construir visualizaciones con `ggplot2`, manteniendo compatibilidad con HTML, Word y PDF.
+**Interpretación.** El formato largo permite construir visualizaciones con `ggplot2`, manteniendo compatibilidad con HTML, Word y PDF.
 
 ### Mapa de calor de correlaciones
 
@@ -431,9 +409,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El mapa de calor facilita la lectura de la matriz. Los colores permiten identificar rápidamente asociaciones positivas, negativas o cercanas a cero.
+**Interpretación.** El mapa de calor facilita la lectura de la matriz. Los colores permiten identificar rápidamente asociaciones positivas, negativas o cercanas a cero.
 
 ## Correlación y valores extremos
 
@@ -461,9 +437,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La variable `productividad` presenta valores extremos importantes. Por eso la transformación logarítmica resulta más útil para visualizar e interpretar la relación.
+**Interpretación.** La variable `productividad` presenta valores extremos importantes. Por eso la transformación logarítmica resulta más útil para visualizar e interpretar la relación.
 
 ### Comparación con variable transformada
 
@@ -489,9 +463,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La transformación permite observar mejor la distribución conjunta de las variables y reduce el efecto visual de los valores extremos.
+**Interpretación.** La transformación permite observar mejor la distribución conjunta de las variables y reduce el efecto visual de los valores extremos.
 
 ### Limitaciones de la correlación
 
@@ -610,9 +582,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La asociación puede observarse directamente en los datos. La causalidad requiere supuestos adicionales, diseño adecuado y una justificación teórica.
+**Interpretación.** La asociación puede observarse directamente en los datos. La causalidad requiere supuestos adicionales, diseño adecuado y una justificación teórica.
 
 ### Variable de confusión
 
@@ -665,9 +635,7 @@ datos_confusion |>
   )
 ```
 
-**Interpretación**
-
-En esta simulación, `z` afecta tanto a `x` como a `y`. Por tanto, puede aparecer una asociación entre `x` e `y` aunque no exista una relación causal directa entre ellas.
+**Interpretación.** En esta simulación, `z` afecta tanto a `x` como a `y`. Por tanto, puede aparecer una asociación entre `x` e `y` aunque no exista una relación causal directa entre ellas.
 
 **Asociación aparente.**
 
@@ -693,9 +661,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El gráfico muestra una asociación positiva entre `x` e `y`. Sin embargo, en la simulación esta asociación se debe a la variable `z`.
+**Interpretación.** El gráfico muestra una asociación positiva entre `x` e `y`. Sin embargo, en la simulación esta asociación se debe a la variable `z`.
 
 **Correlación aparente.**
 
@@ -715,9 +681,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La correlación puede ser alta incluso cuando la asociación se explica por una tercera variable.
+**Interpretación.** La correlación puede ser alta incluso cuando la asociación se explica por una tercera variable.
 
 ### Diagramas causales simples
 
@@ -769,9 +733,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El gráfico muestra diferencias territoriales. Estas diferencias son descriptivas y no deben interpretarse como efectos causales de la region sobre la productividad.
+**Interpretación.** El gráfico muestra diferencias territoriales. Estas diferencias son descriptivas y no deben interpretarse como efectos causales de la region sobre la productividad.
 
 ### Correlaciones espurias
 
@@ -822,9 +784,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Las variables `x` e `y` parecen asociadas, pero ambas comparten una tendencia común generada por `tiempo`.
+**Interpretación.** Las variables `x` e `y` parecen asociadas, pero ambas comparten una tendencia común generada por `tiempo`.
 
 **Correlación espuria estimada.**
 
@@ -844,9 +804,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El coeficiente puede sugerir una asociación fuerte, aunque el patrón se debe a una tendencia compartida.
+**Interpretación.** El coeficiente puede sugerir una asociación fuerte, aunque el patrón se debe a una tendencia compartida.
 
 ### Preguntas para evaluar causalidad
 
@@ -869,9 +827,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Estas preguntas ayudan a evitar conclusiones apresuradas a partir de correlaciones simples.
+**Interpretación.** Estas preguntas ayudan a evitar conclusiones apresuradas a partir de correlaciones simples.
 
 ### Asociación en estudios observacionales
 
@@ -905,9 +861,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La evidencia descriptiva es fundamental, pero no debe confundirse con evidencia causal.
+**Interpretación.** La evidencia descriptiva es fundamental, pero no debe confundirse con evidencia causal.
 
 **Buenas prácticas.**
 

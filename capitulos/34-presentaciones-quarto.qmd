@@ -11,7 +11,7 @@ cargar_paquetes_libro("comunicacion", extra = c("gapminder"))
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 

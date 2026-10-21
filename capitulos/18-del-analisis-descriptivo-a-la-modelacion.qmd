@@ -33,7 +33,7 @@ base_analitica <- base_analitica |>
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar esta sección, el lector será capaz de:
 
@@ -156,9 +156,7 @@ matriz_modelo |>
   glimpse()
 ```
 
-**Interpretación**
-
-La matriz contiene las variables que utilizaremos para ilustrar los conceptos básicos de modelación.
+**Interpretación.** La matriz contiene las variables que utilizaremos para ilustrar los conceptos básicos de modelación.
 
 ### Exploración inicial de la matriz
 
@@ -170,9 +168,7 @@ summary(
 )
 ```
 
-**Interpretación**
-
-El resumen permite verificar rangos mínimos y máximos, así como posibles inconsistencias antes de proceder con la modelación, dado que de esta forma podemos identificar datos atípicos que afecten la robustez del modelo.
+**Interpretación.** El resumen permite verificar rangos mínimos y máximos, así como posibles inconsistencias antes de proceder con la modelación, dado que de esta forma podemos identificar datos atípicos que afecten la robustez del modelo.
 
 ### Número de observaciones disponibles
 
@@ -190,9 +186,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El tamaño de la muestra constituye un elemento importante para evaluar la estabilidad potencial de los modelos.
+**Interpretación.** El tamaño de la muestra constituye un elemento importante para evaluar la estabilidad potencial de los modelos.
 
 ## Correlación no implica causalidad
 
@@ -248,9 +242,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El gráfico permite identificar posibles asociaciones, concentraciones de observaciones y valores atípicos antes de construir modelos formales.
+**Interpretación.** El gráfico permite identificar posibles asociaciones, concentraciones de observaciones y valores atípicos antes de construir modelos formales.
 
 **Incorporando una línea de tendencia.**
 
@@ -281,9 +273,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La línea de tendencia ayuda a visualizar la dirección general de la asociación observada entre ambas variables.
+**Interpretación.** La línea de tendencia ayuda a visualizar la dirección general de la asociación observada entre ambas variables.
 
 ### Relaciones por categoría
 
@@ -310,9 +300,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Las diferencias observadas sugieren que la categoría de tamaño podría aportar información relevante para explicar la productividad total.
+**Interpretación.** Las diferencias observadas sugieren que la categoría de tamaño podría aportar información relevante para explicar la productividad total.
 
 **Comparación territorial.**
 
@@ -339,9 +327,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La existencia de diferencias regionles sugiere que la dimensión territorial podría incorporarse posteriormente dentro de modelos explicativos.
+**Interpretación.** La existencia de diferencias regionles sugiere que la dimensión territorial podría incorporarse posteriormente dentro de modelos explicativos.
 
 ### Matriz de correlación
 
@@ -373,9 +359,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La correlación proporciona una primera aproximación a la intensidad de asociación entre variables cuantitativas.
+**Interpretación.** La correlación proporciona una primera aproximación a la intensidad de asociación entre variables cuantitativas.
 
 ### De la correlación al modelo
 
@@ -502,9 +486,7 @@ summary(
 )
 ```
 
-**Interpretación**
-
-La salida proporciona información sobre los coeficientes estimados, errores estándar, niveles de significancia y capacidad explicativa del modelo.
+**Interpretación.** La salida proporciona información sobre los coeficientes estimados, errores estándar, niveles de significancia y capacidad explicativa del modelo.
 
 Cada coeficiente resume el cambio promedio esperado en la variable dependiente asociado con una variación de una unidad en la variable explicativa dentro de la especificación estimada; no implica causalidad por sí solo.
 
@@ -527,9 +509,7 @@ coeficientes_simple |>
   )
 ```
 
-**Interpretación**
-
-La tabla resume los parámetros estimados y facilita la presentación de resultados en informes o artículos.
+**Interpretación.** La tabla resume los parámetros estimados y facilita la presentación de resultados en informes o artículos.
 
 La inferencia no debe reducirse a una regla automática basada en valores p. Los coeficientes deben interpretarse junto con sus intervalos de confianza, magnitud sustantiva, supuestos del modelo y propósito del análisis. En esta base simulada los resultados ilustran el procedimiento de estimación, no una conclusión empírica sobre empresas reales.
 
@@ -580,9 +560,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Mientras más cercanos se encuentren los puntos a la línea diagonal, mejor será la capacidad predictiva del modelo.
+**Interpretación.** Mientras más cercanos se encuentren los puntos a la línea diagonal, mejor será la capacidad predictiva del modelo.
 
 **Visualización del ajuste.**
 
@@ -613,9 +591,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La línea representa la relación promedio estimada por el modelo.
+**Interpretación.** La línea representa la relación promedio estimada por el modelo.
 
 ### Bondad de ajuste
 
@@ -639,9 +615,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El coeficiente \(R^2\) indica la proporción de la variabilidad de la variable dependiente que es explicada por el modelo de regresión a partir de las variables explicativas incluidas en él.
+**Interpretación.** El coeficiente \(R^2\) indica la proporción de la variabilidad de la variable dependiente que es explicada por el modelo de regresión a partir de las variables explicativas incluidas en él.
 
 ### Introducción a los residuos
 
@@ -684,9 +658,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Los residuos permiten evaluar la adecuación del modelo y detectar posibles problemas de especificación.
+**Interpretación.** Los residuos permiten evaluar la adecuación del modelo y detectar posibles problemas de especificación.
 
 **Residuos versus valores ajustados.**
 
@@ -712,9 +684,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Idealmente los residuos deberían distribuirse alrededor de cero sin patrones evidentes.
+**Interpretación.** Idealmente los residuos deberían distribuirse alrededor de cero sin patrones evidentes.
 
 **Incorporando variables categóricas.**
 
@@ -751,9 +721,7 @@ broom::tidy(
   )
 ```
 
-**Interpretación**
-
-Los coeficientes representan diferencias promedio respecto a la categoría de referencia. Su interpretación debe considerar la magnitud estimada, la incertidumbre y la relevancia sustantiva; el valor p es solo una pieza de esa evaluación y no debe utilizarse como criterio automático de importancia.
+**Interpretación.** Los coeficientes representan diferencias promedio respecto a la categoría de referencia. Su interpretación debe considerar la magnitud estimada, la incertidumbre y la relevancia sustantiva; el valor p es solo una pieza de esa evaluación y no debe utilizarse como criterio automático de importancia.
 
 **Introducción a la regresión múltiple.**
 
@@ -792,9 +760,7 @@ broom::tidy(
   )
 ```
 
-**Interpretación**
-
-Cada coeficiente representa una asociación condicional entre una variable y la respuesta, manteniendo constantes las demás variables incluidas. En este ejemplo pedagógico no debe interpretarse como un efecto causal.
+**Interpretación.** Cada coeficiente representa una asociación condicional entre una variable y la respuesta, manteniendo constantes las demás variables incluidas. En este ejemplo pedagógico no debe interpretarse como un efecto causal.
 
 **Comparación entre modelos.**
 
@@ -821,9 +787,7 @@ comparacion_modelos |>
   )
 ```
 
-**Interpretación**
-
-La comparación permite evaluar si la incorporación de variables adicionales mejora la capacidad explicativa. Al disponer de más variables, el modelo cuenta con mayor información para ajustar los datos observados, lo que puede reducir o mantener el error de predicción y, en consecuencia, incrementar el valor de \(R^2\).
+**Interpretación.** La comparación permite evaluar si la incorporación de variables adicionales mejora la capacidad explicativa. Al disponer de más variables, el modelo cuenta con mayor información para ajustar los datos observados, lo que puede reducir o mantener el error de predicción y, en consecuencia, incrementar el valor de \(R^2\).
 
 **¿Qué hemos aprendido?.**
 
@@ -925,9 +889,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Los valores predichos representan la respuesta estimada por el modelo para cada observación de la base de datos.
+**Interpretación.** Los valores predichos representan la respuesta estimada por el modelo para cada observación de la base de datos.
 
 **Observados versus predichos.**
 
@@ -959,9 +921,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Mientras más cercanos se encuentren los puntos a la diagonal, mejor será la capacidad predictiva del modelo.
+**Interpretación.** Mientras más cercanos se encuentren los puntos a la diagonal, mejor será la capacidad predictiva del modelo.
 
 ### ¿Qué es el sobreajuste?
 
@@ -1045,9 +1005,7 @@ datos_complejidad |>
   theme_minimal()
 ```
 
-**Interpretación**
-
-A medida que aumenta la complejidad del modelo, la capacidad de ajuste suele mejorar. Sin embargo, la capacidad de generalización puede deteriorarse.
+**Interpretación.** A medida que aumenta la complejidad del modelo, la capacidad de ajuste suele mejorar. Sin embargo, la capacidad de generalización puede deteriorarse.
 
 ### Entrenamiento y validación
 
@@ -1123,9 +1081,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La división permite evaluar si el modelo mantiene un desempeño razonable sobre observaciones no utilizadas durante la estimación.
+**Interpretación.** La división permite evaluar si el modelo mantiene un desempeño razonable sobre observaciones no utilizadas durante la estimación.
 
 **Estimando un modelo de entrenamiento.**
 
@@ -1183,9 +1139,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-La comparación permite evaluar si el modelo conserva capacidad predictiva fuera de la muestra de entrenamiento.
+**Interpretación.** La comparación permite evaluar si el modelo conserva capacidad predictiva fuera de la muestra de entrenamiento.
 
 ### Error cuadrático medio
 
@@ -1264,9 +1218,7 @@ broom::tidy(
   )
 ```
 
-**Interpretación**
-
-Los términos de interacción permiten evaluar si la relación entre variables cambia según la categoría observada.
+**Interpretación.** Los términos de interacción permiten evaluar si la relación entre variables cambia según la categoría observada.
 
 **Comparación de modelos.**
 
@@ -1299,9 +1251,7 @@ comparacion_final |>
   )
 ```
 
-**Interpretación**
-
-La comparación permite evaluar cómo cambia la capacidad explicativa a medida que incorporamos complejidad al modelo.
+**Interpretación.** La comparación permite evaluar cómo cambia la capacidad explicativa a medida que incorporamos complejidad al modelo.
 
 ### Flujo completo de modelación reproducible
 

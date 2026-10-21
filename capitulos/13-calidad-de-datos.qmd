@@ -12,7 +12,7 @@ sunac <- leer_objeto_libro("sunac_transformado.rds")
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 
@@ -621,7 +621,7 @@ La calidad de estas variables es especialmente relevante porque serán utilizada
 Otra medida útil consiste en identificar observaciones con múltiples valores faltantes.
 
 ```{r}
-#| label: tbl-ch13-registros-incompletos
+#| label: ch13-registros-incompletos
 
 na_por_fila <- rowSums(
   is.na(sunac)

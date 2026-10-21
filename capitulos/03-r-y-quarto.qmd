@@ -1,6 +1,6 @@
 # R y Quarto: una plataforma integrada para la investigación reproducible
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 

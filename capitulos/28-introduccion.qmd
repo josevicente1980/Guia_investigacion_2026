@@ -11,7 +11,7 @@ cargar_paquetes_libro("comunicacion", extra = c("bibliometrix"))
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 
@@ -102,9 +102,7 @@ kable(
 )
 ```
 
-**Interpretación**
-
-La introducción debe responder progresivamente estas cinco preguntas para construir una narrativa lógica y convincente.
+**Interpretación.** La introducción debe responder progresivamente estas cinco preguntas para construir una narrativa lógica y convincente.
 
 ### Construcción del contexto
 
@@ -124,9 +122,7 @@ Ejemplo:
 
 > A pesar del crecimiento de la digitalización, persisten diferencias significativas en la adopción tecnológica entre organizaciones de distintos tamaños.
 
-**Interpretación**
-
-El problema constituye el puente entre el contexto general y la pregunta de investigación.
+**Interpretación.** El problema constituye el puente entre el contexto general y la pregunta de investigación.
 
 ### Incorporación de literatura científica
 
@@ -146,9 +142,7 @@ Al renderizar el documento, Quarto genera automáticamente la referencia corresp
 Diversos estudios han documentado los efectos de la innovación sobre el crecimiento económico [@acemoglu2012; @brynjolfsson2014].
 ```
 
-**Interpretación**
-
-Las citas deben respaldar afirmaciones empíricas y conceptuales realizadas en la introducción.
+**Interpretación.** Las citas deben respaldar afirmaciones empíricas y conceptuales realizadas en la introducción.
 
 ## Identificación del vacío de investigación
 
@@ -194,9 +188,7 @@ kable(
 )
 ```
 
-**Interpretación**
-
-Cuando estos tres elementos están alineados, la introducción adquiere mayor claridad y consistencia argumentativa.
+**Interpretación.** Cuando estos tres elementos están alineados, la introducción adquiere mayor claridad y consistencia argumentativa.
 
 ### Plantilla básica para redactar una introducción
 

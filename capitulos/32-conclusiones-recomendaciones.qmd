@@ -11,7 +11,7 @@ cargar_paquetes_libro("comunicacion", extra = c("gapminder"))
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 
@@ -80,9 +80,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Cada conclusión debe corresponder claramente a uno o varios objetivos de investigación.
+**Interpretación.** Cada conclusión debe corresponder claramente a uno o varios objetivos de investigación.
 
 ### Recuperación de resultados principales
 
@@ -109,9 +107,7 @@ broom::tidy(
   )
 ```
 
-**Interpretación**
-
-Los resultados constituyen la evidencia que sustenta las conclusiones del estudio.
+**Interpretación.** Los resultados constituyen la evidencia que sustenta las conclusiones del estudio.
 
 ## De los resultados a las conclusiones
 
@@ -123,9 +119,7 @@ Los resultados constituyen la evidencia que sustenta las conclusiones del estudi
 
 > Los países con mayores niveles de ingreso tienden a presentar mayores niveles de esperanza de vida.
 
-**Interpretación**
-
-La conclusión sintetiza el hallazgo principal en lenguaje académico y comprensible.
+**Interpretación.** La conclusión sintetiza el hallazgo principal en lenguaje académico y comprensible.
 
 ### Construcción de conclusiones
 
@@ -146,9 +140,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Las conclusiones deben sintetizar evidencia y responder explícitamente a las preguntas de investigación.
+**Interpretación.** Las conclusiones deben sintetizar evidencia y responder explícitamente a las preguntas de investigación.
 
 ## Formulación de recomendaciones
 
@@ -172,9 +164,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Las recomendaciones deben ser proporcionales a la evidencia y al diseño. Los estudios asociativos pueden fundamentar prioridades de investigación, monitoreo o evaluación, pero no justifican automáticamente una intervención causal.
+**Interpretación.** Las recomendaciones deben ser proporcionales a la evidencia y al diseño. Los estudios asociativos pueden fundamentar prioridades de investigación, monitoreo o evaluación, pero no justifican automáticamente una intervención causal.
 
 ### Tipos de recomendaciones
 
@@ -198,9 +188,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Las recomendaciones pueden dirigirse a distintos actores dependiendo del propósito del estudio.
+**Interpretación.** Las recomendaciones pueden dirigirse a distintos actores dependiendo del propósito del estudio.
 
 ## Estructura recomendada
 
@@ -286,9 +274,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Antes de finalizar un documento científico es recomendable verificar que las conclusiones y recomendaciones mantengan coherencia con todo el proceso de investigación.
+**Interpretación.** Antes de finalizar un documento científico es recomendable verificar que las conclusiones y recomendaciones mantengan coherencia con todo el proceso de investigación.
 
 ### Manos a la obra
 

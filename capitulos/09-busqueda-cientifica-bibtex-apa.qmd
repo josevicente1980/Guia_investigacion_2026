@@ -1,6 +1,6 @@
 # Búsqueda científica, BibTeX y gestión automatizada de referencias
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 

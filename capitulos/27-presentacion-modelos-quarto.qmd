@@ -11,7 +11,7 @@ cargar_paquetes_libro("comunicacion", extra = c("modelsummary", "gt", "gapminder
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 
@@ -29,8 +29,6 @@ Construir un buen modelo estadístico constituye únicamente una parte del proce
 En la práctica científica moderna, la reproducibilidad exige que las tablas, figuras e interpretaciones sean generadas automáticamente a partir del código utilizado en el análisis [@xie2024].
 
 El objetivo de este capítulo consiste en mostrar cómo transformar resultados estadísticos en productos científicos listos para publicación utilizando Quarto.
-
-### Configuración inicial
 
 ### Carga de librerías
 
@@ -65,16 +63,14 @@ datos_modelos <- gapminder
 ### Exploración inicial
 
 ```{r}
-#| label: tbl-reg27-estructura-datos
+#| label: reg27-estructura-datos
 
 glimpse(
   datos_modelos
 )
 ```
 
-**Interpretación**
-
-La base contiene información socioeconómica de múltiples países y años, lo que permite ilustrar distintas estrategias de presentación de modelos.
+**Interpretación.** La base contiene información socioeconómica de múltiples países y años, lo que permite ilustrar distintas estrategias de presentación de modelos.
 
 ## De la salida de R al reporte científico
 
@@ -114,9 +110,7 @@ broom::tidy(
   )
 ```
 
-**Interpretación**
-
-La tabla presenta coeficientes, errores estándar, estadísticos t y valores p. Aunque contiene toda la información necesaria, su formato todavía no corresponde al estándar utilizado en publicaciones científicas.
+**Interpretación.** La tabla presenta coeficientes, errores estándar, estadísticos t y valores p. Aunque contiene toda la información necesaria, su formato todavía no corresponde al estándar utilizado en publicaciones científicas.
 
 ## Tablas profesionales con modelsummary
 
@@ -140,9 +134,7 @@ modelsummary(
   )
 ```
 
-**Interpretación**
-
-La tabla presenta automáticamente:
+**Interpretación.** La tabla presenta automáticamente:
 
 * Coeficientes.
 * Errores estándar.
@@ -171,9 +163,7 @@ modelsummary(
   )
 ```
 
-**Interpretación**
-
-La personalización permite adaptar las tablas a los requisitos editoriales de revistas científicas.
+**Interpretación.** La personalización permite adaptar las tablas a los requisitos editoriales de revistas científicas.
 
 ## Comparación de modelos
 
@@ -307,9 +297,7 @@ coef_comparacion_larga |>
   )
 ```
 
-**Interpretación**
-
-La comparación simultánea permite evaluar cambios en:
+**Interpretación.** La comparación simultánea permite evaluar cambios en:
 
 * Magnitud de coeficientes.
 * Significancia estadística.
@@ -353,9 +341,7 @@ tabla_ic |>
   )
 ```
 
-**Interpretación**
-
-Los intervalos de confianza permiten evaluar conjuntamente dirección, magnitud e incertidumbre y evitan reducir la interpretación a umbrales de significancia.
+**Interpretación.** Los intervalos de confianza permiten evaluar conjuntamente dirección, magnitud e incertidumbre y evitan reducir la interpretación a umbrales de significancia.
 
 ## Visualización de coeficientes
 
@@ -405,9 +391,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El gráfico facilita la comparación visual de magnitudes e intervalos de confianza.
+**Interpretación.** El gráfico facilita la comparación visual de magnitudes e intervalos de confianza.
 
 ## Predicciones para comunicar resultados
 
@@ -446,9 +430,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Cuanto más cercanos se encuentren los puntos a la diagonal, mejor será el ajuste del modelo.
+**Interpretación.** Cuanto más cercanos se encuentren los puntos a la diagonal, mejor será el ajuste del modelo.
 
 ### Exportación automática con Quarto
 
@@ -466,9 +448,7 @@ format:
     toc: true
 ```
 
-**Interpretación**
-
-Un único archivo fuente permite producir simultáneamente:
+**Interpretación.** Un único archivo fuente permite producir simultáneamente:
 
 * Artículos web.
 * Informes PDF.
@@ -489,8 +469,6 @@ modelsummary()
 ```
 
 Estas herramientas generan resultados estables en todos los formatos de salida.
-
-### Buenas prácticas de reporte reproducible
 
 ### Recomendaciones
 

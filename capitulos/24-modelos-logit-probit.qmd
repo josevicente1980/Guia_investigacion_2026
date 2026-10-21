@@ -12,7 +12,7 @@ base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar esta sección, el lector será capaz de:
 
@@ -120,9 +120,7 @@ base_logit |>
   )
 ```
 
-**Interpretación**
-
-La variable respuesta toma únicamente dos valores:
+**Interpretación.** La variable respuesta toma únicamente dos valores:
 
 ```text
 1 = productividad alta
@@ -184,9 +182,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-La dispersión muestra observaciones concentradas en dos valores posibles: 0 y 1.
+**Interpretación.** La dispersión muestra observaciones concentradas en dos valores posibles: 0 y 1.
 
 ### Estimación del modelo Logit
 
@@ -230,9 +226,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-Los coeficientes se expresan en la escala del logit y describen asociaciones condicionadas a los demás predictores. En un modelo Logit estándar, un coeficiente positivo implica mayores log-odds y, manteniendo constantes las demás variables, una mayor probabilidad predicha del evento; un coeficiente negativo implica lo contrario. Esta interpretación no es causal por sí sola.
+**Interpretación.** Los coeficientes se expresan en la escala del logit y describen asociaciones condicionadas a los demás predictores. En un modelo Logit estándar, un coeficiente positivo implica mayores log-odds y, manteniendo constantes las demás variables, una mayor probabilidad predicha del evento; un coeficiente negativo implica lo contrario. Esta interpretación no es causal por sí sola.
 
 ### Probabilidades estimadas
 
@@ -278,9 +272,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Todas las predicciones permanecen dentro del rango válido de probabilidades.
+**Interpretación.** Todas las predicciones permanecen dentro del rango válido de probabilidades.
 
 ### Curva logística
 
@@ -304,9 +296,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-La relación entre la variable explicativa y la probabilidad presenta una forma no lineal característica de los modelos logísticos.
+**Interpretación.** La relación entre la variable explicativa y la probabilidad presenta una forma no lineal característica de los modelos logísticos.
 
 **Conclusión práctica.**
 
@@ -463,9 +453,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Los odds aumentan rápidamente cuando la probabilidad se aproxima a uno.
+**Interpretación.** Los odds aumentan rápidamente cuando la probabilidad se aproxima a uno.
 
 ### El logit
 
@@ -502,9 +490,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-Los coeficientes representan cambios en el logaritmo de los odds.
+**Interpretación.** Los coeficientes representan cambios en el logaritmo de los odds.
 
 Esta interpretación suele resultar poco intuitiva para usuarios no especializados.
 
@@ -535,9 +521,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-Los Odds Ratio permiten una interpretación mucho más sencilla.
+**Interpretación.** Los Odds Ratio permiten una interpretación mucho más sencilla.
 
 ### Interpretación del Odds Ratio
 
@@ -622,9 +606,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-El gráfico muestra cómo el modelo distribuye las probabilidades predichas entre las observaciones.
+**Interpretación.** El gráfico muestra cómo el modelo distribuye las probabilidades predichas entre las observaciones.
 
 ### Clasificación binaria
 
@@ -672,9 +654,7 @@ table(
   )
 ```
 
-**Interpretación**
-
-La tabla resume los aciertos y errores del modelo.
+**Interpretación.** La tabla resume los aciertos y errores del modelo.
 
 **Exactitud de clasificación.**
 
@@ -695,9 +675,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La exactitud representa la proporción de observaciones correctamente clasificadas, pero puede ser insuficiente cuando las clases están desbalanceadas o los errores tienen costos distintos. Por ello debe interpretarse junto con la matriz de clasificación y, cuando corresponda, otras métricas.
+**Interpretación.** La exactitud representa la proporción de observaciones correctamente clasificadas, pero puede ser insuficiente cuando las clases están desbalanceadas o los errores tienen costos distintos. Por ello debe interpretarse junto con la matriz de clasificación y, cuando corresponda, otras métricas.
 
 ### Predicciones para nuevos casos
 
@@ -735,9 +713,7 @@ nuevos_casos |>
   )
 ```
 
-**Interpretación**
-
-Las probabilidades permiten evaluar escenarios futuros bajo diferentes niveles de capital productivo.
+**Interpretación.** Las probabilidades permiten evaluar escenarios futuros bajo diferentes niveles de capital productivo.
 
 **Conclusión práctica.**
 
@@ -892,9 +868,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-Los signos de los coeficientes se interpretan de manera similar a los del modelo Logit.
+**Interpretación.** Los signos de los coeficientes se interpretan de manera similar a los del modelo Logit.
 
 ### Comparación de coeficientes
 
@@ -941,9 +915,7 @@ left_join(
   )
 ```
 
-**Interpretación**
-
-Las magnitudes suelen diferir porque cada modelo utiliza una escala distinta.
+**Interpretación.** Las magnitudes suelen diferir porque cada modelo utiliza una escala distinta.
 
 Lo importante es que normalmente mantienen el mismo signo y una dirección de asociación similar, aunque sus coeficientes no son directamente comparables porque utilizan escalas distintas.
 
@@ -992,9 +964,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Las diferencias suelen ser pequeñas en aplicaciones reales.
+**Interpretación.** Las diferencias suelen ser pequeñas en aplicaciones reales.
 
 **Comparación gráfica.**
 
@@ -1021,9 +991,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Mientras más próximos se encuentren los puntos a la diagonal, más similares serán las predicciones.
+**Interpretación.** Mientras más próximos se encuentren los puntos a la diagonal, más similares serán las predicciones.
 
 **Exactitud de clasificación.**
 
@@ -1064,9 +1032,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-En la mayoría de aplicaciones ambos modelos presentan desempeños muy parecidos.
+**Interpretación.** En la mayoría de aplicaciones ambos modelos presentan desempeños muy parecidos.
 
 ### ¿Cuándo usar Logit?
 
@@ -1115,9 +1081,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Ambos modelos constituyen alternativas válidas para variables binarias.
+**Interpretación.** Ambos modelos constituyen alternativas válidas para variables binarias.
 
 **Flujo de trabajo recomendado.**
 

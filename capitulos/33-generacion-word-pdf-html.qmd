@@ -11,7 +11,7 @@ cargar_paquetes_libro("comunicacion", extra = c("gapminder"))
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 
@@ -77,9 +77,7 @@ format: html
 Texto del informe.
 ```
 
-**Interpretación**
-
-El encabezado YAML controla la configuración general del documento.
+**Interpretación.** El encabezado YAML controla la configuración general del documento.
 
 ### Generación de HTML
 
@@ -107,9 +105,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El documento se transforma automáticamente en una página web navegable.
+**Interpretación.** El documento se transforma automáticamente en una página web navegable.
 
 ### Generación de PDF
 
@@ -139,9 +135,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Quarto utiliza LaTeX para producir documentos PDF de alta calidad tipográfica.
+**Interpretación.** Quarto utiliza LaTeX para producir documentos PDF de alta calidad tipográfica.
 
 ### Generación de Word
 
@@ -170,9 +164,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El documento generado puede editarse posteriormente mediante Microsoft Word.
+**Interpretación.** El documento generado puede editarse posteriormente mediante Microsoft Word.
 
 ## Generación simultánea de múltiples formatos
 
@@ -196,9 +188,7 @@ format:
 ---
 ```
 
-**Interpretación**
-
-Un único archivo produce simultáneamente:
+**Interpretación.** Un único archivo produce simultáneamente:
 
 * informe.html
 * informe.pdf
@@ -222,9 +212,7 @@ datos_exportacion |>
   )
 ```
 
-**Interpretación**
-
-La misma tabla aparecerá correctamente formateada en HTML, PDF y Word.
+**Interpretación.** La misma tabla aparecerá correctamente formateada en HTML, PDF y Word.
 
 ### Incorporación de figuras
 
@@ -248,9 +236,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Quarto adapta automáticamente la figura al formato de salida.
+**Interpretación.** Quarto adapta automáticamente la figura al formato de salida.
 
 ### Tabla de contenidos automática
 
@@ -268,9 +254,7 @@ format:
     toc: true
 ```
 
-**Interpretación**
-
-La tabla de contenidos mejora la navegación en documentos extensos.
+**Interpretación.** La tabla de contenidos mejora la navegación en documentos extensos.
 
 ### Numeración automática
 
@@ -280,9 +264,7 @@ La tabla de contenidos mejora la navegación en documentos extensos.
 number-sections: true
 ```
 
-**Interpretación**
-
-Las secciones se numeran automáticamente durante la compilación.
+**Interpretación.** Las secciones se numeran automáticamente durante la compilación.
 
 ## Referencias bibliográficas automáticas
 
@@ -299,9 +281,7 @@ csl: apa.csl
 Según @peng2011 la reproducibilidad constituye un principio fundamental de la ciencia moderna.
 ```
 
-**Interpretación**
-
-Las citas y referencias se generan automáticamente.
+**Interpretación.** Las citas y referencias se generan automáticamente.
 
 ## Flujo de publicación recomendado
 
@@ -351,9 +331,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Estos comandos permiten automatizar la generación de documentos. Durante la escritura conviene renderizar solo el capítulo o formato que se está verificando y reservar el render completo para puntos de control, auditorías y entregas finales.
+**Interpretación.** Estos comandos permiten automatizar la generación de documentos. Durante la escritura conviene renderizar solo el capítulo o formato que se está verificando y reservar el render completo para puntos de control, auditorías y entregas finales.
 
 ### Errores frecuentes
 
@@ -410,9 +388,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Antes de distribuir un documento deben verificarse únicamente los formatos exigidos por el destino editorial o institucional, además de revisar que tablas, figuras, referencias y resultados se hayan generado desde el código vigente.
+**Interpretación.** Antes de distribuir un documento deben verificarse únicamente los formatos exigidos por el destino editorial o institucional, además de revisar que tablas, figuras, referencias y resultados se hayan generado desde el código vigente.
 
 **Manos a la obra.**
 

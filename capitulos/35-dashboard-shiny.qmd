@@ -90,9 +90,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Un dashboard no debe ser una acumulación de gráficos. Debe organizar información útil para responder preguntas concretas.
+**Interpretación.** Un dashboard no debe ser una acumulación de gráficos. Debe organizar información útil para responder preguntas concretas.
 
 ## Preparación de indicadores
 
@@ -121,9 +119,7 @@ datos_dashboard |>
   )
 ```
 
-**Interpretación**
-
-Los indicadores permiten comparar rápidamente el comportamiento promedio de cada continente.
+**Interpretación.** Los indicadores permiten comparar rápidamente el comportamiento promedio de cada continente.
 
 ### Gráfico principal del dashboard
 
@@ -149,9 +145,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El gráfico muestra una relación positiva entre ingreso y esperanza de vida. La escala logarítmica facilita la lectura porque el PIB per cápita presenta alta dispersión.
+**Interpretación.** El gráfico muestra una relación positiva entre ingreso y esperanza de vida. La escala logarítmica facilita la lectura porque el PIB per cápita presenta alta dispersión.
 
 ### Serie temporal
 
@@ -184,9 +178,7 @@ datos_dashboard |>
   )
 ```
 
-**Interpretación**
-
-La serie temporal permite observar la evolución general de la esperanza de vida a lo largo del tiempo.
+**Interpretación.** La serie temporal permite observar la evolución general de la esperanza de vida a lo largo del tiempo.
 
 ### Tabla para exploración
 
@@ -210,9 +202,7 @@ datos_dashboard |>
   )
 ```
 
-**Interpretación**
-
-La tabla muestra la estructura mínima que podría incorporarse en un dashboard interactivo.
+**Interpretación.** La tabla muestra la estructura mínima que podría incorporarse en un dashboard interactivo.
 
 ## Estructura recomendada para un dashboard
 
@@ -252,9 +242,7 @@ ejemplos/dashboard-gapminder.qmd
 
 La plantilla contiene la configuración del runtime Shiny, la interfaz y el bloque de servidor. De esta forma, el libro conserva únicamente ejemplos estáticos y reproducibles, mientras que la aplicación interactiva se ejecuta como un producto separado.
 
-**Interpretación**
-
-Esta arquitectura evita mezclar dos procesos distintos: el render estático del libro y la ejecución de una aplicación con backend. También reduce dependencias innecesarias durante la compilación principal.
+**Interpretación.** Esta arquitectura evita mezclar dos procesos distintos: el render estático del libro y la ejecución de una aplicación con backend. También reduce dependencias innecesarias durante la compilación principal.
 
 ### ¿Por qué separar el dashboard del libro?
 
@@ -280,9 +268,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La separación evita errores de renderización y permite que cada producto cumpla su función.
+**Interpretación.** La separación evita errores de renderización y permite que cada producto cumpla su función.
 
 ## Publicación del dashboard
 

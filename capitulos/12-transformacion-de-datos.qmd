@@ -12,7 +12,7 @@ sunac <- leer_objeto_libro("sunac_limpio.rds")
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 

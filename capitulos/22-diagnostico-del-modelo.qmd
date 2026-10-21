@@ -12,7 +12,7 @@ base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar esta sección, el lector será capaz de:
 
@@ -116,9 +116,7 @@ glance(
   )
 ```
 
-**Interpretación**
-
-El modelo presenta una determinada capacidad explicativa y un error residual promedio que servirá como referencia para el diagnóstico posterior.
+**Interpretación.** El modelo presenta una determinada capacidad explicativa y un error residual promedio que servirá como referencia para el diagnóstico posterior.
 
 ### ¿Qué son los residuos?
 
@@ -174,9 +172,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La media de los residuos debería aproximarse a cero y la distribución debería ser relativamente simétrica.
+**Interpretación.** La media de los residuos debería aproximarse a cero y la distribución debería ser relativamente simétrica.
 
 ### Histograma de residuos
 
@@ -198,9 +194,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-El histograma permite identificar asimetrías, colas largas o valores extremos.
+**Interpretación.** El histograma permite identificar asimetrías, colas largas o valores extremos.
 
 ### Curva de densidad
 
@@ -221,9 +215,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-La densidad facilita la evaluación visual de la forma general de la distribución.
+**Interpretación.** La densidad facilita la evaluación visual de la forma general de la distribución.
 
 ## Evaluación de linealidad
 
@@ -253,9 +245,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Los residuos deberían dispersarse aleatoriamente alrededor de cero.
+**Interpretación.** Los residuos deberían dispersarse aleatoriamente alrededor de cero.
 
 Patrones curvos pueden sugerir problemas de linealidad.
 
@@ -283,9 +273,7 @@ qqline(
 )
 ```
 
-**Interpretación**
-
-Mientras más próximos se encuentren los puntos a la línea de referencia, más compatible será la distribución observada con una distribución normal.
+**Interpretación.** Mientras más próximos se encuentren los puntos a la línea de referencia, más compatible será la distribución observada con una distribución normal.
 
 **Evaluación de normalidad.**
 
@@ -320,9 +308,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Una dispersión relativamente uniforme es compatible con homoscedasticidad. La evaluación visual debe complementarse con el contexto y, cuando la inferencia lo requiera, con procedimientos robustos ante heterocedasticidad.
+**Interpretación.** Una dispersión relativamente uniforme es compatible con homoscedasticidad. La evaluación visual debe complementarse con el contexto y, cuando la inferencia lo requiera, con procedimientos robustos ante heterocedasticidad.
 
 ### Resumen de supuestos evaluados
 
@@ -346,9 +332,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Estas herramientas constituyen la base del diagnóstico de cualquier modelo lineal.
+**Interpretación.** Estas herramientas constituyen la base del diagnóstico de cualquier modelo lineal.
 
 **Conclusión práctica.**
 
@@ -504,9 +488,7 @@ vif_tabla |>
   )
 ```
 
-**Interpretación**
-
-Los valores de VIF deben interpretarse como indicadores continuos de inflación de la varianza. Umbrales como 5 o 10 pueden utilizarse como referencias pedagógicas, pero no constituyen reglas universales para conservar o eliminar predictores. La decisión debe considerar el diseño, la teoría y la estabilidad de los coeficientes.
+**Interpretación.** Los valores de VIF deben interpretarse como indicadores continuos de inflación de la varianza. Umbrales como 5 o 10 pueden utilizarse como referencias pedagógicas, pero no constituyen reglas universales para conservar o eliminar predictores. La decisión debe considerar el diseño, la teoría y la estabilidad de los coeficientes.
 
 ### Visualización de VIF
 
@@ -545,9 +527,7 @@ vif_tabla |>
   )
 ```
 
-**Interpretación**
-
-El gráfico facilita identificar qué variables presentan mayores niveles de colinealidad.
+**Interpretación.** El gráfico facilita identificar qué variables presentan mayores niveles de colinealidad.
 
 ## ¿Qué es una observación influyente?
 
@@ -597,9 +577,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Valores elevados sugieren observaciones que merecen revisión adicional.
+**Interpretación.** Valores elevados sugieren observaciones que merecen revisión adicional.
 
 **Observaciones más influyentes.**
 
@@ -628,9 +606,7 @@ base_modelo |>
   )
 ```
 
-**Interpretación**
-
-Estas observaciones son candidatas para una revisión detallada.
+**Interpretación.** Estas observaciones son candidatas para una revisión detallada.
 
 **Visualización de Distancia de Cook.**
 
@@ -659,9 +635,7 @@ base_modelo |>
   )
 ```
 
-**Interpretación**
-
-El gráfico permite identificar observaciones que destacan respecto al resto de la muestra.
+**Interpretación.** El gráfico permite identificar observaciones que destacan respecto al resto de la muestra.
 
 ### ¿Qué es el leverage?
 
@@ -709,9 +683,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Valores elevados indican observaciones ubicadas en zonas poco representadas del espacio explicativo.
+**Interpretación.** Valores elevados indican observaciones ubicadas en zonas poco representadas del espacio explicativo.
 
 **Visualización de leverage.**
 
@@ -740,9 +712,7 @@ base_modelo |>
   )
 ```
 
-**Interpretación**
-
-Las observaciones con leverage elevado pueden influir considerablemente en la posición de la recta de regresión.
+**Interpretación.** Las observaciones con leverage elevado pueden influir considerablemente en la posición de la recta de regresión.
 
 ### Influencia versus leverage
 
@@ -778,9 +748,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Cada herramienta responde a una pregunta distinta sobre la calidad del modelo.
+**Interpretación.** Cada herramienta responde a una pregunta distinta sobre la calidad del modelo.
 
 **Conclusión práctica.**
 
@@ -942,9 +910,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Esta tabla resume el desempeño general del modelo antes de analizar individualmente cada supuesto.
+**Interpretación.** Esta tabla resume el desempeño general del modelo antes de analizar individualmente cada supuesto.
 
 **Panel básico de diagnóstico.**
 
@@ -971,9 +937,7 @@ par(
 )
 ```
 
-**Interpretación**
-
-Este panel reúne cuatro gráficos clásicos utilizados en diagnóstico de regresión:
+**Interpretación.** Este panel reúne cuatro gráficos clásicos utilizados en diagnóstico de regresión:
 
 - Residuos versus ajustados.
 - Gráfico Q-Q.
@@ -1015,9 +979,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La media de los residuos debería aproximarse a cero y no deberían existir valores extremos excesivamente dominantes.
+**Interpretación.** La media de los residuos debería aproximarse a cero y no deberían existir valores extremos excesivamente dominantes.
 
 **Evaluación integrada de influencia.**
 
@@ -1044,9 +1006,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Estos valores permiten identificar si existen observaciones que podrían afectar desproporcionadamente los resultados.
+**Interpretación.** Estos valores permiten identificar si existen observaciones que podrían afectar desproporcionadamente los resultados.
 
 **Identificación automática de casos a revisar.**
 
@@ -1080,9 +1040,7 @@ base_modelo |>
   )
 ```
 
-**Interpretación**
-
-La presencia de observaciones en esta tabla no implica necesariamente errores. Indica únicamente que merecen una inspección adicional.
+**Interpretación.** La presencia de observaciones en esta tabla no implica necesariamente errores. Indica únicamente que merecen una inspección adicional.
 
 **Diagnóstico de multicolinealidad.**
 
@@ -1124,9 +1082,7 @@ vif_tabla_final |>
   )
 ```
 
-**Interpretación**
-
-Valores reducidos de VIF sugieren menor inflación de la varianza asociada a colinealidad, pero no prueban que la especificación sea correcta ni que cada predictor aporte información sustantivamente relevante.
+**Interpretación.** Valores reducidos de VIF sugieren menor inflación de la varianza asociada a colinealidad, pero no prueban que la especificación sea correcta ni que cada predictor aporte información sustantivamente relevante.
 
 ### Lista de verificación del modelo
 
@@ -1156,9 +1112,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Esta lista resume el procedimiento básico que debe seguirse antes de interpretar o reportar una regresión.
+**Interpretación.** Esta lista resume el procedimiento básico que debe seguirse antes de interpretar o reportar una regresión.
 
 **Problemas frecuentes y posibles soluciones.**
 
@@ -1186,9 +1140,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El objetivo del diagnóstico no es descartar automáticamente un modelo, sino identificar posibles limitaciones y documentarlas adecuadamente, con la finalidad de obtener estimadores robustos.
+**Interpretación.** El objetivo del diagnóstico no es descartar automáticamente un modelo, sino identificar posibles limitaciones y documentarlas adecuadamente, con la finalidad de obtener estimadores robustos.
 
 ### Flujo recomendado de validación
 
@@ -1211,9 +1163,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Este flujo resume una secuencia práctica para validar modelos de regresión lineal.
+**Interpretación.** Este flujo resume una secuencia práctica para validar modelos de regresión lineal.
 
 **Aplicación práctica.**
 

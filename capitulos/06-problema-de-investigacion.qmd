@@ -1,6 +1,6 @@
 # Del problema de investigación a la pregunta de investigación
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 

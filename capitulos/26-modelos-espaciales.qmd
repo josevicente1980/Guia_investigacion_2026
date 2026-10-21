@@ -11,7 +11,7 @@ cargar_paquetes_libro("comunicacion", extra = c("sf", "spdep", "spatialreg", "sp
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar esta sección, el lector será capaz de:
 
@@ -111,9 +111,7 @@ glimpse(
 )
 ```
 
-**Interpretación**
-
-Cada observación corresponde a un área geográfica de la ciudad de Columbus.
+**Interpretación.** Cada observación corresponde a un área geográfica de la ciudad de Columbus.
 
 **Visualización espacial.**
 
@@ -128,9 +126,7 @@ plot(
 )
 ```
 
-**Interpretación**
-
-Cada polígono representa una unidad espacial.
+**Interpretación.** Cada polígono representa una unidad espacial.
 
 ### Construcción de vecinos
 
@@ -162,9 +158,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Cada área posee un conjunto de vecinos espaciales que influirá en el análisis.
+**Interpretación.** Cada área posee un conjunto de vecinos espaciales que influirá en el análisis.
 
 ### Matriz de pesos espaciales
 
@@ -191,9 +185,7 @@ spdep::moran.test(
 )
 ```
 
-**Interpretación**
-
-Hipótesis nula:
+**Interpretación.** Hipótesis nula:
 
 ```text
 No existe autocorrelación espacial.
@@ -213,9 +205,7 @@ spdep::moran.plot(
 )
 ```
 
-**Interpretación**
-
-La pendiente refleja el grado de autocorrelación espacial.
+**Interpretación.** La pendiente refleja el grado de autocorrelación espacial.
 
 ## Modelo SAR
 
@@ -258,9 +248,7 @@ broom::tidy(
   )
 ```
 
-**Interpretación**
-
-En un modelo SAR, los coeficientes no deben interpretarse de forma idéntica a una regresión lineal convencional porque la retroalimentación espacial genera impactos directos e indirectos. El parámetro espacial resume la dependencia asociada al rezago de la variable dependiente.
+**Interpretación.** En un modelo SAR, los coeficientes no deben interpretarse de forma idéntica a una regresión lineal convencional porque la retroalimentación espacial genera impactos directos e indirectos. El parámetro espacial resume la dependencia asociada al rezago de la variable dependiente.
 
 **Conclusión práctica.**
 
@@ -344,9 +332,7 @@ glimpse(
 )
 ```
 
-**Interpretación**
-
-Cada observación corresponde a un estudiante.
+**Interpretación.** Cada observación corresponde a un estudiante.
 
 Los estudiantes están agrupados dentro de escuelas.
 
@@ -401,9 +387,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Existen diferencias importantes entre escuelas.
+**Interpretación.** Existen diferencias importantes entre escuelas.
 
 Esto sugiere la presencia de variabilidad grupal.
 
@@ -446,9 +430,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-El puntaje de ingreso (`standLRT`) presenta una asociación positiva con el rendimiento académico.
+**Interpretación.** El puntaje de ingreso (`standLRT`) presenta una asociación positiva con el rendimiento académico.
 
 ### Modelo multinivel básico
 
@@ -492,9 +474,7 @@ tidy(
   )
 ```
 
-**Interpretación**
-
-El coeficiente de `standLRT` resume la asociación promedio entre el puntaje de ingreso y el rendimiento académico, condicionada a la estructura multinivel especificada.
+**Interpretación.** El coeficiente de `standLRT` resume la asociación promedio entre el puntaje de ingreso y el rendimiento académico, condicionada a la estructura multinivel especificada.
 
 ### Componentes de varianza
 
@@ -521,9 +501,7 @@ as.data.frame(
   )
 ```
 
-**Interpretación**
-
-La varianza asociada a las escuelas indica cuánto difieren los interceptos entre instituciones.
+**Interpretación.** La varianza asociada a las escuelas indica cuánto difieren los interceptos entre instituciones.
 
 ### Efectos aleatorios
 
@@ -546,9 +524,7 @@ lme4::ranef(
   )
 ```
 
-**Interpretación**
-
-Cada escuela presenta una desviación específica respecto al promedio general.
+**Interpretación.** Cada escuela presenta una desviación específica respecto al promedio general.
 
 **Visualización de efectos aleatorios.**
 
@@ -580,9 +556,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Las escuelas con valores positivos presentan interceptos condicionales estimados por encima del intercepto promedio del modelo. Esta diferencia no debe interpretarse automáticamente como un efecto causal de la escuela.
+**Interpretación.** Las escuelas con valores positivos presentan interceptos condicionales estimados por encima del intercepto promedio del modelo. Esta diferencia no debe interpretarse automáticamente como un efecto causal de la escuela.
 
 ### Comparación de modelos
 
@@ -605,9 +579,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Entre modelos estimados sobre la misma respuesta y muestra, un AIC menor indica mejor compromiso relativo entre ajuste y complejidad dentro del conjunto comparado; no demuestra que el modelo sea verdadero ni sustantivamente adecuado.
+**Interpretación.** Entre modelos estimados sobre la misma respuesta y muestra, un AIC menor indica mejor compromiso relativo entre ajuste y complejidad dentro del conjunto comparado; no demuestra que el modelo sea verdadero ni sustantivamente adecuado.
 
 ### ¿Cuándo utilizar modelos multinivel?
 
@@ -739,9 +711,7 @@ glimpse(
 )
 ```
 
-**Interpretación**
-
-La base contiene una variable de producción (`output`) y dos insumos productivos (`capital` y `labour`). Además, incluye componentes simulados de error e ineficiencia para fines pedagógicos.
+**Interpretación.** La base contiene una variable de producción (`output`) y dos insumos productivos (`capital` y `labour`). Además, incluye componentes simulados de error e ineficiencia para fines pedagógicos.
 
 **Resumen descriptivo.**
 
@@ -761,9 +731,7 @@ datos_sfa |>
   )
 ```
 
-**Interpretación**
-
-El resumen permite verificar que existe variabilidad suficiente en producción, capital y trabajo para estimar una función de producción.
+**Interpretación.** El resumen permite verificar que existe variabilidad suficiente en producción, capital y trabajo para estimar una función de producción.
 
 **Relación entre capital y producción.**
 
@@ -794,9 +762,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El gráfico muestra una asociación positiva entre capital y producción. Esta relación es consistente con la lógica de una función de producción.
+**Interpretación.** El gráfico muestra una asociación positiva entre capital y producción. Esta relación es consistente con la lógica de una función de producción.
 
 ### Función de producción convencional
 
@@ -840,9 +806,7 @@ broom::tidy(
   )
 ```
 
-**Interpretación**
-
-Los coeficientes representan elasticidades de producción. Un coeficiente positivo indica que aumentos en el insumo se asocian con aumentos en la producción.
+**Interpretación.** Los coeficientes representan elasticidades de producción. Un coeficiente positivo indica que aumentos en el insumo se asocian con aumentos en la producción.
 
 ### Estimación de frontera estocástica
 
@@ -869,9 +833,7 @@ summary(
 )
 ```
 
-**Interpretación**
-
-El modelo estima una frontera de producción. Los coeficientes de capital y trabajo indican cómo se relacionan los insumos con la producción potencial. Los parámetros adicionales permiten estimar la descomposición entre ruido estadístico e ineficiencia técnica bajo los supuestos de la especificación.
+**Interpretación.** El modelo estima una frontera de producción. Los coeficientes de capital y trabajo indican cómo se relacionan los insumos con la producción potencial. Los parámetros adicionales permiten estimar la descomposición entre ruido estadístico e ineficiencia técnica bajo los supuestos de la especificación.
 
 ### Eficiencia técnica estimada
 
@@ -910,9 +872,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La eficiencia técnica estimada toma valores entre 0 y 1 dentro de esta especificación. Valores cercanos a 1 indican unidades más próximas a la frontera estimada, pero las magnitudes dependen de la forma funcional y de los supuestos distributivos del modelo.
+**Interpretación.** La eficiencia técnica estimada toma valores entre 0 y 1 dentro de esta especificación. Valores cercanos a 1 indican unidades más próximas a la frontera estimada, pero las magnitudes dependen de la forma funcional y de los supuestos distributivos del modelo.
 
 **Distribución de eficiencia.**
 
@@ -942,9 +902,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-El histograma permite identificar si la mayoría de unidades se encuentran cerca o lejos de la frontera eficiente.
+**Interpretación.** El histograma permite identificar si la mayoría de unidades se encuentran cerca o lejos de la frontera eficiente.
 
 **Ranking de eficiencia.**
 
@@ -973,9 +931,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Las unidades ubicadas en los primeros lugares presentan los mayores niveles de eficiencia técnica estimada.
+**Interpretación.** Las unidades ubicadas en los primeros lugares presentan los mayores niveles de eficiencia técnica estimada.
 
 ### Comparación entre regresión y frontera estocástica
 
@@ -1001,9 +957,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-La regresión convencional estima una relación promedio. La frontera estocástica permite evaluar qué tan cerca se encuentra cada unidad de su producción potencial.
+**Interpretación.** La regresión convencional estima una relación promedio. La frontera estocástica permite evaluar qué tan cerca se encuentra cada unidad de su producción potencial.
 
 ## Comparación de modelos avanzados
 
@@ -1027,9 +981,7 @@ tibble(
   )
 ```
 
-**Interpretación**
-
-Cada familia de modelos responde a una necesidad metodológica distinta. La elección depende del problema empírico.
+**Interpretación.** Cada familia de modelos responde a una necesidad metodológica distinta. La elección depende del problema empírico.
 
 ### ¿Cuándo utilizar frontera estocástica?
 

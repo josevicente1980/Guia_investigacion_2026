@@ -1,6 +1,6 @@
 # La ciencia abierta como ecosistema de investigación
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 

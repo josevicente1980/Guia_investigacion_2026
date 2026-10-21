@@ -12,7 +12,7 @@ base_analitica <- leer_objeto_libro("sunac_transformado.rds")
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 
@@ -70,7 +70,7 @@ base_analitica <- readRDS(
 Antes de construir gráficos conviene verificar la estructura de la información disponible.
 
 ```{r}
-#| label: tbl-ch16-estructura-base
+#| label: ch16-estructura-base
 
 base_analitica |>
   mutate(
@@ -82,9 +82,7 @@ base_analitica |>
   glimpse()
 ```
 
-**Interpretación**
-
-La base analítica contiene las variables seleccionadas y transformadas durante el proceso de preparación de datos. A partir de este punto utilizaremos esta estructura para desarrollar diferentes visualizaciones estadísticas.
+**Interpretación.** La base analítica contiene las variables seleccionadas y transformadas durante el proceso de preparación de datos. A partir de este punto utilizaremos esta estructura para desarrollar diferentes visualizaciones estadísticas.
 
 ### Preparando una variable transformada
 
@@ -169,9 +167,7 @@ data.frame(
   )
 ```
 
-**Interpretación**
-
-La variable original presenta una diferencia muy amplia entre la mediana y el valor máximo. La transformación logarítmica reduce la escala de los valores extremos y permite visualizar mejor la distribución general de la superficie.
+**Interpretación.** La variable original presenta una diferencia muy amplia entre la mediana y el valor máximo. La transformación logarítmica reduce la escala de los valores extremos y permite visualizar mejor la distribución general de la superficie.
 
 ### ¿Por qué visualizar datos?
 
@@ -255,9 +251,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La transformación logarítmica permite observar una distribución mucho más informativa. En lugar de concentrar casi todas las observaciones en el extremo izquierdo, el gráfico muestra con mayor claridad cómo se distribuyen las unidades productivas.
+**Interpretación.** La transformación logarítmica permite observar una distribución mucho más informativa. En lugar de concentrar casi todas las observaciones en el extremo izquierdo, el gráfico muestra con mayor claridad cómo se distribuyen las unidades productivas.
 
 ### Curvas de densidad
 
@@ -284,9 +278,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La densidad suavizada muestra la forma general de la distribución transformada y facilita la identificación de concentraciones de observaciones.
+**Interpretación.** La densidad suavizada muestra la forma general de la distribución transformada y facilita la identificación de concentraciones de observaciones.
 
 **Histograma y densidad combinados.**
 
@@ -320,9 +312,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La combinación del histograma y la curva de densidad permite comparar las frecuencias observadas con la forma suavizada de la distribución.
+**Interpretación.** La combinación del histograma y la curva de densidad permite comparar las frecuencias observadas con la forma suavizada de la distribución.
 
 ### Variables categóricas
 
@@ -351,9 +341,7 @@ base_analitica |>
   )
 ```
 
-**Interpretación**
-
-La tabla resume la cantidad de observaciones registradas en cada categoría de tamaño.
+**Interpretación.** La tabla resume la cantidad de observaciones registradas en cada categoría de tamaño.
 
 ### Gráficos de barras
 
@@ -379,9 +367,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La altura de cada barra representa el número de observaciones registradas en cada categoría.
+**Interpretación.** La altura de cada barra representa el número de observaciones registradas en cada categoría.
 
 **Comparaciones territoriales.**
 
@@ -408,9 +394,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El gráfico permite identificar diferencias en la representación de observaciones entre provincias.
+**Interpretación.** El gráfico permite identificar diferencias en la representación de observaciones entre provincias.
 
 ### Diagramas de caja
 
@@ -437,9 +421,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Las diferencias observadas entre las cajas sugieren que las categorías de tamaño presentan comportamientos distintos en términos de superficie total.
+**Interpretación.** Las diferencias observadas entre las cajas sugieren que las categorías de tamaño presentan comportamientos distintos en términos de superficie total.
 
 **Comparación provincial de la superficie.**
 
@@ -463,9 +445,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La transformación logarítmica permite comparar provincias sin que los valores extremadamente altos oculten la estructura principal de la distribución.
+**Interpretación.** La transformación logarítmica permite comparar provincias sin que los valores extremadamente altos oculten la estructura principal de la distribución.
 
 ## Relaciones y comparación multivariada
 
@@ -517,9 +497,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Cada punto representa una observación de la base analítica. El gráfico permite explorar si existe algún patrón visual entre la superficie total transformada y el factor de expansión.
+**Interpretación.** Cada punto representa una observación de la base analítica. El gráfico permite explorar si existe algún patrón visual entre la superficie total transformada y el factor de expansión.
 
 ### Línea de tendencia
 
@@ -550,9 +528,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La línea de tendencia permite observar la dirección general de la relación. Esta visualización no debe interpretarse como evidencia causal, sino como una primera exploración descriptiva.
+**Interpretación.** La línea de tendencia permite observar la dirección general de la relación. Esta visualización no debe interpretarse como evidencia causal, sino como una primera exploración descriptiva.
 
 ### Incorporando una tercera variable
 
@@ -583,9 +559,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El color permite identificar si las categorías de tamaño presentan patrones diferenciados dentro de la relación entre superficie y factor de expansión.
+**Interpretación.** El color permite identificar si las categorías de tamaño presentan patrones diferenciados dentro de la relación entre superficie y factor de expansión.
 
 **Gráficos de burbujas.**
 
@@ -616,9 +590,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El gráfico representa simultáneamente la superficie transformada, el factor de expansión, el tamaño del punto y la categoría de tamaño de UPA. Aunque este tipo de gráfico puede ser visualmente atractivo, debe usarse con cuidado para no sobrecargar la interpretación.
+**Interpretación.** El gráfico representa simultáneamente la superficie transformada, el factor de expansión, el tamaño del punto y la categoría de tamaño de UPA. Aunque este tipo de gráfico puede ser visualmente atractivo, debe usarse con cuidado para no sobrecargar la interpretación.
 
 ### Facetas
 
@@ -653,9 +625,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Cada panel muestra la distribución de la superficie transformada dentro de una categoría específica de tamaño de UPA.
+**Interpretación.** Cada panel muestra la distribución de la superficie transformada dentro de una categoría específica de tamaño de UPA.
 
 **Histograma por provincia.**
 
@@ -684,9 +654,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La división por provincia permite comparar visualmente la distribución territorial de la superficie transformada. Esta visualización ayuda a detectar provincias con patrones más concentrados o dispersos.
+**Interpretación.** La división por provincia permite comparar visualmente la distribución territorial de la superficie transformada. Esta visualización ayuda a detectar provincias con patrones más concentrados o dispersos.
 
 ### Mapas de calor
 
@@ -720,9 +688,7 @@ head(
   )
 ```
 
-**Interpretación**
-
-La tabla resume el número de observaciones para cada combinación entre provincia y tamaño de UPA.
+**Interpretación.** La tabla resume el número de observaciones para cada combinación entre provincia y tamaño de UPA.
 
 **Mapa de calor.**
 
@@ -747,9 +713,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Las celdas con mayor intensidad representan combinaciones con mayor cantidad de observaciones. Esta visualización permite identificar patrones estructurales entre provincia y tamaño de UPA.
+**Interpretación.** Las celdas con mayor intensidad representan combinaciones con mayor cantidad de observaciones. Esta visualización permite identificar patrones estructurales entre provincia y tamaño de UPA.
 
 **Tabla de correlación.**
 
@@ -779,9 +743,7 @@ base_analitica |>
   )
 ```
 
-**Interpretación**
-
-La matriz de correlación muestra la dirección y fuerza de la asociación lineal entre las variables numéricas seleccionadas.
+**Interpretación.** La matriz de correlación muestra la dirección y fuerza de la asociación lineal entre las variables numéricas seleccionadas.
 
 **Visualización simple de correlación.**
 
@@ -811,9 +773,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-El gráfico complementa la tabla de correlación al permitir observar visualmente la dispersión de los datos y la tendencia promedio.
+**Interpretación.** El gráfico complementa la tabla de correlación al permitir observar visualmente la dispersión de los datos y la tendencia promedio.
 
 **Buenas prácticas para visualizaciones multivariadas.**
 
@@ -887,9 +847,7 @@ ecuador_sf |>
   )
 ```
 
-**Interpretación**
-
-El objeto `ecuador_sf` contiene una columna especial llamada `geom`. Esa columna almacena la geometría del territorio. Sin esa columna tendríamos una tabla tradicional; con ella tenemos un objeto espacial.
+**Interpretación.** El objeto `ecuador_sf` contiene una columna especial llamada `geom`. Esa columna almacena la geometría del territorio. Sin esa columna tendríamos una tabla tradicional; con ella tenemos un objeto espacial.
 
 **Visualizando la geometría pura.**
 
@@ -911,9 +869,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Este mapa muestra la geometría básica del Ecuador. Es una representación simple, pero suficiente para introducir la lógica de los datos espaciales.
+**Interpretación.** Este mapa muestra la geometría básica del Ecuador. Es una representación simple, pero suficiente para introducir la lógica de los datos espaciales.
 
 ### Fase 2: el sistema de coordenadas
 
@@ -935,9 +891,7 @@ data.frame(
   )
 ```
 
-**Interpretación**
-
-El sistema EPSG:4326 expresa la ubicación mediante longitud y latitud. Es apropiado para representar puntos en un mapa, aunque para medir distancias o construir áreas de influencia se recomienda transformar los datos a un sistema proyectado.
+**Interpretación.** El sistema EPSG:4326 expresa la ubicación mediante longitud y latitud. Es apropiado para representar puntos en un mapa, aunque para medir distancias o construir áreas de influencia se recomienda transformar los datos a un sistema proyectado.
 
 ### Fase 3: creación de puntos geográficos
 
@@ -979,9 +933,7 @@ ciudades_df |>
   )
 ```
 
-**Interpretación**
-
-La tabla contiene nombres de ciudades y sus coordenadas aproximadas. Todavía no es un objeto espacial, pero contiene la información necesaria para convertirse en uno.
+**Interpretación.** La tabla contiene nombres de ciudades y sus coordenadas aproximadas. Todavía no es un objeto espacial, pero contiene la información necesaria para convertirse en uno.
 
 **Conversión de tabla a objeto espacial.**
 
@@ -1008,9 +960,7 @@ ciudades_sf |>
   )
 ```
 
-**Interpretación**
-
-La columna de coordenadas se convierte en geometría. Ahora `ciudades_sf` puede representarse sobre el mapa del Ecuador.
+**Interpretación.** La columna de coordenadas se convierte en geometría. Ahora `ciudades_sf` puede representarse sobre el mapa del Ecuador.
 
 **Verificando compatibilidad espacial.**
 
@@ -1036,9 +986,7 @@ data.frame(
   )
 ```
 
-**Interpretación**
-
-Ambas capas se encuentran en el mismo sistema de coordenadas. Esto permite superponerlas correctamente.
+**Interpretación.** Ambas capas se encuentran en el mismo sistema de coordenadas. Esto permite superponerlas correctamente.
 
 ### Fase 4: mapa estático con puntos
 
@@ -1075,9 +1023,7 @@ mapa_ciudades <- ggplot() +
 mapa_ciudades
 ```
 
-**Interpretación**
-
-El mapa muestra varias ciudades ubicadas sobre el territorio ecuatoriano. Este tipo de visualización permite representar información puntual, como sedes, mercados, estaciones, encuestas o proyectos.
+**Interpretación.** El mapa muestra varias ciudades ubicadas sobre el territorio ecuatoriano. Este tipo de visualización permite representar información puntual, como sedes, mercados, estaciones, encuestas o proyectos.
 
 **Fase 5: el centro de gravedad territorial.**
 
@@ -1111,9 +1057,7 @@ ggplot() +
   theme_void()
 ```
 
-**Interpretación**
-
-El punto dorado representa el centroide geométrico aproximado del Ecuador. Esta idea será útil más adelante para ubicar etiquetas o símbolos en mapas.
+**Interpretación.** El punto dorado representa el centroide geométrico aproximado del Ecuador. Esta idea será útil más adelante para ubicar etiquetas o símbolos en mapas.
 
 **Fase 6: análisis de proximidad mediante buffers.**
 
@@ -1166,9 +1110,7 @@ mapa_buffer <- ggplot() +
 mapa_buffer
 ```
 
-**Interpretación**
-
-Los círculos representan áreas de influencia aproximadas de 50 kilómetros alrededor de cada ciudad. Esta técnica puede utilizarse para analizar cobertura territorial, accesibilidad o cercanía a servicios.
+**Interpretación.** Los círculos representan áreas de influencia aproximadas de 50 kilómetros alrededor de cada ciudad. Esta técnica puede utilizarse para analizar cobertura territorial, accesibilidad o cercanía a servicios.
 
 **Fase 7: indicadores provinciales sin polígonos provinciales.**
 
@@ -1205,9 +1147,7 @@ indicadores_provincia |>
   )
 ```
 
-**Interpretación**
-
-La tabla resume la superficie promedio ponderada por provincia. Este indicador será representado mediante puntos sobre el mapa.
+**Interpretación.** La tabla resume la superficie promedio ponderada por provincia. Este indicador será representado mediante puntos sobre el mapa.
 
 **Coordenadas aproximadas de provincias.**
 
@@ -1302,9 +1242,7 @@ coords_provincia |>
   )
 ```
 
-**Interpretación**
-
-Estas coordenadas no sustituyen una cartografía oficial, pero son útiles para construir un ejemplo didáctico estable y reproducible.
+**Interpretación.** Estas coordenadas no sustituyen una cartografía oficial, pero son útiles para construir un ejemplo didáctico estable y reproducible.
 
 **Unión entre indicadores y coordenadas.**
 
@@ -1366,9 +1304,7 @@ mapa_provincial_puntos |>
   )
 ```
 
-**Interpretación**
-
-La base resultante combina coordenadas aproximadas con indicadores provinciales. Esto permite representar información estadística en el mapa.
+**Interpretación.** La base resultante combina coordenadas aproximadas con indicadores provinciales. Esto permite representar información estadística en el mapa.
 
 **Mapa provincial de puntos.**
 
@@ -1403,9 +1339,7 @@ mapa_provincial <- ggplot() +
 mapa_provincial
 ```
 
-**Interpretación**
-
-El tamaño de cada punto representa la superficie promedio ponderada de la provincia. Esta visualización permite comparar territorios sin requerir polígonos provinciales.
+**Interpretación.** El tamaño de cada punto representa la superficie promedio ponderada de la provincia. Esta visualización permite comparar territorios sin requerir polígonos provinciales.
 
 **Mapa provincial con etiquetas.**
 
@@ -1451,9 +1385,7 @@ mapa_provincial_etiquetas <- ggplot() +
 mapa_provincial_etiquetas
 ```
 
-**Interpretación**
-
-Las etiquetas ayudan a reconocer las provincias representadas. Cuando existen demasiadas etiquetas, es recomendable usarlas con moderación para no saturar el mapa.
+**Interpretación.** Las etiquetas ayudan a reconocer las provincias representadas. Cuando existen demasiadas etiquetas, es recomendable usarlas con moderación para no saturar el mapa.
 
 ### Fase 8: mapa dinámico con leaflet
 
@@ -1513,9 +1445,7 @@ if (
 }
 ```
 
-**Interpretación**
-
-En HTML, el mapa permite explorar cada provincia mediante ventanas emergentes. En Word y PDF se mantiene la versión estática, garantizando que el capítulo se renderice correctamente.
+**Interpretación.** En HTML, el mapa permite explorar cada provincia mediante ventanas emergentes. En Word y PDF se mantiene la versión estática, garantizando que el capítulo se renderice correctamente.
 
 **Mapa dinámico con capas.**
 
@@ -1590,9 +1520,7 @@ if (
 }
 ```
 
-**Interpretación**
-
-El mapa dinámico con capas permite activar o desactivar información. Esta lógica es muy útil en tableros de control, informes digitales y plataformas de visualización territorial.
+**Interpretación.** El mapa dinámico con capas permite activar o desactivar información. Esta lógica es muy útil en tableros de control, informes digitales y plataformas de visualización territorial.
 
 **¿Mapa estático o mapa dinámico?.**
 

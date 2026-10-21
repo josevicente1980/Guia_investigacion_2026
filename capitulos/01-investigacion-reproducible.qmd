@@ -1,6 +1,6 @@
 # Investigación reproducible: construyendo confianza en la ciencia
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Una vez comprendido cómo está organizada esta obra, es momento de abordar el concepto que articula todo el libro: la investigación reproducible.
 

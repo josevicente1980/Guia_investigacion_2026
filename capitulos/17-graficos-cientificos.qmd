@@ -12,7 +12,7 @@ base_analitica <- leer_objeto_libro("sunac_transformado.rds")
 ```
 
 
-## Objetivos de aprendizaje {.unnumbered}
+## Objetivos de aprendizaje
 
 Al finalizar este capítulo, el lector será capaz de:
 
@@ -130,9 +130,7 @@ comparacion_graficos |>
   )
 ```
 
-**Interpretación**
-
-Los gráficos científicos no sustituyen al análisis exploratorio. Ambos cumplen funciones complementarias dentro del proceso de investigación.
+**Interpretación.** Los gráficos científicos no sustituyen al análisis exploratorio. Ambos cumplen funciones complementarias dentro del proceso de investigación.
 
 ### El principio de la tinta de datos
 
@@ -165,9 +163,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Aunque el gráfico comunica la distribución de la variable, todavía puede mejorarse desde el punto de vista científico.
+**Interpretación.** Aunque el gráfico comunica la distribución de la variable, todavía puede mejorarse desde el punto de vista científico.
 
 ### Mejorando la presentación
 
@@ -193,9 +189,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La versión mejorada reduce el ruido visual y facilita la lectura del gráfico.
+**Interpretación.** La versión mejorada reduce el ruido visual y facilita la lectura del gráfico.
 
 ### Temas en ggplot2
 
@@ -229,9 +223,7 @@ temas_ggplot |>
   )
 ```
 
-**Interpretación**
-
-No existe un único tema correcto. La elección depende del contexto de publicación y de los requisitos editoriales.
+**Interpretación.** No existe un único tema correcto. La elección depende del contexto de publicación y de los requisitos editoriales.
 
 **Comparación de temas.**
 
@@ -273,9 +265,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-Ambos gráficos contienen exactamente la misma información. La diferencia radica únicamente en la forma de presentación.
+**Interpretación.** Ambos gráficos contienen exactamente la misma información. La diferencia radica únicamente en la forma de presentación.
 
 ## Diseño, color y legibilidad
 
@@ -324,9 +314,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La paleta mantiene contraste adecuado entre categorías y conserva una apariencia profesional.
+**Interpretación.** La paleta mantiene contraste adecuado entre categorías y conserva una apariencia profesional.
 
 ### Evitando gráficos engañosos
 
@@ -375,9 +363,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-El gráfico exagera visualmente una diferencia relativamente pequeña. Este tipo de prácticas debe evitarse en publicaciones científicas.
+**Interpretación.** El gráfico exagera visualmente una diferencia relativamente pequeña. Este tipo de prácticas debe evitarse en publicaciones científicas.
 
 **Ejemplo corregido.**
 
@@ -398,9 +384,7 @@ ggplot(
   theme_minimal()
 ```
 
-**Interpretación**
-
-La representación correcta permite apreciar la verdadera magnitud de la diferencia observada.
+**Interpretación.** La representación correcta permite apreciar la verdadera magnitud de la diferencia observada.
 
 ### Construyendo un estilo gráfico reproducible
 
@@ -451,9 +435,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La estandarización visual mejora la consistencia entre figuras y facilita la comunicación de resultados.
+**Interpretación.** La estandarización visual mejora la consistencia entre figuras y facilita la comunicación de resultados.
 
 ### Recomendaciones para publicaciones científicas
 
@@ -520,9 +502,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La transformación logarítmica mejora significativamente la capacidad de visualizar la distribución de la superficie agrícola, reduciendo la influencia de observaciones extremadamente grandes.
+**Interpretación.** La transformación logarítmica mejora significativamente la capacidad de visualizar la distribución de la superficie agrícola, reduciendo la influencia de observaciones extremadamente grandes.
 
 **Histograma con densidad.**
 
@@ -557,9 +537,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La curva de densidad permite identificar de forma más clara la forma general de la distribución y posibles concentraciones de observaciones.
+**Interpretación.** La curva de densidad permite identificar de forma más clara la forma general de la distribución y posibles concentraciones de observaciones.
 
 ### Comparaciones mediante diagramas de caja
 
@@ -589,9 +567,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Las diferencias observadas entre cajas sugieren heterogeneidad en la distribución de la superficie según el tamaño de la unidad productiva.
+**Interpretación.** Las diferencias observadas entre cajas sugieren heterogeneidad en la distribución de la superficie según el tamaño de la unidad productiva.
 
 **Gráficos de violín.**
 
@@ -620,9 +596,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La anchura de cada violín representa la concentración relativa de observaciones en distintos niveles de la variable.
+**Interpretación.** La anchura de cada violín representa la concentración relativa de observaciones en distintos niveles de la variable.
 
 ### Barras con intervalos de confianza
 
@@ -666,9 +640,7 @@ resumen_tamano |>
   )
 ```
 
-**Interpretación**
-
-La tabla resume medias, errores estándar e intervalos de confianza aproximados para cada categoría.
+**Interpretación.** La tabla resume medias, errores estándar e intervalos de confianza aproximados para cada categoría.
 
 **Barras con intervalos.**
 
@@ -700,9 +672,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Los intervalos de confianza proporcionan información sobre la incertidumbre asociada a las estimaciones promedio.
+**Interpretación.** Los intervalos de confianza proporcionan información sobre la incertidumbre asociada a las estimaciones promedio.
 
 ### Gráficos de dispersión para publicaciones
 
@@ -735,9 +705,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La línea ajustada permite visualizar la tendencia promedio observada entre ambas variables.
+**Interpretación.** La línea ajustada permite visualizar la tendencia promedio observada entre ambas variables.
 
 ### Facetas científicas
 
@@ -768,9 +736,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Las facetas permiten comparar distribuciones territoriales manteniendo la misma escala visual.
+**Interpretación.** Las facetas permiten comparar distribuciones territoriales manteniendo la misma escala visual.
 
 **Importancia de las etiquetas.**
 
@@ -810,9 +776,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-Los títulos, subtítulos y etiquetas ayudan al lector a comprender el contenido de la figura sin necesidad de información adicional.
+**Interpretación.** Los títulos, subtítulos y etiquetas ayudan al lector a comprender el contenido de la figura sin necesidad de información adicional.
 
 ### Escalas y formatos numéricos
 
@@ -844,9 +808,7 @@ ggplot(
   )
 ```
 
-**Interpretación**
-
-La estandarización de escalas mejora la consistencia visual y facilita comparaciones entre figuras.
+**Interpretación.** La estandarización de escalas mejora la consistencia visual y facilita comparaciones entre figuras.
 
 **Leyendas y consistencia gráfica.**
 
@@ -939,9 +901,7 @@ grafico_histograma <-
 grafico_histograma
 ```
 
-**Interpretación**
-
-Este gráfico resume la distribución de la superficie agrícola transformada.
+**Interpretación.** Este gráfico resume la distribución de la superficie agrícola transformada.
 
 **Comparación por tamaño de UPA.**
 
@@ -972,9 +932,7 @@ grafico_boxplot <-
 grafico_boxplot
 ```
 
-**Interpretación**
-
-El gráfico permite comparar la distribución de la superficie entre categorías de tamaño.
+**Interpretación.** El gráfico permite comparar la distribución de la superficie entre categorías de tamaño.
 
 **Relación entre variables.**
 
@@ -1006,9 +964,7 @@ grafico_dispersion <-
 grafico_dispersion
 ```
 
-**Interpretación**
-
-La figura resume visualmente la asociación observada entre ambas variables.
+**Interpretación.** La figura resume visualmente la asociación observada entre ambas variables.
 
 ### Figuras multipanel
 
@@ -1038,9 +994,7 @@ Para ello utilizaremos el paquete `patchwork`.
 )
 ```
 
-**Interpretación**
-
-La figura integra diferentes perspectivas del mismo fenómeno, facilitando la comparación visual y reduciendo el número de imágenes necesarias en un artículo.
+**Interpretación.** La figura integra diferentes perspectivas del mismo fenómeno, facilitando la comparación visual y reduciendo el número de imágenes necesarias en un artículo.
 
 ### Organización visual de paneles
 
@@ -1071,9 +1025,7 @@ Muchas revistas solicitan identificar paneles mediante letras.
   )
 ```
 
-**Interpretación**
-
-Las etiquetas facilitan la referencia cruzada dentro del texto del artículo.
+**Interpretación.** Las etiquetas facilitan la referencia cruzada dentro del texto del artículo.
 
 ### Tamaño de figuras para publicación
 
@@ -1108,9 +1060,7 @@ dimensiones_revistas |>
   )
 ```
 
-**Interpretación**
-
-Las dimensiones pueden variar entre revistas, pero la tabla proporciona valores de referencia útiles.
+**Interpretación.** Las dimensiones pueden variar entre revistas, pero la tabla proporciona valores de referencia útiles.
 
 ### Resolución y calidad gráfica
 
@@ -1219,9 +1169,7 @@ checklist_figuras |>
   )
 ```
 
-**Interpretación**
-
-La lista permite revisar sistemáticamente la calidad de las figuras antes de su publicación.
+**Interpretación.** La lista permite revisar sistemáticamente la calidad de las figuras antes de su publicación.
 
 **Errores frecuentes.**
 
