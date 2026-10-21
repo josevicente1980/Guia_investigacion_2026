@@ -10,17 +10,6 @@ source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("comunicacion", extra = c("gapminder"))
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Crear presentaciones reproducibles con Quarto.
-* Generar diapositivas HTML mediante RevealJS.
-* Integrar tablas, figuras y resultados automáticamente.
-* Personalizar temas y diseños visuales.
-* Comunicar resultados científicos de forma profesional.
-
 ## Introducción
 
 Las presentaciones constituyen uno de los mecanismos más utilizados para comunicar resultados académicos, científicos y profesionales.
@@ -37,8 +26,6 @@ Quarto permite generar presentaciones completamente reproducibles utilizando una
 #| label: reg34-cargar-librerias-datos
 #| warning: false
 #| message: false
-
-
 
 data(
   "gapminder",
@@ -356,18 +343,3 @@ tibble(
 ) |>
   kable()
 ```
-
-**Manos a la obra.**
-
-1. Cree un archivo `.qmd`.
-2. Configure RevealJS.
-3. Seleccione un tema.
-4. Inserte tablas reproducibles.
-5. Inserte gráficos reproducibles.
-6. Active numeración.
-7. Renderice la presentación.
-8. Verifique el resultado final.
-
-## Resumen del capítulo
-
-En este capítulo se estudió la creación de presentaciones reproducibles con Quarto y RevealJS. Se mostró cómo integrar resultados, tablas y gráficos generados en R dentro de diapositivas HTML profesionales, manteniendo la coherencia y reproducibilidad del análisis.

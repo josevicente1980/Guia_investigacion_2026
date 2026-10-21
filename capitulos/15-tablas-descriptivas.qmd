@@ -11,18 +11,6 @@ cargar_paquetes_libro(c("datos", "tablas"))
 base_analitica <- leer_objeto_libro("sunac_transformado.rds")
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-- Comprender la importancia de las tablas descriptivas en la investigación científica.
-- Construir tablas descriptivas reproducibles utilizando R y Quarto.
-- Elaborar tablas de variables numéricas y categóricas.
-- Generar tablas cruzadas para explorar asociaciones entre variables.
-- Aplicar buenas prácticas para la presentación de resultados estadísticos.
-- Preparar tablas listas para informes, tesis y artículos científicos.
-
 ## Introducción
 
 Las tablas constituyen uno de los mecanismos más utilizados para comunicar resultados estadísticos en artículos científicos, tesis, informes técnicos y documentos institucionales.
@@ -44,8 +32,6 @@ En este capítulo aprenderemos a construir tablas descriptivas utilizando inform
 #| eval: false
 #| warning: false
 #| message: false
-
-
 
 base_analitica <- readRDS(
   here(
@@ -555,11 +541,6 @@ Aunque `kable()` resulta muy útil, en proyectos profesionales suele requerirse 
 
 Para ello podemos utilizar el paquete `gt`.
 
-```{r}
-#| label: ch15-cargar-gt
-
-```
-
 **Primera tabla con gt.**
 
 ```{r}
@@ -756,26 +737,3 @@ Antes de finalizar este capítulo conviene considerar algunas recomendaciones pr
 - Generar todas las tablas mediante código reproducible.
 
 Estas prácticas mejoran la claridad y credibilidad de los resultados [@healy2018].
-
-## Manos a la obra
-
-Utilizando la base `base_analitica`:
-
-1. Construya una tabla descriptiva para `pct_bosque`.
-2. Elabore una tabla de frecuencias para `provincia`.
-3. Genere una tabla cruzada entre `tamano_upa` y `su_tenencia`.
-4. Construya una tabla ponderada para `tamano_upa`.
-5. Calcule una media ponderada para `pct_bosque`.
-6. Elabore una tabla utilizando `gt`.
-7. Personalice títulos y nombres de columnas.
-8. Interprete los resultados obtenidos.
-
-## Resumen del capítulo
-
-Las tablas descriptivas constituyen una herramienta fundamental para comunicar resultados estadísticos de manera clara, precisa y reproducible.
-
-Durante este capítulo aprendimos a construir tablas para variables numéricas y categóricas, elaborar tablas cruzadas, incorporar factores de expansión y generar presentaciones profesionales utilizando los paquetes `kable()` y `gt`.
-
-Estas herramientas permiten transformar resultados estadísticos en evidencia comprensible para investigadores, tomadores de decisiones y lectores especializados.
-
-En el siguiente capítulo abordaremos la visualización de datos mediante gráficos estadísticos reproducibles utilizando `ggplot2`, una de las herramientas más poderosas para explorar y comunicar información cuantitativa.

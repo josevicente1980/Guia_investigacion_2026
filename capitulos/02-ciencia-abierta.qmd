@@ -1,15 +1,5 @@
 # La ciencia abierta como ecosistema de investigación
 
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender el concepto de ciencia abierta y su evolución.
-* Identificar los principales componentes del ecosistema de ciencia abierta.
-* Reconocer la importancia del acceso abierto, los datos abiertos y el código abierto.
-* Comprender el papel de los repositorios científicos en la difusión y preservación del conocimiento.
-* Aplicar principios de transparencia y reproducibilidad en proyectos de investigación.
-
 ## La transformación de la ciencia
 
 La forma en que se produce y comunica el conocimiento científico ha cambiado profundamente durante las últimas décadas. Tradicionalmente, los resultados de investigación se difundían principalmente a través de revistas especializadas, libros académicos y congresos científicos. El acceso a estos recursos dependía en gran medida de la afiliación institucional, la disponibilidad de bibliotecas especializadas y la capacidad económica para acceder a publicaciones científicas.
@@ -99,12 +89,3 @@ La apertura del conocimiento no implica renunciar a la autoría intelectual.
 Las licencias abiertas establecen las condiciones bajo las cuales terceros pueden utilizar, modificar o redistribuir recursos científicos.
 
 Entre las más utilizadas se encuentran las licencias Creative Commons, las cuales permiten definir distintos niveles de reutilización manteniendo el reconocimiento de la autoría original [@creativecommons2019].
-
-## Resumen del capítulo
-
-La ciencia abierta representa una transformación profunda en la forma de producir, compartir y validar conocimiento científico. Más que una práctica aislada, constituye un ecosistema integrado por acceso abierto, datos abiertos, código abierto, repositorios científicos, licencias abiertas y principios de reproducibilidad.
-
-Comprender este ecosistema resulta fundamental para desarrollar investigaciones transparentes, verificables y alineadas con las tendencias contemporáneas de producción científica.
-
-En el siguiente capítulo conoceremos cómo R y Quarto permiten materializar muchos de estos principios mediante un flujo de trabajo integrado para la investigación reproducible.
-

@@ -1,16 +1,5 @@
 # Organización del proyecto de investigación
 
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender la importancia de la organización en proyectos de investigación reproducibles.
-* Identificar los componentes fundamentales de una estructura de proyecto.
-* Reconocer el ciclo de vida de los datos dentro de una investigación.
-* Construir una estructura de carpetas estandarizada para proyectos académicos.
-* Aplicar buenas prácticas para la gestión de archivos, datos y código.
-* Preparar el entorno de trabajo que será utilizado durante el resto del libro.
-
 ## ¿Por qué organizar un proyecto de investigación?
 
 Toda investigación genera una gran cantidad de recursos digitales. Bases de datos, artículos científicos, instrumentos de recolección de información, scripts de análisis, tablas, gráficos, informes y materiales complementarios se acumulan progresivamente a medida que avanza el proyecto.
@@ -212,11 +201,3 @@ invisible(
 ```
 
 Este procedimiento garantiza que todos los estudiantes trabajen bajo una estructura homogénea y reproducible.
-
-## Resumen del capítulo
-
-La organización constituye uno de los pilares fundamentales de la investigación reproducible. Una estructura adecuada de carpetas, datos, código y documentación permite mantener la trazabilidad del proyecto, facilita la colaboración y reduce significativamente la probabilidad de errores.
-
-La adopción de buenas prácticas organizativas no representa únicamente una cuestión estética, sino una condición necesaria para desarrollar investigaciones transparentes, verificables y sostenibles en el tiempo.
-
-En el siguiente capítulo construiremos nuestro primer proyecto en Quarto y aprenderemos cómo transformar esta estructura organizativa en un entorno de trabajo completamente reproducible.

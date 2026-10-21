@@ -1,4 +1,4 @@
-# Introducción
+# Redacción de la introducción científica
 
 ```{r}
 #| label: setup-libro
@@ -10,35 +10,11 @@ source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("comunicacion", extra = c("bibliometrix"))
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender la función de la introducción dentro de un artículo científico.
-* Identificar los componentes esenciales de una introducción académica.
-* Construir una narrativa científica basada en evidencia.
-* Incorporar referencias bibliográficas mediante BibTeX y Quarto.
-* Redactar una introducción reproducible y coherente con los objetivos de investigación.
-
 ## Introducción
 
 La introducción constituye una de las secciones más importantes de cualquier trabajo científico. Su propósito es explicar al lector qué problema será estudiado, por qué es relevante y cuál es la contribución esperada de la investigación [@swales2004].
 
 Una buena introducción debe conducir progresivamente desde el contexto general hacia el problema específico de investigación. El lector debe comprender claramente qué se conoce sobre el tema, qué vacíos existen en la literatura y cómo el estudio pretende contribuir a cerrar dichos vacíos [@creswell2022].
-
-### Configuración inicial
-
-### Carga de librerías
-
-```{r}
-#| label: reg28-cargar-librerias
-#| warning: false
-#| message: false
-
-
-
-```
 
 ## La estructura de una introducción científica
 
@@ -224,20 +200,3 @@ kable(
 * Objetivos desconectados del problema.
 * Revisiones bibliográficas descriptivas sin análisis crítico.
 * Presentar la simple ausencia de estudios en un país o región como novedad suficiente sin demostrar su relevancia teórica o empírica.
-
-## Manos a la obra
-
-1. Defina el tema general de investigación.
-2. Describa el problema específico.
-3. Identifique cinco artículos relevantes.
-4. Resuma los principales hallazgos.
-5. Determine qué vacíos persisten.
-6. Formule el objetivo del estudio.
-7. Redacte una contribución potencial.
-8. Verifique la coherencia entre todos los elementos.
-9. Incorpore las citas mediante BibTeX.
-10. Renderice el documento en Quarto.
-
-## Resumen del capítulo
-
-En este capítulo se estudiaron los componentes fundamentales de una introducción científica. Se mostró cómo construir una narrativa académica basada en contexto, problema, literatura, vacío de investigación y objetivo. Además, se presentó el uso de citas reproducibles mediante Quarto y BibTeX, elementos esenciales para la elaboración de artículos científicos modernos.

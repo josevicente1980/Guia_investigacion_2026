@@ -11,18 +11,6 @@ cargar_paquetes_libro("modelos")
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar esta sección, el lector será capaz de:
-
-- Comprender la diferencia entre regresión simple y múltiple.
-- Identificar variables dependientes y explicativas.
-- Estimar un modelo lineal múltiple en R.
-- Interpretar coeficientes parciales.
-- Comprender el concepto de control estadístico.
-- Comparar la información aportada por distintas variables explicativas.
-
 ## Introducción
 
 En el capítulo anterior estudiamos la regresión lineal simple, donde una única variable explicativa era utilizada para modelar una variable de interés.
@@ -32,17 +20,6 @@ Sin embargo, en aplicaciones reales rara vez un fenómeno depende de una sola va
 La regresión lineal múltiple permite incorporar varias variables explicativas dentro de una misma ecuación, proporcionando una representación más realista de los procesos observados [@montgomery2021].
 
 **Cargando librerías.**
-
-```{r}
-#| label: reg21-cargar-librerias
-#| warning: false
-#| message: false
-
-
-
-
-
-```
 
 **Cargando la base analítica.**
 
@@ -290,17 +267,6 @@ La regresión múltiple permite comparar especificaciones alternativas e identif
 En esta sección estudiaremos cómo comparar modelos, interpretar el aporte de nuevos predictores y comprender el papel de las variables de control.
 
 **Cargando librerías.**
-
-```{r}
-#| label: reg21-cargar-librerias-parte2
-#| warning: false
-#| message: false
-
-
-
-
-
-```
 
 **Cargando la base analítica.**
 
@@ -698,22 +664,9 @@ En la siguiente sección construiremos un flujo completo de predicción utilizan
 
 **Introducción.**
 
-Hasta este punto hemos aprendido a estimar modelos de regresión múltiple e incorporar variables de control. El paso final consiste en utilizar el modelo para generar predicciones e interpretar conjuntamente los resultados obtenidos.
-
 En esta sección construiremos un flujo completo de análisis que servirá como referencia para futuras aplicaciones de regresión múltiple.
 
 **Cargando librerías.**
-
-```{r}
-#| label: reg21-cargar-librerias-parte3
-#| warning: false
-#| message: false
-
-
-
-
-
-```
 
 **Cargando la base analítica.**
 
@@ -1137,26 +1090,3 @@ La regresión múltiple permite responder preguntas como:
 - ¿Cuál es el valor esperado bajo distintos escenarios?
 
 Estas preguntas aparecen frecuentemente en investigación aplicada, planificación y análisis de políticas públicas.
-
-**Manos a la obra.**
-
-1. Estime un modelo múltiple con al menos tres variables explicativas.
-2. Interprete todos los coeficientes.
-3. Compare el modelo con una especificación más simple.
-4. Analice el R² y el R² ajustado.
-5. Genere valores ajustados.
-6. Calcule errores de predicción.
-7. Construya gráficos observado versus ajustado.
-8. Obtenga predicciones para nuevos casos.
-9. Calcule intervalos de confianza.
-10. Redacte una conclusión aplicada utilizando los resultados obtenidos.
-
-## Resumen del capítulo
-
-En este capítulo ampliamos la lógica de la regresión lineal simple incorporando múltiples variables explicativas dentro de una misma ecuación.
-
-Aprendimos a interpretar coeficientes parciales, utilizar variables de control, comparar especificaciones alternativas, evaluar la mejora del ajuste y generar predicciones para nuevos escenarios.
-
-La regresión múltiple constituye una de las herramientas más utilizadas en investigación cuantitativa porque permite aproximarse de forma más realista a fenómenos complejos donde intervienen múltiples factores simultáneamente.
-
-En el siguiente capítulo estudiaremos el diagnóstico del modelo, etapa fundamental para evaluar si los supuestos de la regresión lineal se cumplen adecuadamente.

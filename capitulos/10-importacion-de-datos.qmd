@@ -11,19 +11,6 @@ cargar_paquetes_libro("datos")
 sunac <- leer_objeto_libro("sunac.rds")
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender la importancia de la importación de datos dentro de una investigación reproducible.
-* Organizar adecuadamente archivos de datos dentro de un proyecto de investigación.
-* Identificar la estructura de una operación estadística oficial.
-* Importar archivos SPSS y CSV utilizando R.
-* Explorar la estructura inicial de una base de datos.
-* Reconocer variables, observaciones y unidades de análisis.
-* Preparar datos para procesos posteriores de limpieza, transformación y análisis.
-
 ## Introducción
 
 Toda investigación empírica comienza con los datos. Antes de construir tablas, elaborar gráficos o estimar modelos estadísticos, es necesario obtener, organizar e importar adecuadamente la información que será utilizada durante el proceso de investigación.
@@ -113,14 +100,6 @@ install.packages(c("haven", "readr", "dplyr", "here"))
 ```
 
 Una vez instalados, cargamos los paquetes:
-
-```{r} 
-#| label: cap10-cargar-librerias
-
-
-
-
-```
 
 El uso de `here()` es importante porque permite construir rutas desde la raíz del proyecto, evitando errores cuando los capítulos se encuentran dentro de subcarpetas. Este tipo de práctica fortalece la portabilidad del proyecto y evita depender de rutas absolutas asociadas a un computador específico [@wilson2017].
 
@@ -289,7 +268,7 @@ Esta función ofrece una visualización compacta de la estructura. En el libro m
 
 **Visualizando las primeras observaciones.**
 
-Antes de iniciar cualquier análisis es recomendable inspeccionar visualmente los datos.
+Antes de iniciar cualquier análisis es recomendable inspeccionar visualmente algunas observaciones.
 
 ```{r} 
 #| label: cap10-primeras-observaciones
@@ -303,22 +282,6 @@ sunac |>
     fact_exp_fin
   ) |>
   head(6)
-```
-
-También es posible visualizar un número específico de registros:
-
-```{r} 
-#| label: cap10-primeras-10-observaciones
-sunac |>
-  select(
-    Identificador,
-    ual_prov,
-    su_categoria,
-    su_tenencia,
-    supertotal,
-    fact_exp_fin
-  ) |>
-  head(10)
 ```
 
 Esta práctica permite detectar rápidamente posibles problemas de importación. Para evitar salidas innecesariamente extensas, se muestran únicamente variables representativas; esta selección afecta solo a la impresión, no a la base original. En trabajos con datos reales, una inspección inicial suele revelar nombres de variables poco descriptivos, valores codificados, etiquetas heredadas del software original o inconsistencias que deberán abordarse durante la limpieza de datos [@wickham2014].
@@ -467,18 +430,7 @@ data.frame(
 )
 ```
 
-Para documentar el inventario completo sin imprimir rutas absolutas, conservamos únicamente el nombre de cada archivo:
-
-```{r} 
-#| label: cap10-crear-inventario-archivos
-inventario <- data.frame(
-  archivo = basename(archivos_sav)
-)
-
-inventario
-```
-
-Este tipo de inventario permite documentar claramente qué archivos forman parte del proyecto y constituye una práctica recomendable cuando se trabaja con operaciones estadísticas distribuidas en varios módulos.
+El inventario reproducible informa que existen 19 archivos y muestra solo cinco nombres como ejemplo. Así se documenta el conjunto sin imprimir la lista completa.
 
 ### Importando varios módulos
 
@@ -525,32 +477,3 @@ Al trabajar con datos oficiales se recomienda:
 * Evitar modificaciones manuales sobre las bases originales.
 
 Estas prácticas constituyen la base de cualquier flujo de investigación reproducible y se encuentran alineadas con recomendaciones generales para la computación científica [@wilson2017].
-
-## Manos a la obra
-
-Importe el archivo `sunac2025.sav` y responda las siguientes preguntas:
-
-1. ¿Cuántas observaciones contiene la base?
-2. ¿Cuántas variables posee?
-3. ¿Cuáles son las primeras diez variables?
-4. ¿Cuál es la clase de la variable `su_tenencia`?
-5. ¿Qué diferencia observa entre la versión SPSS y la versión CSV?
-
-Puede utilizar el siguiente esquema:
-
-```{r}
-#| label: cap10-inspeccion-rapida-sunac
-dim(sunac)
-names(sunac)[1:10]
-class(sunac$su_tenencia)
-```
-
-Documente todas sus respuestas dentro de un archivo Quarto.
-
-## Resumen del capítulo
-
-La importación de datos constituye el primer paso operativo dentro de cualquier proceso de investigación reproducible. Una adecuada organización de archivos permite garantizar la trazabilidad de los análisis y facilita la actualización futura de los resultados.
-
-En este capítulo aprendimos a trabajar con información oficial de la ESPAC 2025 utilizando R, importando archivos SPSS y CSV, explorando su estructura y comprendiendo las características fundamentales de las bases de datos utilizadas.
-
-En el siguiente capítulo abordaremos la limpieza de datos, una etapa fundamental para garantizar la calidad y consistencia de los análisis estadísticos posteriores.

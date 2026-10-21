@@ -1,15 +1,5 @@
 # Objetivos e hipótesis de investigación
 
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-- Comprender la función de los objetivos dentro de una investigación científica.
-- Diferenciar entre objetivo general y objetivos específicos.
-- Formular objetivos coherentes con el problema y la pregunta de investigación.
-- Comprender el papel de las hipótesis en la investigación cuantitativa.
-- Construir hipótesis verificables y metodológicamente consistentes.
-
 ## Introducción
 
 Una vez identificado el problema y formulada la pregunta de investigación, el siguiente paso consiste en establecer con precisión qué se pretende lograr mediante el estudio.
@@ -284,31 +274,3 @@ Las microempresas con mayores niveles de liquidez presentan una mayor probabilid
 ```
 
 Obsérvese cómo problema, pregunta, objetivo e hipótesis mantienen una relación lógica y coherente.
-
-## Manos a la obra
-
-Utilizando la pregunta formulada en el capítulo anterior, complete el siguiente esquema:
-
-```{.text}
-Pregunta de investigación:
-
-Objetivo general:
-
-Objetivo específico 1:
-
-Objetivo específico 2:
-
-Objetivo específico 3:
-
-Hipótesis principal:
-```
-
-Verifique posteriormente que todos los elementos mantienen coherencia lógica entre sí.
-
-## Resumen del capítulo
-
-Los objetivos constituyen la traducción operativa de la pregunta de investigación y orientan todas las actividades desarrolladas durante el estudio. Por su parte, las hipótesis representan explicaciones tentativas que permiten contrastar teorías y relaciones entre variables mediante evidencia empírica.
-
-La coherencia entre problema, pregunta, objetivos e hipótesis constituye uno de los pilares fundamentales de una investigación rigurosa y metodológicamente sólida.
-
-En el siguiente capítulo abordaremos la construcción del marco teórico y aprenderemos cómo utilizar la literatura científica para fundamentar nuestras investigaciones.

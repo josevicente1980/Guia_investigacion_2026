@@ -49,22 +49,16 @@ book:
     - part: "Parte V. Estadística descriptiva y visualización"
       chapters:
         - capitulos/14-estadistica-descriptiva.qmd
-        - capitulos/15-tablas-descriptivas.qmd
         - capitulos/16-visualizacion-de-datos.qmd
-        - capitulos/17-graficos-cientificos.qmd
 
     - part: "Parte VI. Modelación econométrica aplicada"
       chapters:
-        - capitulos/18-del-analisis-descriptivo-a-la-modelacion.qmd
         - capitulos/19-correlacion-asociacion-causalidad.qmd
         - capitulos/20-regresion-lineal-simple.qmd
-        - capitulos/21-regresion-lineal-multiple.qmd
         - capitulos/22-diagnostico-del-modelo.qmd
-        - capitulos/23-variables-categoricas.qmd
         - capitulos/24-modelos-logit-probit.qmd
         - capitulos/25-datos-de-panel.qmd
         - capitulos/26-modelos-espaciales.qmd
-        - capitulos/27-presentacion-modelos-quarto.qmd
 
     - part: "Parte VII. Redacción científica del informe"
       chapters:

@@ -1,4 +1,4 @@
-# Conclusiones y Recomendaciones
+# Conclusiones y recomendaciones
 
 ```{r}
 #| label: setup-libro
@@ -10,17 +10,6 @@ source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("comunicacion", extra = c("gapminder"))
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender la función de las conclusiones dentro de un documento científico.
-* Diferenciar conclusiones, discusión y recomendaciones.
-* Elaborar conclusiones alineadas con los objetivos de investigación.
-* Formular recomendaciones fundamentadas en evidencia.
-* Redactar conclusiones y recomendaciones reproducibles utilizando Quarto.
-
 ## Introducción
 
 Las conclusiones representan el cierre formal de una investigación. Su función consiste en sintetizar los principales hallazgos y responder explícitamente a los objetivos planteados al inicio del estudio.
@@ -30,22 +19,6 @@ El cierre de un trabajo científico debe sintetizar el hallazgo principal y sus 
 Las recomendaciones, por su parte, proponen acciones derivadas de la evidencia obtenida y pueden dirigirse a tomadores de decisiones, organizaciones, investigadores o responsables de políticas públicas [@apa2020].
 
 Una buena conclusión no introduce resultados nuevos. Su propósito es integrar y sintetizar el conocimiento generado.
-
-### Configuración inicial
-
-### Carga de librerías
-
-```{r}
-#| label: reg32-cargar-librerias
-#| warning: false
-#| message: false
-
-
-
-
-```
-
-### Carga de datos
 
 ```{r}
 #| label: reg32-cargar-datos
@@ -275,20 +248,3 @@ tibble(
 ```
 
 **Interpretación.** Antes de finalizar un documento científico es recomendable verificar que las conclusiones y recomendaciones mantengan coherencia con todo el proceso de investigación.
-
-### Manos a la obra
-
-1. Revise los objetivos de investigación.
-2. Identifique los hallazgos principales.
-3. Redacte una conclusión general.
-4. Elabore conclusiones específicas.
-5. Evite repetir tablas y coeficientes.
-6. Relacione las conclusiones con la evidencia.
-7. Formule recomendaciones fundamentadas.
-8. Proponga líneas futuras de investigación.
-9. Verifique coherencia interna.
-10. Renderice el documento en Quarto.
-
-## Resumen del capítulo
-
-En este capítulo se presentó la estructura de las conclusiones y recomendaciones dentro de un documento científico reproducible. Se mostró cómo sintetizar hallazgos, responder objetivos de investigación y formular recomendaciones basadas en evidencia. Una buena conclusión integra el conocimiento generado y orienta futuras acciones e investigaciones.

@@ -11,18 +11,6 @@ cargar_paquetes_libro("visual", extra = "patchwork")
 base_analitica <- leer_objeto_libro("sunac_transformado.rds")
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-- Comprender los principios fundamentales de la comunicación visual científica.
-- Diferenciar entre gráficos exploratorios y gráficos destinados a publicación.
-- Aplicar criterios de diseño orientados a la claridad y reproducibilidad.
-- Utilizar temas y escalas apropiadas para artículos científicos, tesis e informes técnicos.
-- Construir gráficos científicamente sólidos utilizando `ggplot2`.
-- Reconocer errores frecuentes en la comunicación visual de resultados.
-
 ## Introducción
 
 La visualización constituye una de las etapas más importantes del análisis estadístico. Un gráfico bien diseñado puede comunicar en segundos patrones que requerirían varias páginas de texto para ser explicados. Sin embargo, no todos los gráficos cumplen el mismo propósito.
@@ -34,19 +22,6 @@ La visualización científica busca maximizar la comunicación de la informació
 En este capítulo utilizaremos la base analítica construida a partir de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC 2025) para ilustrar los principios de diseño gráfico científico.
 
 **Cargando paquetes.**
-
-```{r}
-#| label: ch17-cargar-paquetes
-#| eval: false
-#| warning: false
-#| message: false
-
-
-
-
-
-
-```
 
 **Cargando la base analítica.**
 
@@ -449,21 +424,6 @@ Al construir figuras destinadas a publicaciones se recomienda:
 - Garantizar reproducibilidad.
 - Conservar una misma línea gráfica en todo el documento.
 
-**Manos a la obra.**
-
-Utilizando la base `base_analitica`:
-
-1. Construya un histograma básico de `log_supertotal`.
-2. Mejore el gráfico utilizando `theme_minimal()`.
-3. Compare distintos temas disponibles en `ggplot2`.
-4. Construya un gráfico de barras para `tamano_upa`.
-5. Aplique una paleta Viridis.
-6. Diseñe un tema científico personalizado.
-7. Replique el mismo estilo en al menos tres gráficos diferentes.
-8. Identifique ejemplos de ruido visual.
-9. Explique la diferencia entre un gráfico exploratorio y uno científico.
-10. Justifique la importancia de la reproducibilidad gráfica.
-
 **Gráficos científicos para tesis, informes y artículos.**
 
 **Introducción.**
@@ -833,21 +793,6 @@ Al preparar figuras para publicaciones se recomienda:
 - Exportar figuras reproduciblemente.
 - Documentar completamente el código utilizado.
 
-**Manos a la obra.**
-
-Utilizando la base `base_analitica`:
-
-1. Construya un histograma publicable.
-2. Añada una curva de densidad.
-3. Elabore un diagrama de caja por tamaño de UPA.
-4. Construya un gráfico de violín.
-5. Calcule medias e intervalos de confianza.
-6. Genere un gráfico de barras con intervalos.
-7. Construya un gráfico de dispersión con línea de tendencia.
-8. Utilice facetas para comparar provincias.
-9. Mejore el etiquetado de una figura.
-10. Evalúe cuáles figuras serían apropiadas para una tesis.
-
 **Figuras avanzadas para publicaciones científicas.**
 
 **Introducción.**
@@ -971,13 +916,6 @@ grafico_dispersion
 Los artículos científicos suelen combinar múltiples gráficos dentro de una misma figura.
 
 Para ello utilizaremos el paquete `patchwork`.
-
-```{r}
-#| label: ch17-cargar-patchwork
-#| warning: false
-#| message: false
-
-```
 
 **Construcción de una figura compuesta.**
 
@@ -1199,30 +1137,3 @@ Exportación
 ↓
 Publicación
 ```
-
-## Manos a la obra
-
-Utilizando la base `base_analitica`:
-
-1. Construya tres gráficos científicos diferentes.
-2. Cree una figura multipanel utilizando `patchwork`.
-3. Añada etiquetas automáticas a los paneles.
-4. Diseñe una figura orientada a una revista científica.
-5. Exporte una figura en formato PNG.
-6. Exporte una figura en formato PDF.
-7. Exporte una figura en formato TIFF.
-8. Evalúe la calidad visual de las figuras generadas.
-9. Verifique la reproducibilidad del proceso.
-10. Documente completamente el flujo de generación gráfica.
-
-## Resumen del capítulo
-
-La visualización científica constituye una herramienta fundamental para comunicar resultados de investigación de manera clara, rigurosa y reproducible.
-
-En la primera parte se estudiaron los principios fundamentales de la comunicación visual científica, incluyendo el uso adecuado del color, los temas gráficos y la reducción del ruido visual.
-
-En la segunda parte se desarrollaron figuras orientadas a tesis, informes y artículos científicos mediante histogramas, diagramas de caja, gráficos de violín, intervalos de confianza y facetas.
-
-Finalmente, en esta tercera parte se abordó la construcción de figuras multipanel, la preparación de gráficos para publicación, la exportación en distintos formatos y la integración de las visualizaciones dentro de flujos reproducibles.
-
-Las herramientas desarrolladas en este capítulo proporcionan la base necesaria para comunicar evidencia estadística de manera efectiva y profesional dentro de contextos académicos y científicos.

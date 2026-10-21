@@ -11,20 +11,6 @@ cargar_paquetes_libro(c("datos", "visual"))
 sunac <- leer_objeto_libro("sunac_limpio.rds")
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender el papel de la transformación de datos dentro de la investigación reproducible.
-* Diferenciar entre datos originales y variables analíticas.
-* Seleccionar variables relevantes para el análisis.
-* Transformar variables etiquetadas provenientes de SPSS.
-* Crear nuevas variables mediante reglas de investigación.
-* Construir indicadores derivados.
-* Generar una base analítica lista para análisis estadístico y econométrico.
-* Documentar adecuadamente las transformaciones realizadas.
-
 ## Introducción
 
 Una vez que los datos han sido importados y limpiados, el siguiente paso consiste en transformarlos en información útil para responder preguntas de investigación.
@@ -66,10 +52,6 @@ Trabajaremos con la base generada en el capítulo anterior.
 #| warning: false
 #| message: false
 
-
-
-
-
 sunac <- readRDS(
   here(
     "datos",
@@ -102,37 +84,21 @@ También podemos visualizar rápidamente la estructura general de la base.
 
 ```{r}
 #| label: cap12-vista-general-sunac
-glimpse(sunac)
+sunac |>
+  dplyr::select(
+    Identificador,
+    ual_prov,
+    su_tenencia,
+    su_categoria,
+    supertotal,
+    fact_exp_fin
+  ) |>
+  glimpse()
 ```
 
-La función `glimpse()` permite identificar los nombres de las variables, sus tipos de datos y algunos ejemplos de valores observados.
+La selección limita únicamente la impresión a variables representativas; el objeto completo `sunac` permanece intacto.
 
-### De datos originales a variables analíticas
-
-Considere la variable:
-
-```text
-su_tenencia
-```
-
-Esta variable almacena la forma de tenencia de la tierra.
-
-Originalmente se encuentra codificada mediante valores numéricos etiquetados.
-
-```{r}
-#| label: cap12-verificar-tipo-su-tenencia
-class(sunac$su_tenencia)
-```
-
-La salida muestra que la variable fue importada como:
-
-```text
-haven_labelled
-```
-
-Este formato es adecuado para preservar la información original del archivo SPSS, pero no siempre resulta conveniente para análisis posteriores.
-
-Por esta razón, uno de los primeros pasos de transformación consiste en convertir variables etiquetadas a factores.
+La variable `su_tenencia` ya fue transformada durante la etapa de limpieza y, a partir de este punto, se utilizará directamente como factor.
 
 ### Selección de variables relevantes
 
@@ -186,58 +152,23 @@ Observe cómo los nombres resultan ahora más intuitivos.
 
 Esta práctica facilita la lectura del código y reduce errores durante etapas posteriores [@wilson2017].
 
-### Transformación de variables etiquetadas
-
-Las variables provenientes de SPSS conservan etiquetas originales.
-
-Podemos examinarlas mediante:
-
-```{r}
-#| label: cap12-consultar-etiquetas-su-tenencia
-attributes(sunac$su_tenencia)$labels
-```
-
-Las categorías corresponden a distintas formas de tenencia de la tierra registradas por el INEC.
-
-Para facilitar el análisis transformaremos la variable en un factor.
-
 ```{r}
 #| label: cap12-convertir-variables-factor
 sunac <- sunac |>
   mutate(
-    su_tenencia =
-      haven::as_factor(su_tenencia),
-
     su_categoria =
       haven::as_factor(su_categoria)
   )
 ```
 
-Verificamos el resultado:
+La categoría del suelo se convierte a factor para facilitar su uso analítico:
 
 ```{r}
 #| label: cap12-verificar-tipos-variables-factor
-class(sunac$su_tenencia)
-
 class(sunac$su_categoria)
 ```
 
-Ahora ambas variables pueden utilizarse directamente en tablas, gráficos y modelos estadísticos.
-
-**Explorando las categorías transformadas.**
-
-Una vez realizada la transformación podemos observar la distribución de frecuencias.
-
-```{r}
-#| label: tab-cap12-frecuencia-su-tenencia
-sunac |>
-  count(su_tenencia) |>
-  arrange(desc(n))
-```
-
-La tabla muestra la cantidad de observaciones registradas para cada forma de tenencia.
-
-La interpretación de esta distribución resulta mucho más sencilla que trabajar con códigos numéricos.
+Ahora puede utilizarse directamente en tablas, gráficos y modelos estadísticos.
 
 ### Transformación de variables geográficas
 
@@ -738,27 +669,3 @@ La calidad de cualquier análisis depende directamente de la calidad de las tran
 Variables mal definidas pueden conducir a interpretaciones erróneas y modelos estadísticos incorrectos.
 
 Por esta razón, la etapa de transformación debe considerarse una parte fundamental del proceso científico y no una simple tarea operativa [@marwick2018; @lowndes2017].
-
-## Manos a la obra
-
-Utilizando la base `sunac_limpio.rds`:
-
-1. Convierta las variables etiquetadas a factores.
-2. Cree una variable de tamaño de explotación.
-3. Construya un indicador de presencia de bosque.
-4. Calcule el porcentaje de bosque respecto a la superficie total.
-5. Verifique qué variables pueden agregarse por productor y cuáles corresponden ya al nivel de UPA.
-6. Construya una base analítica.
-7. Guarde la base transformada en formato RDS.
-8. Documente todas las transformaciones realizadas.
-
-## Resumen del capítulo
-
-La transformación de datos constituye el proceso mediante el cual los datos originales se convierten en variables analíticas útiles para responder preguntas de investigación.
-
-Durante este capítulo aprendimos a seleccionar variables, renombrarlas, transformar variables etiquetadas provenientes de SPSS, construir indicadores, generar categorías analíticas y preparar una base lista para análisis posteriores. También mostramos por qué cualquier agregación debe partir de una unidad de análisis previamente verificada.
-
-Todas estas transformaciones fueron realizadas mediante código reproducible, garantizando transparencia y trazabilidad en el flujo de trabajo.
-
-En el siguiente capítulo abordaremos la evaluación de la calidad de los datos, donde aprenderemos a medir consistencia, integridad y confiabilidad de la información antes de iniciar análisis descriptivos y modelos estadísticos.
-

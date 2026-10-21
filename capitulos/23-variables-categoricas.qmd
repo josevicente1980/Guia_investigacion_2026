@@ -11,18 +11,6 @@ cargar_paquetes_libro("modelos")
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar esta sección, el lector será capaz de:
-
-- Comprender qué son las variables categóricas.
-- Diferenciar variables numéricas y categóricas.
-- Entender el concepto de variable dummy.
-- Utilizar factores en R.
-- Identificar categorías de referencia.
-- Preparar variables categóricas para modelos de regresión.
-
 ## Introducción
 
 Hasta ahora hemos trabajado principalmente con variables numéricas. Sin embargo, gran parte de la información utilizada en investigación corresponde a categorías.
@@ -42,17 +30,6 @@ Estas variables contienen información relevante para explicar fenómenos econó
 La regresión lineal permite incorporar variables categóricas mediante procesos de codificación automática conocidos como variables dummy o indicadoras [@montgomery2021].
 
 **Cargando librerías.**
-
-```{r}
-#| label: reg23-cargar-librerias
-#| warning: false
-#| message: false
-
-
-
-
-
-```
 
 **Cargando la base analítica.**
 
@@ -335,17 +312,6 @@ log_productividad
 ```
 
 **Cargando librerías.**
-
-```{r}
-#| label: reg23-cargar-librerias-parte2
-#| warning: false
-#| message: false
-
-
-
-
-
-```
 
 **Cargando la base analítica.**
 
@@ -728,17 +694,6 @@ Para responder este tipo de preguntas utilizamos interacciones entre variables n
 
 **Cargando librerías.**
 
-```{r}
-#| label: reg23-cargar-librerias-parte3
-#| warning: false
-#| message: false
-
-
-
-
-
-```
-
 **Cargando la base analítica.**
 
 ```{r}
@@ -1069,26 +1024,3 @@ tibble(
 ```
 
 **Interpretación.** Este procedimiento resume el uso práctico de variables categóricas dentro de modelos lineales.
-
-**Manos a la obra.**
-
-1. Convierta una variable categórica en factor.
-2. Identifique su categoría de referencia.
-3. Estime una regresión con variables dummy.
-4. Interprete cada coeficiente.
-5. Compare grupos mediante predicciones.
-6. Estime un modelo con interacción.
-7. Compare ambos modelos mediante ANOVA.
-8. Visualice la interacción.
-9. Analice el cambio en R².
-10. Redacte conclusiones sustantivas.
-
-## Resumen del capítulo
-
-En este capítulo aprendimos a incorporar variables categóricas dentro de modelos lineales mediante factores y variables dummy.
-
-Posteriormente utilizamos regresiones con categorías múltiples para comparar grupos respecto a una categoría de referencia.
-
-Finalmente introdujimos interacciones entre variables numéricas y categóricas, permitiendo modelar pendientes diferenciadas entre grupos sin atribuirles automáticamente una interpretación causal.
-
-Las variables categóricas constituyen una herramienta fundamental en investigación aplicada porque permiten incorporar características cualitativas dentro de modelos cuantitativos sin perder interpretabilidad.

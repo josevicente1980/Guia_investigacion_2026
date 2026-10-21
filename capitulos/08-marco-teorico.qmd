@@ -1,15 +1,5 @@
 # Construcción del marco teórico
 
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-- Comprender la función del marco teórico dentro de una investigación científica.
-- Diferenciar entre antecedentes, teoría, conceptos y evidencia empírica.
-- Identificar fuentes científicas relevantes para la construcción del marco teórico.
-- Organizar la literatura científica de manera lógica y coherente.
-- Elaborar un marco teórico alineado con el problema, la pregunta y los objetivos de investigación.
-
 ## Introducción
 
 Toda investigación científica se desarrolla sobre una base de conocimiento previamente construida. Ningún estudio surge en el vacío. Cada problema de investigación se encuentra relacionado con teorías, conceptos, resultados empíricos y debates científicos acumulados a lo largo del tiempo.
@@ -243,31 +233,3 @@ Entre los errores más comunes destacan:
 - Confundir antecedentes con teoría.
 
 Evitar estos errores fortalece significativamente la calidad del trabajo académico.
-
-## Manos a la obra
-
-Utilizando la pregunta de investigación desarrollada en capítulos anteriores, complete el siguiente esquema:
-
-```{.text}
-Problema:
-
-Pregunta:
-
-Teoría principal:
-
-Conceptos clave:
-
-Antecedentes relevantes:
-
-Vacío de investigación identificado:
-```
-
-Posteriormente elabore un esquema preliminar de secciones para su futuro marco teórico.
-
-## Resumen del capítulo
-
-El marco teórico constituye el fundamento científico de toda investigación. Su construcción permite comprender el estado actual del conocimiento, identificar teorías relevantes, analizar evidencia empírica previa y detectar vacíos de investigación que justifican nuevos estudios.
-
-Un marco teórico sólido no se limita a recopilar información. Su propósito consiste en construir una explicación coherente que permita comprender el problema investigado y fundamentar las decisiones metodológicas adoptadas durante el estudio.
-
-En el siguiente capítulo aprenderemos a realizar búsquedas científicas sistemáticas y a gestionar referencias bibliográficas mediante BibTeX, construyendo así una biblioteca científica reproducible para nuestros proyectos de investigación.

@@ -11,18 +11,6 @@ cargar_paquetes_libro(c("datos", "visual"))
 sunac <- leer_objeto_libro("sunac.rds")
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender la importancia de la limpieza de datos dentro de una investigación reproducible.
-* Diagnosticar problemas de calidad en una base de datos.
-* Identificar valores perdidos, registros duplicados y valores extremos.
-* Trabajar con variables etiquetadas provenientes de SPSS.
-* Documentar transformaciones realizadas sobre los datos.
-* Construir una base de datos procesada lista para el análisis estadístico.
-
 ## Introducción
 
 Una de las ideas más extendidas entre estudiantes e investigadores noveles consiste en pensar que la limpieza de datos equivale a corregir errores o eliminar observaciones problemáticas. Sin embargo, la realidad es mucho más compleja. Limpiar datos no significa modificar los datos hasta que "se vean bien"; significa identificar, documentar y justificar cada transformación realizada.
@@ -30,8 +18,6 @@ Una de las ideas más extendidas entre estudiantes e investigadores noveles cons
 La limpieza de datos constituye un proceso sistemático orientado a comprender la estructura de una base de datos, identificar posibles inconsistencias y documentar las transformaciones necesarias para preparar la información para su análisis posterior [@wickham2014; @dasu2003; @kopra2024].
 
 En investigación reproducible, ninguna modificación debe realizarse sin dejar evidencia de las decisiones tomadas. Por esta razón, la limpieza de datos no es únicamente una actividad técnica, sino también un ejercicio de transparencia metodológica [@peng2011; @gandrud2015].
-
-A lo largo de este capítulo trabajaremos con información real de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC) 2025.
 
 ## Diagnóstico antes de transformar
 
@@ -75,8 +61,6 @@ Trabajaremos con el módulo de uso del suelo de la ESPAC 2025.
 #| eval: false
 #| warning: false
 #| message: false
-
-
 
 sunac <- read_sav(
   here(
@@ -435,25 +419,3 @@ Durante el proceso de limpieza se recomienda:
 * Utilizar scripts reproducibles.
 
 Estas prácticas fortalecen la transparencia y calidad del análisis.
-
-## Manos a la obra
-
-Utilizando la base `sunac2025.sav`:
-
-1. Determine cuántos registros y variables contiene la base.
-2. Calcule el número de identificadores únicos.
-3. Identifique las diez variables con más valores perdidos.
-4. Transforme `su_tenencia` a factor.
-5. Construya una tabla de frecuencias para la variable de tenencia.
-6. Identifique los diez registros con mayor superficie total.
-7. Guarde una versión limpia de la base en formato RDS.
-
-Documente cada paso dentro de un archivo Quarto.
-
-## Resumen del capítulo
-
-La limpieza de datos constituye una etapa fundamental de la investigación reproducible. Su propósito no consiste únicamente en corregir errores, sino en comprender la estructura de los datos, diagnosticar problemas potenciales y documentar adecuadamente las transformaciones realizadas.
-
-A través de la ESPAC 2025 aprendimos a evaluar la calidad de una base de datos, identificar valores perdidos, interpretar variables etiquetadas, detectar valores extremos y construir versiones procesadas listas para análisis posteriores.
-
-En el siguiente capítulo aprenderemos a transformar datos para construir variables analíticas, indicadores y estructuras de información orientadas a responder preguntas de investigación.

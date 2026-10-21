@@ -10,18 +10,6 @@ source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("comunicacion", extra = c("modelsummary", "gt", "gapminder"))
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Transformar resultados estadísticos en tablas científicas reproducibles.
-* Presentar modelos econométricos utilizando formatos profesionales.
-* Comparar múltiples modelos dentro de una misma tabla.
-* Generar gráficos de coeficientes y efectos.
-* Exportar resultados a HTML, PDF y Word utilizando Quarto.
-* Aplicar buenas prácticas de comunicación científica reproducible.
-
 ## Introducción
 
 Construir un buen modelo estadístico constituye únicamente una parte del proceso de investigación. Un modelo correctamente especificado pierde valor si sus resultados no son comunicados adecuadamente.
@@ -29,23 +17,6 @@ Construir un buen modelo estadístico constituye únicamente una parte del proce
 En la práctica científica moderna, la reproducibilidad exige que las tablas, figuras e interpretaciones sean generadas automáticamente a partir del código utilizado en el análisis [@xie2024].
 
 El objetivo de este capítulo consiste en mostrar cómo transformar resultados estadísticos en productos científicos listos para publicación utilizando Quarto.
-
-### Carga de librerías
-
-```{r}
-#| label: reg27-cargar-librerias
-#| warning: false
-#| message: false
-
-
-
-
-
-
-
-```
-
-### Carga de datos
 
 Utilizaremos la base `gapminder`, ampliamente utilizada en cursos de análisis de datos y econometría aplicada.
 
@@ -505,20 +476,3 @@ Interpretación
 
 Documento final
 ```
-
-### Manos a la obra
-
-1. Ajuste un modelo lineal.
-2. Genere una tabla con modelsummary.
-3. Compare tres especificaciones alternativas.
-4. Construya un gráfico de coeficientes.
-5. Genere predicciones.
-6. Compare valores observados y predichos.
-7. Renderice el documento en HTML.
-8. Renderice el documento en PDF.
-9. Renderice el documento en Word.
-10. Verifique que los resultados sean idénticos en todos los formatos.
-
-## Resumen del capítulo
-
-En este capítulo aprendimos a transformar resultados estadísticos en productos científicos reproducibles utilizando Quarto. Se mostraron estrategias para construir tablas profesionales, comparar modelos, visualizar coeficientes y exportar resultados a múltiples formatos de salida. Estas herramientas constituyen la base para la elaboración de artículos científicos, tesis e informes técnicos reproducibles.

@@ -1,4 +1,4 @@
-# Modelos Logit y Probit
+# Modelos para variables binarias: Logit y Probit
 
 ```{r}
 #| label: setup-libro
@@ -11,74 +11,21 @@ cargar_paquetes_libro("modelos")
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar esta sección, el lector será capaz de:
-
-- Comprender cuándo utilizar modelos Logit.
-- Diferenciar regresión lineal y regresión logística.
-- Construir variables binarias.
-- Estimar modelos Logit en R.
-- Interpretar probabilidades estimadas.
-- Generar predicciones binarias.
-
 ## Introducción
 
 Los modelos lineales estudiados en capítulos anteriores son apropiados cuando la variable dependiente es continua.
 
 La regresión logística sigue siendo una herramienta central para modelar resultados binarios; su interpretación requiere distinguir entre la escala lineal del predictor, los log-odds y las probabilidades estimadas [@cetinkaya2024].
 
-Por ejemplo:
-
-```text
-Ingreso
-Producción
-Productividad
-Ventas
-```
-
 Sin embargo, muchas preguntas de investigación involucran resultados binarios.
 
-Algunos ejemplos son:
-
-```text
-Compra / No compra
-
-Aprueba / No aprueba
-
-Empleada / Desempleada
-
-Grande / No grande
-```
-
 Cuando la variable respuesta solo puede tomar dos valores, la regresión lineal deja de ser apropiada y es necesario utilizar modelos de respuesta binaria [@hosmer2013].
-
-**Cargando librerías.**
-
-```{r}
-#| label: reg24-cargar-librerias
-#| warning: false
-#| message: false
-
-
-
-
-
-```
-
-**Cargando la base analítica.**
-
-```{r}
-#| label: reg24-cargar-base
-#| eval: false
-
-base_analitica <- leer_objeto_libro("modelo_demo.rds")
-```
 
 **Construcción de la variable binaria.**
 
 Para fines pedagógicos utilizaremos una variable binaria que identifica observaciones con productividad superior a la mediana de la base simulada.
+
+**Interpretación.** La variable respuesta toma únicamente dos valores:
 
 ```{r}
 #| label: reg24-variable-binaria
@@ -106,85 +53,17 @@ base_logit <- base_analitica |>
   drop_na()
 ```
 
-### Verificación de la variable respuesta
-
-```{r}
-#| label: tbl-reg24-frecuencias
-
-base_logit |>
-  count(
-    alta_productividad
-  ) |>
-  kable(
-    caption = "Distribución de la variable binaria"
-  )
-```
-
-**Interpretación.** La variable respuesta toma únicamente dos valores:
-
-```text
-1 = productividad alta
-
-0 = productividad no alta
-```
-
 ## ¿Por qué no usar regresión lineal?
 
-Supongamos el siguiente modelo:
-
-```text
-Y = β0 + β1X
-```
-
-Cuando Y solo puede ser 0 o 1, la regresión lineal puede producir predicciones imposibles:
-
-```text
--0.25
-
-1.34
-
-1.72
-```
-
-Estas cantidades no representan probabilidades válidas.
+Cuando la variable respuesta solo toma los valores 0 y 1, la regresión lineal puede producir predicciones fuera del intervalo de probabilidades válidas.
 
 ## El modelo Logit
 
-La regresión logística resuelve este problema modelando probabilidades dentro del intervalo:
-
-```text
-0 ≤ P(Y=1) ≤ 1
-```
-
-mediante una función logística [@hosmer2013].
+El modelo Logit utiliza una función logística para mantener las probabilidades estimadas entre 0 y 1 [@hosmer2013].
 
 La forma general es:
 
 $$P(Y_i = 1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_i)}}$$
-
-**Exploración inicial.**
-
-```{r}
-#| label: fig-reg24-dispersion-binaria
-#| fig-cap: "Variable binaria y capital productivo"
-
-ggplot(
-  base_logit,
-  aes(
-    x = capital,
-    y = alta_productividad
-  )
-) +
-  geom_jitter(
-    height = 0.05,
-    alpha = 0.20
-  ) +
-  theme_minimal()
-```
-
-**Interpretación.** La dispersión muestra observaciones concentradas en dos valores posibles: 0 y 1.
-
-### Estimación del modelo Logit
 
 ```{r}
 #| label: reg24-modelo-logit
@@ -198,8 +77,6 @@ modelo_logit <- glm(
   )
 )
 ```
-
-**Resumen del modelo.**
 
 ```{r}
 #| label: tbl-reg24-resumen-logit
@@ -226,9 +103,34 @@ tidy(
   )
 ```
 
-**Interpretación.** Los coeficientes se expresan en la escala del logit y describen asociaciones condicionadas a los demás predictores. En un modelo Logit estándar, un coeficiente positivo implica mayores log-odds y, manteniendo constantes las demás variables, una mayor probabilidad predicha del evento; un coeficiente negativo implica lo contrario. Esta interpretación no es causal por sí sola.
+**Interpretación.** Los coeficientes se expresan en la escala del logit y describen asociaciones condicionadas a los demás predictores; esta interpretación no es causal por sí sola.
 
-### Probabilidades estimadas
+```{r}
+#| label: tbl-reg24-odds-ratio
+
+tidy(
+  modelo_logit
+) |>
+  mutate(
+    Odds_Ratio =
+      exp(
+        estimate
+      )
+  ) |>
+  select(
+    term,
+    estimate,
+    Odds_Ratio
+  ) |>
+  kable(
+    digits = 4,
+    caption = "Odds Ratio"
+  )
+```
+
+Para un incremento de una unidad en el predictor, manteniendo constantes las demás variables, un odds ratio igual a 1 no cambia multiplicativamente el odds estimado; si es mayor que 1, el odds aumenta; si es menor que 1, disminuye.
+
+### Probabilidades predichas
 
 ```{r}
 #| label: reg24-probabilidades
@@ -242,8 +144,6 @@ base_logit <- base_logit |>
       )
   )
 ```
-
-**Resumen de probabilidades.**
 
 ```{r}
 #| label: tbl-reg24-probabilidades
@@ -272,545 +172,9 @@ tibble(
   )
 ```
 
-**Interpretación.** Todas las predicciones permanecen dentro del rango válido de probabilidades.
+## Probit
 
-### Curva logística
-
-```{r}
-#| label: fig-reg24-curva-logit
-#| fig-cap: "Curva logística estimada"
-
-ggplot(
-  base_logit,
-  aes(
-    x = capital,
-    y = probabilidad
-  )
-) +
-  geom_point(
-    alpha = 0.20
-  ) +
-  geom_smooth(
-    se = FALSE
-  ) +
-  theme_minimal()
-```
-
-**Interpretación.** La relación entre la variable explicativa y la probabilidad presenta una forma no lineal característica de los modelos logísticos.
-
-**Conclusión práctica.**
-
-En esta primera parte aprendimos a:
-
-- Identificar situaciones con variables binarias.
-- Comprender las limitaciones de la regresión lineal.
-- Construir variables dicotómicas.
-- Estimar modelos Logit.
-- Obtener probabilidades válidas.
-- Interpretar coeficientes logísticos.
-
-**Introducción.**
-
-En la sección anterior aprendimos a estimar modelos Logit y obtener probabilidades.
-
-Sin embargo, los coeficientes de una regresión logística no se interpretan directamente como cambios en probabilidades.
-
-Para interpretar adecuadamente los resultados es necesario comprender tres conceptos:
-
-- Probabilidad.
-- Odds.
-- Odds Ratio.
-
-Estos conceptos constituyen la base de la interpretación de modelos Logit [@hosmer2013].
-
-**Cargando librerías.**
-
-```{r}
-#| label: reg24-cargar-librerias-parte2
-#| warning: false
-#| message: false
-
-
-
-
-
-```
-
-**Cargando la base analítica.**
-
-```{r}
-#| label: reg24-cargar-base-parte2
-#| eval: false
-
-base_analitica <- leer_objeto_libro("modelo_demo.rds")
-```
-
-**Reconstrucción de la variable binaria.**
-
-```{r}
-#| eval: false
-#| label: reg24-reconstruir-variable
-
-mediana_productividad <- median(
-  base_analitica$productividad,
-  na.rm = TRUE
-)
-
-base_logit <- base_analitica |>
-  mutate(
-    alta_productividad =
-      if_else(
-        productividad >
-          mediana_productividad,
-        1,
-        0
-      )
-  ) |>
-  select(
-    alta_productividad,
-    capital
-  ) |>
-  drop_na()
-```
-
-**Reestimación del modelo.**
-
-```{r}
-#| label: reg24-modelo-logit-parte2
-
-modelo_logit <- glm(
-  alta_productividad ~
-    capital,
-  family = binomial(
-    link = "logit"
-  ),
-  data = base_logit
-)
-```
-
-### Probabilidad
-
-La probabilidad representa la posibilidad de ocurrencia de un evento.
-
-Por ejemplo:
-
-```text
-P(productividad alta) = 0.70
-```
-
-significa:
-
-```text
-70%
-```
-
-de probabilidad de pertenecer a la categoría:
-
-```text
-productividad alta
-```
-
-### Odds
-
-Los odds representan la razón entre la probabilidad de ocurrencia y la probabilidad de no ocurrencia.
-
-$$\text{Odds} = \frac{P(Y=1)}{1 - P(Y=1)}$$
-
-Por ejemplo:
-
-```text
-P = 0.75
-```
-
-produce:
-
-```text
-Odds = 3
-```
-
-lo que significa que las *odds* del evento son 3 a 1 frente a su alternativa. Esto no equivale a afirmar que el evento sea tres veces más probable en términos de probabilidad.
-
-**Conversión de probabilidades a odds.**
-
-```{r}
-#| label: tbl-reg24-ejemplo-odds
-
-tibble(
-  Probabilidad = c(
-    0.20,
-    0.50,
-    0.80
-  )
-) |>
-  mutate(
-    Odds =
-      Probabilidad /
-      (1 - Probabilidad)
-  ) |>
-  kable(
-    digits = 3,
-    caption = "Conversión de probabilidades a odds"
-  )
-```
-
-**Interpretación.** Los odds aumentan rápidamente cuando la probabilidad se aproxima a uno.
-
-### El logit
-
-El modelo Logit realmente estima:
-
-$$\text{logit}(P) = \log\left(\frac{P(Y=1)}{1 - P(Y=1)}\right) = \beta_0 + \beta_1 X_i$$
-
-Esta transformación permite modelar probabilidades mediante una combinación lineal de variables explicativas.
-
-**Coeficientes estimados.**
-
-```{r}
-#| label: tbl-reg24-coeficientes-logit
-
-tidy(
-  modelo_logit
-) |>
-  select(
-    term,
-    estimate,
-    std.error,
-    p.value
-  ) |>
-  mutate(
-    term = etiquetar_terminos_modelo(term)
-  ) |>
-  setNames(
-    c("Parámetro", "Estim.", "EE", "p")
-  ) |>
-  kable(
-    digits = 4,
-    align = c("l", "r", "r", "r"),
-    caption = "Coeficientes estimados"
-  )
-```
-
-**Interpretación.** Los coeficientes representan cambios en el logaritmo de los odds.
-
-Esta interpretación suele resultar poco intuitiva para usuarios no especializados.
-
-## Odds Ratio
-
-Por esta razón normalmente transformamos los coeficientes exponenciándolos.
-
-```{r}
-#| label: tbl-reg24-odds-ratio
-
-tidy(
-  modelo_logit
-) |>
-  mutate(
-    Odds_Ratio =
-      exp(
-        estimate
-      )
-  ) |>
-  select(
-    term,
-    estimate,
-    Odds_Ratio
-  ) |>
-  kable(
-    digits = 4,
-    caption = "Odds Ratio"
-  )
-```
-
-**Interpretación.** Los Odds Ratio permiten una interpretación mucho más sencilla.
-
-### Interpretación del Odds Ratio
-
-Para un incremento de una unidad en el predictor, manteniendo constantes las demás variables:
-
-```text
-Odds Ratio = 1
-```
-
-no cambia multiplicativamente el odds estimado.
-
-```text
-Odds Ratio > 1
-```
-
-el odds estimado aumenta.
-
-```text
-Odds Ratio < 1
-```
-
-el odds estimado disminuye.
-
-El Odds Ratio describe cambios en odds, no cambios porcentuales directos en probabilidad.
-
-### Ejemplos prácticos
-
-```{r}
-#| label: tbl-reg24-ejemplos-or
-
-tibble(
-  Odds_Ratio = c(
-    0.70,
-    1.00,
-    1.30,
-    2.50
-  ),
-  Interpretacion = c(
-    "Reduce el odds estimado",
-    "Sin cambio en el odds",
-    "Aumenta el odds estimado",
-    "Aumenta el odds estimado"
-  )
-) |>
-  kable(
-    caption = "Interpretación general de Odds Ratio"
-  )
-```
-
-## Probabilidades predichas
-
-```{r}
-#| label: reg24-predicciones
-
-base_logit <- base_logit |>
-  mutate(
-    probabilidad =
-      predict(
-        modelo_logit,
-        type = "response"
-      )
-  )
-```
-
-**Distribución de probabilidades.**
-
-```{r}
-#| label: fig-reg24-histograma-probabilidades
-#| fig-cap: "Distribución de probabilidades estimadas"
-
-ggplot(
-  base_logit,
-  aes(
-    x = probabilidad
-  )
-) +
-  geom_histogram(
-    bins = 30,
-    fill = "steelblue",
-    color = "white"
-  ) +
-  theme_minimal()
-```
-
-**Interpretación.** El gráfico muestra cómo el modelo distribuye las probabilidades predichas entre las observaciones.
-
-### Clasificación binaria
-
-Una práctica común consiste en transformar probabilidades en decisiones binarias mediante un umbral. Ese umbral debe elegirse según el objetivo del análisis y los costos relativos de los errores; 0,50 es solo una referencia pedagógica.
-
-Por ejemplo:
-
-```text
-Probabilidad ≥ 0.50
-→ Clase 1
-
-Probabilidad < 0.50
-→ Clase 0
-```
-
-**Construcción de clases predichas.**
-
-```{r}
-#| label: reg24-clasificacion
-
-base_logit <- base_logit |>
-  mutate(
-    clase_predicha =
-      if_else(
-        probabilidad >= 0.50,
-        1,
-        0
-      )
-  )
-```
-
-### Matriz de clasificación
-
-```{r}
-#| label: tbl-reg24-matriz-clasificacion
-
-table(
-  Observado =
-    base_logit$alta_productividad,
-  Predicho =
-    base_logit$clase_predicha
-) |>
-  kable(
-    caption = "Matriz de clasificación"
-  )
-```
-
-**Interpretación.** La tabla resume los aciertos y errores del modelo.
-
-**Exactitud de clasificación.**
-
-```{r}
-#| label: tbl-reg24-exactitud
-
-exactitud <- mean(
-  base_logit$alta_productividad ==
-    base_logit$clase_predicha
-)
-
-tibble(
-  Exactitud = exactitud
-) |>
-  kable(
-    digits = 4,
-    caption = "Exactitud de clasificación"
-  )
-```
-
-**Interpretación.** La exactitud representa la proporción de observaciones correctamente clasificadas, pero puede ser insuficiente cuando las clases están desbalanceadas o los errores tienen costos distintos. Por ello debe interpretarse junto con la matriz de clasificación y, cuando corresponda, otras métricas.
-
-### Predicciones para nuevos casos
-
-```{r}
-#| label: tbl-reg24-prediccion-casos
-
-nuevos_casos <- tibble(
-  capital = c(
-    quantile(
-      base_logit$capital,
-      0.25
-    ),
-    median(
-      base_logit$capital
-    ),
-    quantile(
-      base_logit$capital,
-      0.75
-    )
-  )
-)
-
-nuevos_casos |>
-  mutate(
-    probabilidad =
-      predict(
-        modelo_logit,
-        newdata = nuevos_casos,
-        type = "response"
-      )
-  ) |>
-  kable(
-    digits = 4,
-    caption = "Predicciones para nuevos escenarios"
-  )
-```
-
-**Interpretación.** Las probabilidades permiten evaluar escenarios futuros bajo diferentes niveles de capital productivo.
-
-**Conclusión práctica.**
-
-En esta sección aprendimos a:
-
-- Interpretar odds.
-- Interpretar odds ratio.
-- Transformar coeficientes logísticos.
-- Obtener probabilidades predichas.
-- Construir reglas de clasificación.
-- Evaluar exactitud de clasificación.
-- Generar predicciones para nuevos casos.
-
-En la siguiente sección estudiaremos el modelo Probit y compararemos sus resultados con el modelo Logit.
-
-**Introducción.**
-
-El modelo Logit no es el único modelo disponible para analizar variables binarias.
-
-Otra alternativa ampliamente utilizada es el modelo Probit.
-
-Ambos modelos persiguen el mismo objetivo:
-
-```text
-Estimar probabilidades de ocurrencia
-de un evento binario.
-```
-
-La principal diferencia radica en la función matemática utilizada para transformar probabilidades [@hosmer2013; @wooldridge2019].
-
-En la práctica, Logit y Probit suelen producir resultados muy similares.
-
-**Cargando librerías.**
-
-```{r}
-#| label: reg24-cargar-librerias-parte3
-#| warning: false
-#| message: false
-
-
-
-
-
-```
-
-**Cargando la base analítica.**
-
-```{r}
-#| label: reg24-cargar-base-parte3
-#| eval: false
-
-base_analitica <- leer_objeto_libro("modelo_demo.rds")
-```
-
-**Construcción de la variable binaria.**
-
-```{r}
-#| label: reg24-variable-binaria-parte3
-
-mediana_productividad <- median(
-  base_analitica$productividad,
-  na.rm = TRUE
-)
-
-base_binaria <- base_analitica |>
-  mutate(
-    alta_productividad =
-      if_else(
-        productividad >
-          mediana_productividad,
-        1,
-        0
-      )
-  ) |>
-  select(
-    alta_productividad,
-    capital
-  ) |>
-  drop_na()
-```
-
-**Reestimación del modelo Logit.**
-
-```{r}
-#| label: reg24-modelo-logit-parte3
-
-modelo_logit <- glm(
-  alta_productividad ~
-    capital,
-  data = base_binaria,
-  family = binomial(
-    link = "logit"
-  )
-)
-```
-
-## Estimación del modelo Probit
+El modelo Probit utiliza la distribución normal estándar, mientras que el Logit utiliza la distribución logística. Ambos producen probabilidades entre 0 y 1.
 
 ```{r}
 #| label: reg24-modelo-probit
@@ -818,30 +182,12 @@ modelo_logit <- glm(
 modelo_probit <- glm(
   alta_productividad ~
     capital,
-  data = base_binaria,
+  data = base_logit,
   family = binomial(
     link = "probit"
   )
 )
 ```
-
-### ¿Qué es el modelo Probit?
-
-El modelo Probit utiliza la función de distribución acumulada de una distribución normal estándar.
-
-Conceptualmente:
-
-```text
-Logit
-→ Distribución logística
-
-Probit
-→ Distribución normal
-```
-
-Ambos garantizan probabilidades válidas entre 0 y 1.
-
-**Resumen del modelo Probit.**
 
 ```{r}
 #| label: tbl-reg24-resumen-probit
@@ -867,261 +213,3 @@ tidy(
     caption = "Coeficientes estimados del modelo Probit"
   )
 ```
-
-**Interpretación.** Los signos de los coeficientes se interpretan de manera similar a los del modelo Logit.
-
-### Comparación de coeficientes
-
-```{r}
-#| label: tbl-reg24-comparacion-coeficientes
-
-coef_logit <- tidy(
-  modelo_logit
-) |>
-  select(
-    term,
-    estimate
-  ) |>
-  rename(
-    Logit = estimate
-  )
-
-coef_probit <- tidy(
-  modelo_probit
-) |>
-  select(
-    term,
-    estimate
-  ) |>
-  rename(
-    Probit = estimate
-  )
-
-left_join(
-  coef_logit,
-  coef_probit,
-  by = "term"
-) |>
-  mutate(
-    term = etiquetar_terminos_modelo(term)
-  ) |>
-  setNames(
-    c("Parámetro", "Logit", "Probit")
-  ) |>
-  kable(
-    digits = 4,
-    align = c("l", "r", "r"),
-    caption = "Comparación de coeficientes"
-  )
-```
-
-**Interpretación.** Las magnitudes suelen diferir porque cada modelo utiliza una escala distinta.
-
-Lo importante es que normalmente mantienen el mismo signo y una dirección de asociación similar, aunque sus coeficientes no son directamente comparables porque utilizan escalas distintas.
-
-### Probabilidades estimadas
-
-```{r}
-#| label: reg24-probabilidades-comparadas
-
-base_binaria <- base_binaria |>
-  mutate(
-    prob_logit =
-      predict(
-        modelo_logit,
-        type = "response"
-      ),
-    prob_probit =
-      predict(
-        modelo_probit,
-        type = "response"
-      )
-  )
-```
-
-**Comparación de probabilidades.**
-
-```{r}
-#| label: tbl-reg24-resumen-probabilidades
-
-tibble(
-  Modelo = c(
-    "Logit",
-    "Probit"
-  ),
-  Probabilidad_Media = c(
-    mean(
-      base_binaria$prob_logit
-    ),
-    mean(
-      base_binaria$prob_probit
-    )
-  )
-) |>
-  kable(
-    digits = 4,
-    caption = "Promedio de probabilidades estimadas"
-  )
-```
-
-**Interpretación.** Las diferencias suelen ser pequeñas en aplicaciones reales.
-
-**Comparación gráfica.**
-
-```{r}
-#| label: fig-reg24-logit-vs-probit
-#| fig-cap: "Comparación de probabilidades estimadas"
-
-ggplot(
-  base_binaria,
-  aes(
-    x = prob_logit,
-    y = prob_probit
-  )
-) +
-  geom_point(
-    alpha = 0.25,
-    color = "steelblue"
-  ) +
-  geom_abline(
-    slope = 1,
-    intercept = 0,
-    color = "red"
-  ) +
-  theme_minimal()
-```
-
-**Interpretación.** Mientras más próximos se encuentren los puntos a la diagonal, más similares serán las predicciones.
-
-**Exactitud de clasificación.**
-
-```{r}
-#| label: tbl-reg24-comparacion-exactitud
-
-exactitud_logit <- mean(
-  if_else(
-    base_binaria$prob_logit >= 0.50,
-    1,
-    0
-  ) ==
-    base_binaria$alta_productividad
-)
-
-exactitud_probit <- mean(
-  if_else(
-    base_binaria$prob_probit >= 0.50,
-    1,
-    0
-  ) ==
-    base_binaria$alta_productividad
-)
-
-tibble(
-  Modelo = c(
-    "Logit",
-    "Probit"
-  ),
-  Exactitud = c(
-    exactitud_logit,
-    exactitud_probit
-  )
-) |>
-  kable(
-    digits = 4,
-    caption = "Comparación de exactitud"
-  )
-```
-
-**Interpretación.** En la mayoría de aplicaciones ambos modelos presentan desempeños muy parecidos.
-
-### ¿Cuándo usar Logit?
-
-El modelo Logit suele preferirse cuando:
-
-- Se desean interpretar Odds Ratio.
-- Se trabaja en epidemiología.
-- Se realizan análisis de riesgo.
-- Se requiere comunicación sencilla de resultados.
-
-### ¿Cuándo usar Probit?
-
-El modelo Probit suele utilizarse cuando:
-
-- Se trabaja en econometría.
-- Se utilizan modelos de elección discreta.
-- Se desea mantener consistencia con literatura previa.
-
-**Comparación resumida.**
-
-```{r}
-#| label: tbl-reg24-comparacion-final
-
-tibble(
-  Caracteristica = c(
-    "Variable dependiente",
-    "Probabilidades válidas",
-    "Interpretación Odds Ratio",
-    "Uso frecuente"
-  ),
-  Logit = c(
-    "Binaria",
-    "Sí",
-    "Sí",
-    "Epidemiología y ciencias sociales"
-  ),
-  Probit = c(
-    "Binaria",
-    "Sí",
-    "No",
-    "Econometría"
-  )
-) |>
-  kable(
-    caption = "Comparación general entre Logit y Probit"
-  )
-```
-
-**Interpretación.** Ambos modelos constituyen alternativas válidas para variables binarias.
-
-**Flujo de trabajo recomendado.**
-
-```{r}
-#| label: tbl-reg24-flujo
-
-tibble(
-  Paso = 1:6,
-  Actividad = c(
-    "Definir variable binaria",
-    "Explorar frecuencias",
-    "Estimar Logit",
-    "Interpretar probabilidades",
-    "Evaluar clasificación",
-    "Comparar con Probit"
-  )
-) |>
-  kable(
-    caption = "Flujo recomendado de análisis"
-  )
-```
-
-**Manos a la obra.**
-
-1. Construya una variable binaria.
-2. Explore su distribución.
-3. Estime un modelo Logit.
-4. Obtenga probabilidades predichas.
-5. Calcule Odds Ratio.
-6. Construya una regla de clasificación.
-7. Evalúe exactitud.
-8. Estime un modelo Probit.
-9. Compare predicciones.
-10. Redacte conclusiones sustantivas.
-
-## Resumen del capítulo
-
-En este capítulo aprendimos a modelar variables binarias mediante regresiones Logit y Probit.
-
-Primero identificamos las limitaciones de la regresión lineal cuando la variable dependiente solo puede tomar dos valores. Posteriormente estimamos modelos Logit, interpretamos probabilidades, Odds y Odds Ratio. Finalmente estimamos modelos Probit y comprobamos que ambos enfoques suelen generar resultados muy similares.
-
-Los modelos Logit y Probit constituyen la base de numerosos métodos modernos de clasificación, análisis de riesgo, elección discreta y evaluación de decisiones, por lo que representan una extensión natural de los modelos lineales estudiados anteriormente.
-En la siguiente sección profundizaremos en odds, odds ratio e interpretación sustantiva de los coeficientes.

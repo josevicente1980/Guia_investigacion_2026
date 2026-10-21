@@ -10,17 +10,6 @@ source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("comunicacion", extra = c("gapminder"))
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender la función de la discusión dentro de un documento científico.
-* Diferenciar resultados y discusión.
-* Interpretar hallazgos a la luz de la literatura científica.
-* Identificar implicaciones teóricas y prácticas.
-* Redactar una discusión reproducible y argumentativamente sólida.
-
 ## Introducción
 
 La discusión constituye el espacio donde el investigador interpreta los resultados obtenidos y los relaciona con el conocimiento existente.
@@ -30,22 +19,6 @@ Una discusión sólida interpreta los hallazgos, los compara con la literatura, 
 Mientras la sección de resultados responde a la pregunta "¿qué encontramos?", la discusión responde a la pregunta "¿qué significan estos hallazgos?" [@apa2020].
 
 Una buena discusión conecta los resultados con la teoría, la evidencia previa y las implicaciones derivadas del estudio [@belcher2019].
-
-### Configuración inicial
-
-### Carga de librerías
-
-```{r}
-#| label: reg31-cargar-librerias
-#| warning: false
-#| message: false
-
-
-
-
-```
-
-### Carga de datos
 
 ```{r}
 #| label: reg31-cargar-datos
@@ -292,20 +265,3 @@ tibble(
 ```
 
 **Interpretación.** Antes de finalizar un manuscrito es recomendable verificar que todos los componentes fundamentales de la discusión estén presentes.
-
-### Manos a la obra
-
-1. Identifique el hallazgo principal.
-2. Interprete su significado.
-3. Compare el resultado con la literatura.
-4. Explique la contribución del estudio.
-5. Analice implicaciones prácticas.
-6. Reconozca limitaciones.
-7. Proponga investigaciones futuras.
-8. Evite repetir tablas y coeficientes.
-9. Mantenga coherencia con los objetivos.
-10. Revise la lógica argumentativa.
-
-## Resumen del capítulo
-
-En este capítulo se estudió la función de la discusión dentro de un documento científico. Se mostró cómo interpretar resultados, compararlos con la literatura existente, identificar aportes, reconocer limitaciones y proponer futuras líneas de investigación. Una discusión sólida transforma resultados estadísticos en conocimiento científico útil y contextualizado.

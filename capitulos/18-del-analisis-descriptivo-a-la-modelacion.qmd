@@ -11,18 +11,11 @@ cargar_paquetes_libro("modelos")
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
 ```
 
-
 ```{r}
 #| label: setup-cap18
 #| include: false
 
 # 1. Carga de librerías
-
-
-
-
-
-
 
 # 2. Carga de la base de datos
 base_analitica <- leer_objeto_libro("modelo_demo.rds")
@@ -31,20 +24,6 @@ base_analitica <- leer_objeto_libro("modelo_demo.rds")
 base_analitica <- base_analitica |> 
   mutate(log_productividad = log1p(productividad))
 ```
-
-
-## Objetivos de aprendizaje
-
-Al finalizar esta sección, el lector será capaz de:
-
-- Comprender la diferencia entre describir y modelar datos.
-- Reconocer el papel de los modelos estadísticos dentro del proceso de investigación.
-- Identificar variables dependientes e independientes.
-- Comprender por qué la correlación no implica causalidad.
-- Construir una matriz analítica para modelación.
-- Evaluar relaciones preliminares entre variables.
-- Preparar datos para análisis explicativos y predictivos.
-- Interpretar evidencia gráfica previa a la estimación de modelos.
 
 ## Introducción
 
@@ -405,21 +384,6 @@ Antes de estimar cualquier modelo se recomienda:
 - Evaluar relaciones preliminares.
 - Justificar conceptualmente las variables.
 - Evitar interpretaciones causales apresuradas.
-
-**Manos a la obra.**
-
-Utilizando la base `base_analitica`:
-
-1. Construya una matriz analítica para modelación.
-2. Seleccione una variable dependiente.
-3. Seleccione al menos dos variables explicativas.
-4. Calcule estadísticas descriptivas.
-5. Construya gráficos exploratorios.
-6. Analice posibles asociaciones.
-7. Evalúe correlaciones.
-8. Identifique posibles variables relevantes.
-9. Justifique conceptualmente la inclusión de cada variable.
-10. Diseñe un esquema preliminar de modelación.
 
 **Introducción a la regresión lineal.**
 
@@ -791,8 +755,6 @@ comparacion_modelos |>
 
 **¿Qué hemos aprendido?.**
 
-Hasta este punto hemos aprendido a:
-
 - Construir regresiones lineales simples.
 - Interpretar coeficientes.
 - Analizar valores predichos.
@@ -800,21 +762,6 @@ Hasta este punto hemos aprendido a:
 - Incorporar variables categóricas.
 - Estimar modelos múltiples.
 - Comparar capacidad explicativa.
-
-**Manos a la obra.**
-
-Utilizando la base de datos denominada `matriz_modelo`:
-
-1. Estime una regresión lineal simple.
-2. Interprete los coeficientes obtenidos.
-3. Calcule valores predichos.
-4. Analice residuos.
-5. Construya gráficos de diagnóstico.
-6. Incorpore una variable categórica.
-7. Estime un modelo múltiple.
-8. Compare los valores de \(R^2\).
-9. Evalúe qué modelo explica mejor la variabilidad observada.
-10. Redacte una interpretación sustantiva de los resultados.
 
 **Hacia modelos más complejos.**
 
@@ -1145,7 +1092,6 @@ ggplot(
 
 Una medida ampliamente utilizada para evaluar predicciones es la raíz del error cuadrático medio (RMSE). De acuerdo con @munoz2013calculo, es una medida que cuantifica la diferencia promedio entre los valores observados y los valores predichos por un modelo de regresión. En otras palabras, indica qué tan cerca están las predicciones del modelo de los valores reales.
 
-
 **Cálculo del RMSE.**
 
 ```{r}
@@ -1288,32 +1234,3 @@ Se recomienda:
 - Realizar validación.
 - Reportar incertidumbre.
 - Garantizar reproducibilidad.
-
-**Manos a la obra.**
-
-Utilizando la base `matriz_modelo`:
-
-1. Divida los datos en entrenamiento y validación.
-2. Estime un modelo lineal.
-3. Genere predicciones.
-4. Calcule RMSE.
-5. Compare desempeño dentro y fuera de muestra.
-6. Estime un modelo con interacción.
-7. Compare distintos niveles de complejidad.
-8. Evalúe evidencia de sobreajuste.
-9. Interprete los coeficientes obtenidos.
-10. Diseñe un flujo completo de modelación reproducible.
-
-## Resumen del capítulo
-
-En este capítulo realizamos la transición entre el análisis descriptivo y la modelación estadística.
-
-En la primera parte construimos la matriz analítica, revisamos conceptos fundamentales y exploramos relaciones preliminares entre variables.
-
-En la segunda parte introdujimos la regresión lineal simple y múltiple, interpretando coeficientes, residuos y medidas de ajuste.
-
-Finalmente, en esta tercera parte abordamos conceptos asociados a la predicción, validación, sobreajuste, partición de datos e interacciones. Estos elementos constituyen la base conceptual sobre la que se desarrollan modelos estadísticos y técnicas modernas de aprendizaje automático.
-
-Los conocimientos adquiridos en este capítulo servirán como fundamento para los capítulos posteriores dedicados a técnicas de modelación más avanzadas.
-
-

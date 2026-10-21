@@ -10,17 +10,6 @@ source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("comunicacion", extra = c("gapminder", "modelsummary"))
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender la función de la sección de resultados.
-* Presentar resultados estadísticos de forma clara y reproducible.
-* Construir tablas y figuras científicas para comunicar hallazgos.
-* Diferenciar entre resultados e interpretación.
-* Integrar resultados automáticamente mediante Quarto.
-
 ## Introducción
 
 La sección de resultados tiene como objetivo presentar de forma objetiva los hallazgos obtenidos durante el análisis de datos. Su función no consiste en explicar causas ni discutir implicaciones teóricas. Estas tareas corresponden a la discusión.
@@ -28,23 +17,6 @@ La sección de resultados tiene como objetivo presentar de forma objetiva los ha
 La sección de resultados debe seleccionar los hallazgos esenciales y coordinarlos con tablas y figuras, evitando convertirla en una transcripción extensa de toda la salida estadística [@robinson2023].
 
 Los resultados deben responder directamente a los objetivos y preguntas de investigación formulados previamente [@apa2020].
-
-### Configuración inicial
-
-### Carga de librerías
-
-```{r}
-#| label: reg30-cargar-librerias
-#| warning: false
-#| message: false
-
-
-
-
-
-```
-
-### Carga de datos
 
 ```{r}
 #| label: reg30-cargar-datos
@@ -293,20 +265,3 @@ tibble(
 ```
 
 **Interpretación.** La lista de verificación permite asegurar que la sección de resultados cumple los estándares básicos de reporte científico.
-
-### Manos a la obra
-
-1. Presente estadísticas descriptivas.
-2. Organice resultados según los objetivos.
-3. Construya tablas reproducibles.
-4. Genere figuras relevantes.
-5. Reporte coeficientes y medidas de ajuste.
-6. Evite interpretaciones causales.
-7. Redacte hallazgos de forma objetiva.
-8. Revise consistencia entre texto y tablas.
-9. Renderice el documento.
-10. Verifique reproducibilidad.
-
-## Resumen del capítulo
-
-En este capítulo se presentó la estructura fundamental de una sección de resultados reproducible. Se mostraron estrategias para reportar estadísticos descriptivos, coeficientes de modelos, tablas y figuras utilizando Quarto. La sección de resultados debe comunicar hallazgos de manera clara, objetiva y directamente vinculada con los objetivos de investigación.

@@ -1,16 +1,5 @@
 # Búsqueda científica, BibTeX y gestión automatizada de referencias
 
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-- Comprender la importancia de la búsqueda sistemática de literatura científica.
-- Identificar las principales bases de datos académicas utilizadas en investigación.
-- Diseñar estrategias de búsqueda reproducibles.
-- Utilizar BibTeX para almacenar y gestionar referencias bibliográficas.
-- Integrar bibliotecas bibliográficas dentro de proyectos Quarto.
-- Automatizar citas y referencias mediante archivos `.bib`.
-
 ## Introducción
 
 La calidad de una investigación depende en gran medida de la calidad de la literatura científica que la sustenta. Un problema metodológicamente sólido puede perder relevancia si se fundamenta en información incompleta, desactualizada o poco confiable.
@@ -354,30 +343,3 @@ Un investigador puede mantener una única base de datos bibliográfica y utiliza
 - Presentaciones.
 
 Esta estrategia reduce errores y mejora la consistencia de las referencias utilizadas.
-
-## Manos a la obra
-
-Realice una búsqueda relacionada con su tema de investigación en Google Scholar, Scopus o Web of Science.
-
-Posteriormente identifique:
-
-```{.text}
-1. Cinco artículos científicos relevantes.
-2. Dos libros fundamentales.
-3. Una teoría principal asociada al problema.
-4. Un vacío de investigación identificado.
-```
-
-Finalmente incorpore las referencias encontradas dentro de su archivo:
-
-```{.text}
-referencias/referencias.bib
-```
-
-## Resumen del capítulo
-
-La búsqueda científica constituye una etapa fundamental dentro del proceso de investigación. Una revisión rigurosa de la literatura permite comprender el estado actual del conocimiento, identificar vacíos de investigación y fundamentar adecuadamente los estudios desarrollados.
-
-BibTeX proporciona una solución eficiente para almacenar, organizar y reutilizar referencias bibliográficas, mientras que Quarto permite integrar automáticamente dichas referencias dentro de documentos reproducibles.
-
-En el siguiente capítulo comenzaremos a trabajar directamente con datos y aprenderemos a importar información desde distintos formatos utilizando R.

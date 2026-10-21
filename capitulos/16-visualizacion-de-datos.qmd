@@ -1,5 +1,4 @@
-# Visualización de datos
-
+# Visualización y comunicación gráfica
 ```{r}
 #| label: setup-libro
 #| include: false
@@ -9,20 +8,9 @@
 source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("visual", extra = c("sf", "leaflet", "maps", "htmlwidgets"))
 base_analitica <- leer_objeto_libro("sunac_transformado.rds")
+base_analitica <- base_analitica |>
+  dplyr::mutate(log_supertotal = log1p(supertotal))
 ```
-
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-- Comprender la importancia de la visualización dentro del análisis exploratorio de datos.
-- Construir gráficos reproducibles utilizando `ggplot2`.
-- Representar distribuciones mediante histogramas y curvas de densidad.
-- Aplicar transformaciones simples para mejorar la visualización de variables asimétricas.
-- Comparar grupos utilizando gráficos de barras y diagramas de caja.
-- Interpretar correctamente diferentes tipos de visualizaciones estadísticas.
-- Aplicar buenas prácticas en la comunicación visual de resultados.
 
 ## Introducción
 
@@ -33,141 +21,6 @@ En investigación científica, la visualización no debe entenderse únicamente 
 La visualización constituye además uno de los pilares del análisis exploratorio de datos, ya que permite comprender la estructura de una base antes de aplicar procedimientos estadísticos más complejos [@healy2018].
 
 En este capítulo utilizaremos la base analítica construida a partir de la Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC 2025).
-
-## Fundamentos de visualización
-
-### Cargando la base de trabajo
-
-Como este capítulo debe poder ejecutarse de forma independiente, comenzaremos cargando los paquetes necesarios y la base analítica construida en capítulos anteriores.
-
-```{r}
-#| label: ch16-cargar-paquetes
-#| eval: false
-#| warning: false
-#| message: false
-
-
-
-
-```
-
-```{r}
-#| eval: false
-#| label: ch16-cargar-base-analitica
-
-base_analitica <- readRDS(
-  here::here(
-    "datos",
-    "procesado",
-    "ESPAC_2025",
-    "sunac_transformado.rds"
-  )
-)
-```
-
-### Explorando la estructura de la base
-
-Antes de construir gráficos conviene verificar la estructura de la información disponible.
-
-```{r}
-#| label: ch16-estructura-base
-
-base_analitica |>
-  mutate(
-    across(
-      where(haven::is.labelled),
-      ~ haven::as_factor(.x)
-    )
-  ) |>
-  glimpse()
-```
-
-**Interpretación.** La base analítica contiene las variables seleccionadas y transformadas durante el proceso de preparación de datos. A partir de este punto utilizaremos esta estructura para desarrollar diferentes visualizaciones estadísticas.
-
-### Preparando una variable transformada
-
-La variable `supertotal` representa la superficie total de la unidad productiva agropecuaria. Como suele ocurrir con variables agrarias, su distribución puede ser altamente asimétrica: muchas unidades tienen superficies pequeñas y pocas unidades presentan superficies muy grandes.
-
-Para visualizar mejor esta variable utilizaremos una transformación logarítmica:
-
-```text
-log_supertotal = log(supertotal + 1)
-```
-
-La función `log1p()` calcula precisamente `log(x + 1)`, evitando problemas cuando existen valores iguales a cero.
-
-```{r}
-#| label: ch16-crear-log-supertotal
-
-base_analitica <- base_analitica |>
-  mutate(
-    log_supertotal =
-      log1p(
-        supertotal
-      )
-  )
-```
-
-### Resumen estadístico previo
-
-Antes de construir gráficos resulta útil examinar algunas estadísticas descriptivas de la variable original y de su versión transformada.
-
-```{r}
-#| label: tbl-ch16-resumen-supertotal
-
-data.frame(
-  Variable = c(
-    "supertotal",
-    "log_supertotal"
-  ),
-  Minimo = c(
-    min(
-      base_analitica$supertotal,
-      na.rm = TRUE
-    ),
-    min(
-      base_analitica$log_supertotal,
-      na.rm = TRUE
-    )
-  ),
-  Mediana = c(
-    median(
-      base_analitica$supertotal,
-      na.rm = TRUE
-    ),
-    median(
-      base_analitica$log_supertotal,
-      na.rm = TRUE
-    )
-  ),
-  Media = c(
-    mean(
-      base_analitica$supertotal,
-      na.rm = TRUE
-    ),
-    mean(
-      base_analitica$log_supertotal,
-      na.rm = TRUE
-    )
-  ),
-  Maximo = c(
-    max(
-      base_analitica$supertotal,
-      na.rm = TRUE
-    ),
-    max(
-      base_analitica$log_supertotal,
-      na.rm = TRUE
-    )
-  )
-) |>
-  kable(
-    digits = 2,
-    caption = "Resumen de superficie total original y transformada"
-  )
-```
-
-**Interpretación.** La variable original presenta una diferencia muy amplia entre la mediana y el valor máximo. La transformación logarítmica reduce la escala de los valores extremos y permite visualizar mejor la distribución general de la superficie.
 
 ### ¿Por qué visualizar datos?
 
@@ -217,14 +70,6 @@ ggplot(
 
 Esta sintaxis será utilizada a lo largo de todo el capítulo.
 
-## Distribuciones y categorías
-
-### Distribuciones de variables cuantitativas
-
-Uno de los primeros objetivos del análisis exploratorio consiste en comprender cómo se distribuyen las variables numéricas.
-
-En nuestro caso utilizaremos `log_supertotal`, que permite observar mejor la forma de la distribución de la superficie total.
-
 ### Histograma de la superficie transformada
 
 El histograma constituye una de las herramientas más utilizadas para representar distribuciones cuantitativas [@wilkinson2005].
@@ -252,96 +97,6 @@ ggplot(
 ```
 
 **Interpretación.** La transformación logarítmica permite observar una distribución mucho más informativa. En lugar de concentrar casi todas las observaciones en el extremo izquierdo, el gráfico muestra con mayor claridad cómo se distribuyen las unidades productivas.
-
-### Curvas de densidad
-
-Las curvas de densidad representan una versión suavizada de la distribución observada [@wickham2016].
-
-```{r}
-#| label: fig-ch16-densidad-log-supertotal
-#| fig-cap: "Curva de densidad de la superficie total transformada"
-
-ggplot(
-  base_analitica,
-  aes(
-    x = log_supertotal
-  )
-) +
-  geom_density(
-    fill = "lightblue",
-    alpha = 0.6
-  ) +
-  theme_minimal() +
-  labs(
-    x = "Logaritmo de la superficie total",
-    y = "Densidad"
-  )
-```
-
-**Interpretación.** La densidad suavizada muestra la forma general de la distribución transformada y facilita la identificación de concentraciones de observaciones.
-
-**Histograma y densidad combinados.**
-
-Una práctica frecuente consiste en combinar ambas representaciones.
-
-```{r}
-#| label: fig-ch16-histograma-densidad-log
-#| fig-cap: "Histograma y densidad de la superficie total transformada"
-
-ggplot(
-  base_analitica,
-  aes(
-    x = log_supertotal
-  )
-) +
-  geom_histogram(
-    aes(
-      y = after_stat(density)
-    ),
-    bins = 30,
-    fill = "lightgray",
-    color = "white"
-  ) +
-  geom_density(
-    linewidth = 1
-  ) +
-  theme_minimal() +
-  labs(
-    x = "Logaritmo de la superficie total",
-    y = "Densidad"
-  )
-```
-
-**Interpretación.** La combinación del histograma y la curva de densidad permite comparar las frecuencias observadas con la forma suavizada de la distribución.
-
-### Variables categóricas
-
-Las variables categóricas requieren herramientas diferentes.
-
-Analizaremos la variable:
-
-```text
-tamano_upa
-```
-
-**Tabla de frecuencias.**
-
-```{r}
-#| label: tbl-ch16-frecuencia-tamano
-
-base_analitica |>
-  count(
-    tamano_upa
-  ) |>
-  arrange(
-    desc(n)
-  ) |>
-  kable(
-    caption = "Frecuencia de observaciones según tamaño de UPA"
-  )
-```
-
-**Interpretación.** La tabla resume la cantidad de observaciones registradas en cada categoría de tamaño.
 
 ### Gráficos de barras
 
@@ -372,27 +127,6 @@ ggplot(
 **Comparaciones territoriales.**
 
 También podemos analizar la distribución de observaciones entre provincias.
-
-```{r}
-#| label: fig-ch16-barras-provincia
-#| fig-cap: "Frecuencia de observaciones por provincia"
-
-ggplot(
-  base_analitica,
-  aes(
-    x = provincia
-  )
-) +
-  geom_bar(
-    fill = "steelblue"
-  ) +
-  coord_flip() +
-  theme_minimal() +
-  labs(
-    x = "Provincia",
-    y = "Frecuencia"
-  )
-```
 
 **Interpretación.** El gráfico permite identificar diferencias en la representación de observaciones entre provincias.
 
@@ -425,42 +159,7 @@ ggplot(
 
 **Comparación provincial de la superficie.**
 
-```{r}
-#| label: fig-ch16-boxplot-provincia-log
-#| fig-cap: "Distribución provincial de la superficie total transformada"
-
-ggplot(
-  base_analitica,
-  aes(
-    x = provincia,
-    y = log_supertotal
-  )
-) +
-  geom_boxplot() +
-  coord_flip() +
-  theme_minimal() +
-  labs(
-    x = "Provincia",
-    y = "Logaritmo de la superficie total"
-  )
-```
-
 **Interpretación.** La transformación logarítmica permite comparar provincias sin que los valores extremadamente altos oculten la estructura principal de la distribución.
-
-## Relaciones y comparación multivariada
-
-### Relaciones entre variables
-
-En la primera parte del capítulo aprendimos a visualizar distribuciones y comparar grupos. Sin embargo, muchas preguntas de investigación requieren analizar relaciones entre dos o más variables.
-
-Por ejemplo, podríamos preguntarnos:
-
-- ¿Existe relación entre la superficie total y el factor de expansión?
-- ¿Los distintos tamaños de UPA presentan patrones visuales diferentes?
-- ¿Existen diferencias territoriales en la distribución de la superficie?
-- ¿Qué combinaciones de categorías son más frecuentes?
-
-Las visualizaciones bivariadas y multivariadas permiten explorar estas preguntas antes de aplicar modelos estadísticos más complejos [@wilkinson2005; @healy2018].
 
 ### Gráficos de dispersión
 
@@ -475,27 +174,6 @@ fact_exp_fin
 ```
 
 La primera variable representa la superficie total transformada mediante logaritmo, mientras que la segunda corresponde al factor de expansión de la encuesta.
-
-```{r}
-#| label: fig-ch16-dispersion-log-factor
-#| fig-cap: "Relación entre superficie transformada y factor de expansión"
-
-ggplot(
-  base_analitica,
-  aes(
-    x = log_supertotal,
-    y = fact_exp_fin
-  )
-) +
-  geom_point(
-    alpha = 0.3
-  ) +
-  theme_minimal() +
-  labs(
-    x = "Logaritmo de la superficie total",
-    y = "Factor de expansión"
-  )
-```
 
 **Interpretación.** Cada punto representa una observación de la base analítica. El gráfico permite explorar si existe algún patrón visual entre la superficie total transformada y el factor de expansión.
 
@@ -529,68 +207,6 @@ ggplot(
 ```
 
 **Interpretación.** La línea de tendencia permite observar la dirección general de la relación. Esta visualización no debe interpretarse como evidencia causal, sino como una primera exploración descriptiva.
-
-### Incorporando una tercera variable
-
-Los gráficos de dispersión pueden incorporar una tercera dimensión mediante el color.
-
-En este caso utilizaremos la variable `tamano_upa`.
-
-```{r}
-#| label: fig-ch16-dispersion-color-tamano
-#| fig-cap: "Relación entre superficie transformada y factor de expansión según tamaño de UPA"
-
-ggplot(
-  base_analitica,
-  aes(
-    x = log_supertotal,
-    y = fact_exp_fin,
-    color = tamano_upa
-  )
-) +
-  geom_point(
-    alpha = 0.5
-  ) +
-  theme_minimal() +
-  labs(
-    x = "Logaritmo de la superficie total",
-    y = "Factor de expansión",
-    color = "Tamaño de UPA"
-  )
-```
-
-**Interpretación.** El color permite identificar si las categorías de tamaño presentan patrones diferenciados dentro de la relación entre superficie y factor de expansión.
-
-**Gráficos de burbujas.**
-
-Los gráficos de burbujas permiten incorporar una dimensión adicional mediante el tamaño de los puntos.
-
-```{r}
-#| label: fig-ch16-burbujas-tamano
-#| fig-cap: "Gráfico de burbujas según superficie y factor de expansión"
-
-ggplot(
-  base_analitica,
-  aes(
-    x = log_supertotal,
-    y = fact_exp_fin,
-    size = fact_exp_fin,
-    color = tamano_upa
-  )
-) +
-  geom_point(
-    alpha = 0.4
-  ) +
-  theme_minimal() +
-  labs(
-    x = "Logaritmo de la superficie total",
-    y = "Factor de expansión",
-    size = "Factor de expansión",
-    color = "Tamaño de UPA"
-  )
-```
-
-**Interpretación.** El gráfico representa simultáneamente la superficie transformada, el factor de expansión, el tamaño del punto y la categoría de tamaño de UPA. Aunque este tipo de gráfico puede ser visualmente atractivo, debe usarse con cuidado para no sobrecargar la interpretación.
 
 ### Facetas
 
@@ -629,188 +245,7 @@ ggplot(
 
 **Histograma por provincia.**
 
-```{r}
-#| label: fig-ch16-facetas-provincia
-#| fig-cap: "Distribución provincial de la superficie transformada"
-
-ggplot(
-  base_analitica,
-  aes(
-    x = log_supertotal
-  )
-) +
-  geom_histogram(
-    bins = 20,
-    fill = "steelblue",
-    color = "white"
-  ) +
-  facet_wrap(
-    ~ provincia
-  ) +
-  theme_minimal() +
-  labs(
-    x = "Logaritmo de la superficie total",
-    y = "Frecuencia"
-  )
-```
-
 **Interpretación.** La división por provincia permite comparar visualmente la distribución territorial de la superficie transformada. Esta visualización ayuda a detectar provincias con patrones más concentrados o dispersos.
-
-### Mapas de calor
-
-Los mapas de calor permiten representar una tabla cruzada mediante intensidad visual. Son útiles para identificar combinaciones frecuentes entre dos variables categóricas.
-
-En este caso cruzaremos:
-
-```text
-provincia
-y
-tamano_upa
-```
-
-**Preparando los datos para el mapa de calor.**
-
-```{r}
-#| label: tbl-ch16-datos-heatmap
-
-datos_heatmap <-
-  base_analitica |>
-  count(
-    provincia,
-    tamano_upa
-  )
-
-head(
-  datos_heatmap
-) |>
-  knitr::kable(
-    caption = "Primeras filas de la tabla para el mapa de calor"
-  )
-```
-
-**Interpretación.** La tabla resume el número de observaciones para cada combinación entre provincia y tamaño de UPA.
-
-**Mapa de calor.**
-
-```{r}
-#| label: fig-ch16-heatmap-provincia-tamano
-#| fig-cap: "Mapa de calor entre provincia y tamaño de UPA"
-
-ggplot(
-  datos_heatmap,
-  aes(
-    x = tamano_upa,
-    y = provincia,
-    fill = n
-  )
-) +
-  geom_tile() +
-  theme_minimal() +
-  labs(
-    x = "Tamaño de UPA",
-    y = "Provincia",
-    fill = "Frecuencia"
-  )
-```
-
-**Interpretación.** Las celdas con mayor intensidad representan combinaciones con mayor cantidad de observaciones. Esta visualización permite identificar patrones estructurales entre provincia y tamaño de UPA.
-
-**Tabla de correlación.**
-
-Cuando trabajamos con variables numéricas, también podemos evaluar asociaciones lineales mediante una matriz de correlación.
-
-En este caso analizaremos:
-
-```text
-log_supertotal
-fact_exp_fin
-```
-
-```{r}
-#| label: tbl-ch16-correlacion
-
-base_analitica |>
-  select(
-    log_supertotal,
-    fact_exp_fin
-  ) |>
-  cor(
-    use = "complete.obs"
-  ) |>
-  knitr::kable(
-    digits = 3,
-    caption = "Matriz de correlación entre variables numéricas"
-  )
-```
-
-**Interpretación.** La matriz de correlación muestra la dirección y fuerza de la asociación lineal entre las variables numéricas seleccionadas.
-
-**Visualización simple de correlación.**
-
-Para evitar depender de paquetes adicionales, podemos representar la correlación mediante un gráfico de dispersión con línea de tendencia, como se mostró anteriormente.
-
-```{r}
-#| label: fig-ch16-correlacion-simple
-#| fig-cap: "Visualización de la relación entre variables numéricas"
-
-ggplot(
-  base_analitica,
-  aes(
-    x = log_supertotal,
-    y = fact_exp_fin
-  )
-) +
-  geom_point(
-    alpha = 0.25
-  ) +
-  geom_smooth(
-    method = "lm"
-  ) +
-  theme_minimal() +
-  labs(
-    x = "Logaritmo de la superficie total",
-    y = "Factor de expansión"
-  )
-```
-
-**Interpretación.** El gráfico complementa la tabla de correlación al permitir observar visualmente la dispersión de los datos y la tendencia promedio.
-
-**Buenas prácticas para visualizaciones multivariadas.**
-
-Las visualizaciones multivariadas pueden ser muy útiles, pero también pueden volverse confusas si se incorporan demasiadas dimensiones al mismo tiempo.
-
-Se recomienda:
-
-- Incorporar variables gradualmente.
-- Utilizar colores solo cuando aporten información.
-- Evitar gráficos excesivamente saturados.
-- Mantener etiquetas claras.
-- Interpretar los patrones con cautela.
-- No confundir asociación visual con causalidad.
-
-La visualización debe ayudar a comprender los datos, no complicar innecesariamente su lectura [@healy2018].
-
-## Visualización territorial
-
-**Visualizaciones territoriales: de tablas planas a mapas inteligentes.**
-
-Los datos territoriales permiten pasar de una tabla tradicional a una representación espacial del fenómeno estudiado. Cuando una base contiene provincias, cantones, coordenadas o cualquier referencia geográfica, es posible construir mapas que ayuden a identificar patrones regionales, concentraciones y diferencias espaciales [@lovelace2025].
-
-En esta sección construiremos una introducción práctica al análisis espacial en R utilizando Ecuador como referencia. El objetivo no es desarrollar todavía un análisis espacial avanzado, sino comprender la lógica básica de los mapas estáticos, los puntos georreferenciados, los sistemas de coordenadas, los buffers y los mapas interactivos.
-
-**Preparación del laboratorio espacial.**
-
-Para trabajar con datos espaciales utilizaremos `sf`, que permite manejar geometrías geográficas, y `leaflet`, que permite construir mapas interactivos. Para asegurar que el capítulo se renderice correctamente en HTML, Word y PDF, los mapas interactivos se mostrarán solo cuando el formato de salida sea HTML. En Word y PDF se mostrará una versión estática.
-
-```{r}
-#| label: ch16-cargar-paquetes-espaciales
-#| warning: false
-#| message: false
-
-
-
-
-```
 
 ### Fase 1: la geometría del Ecuador
 
@@ -1037,26 +472,6 @@ centroide_ecuador <- sf::st_centroid(
 )
 ```
 
-```{r}
-#| label: fig-ch16-centroide-ecuador
-#| fig-cap: "Centroide aproximado del Ecuador"
-
-ggplot() +
-  geom_sf(
-    data = ecuador_sf,
-    fill = "gray92",
-    color = "white",
-    linewidth = 0.3
-  ) +
-  geom_sf(
-    data = centroide_ecuador,
-    color = "gold",
-    size = 4,
-    shape = 18
-  ) +
-  theme_void()
-```
-
 **Interpretación.** El punto dorado representa el centroide geométrico aproximado del Ecuador. Esta idea será útil más adelante para ubicar etiquetas o símbolos en mapas.
 
 **Fase 6: análisis de proximidad mediante buffers.**
@@ -1079,36 +494,6 @@ ciudades_buffer <- ciudades_sf |>
 ```
 
 **Mapa de áreas de influencia.**
-
-```{r}
-#| label: fig-ch16-buffer-ciudades
-#| fig-cap: "Áreas de influencia de 50 km alrededor de ciudades seleccionadas"
-
-mapa_buffer <- ggplot() +
-  geom_sf(
-    data = ecuador_sf,
-    fill = "gray95",
-    color = "white",
-    linewidth = 0.3
-  ) +
-  geom_sf(
-    data = ciudades_buffer,
-    fill = "steelblue",
-    color = "steelblue",
-    alpha = 0.25
-  ) +
-  geom_sf(
-    data = ciudades_sf,
-    color = "red",
-    size = 2.5
-  ) +
-  theme_void() +
-  labs(
-    caption = "Buffer aproximado de 50 km"
-  )
-
-mapa_buffer
-```
 
 **Interpretación.** Los círculos representan áreas de influencia aproximadas de 50 kilómetros alrededor de cada ciudad. Esta técnica puede utilizarse para analizar cobertura territorial, accesibilidad o cercanía a servicios.
 
@@ -1308,264 +693,113 @@ mapa_provincial_puntos |>
 
 **Mapa provincial de puntos.**
 
-```{r}
-#| label: fig-ch16-mapa-provincial-puntos
-#| fig-cap: "Superficie promedio provincial representada mediante puntos"
-
-mapa_provincial <- ggplot() +
-  geom_sf(
-    data = ecuador_sf,
-    fill = "gray93",
-    color = "white",
-    linewidth = 0.3
-  ) +
-  geom_point(
-    data = mapa_provincial_puntos,
-    aes(
-      x = longitud,
-      y = latitud,
-      size = superficie_promedio
-    ),
-    alpha = 0.7,
-    color = "steelblue"
-  ) +
-  coord_sf() +
-  theme_void() +
-  labs(
-    size = "Superficie promedio",
-    caption = "Fuente: ESPAC 2025 y cartografía básica del paquete maps"
-  )
-
-mapa_provincial
-```
-
 **Interpretación.** El tamaño de cada punto representa la superficie promedio ponderada de la provincia. Esta visualización permite comparar territorios sin requerir polígonos provinciales.
 
 **Mapa provincial con etiquetas.**
 
-```{r}
-#| label: fig-ch16-mapa-provincial-etiquetas
-#| fig-cap: "Mapa provincial con etiquetas"
-
-mapa_provincial_etiquetas <- ggplot() +
-  geom_sf(
-    data = ecuador_sf,
-    fill = "gray93",
-    color = "white",
-    linewidth = 0.3
-  ) +
-  geom_point(
-    data = mapa_provincial_puntos,
-    aes(
-      x = longitud,
-      y = latitud,
-      size = superficie_promedio
-    ),
-    alpha = 0.7,
-    color = "steelblue"
-  ) +
-  geom_text(
-    data = mapa_provincial_puntos,
-    aes(
-      x = longitud,
-      y = latitud,
-      label = provincia_coord
-    ),
-    size = 2.5,
-    nudge_y = 0.12,
-    check_overlap = TRUE
-  ) +
-  coord_sf() +
-  theme_void() +
-  labs(
-    size = "Superficie promedio",
-    caption = "Fuente: ESPAC 2025 y cartografía básica del paquete maps"
-  )
-
-mapa_provincial_etiquetas
-```
-
 **Interpretación.** Las etiquetas ayudan a reconocer las provincias representadas. Cuando existen demasiadas etiquetas, es recomendable usarlas con moderación para no saturar el mapa.
 
-### Fase 8: mapa dinámico con leaflet
+## Diseño de figuras científicas
 
-Los mapas estáticos son adecuados para tesis, artículos e informes impresos. Los mapas dinámicos, en cambio, permiten explorar información en HTML.
+#### ¿Qué diferencia un gráfico exploratorio de un gráfico científico?
 
-```{r}
-#| label: ch16-mapa-provincial-sf
+Los gráficos exploratorios se utilizan durante el análisis para comprender los datos.
 
-mapa_provincial_sf <- sf::st_as_sf(
-  mapa_provincial_puntos,
-  coords = c(
-    "longitud",
-    "latitud"
-  ),
-  crs = 4326
-)
-```
+Los gráficos científicos tienen un propósito diferente:
 
-```{r}
-#| label: fig-ch16-mapa-leaflet-provincial
-#| fig-cap: "Mapa interactivo provincial"
+- Comunicar resultados.
+- Facilitar la interpretación.
+- Reducir ambigüedades.
+- Mantener consistencia visual.
+- Garantizar reproducibilidad.
+- Cumplir estándares editoriales.
 
-if (
-  knitr::is_html_output()
-) {
-  leaflet() |>
-    addProviderTiles(
-      providers$CartoDB.Positron
-    ) |>
-    addPolygons(
-      data = ecuador_sf,
-      color = "white",
-      weight = 1,
-      fillOpacity = 0.20
-    ) |>
-    addCircleMarkers(
-      data = mapa_provincial_sf,
-      radius = ~sqrt(
-        superficie_promedio
-      ),
-      color = "steelblue",
-      fillOpacity = 0.70,
-      popup = ~paste0(
-        "<b>Provincia: </b>",
-        provincia_coord,
-        "<br><b>Superficie promedio: </b>",
-        round(
-          superficie_promedio,
-          2
-        ),
-        "<br><b>Observaciones: </b>",
-        observaciones
-      )
-    )
-} else {
-  mapa_provincial
-}
-```
+La siguiente tabla resume las diferencias principales.
 
-**Interpretación.** En HTML, el mapa permite explorar cada provincia mediante ventanas emergentes. En Word y PDF se mantiene la versión estática, garantizando que el capítulo se renderice correctamente.
+**Interpretación.** Los gráficos científicos no sustituyen al análisis exploratorio. Ambos cumplen funciones complementarias dentro del proceso de investigación.
 
-**Mapa dinámico con capas.**
+#### El principio de la tinta de datos
 
-```{r}
-#| label: fig-ch16-mapa-leaflet-capas
-#| fig-cap: "Mapa interactivo con capas"
+Tufte [@tufte2001] propone que la mayor parte de la tinta utilizada en un gráfico debe estar dedicada a representar información relevante.
 
-if (
-  knitr::is_html_output()
-) {
-  leaflet() |>
-    addProviderTiles(
-      providers$CartoDB.Positron,
-      group = "Mapa claro"
-    ) |>
-    addProviderTiles(
-      providers$CartoDB.DarkMatter,
-      group = "Mapa oscuro"
-    ) |>
-    addPolygons(
-      data = ecuador_sf,
-      color = "white",
-      weight = 1,
-      fillOpacity = 0.15,
-      group = "Ecuador"
-    ) |>
-    addCircleMarkers(
-      data = ciudades_sf,
-      color = "red",
-      radius = 5,
-      fillOpacity = 0.8,
-      popup = ~paste0(
-        "<b>Ciudad: </b>",
-        ciudad
-      ),
-      group = "Ciudades"
-    ) |>
-    addCircleMarkers(
-      data = mapa_provincial_sf,
-      radius = ~sqrt(
-        superficie_promedio
-      ),
-      color = "steelblue",
-      fillOpacity = 0.7,
-      popup = ~paste0(
-        "<b>Provincia: </b>",
-        provincia_coord,
-        "<br><b>Superficie promedio: </b>",
-        round(
-          superficie_promedio,
-          2
-        )
-      ),
-      group = "Indicadores provinciales"
-    ) |>
-    addLayersControl(
-      baseGroups = c(
-        "Mapa claro",
-        "Mapa oscuro"
-      ),
-      overlayGroups = c(
-        "Ecuador",
-        "Ciudades",
-        "Indicadores provinciales"
-      ),
-      options = layersControlOptions(
-        collapsed = FALSE
-      )
-    )
-} else {
-  mapa_provincial_etiquetas
-}
-```
+Esto implica:
 
-**Interpretación.** El mapa dinámico con capas permite activar o desactivar información. Esta lógica es muy útil en tableros de control, informes digitales y plataformas de visualización territorial.
+- Reducir adornos innecesarios.
+- Eliminar fondos excesivos.
+- Evitar efectos tridimensionales.
+- Simplificar rejillas.
+- Destacar los datos.
 
-**¿Mapa estático o mapa dinámico?.**
+**Ejemplo de gráfico básico.**
 
-Un mapa estático es como una fotografía: el investigador controla completamente el diseño final. Es ideal para tesis, artículos, documentos PDF e informes impresos.
+Comenzaremos con un histograma sencillo.
 
-Un mapa dinámico es una experiencia interactiva: el lector decide qué explorar. Es ideal para reportes HTML, tableros de control y productos digitales.
+**Interpretación.** Aunque el gráfico comunica la distribución de la variable, todavía puede mejorarse desde el punto de vista científico.
 
-Ambos tipos de mapas son útiles. La elección depende del objetivo de comunicación y del formato final del documento.
+#### El uso científico del color
 
-**Buenas prácticas para visualización espacial.**
+El color debe utilizarse para comunicar información y no solamente para decorar.
 
-Al construir mapas se recomienda:
+Un uso adecuado del color permite:
 
-* Usar sistemas de coordenadas adecuados.
-* Verificar que las capas compartan el mismo CRS.
-* Evitar medir distancias en grados.
-* Transformar los datos antes de construir buffers.
-* No saturar el mapa con demasiadas etiquetas.
-* Usar mapas dinámicos solo cuando la interacción aporte valor.
-* Acompañar los mapas con una interpretación clara.
+- Diferenciar categorías.
+- Resaltar patrones.
+- Facilitar comparaciones.
+- Mejorar accesibilidad.
 
-## Manos a la obra
+#### Evitando gráficos engañosos
 
-Utilizando la base `base_analitica`:
+Los gráficos pueden inducir interpretaciones erróneas cuando:
 
-1. Construya un mapa base del Ecuador.
-2. Cree una tabla con coordenadas de tres ciudades ecuatorianas.
-3. Convierta la tabla en un objeto `sf`.
-4. Verifique el sistema de coordenadas de las capas.
-5. Construya un mapa estático con ciudades.
-6. Calcule un buffer de 50 km alrededor de las ciudades.
-7. Calcule la superficie promedio ponderada por provincia.
-8. Represente el indicador provincial mediante puntos.
-9. Genere un mapa interactivo con `leaflet`.
-10. Compare las ventajas de un mapa estático y un mapa dinámico.
+- Se modifican escalas de manera inapropiada.
+- Se utilizan ejes truncados sin justificación.
+- Se exageran diferencias pequeñas.
+- Se utilizan efectos tridimensionales.
 
-## Resumen del capítulo
+La comunicación científica exige representar los datos de forma honesta y transparente [@cairo2016].
 
-La visualización de datos constituye una herramienta fundamental para explorar, comprender y comunicar información estadística.
+**Ejemplo de mala práctica.**
 
-En la primera parte del capítulo aprendimos a representar distribuciones y comparar grupos mediante histogramas, curvas de densidad, gráficos de barras y diagramas de caja. También incorporamos la transformación logarítmica de la superficie total para mejorar la visualización de una variable altamente asimétrica.
+**Interpretación.** El gráfico exagera visualmente una diferencia relativamente pequeña. Este tipo de prácticas debe evitarse en publicaciones científicas.
 
-En la segunda parte exploramos relaciones entre variables mediante gráficos de dispersión, líneas de tendencia, facetas, mapas de calor y matrices de correlación. Estas herramientas permiten avanzar desde la descripción simple hacia el análisis de patrones más complejos.
+**Ejemplo corregido.**
 
-Finalmente, en esta tercera parte introdujimos los fundamentos de la visualización espacial con `sf`, mapas estáticos con `ggplot2`, buffers y mapas dinámicos con `leaflet`. La estrategia utilizada permite comprender los conceptos esenciales del análisis espacial manteniendo compatibilidad con HTML, Word y PDF.
+**Interpretación.** La representación correcta permite apreciar la verdadera magnitud de la diferencia observada.
 
-En conjunto, las herramientas presentadas en este capítulo preparan al lector para construir gráficos científicos más refinados y comunicativamente efectivos, tema que se abordará en el siguiente capítulo.
+#### Figuras multipanel
+
+Los artículos científicos suelen combinar múltiples gráficos dentro de una misma figura.
+
+Para ello utilizaremos el paquete `patchwork`.
+
+**Construcción de una figura compuesta.**
+
+**Interpretación.** La figura integra diferentes perspectivas del mismo fenómeno, facilitando la comparación visual y reduciendo el número de imágenes necesarias en un artículo.
+
+#### Tamaño de figuras para publicación
+
+Las revistas científicas suelen especificar dimensiones máximas para las figuras.
+
+La siguiente tabla resume tamaños habituales.
+
+**Interpretación.** Las dimensiones pueden variar entre revistas, pero la tabla proporciona valores de referencia útiles.
+
+#### Resolución y calidad gráfica
+
+La calidad de una figura depende de:
+
+- Resolución.
+- Formato.
+- Tamaño físico.
+- Legibilidad.
+
+Las revistas científicas suelen solicitar resoluciones entre 300 y 600 dpi [@wilke2019].
+
+**Exportación en formato PNG.**
+
+**Exportación en formato PDF.**
+
+**Exportación en formato TIFF.**
+
+Muchas revistas siguen solicitando TIFF para las figuras finales.
 

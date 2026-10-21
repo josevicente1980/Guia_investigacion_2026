@@ -10,17 +10,6 @@ source(here::here("R", "libro_setup.R"), encoding = "UTF-8")
 cargar_paquetes_libro("comunicacion", extra = c("gapminder"))
 ```
 
-
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender la función de la metodología dentro de un documento científico.
-* Identificar los componentes esenciales de una sección metodológica.
-* Documentar fuentes de datos, variables y procedimientos analíticos.
-* Integrar código reproducible dentro de Quarto.
-* Redactar metodologías transparentes y replicables.
-
 ## Introducción
 
 La metodología describe cómo se desarrolló la investigación. Su propósito es permitir que otros investigadores comprendan, evalúen y reproduzcan el proceso seguido para obtener los resultados [@creswell2022].
@@ -36,22 +25,6 @@ Una metodología bien redactada debe responder tres preguntas fundamentales:
 ```
 
 En investigación reproducible, estas respuestas deben estar respaldadas por código ejecutable y documentación transparente [@peng2011].
-
-### Configuración inicial
-
-### Carga de librerías
-
-```{r}
-#| label: reg29-cargar-librerias
-#| warning: false
-#| message: false
-
-
-
-
-```
-
-### Carga de datos
 
 ```{r}
 #| label: reg29-cargar-datos
@@ -283,21 +256,3 @@ tibble(
 ```
 
 **Interpretación.** Antes de finalizar un documento científico conviene verificar que todos los componentes metodológicos estén documentados.
-
-## Manos a la obra
-
-1. Identifique la fuente de datos.
-2. Describa la unidad de análisis.
-3. Defina las variables principales.
-4. Documente las transformaciones realizadas.
-5. Revise la existencia de datos faltantes.
-6. Justifique la técnica analítica utilizada.
-7. Presente el flujo metodológico.
-8. Redacte la metodología en lenguaje académico.
-9. Integre código reproducible.
-10. Renderice el documento en Quarto.
-
-## Resumen del capítulo
-
-En este capítulo se presentó la estructura fundamental de una metodología reproducible. Se mostró cómo documentar datos, variables, transformaciones y procedimientos analíticos utilizando Quarto. Una metodología correctamente redactada, junto con los datos y el código disponibles cuando sea posible, permite reconstruir el proceso analítico y evaluar sus decisiones.
-

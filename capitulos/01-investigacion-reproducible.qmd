@@ -1,16 +1,5 @@
 # Investigación reproducible: construyendo confianza en la ciencia
 
-## Objetivos de aprendizaje
-
-Una vez comprendido cómo está organizada esta obra, es momento de abordar el concepto que articula todo el libro: la investigación reproducible.
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender el concepto de investigación reproducible.
-* Identificar problemas frecuentes asociados a los flujos de trabajo tradicionales.
-* Reconocer los beneficios de integrar datos, código y documentación en un único proyecto.
-* Comprender la importancia de la reproducibilidad para la credibilidad y acumulación del conocimiento científico.
-
 ## ¿Por qué hablar de reproducibilidad?
 
 La ciencia abierta no consiste únicamente en publicar artículos de acceso libre. Representa un cambio profundo en la forma de producir, compartir, verificar y reutilizar el conocimiento científico. En este nuevo paradigma, los datos, el código, los procesos y los resultados dejan de ser productos aislados para convertirse en componentes de un ecosistema colaborativo orientado a generar conocimiento más transparente, confiable para beneficio global.
@@ -82,11 +71,3 @@ Tradicionalmente, los informes académicos se elaboran mediante procesos manuale
 Los documentos dinámicos adoptan una lógica diferente. En ellos, los resultados se generan automáticamente a partir de los datos y del código utilizado para analizarlos.
 
 Este enfoque reduce la posibilidad de errores de transcripción, facilita la actualización de resultados y fortalece la transparencia del proceso investigativo [@xie2015].
-
-## Resumen del capítulo
-
-La reproducibilidad constituye uno de los pilares fundamentales de la ciencia moderna. Su propósito es garantizar que los resultados obtenidos puedan ser comprendidos, verificados y reutilizados por otros investigadores.
-
-La creciente preocupación por la transparencia y la confiabilidad de los resultados científicos ha impulsado el desarrollo de nuevas prácticas orientadas a documentar y compartir de forma abierta los datos, métodos y procedimientos utilizados en la investigación.
-
-En el siguiente capítulo analizaremos cómo estas iniciativas dieron origen al movimiento de ciencia abierta y cómo este ha transformado la producción y difusión del conocimiento científico.

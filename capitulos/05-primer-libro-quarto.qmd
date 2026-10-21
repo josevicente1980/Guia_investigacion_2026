@@ -1,16 +1,5 @@
 # Construyendo nuestro primer libro en Quarto
 
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender el concepto de proyecto en Quarto.
-* Identificar los componentes fundamentales de un libro reproducible.
-* Crear un proyecto tipo libro utilizando Quarto.
-* Interpretar la estructura y función del archivo `_quarto.yml`.
-* Integrar capítulos, referencias bibliográficas y código dentro de un único flujo de trabajo.
-* Generar documentos en múltiples formatos a partir de una única fuente.
-
 ## Introducción
 
 Hasta este punto hemos estudiado los fundamentos de la investigación reproducible, los principios de la ciencia abierta y las herramientas que utilizaremos a lo largo de este libro. Sin embargo, todavía no hemos construido un entorno de trabajo real.
@@ -272,11 +261,9 @@ La principal característica de Quarto consiste en integrar texto y código dent
 
 Por ejemplo:
 
-
 ```{r}
 2 + 2
 ```
-
 
 Cuando el documento sea renderizado, Quarto ejecutará el código y mostrará el resultado.
 
@@ -372,32 +359,3 @@ A medida que el proyecto crece, resulta recomendable seguir algunas reglas simpl
 * Mantener una estructura consistente de carpetas.
 
 Estas recomendaciones se encuentran alineadas con las buenas prácticas propuestas para la computación científica reproducible [@wilson2017; @broman2018].
-
-## Manos a la obra
-
-Antes de continuar con el siguiente capítulo, verifique que su proyecto contiene los siguientes elementos:
-
-```{.text}
-✓ index.qmd
-✓ _quarto.yml
-✓ carpeta capitulos
-✓ carpeta referencias
-✓ referencias.bib
-✓ apa.csl
-```
-
-Posteriormente ejecute:
-
-```{r}
-#| eval: false
-
-quarto::quarto_render()
-```
-
-Si el proceso finaliza correctamente, habrá construido su primer libro reproducible utilizando Quarto.
-
-## Resumen del capítulo
-
-Quarto proporciona una plataforma moderna para desarrollar documentos científicos reproducibles mediante la integración de texto, código, resultados y referencias bibliográficas dentro de un mismo proyecto.
-
-La lógica basada en proyectos facilita la organización de la investigación, mejora la trazabilidad de los análisis y fortalece la reproducibilidad de los resultados. A partir de este punto, utilizaremos esta infraestructura para desarrollar todas las etapas del proceso de investigación presentadas en este libro.

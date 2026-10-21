@@ -1,15 +1,5 @@
 # R y Quarto: una plataforma integrada para la investigación reproducible
 
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-* Comprender las limitaciones de los flujos de trabajo tradicionales en investigación.
-* Identificar las principales características de R como entorno para el análisis de datos.
-* Comprender el papel de Quarto en la generación de documentos reproducibles.
-* Reconocer las ventajas de integrar datos, código y narrativa científica dentro de un mismo proyecto.
-* Ejecutar su primer bloque de código en un documento Quarto.
-
 ## Del software fragmentado a los flujos de trabajo integrados
 
 Durante décadas, gran parte de la investigación académica se desarrolló utilizando múltiples herramientas independientes. Era habitual que los datos fueran almacenados en hojas de cálculo, los análisis realizados en paquetes estadísticos especializados y los resultados finales copiados manualmente a procesadores de texto.
@@ -92,7 +82,6 @@ El siguiente ejemplo muestra el bloque de código más sencillo posible:
 2 + 2
 ```
 
-
 Al renderizar el documento, Quarto ejecutará el código y mostrará automáticamente el resultado:
 
 ```r
@@ -136,11 +125,3 @@ Entre las principales ventajas destacan:
 * Facilidad para compartir y actualizar investigaciones.
 
 Estas características convierten a R y Quarto en herramientas especialmente valiosas para proyectos de investigación que requieren rigor metodológico y trazabilidad analítica.
-
-## Resumen del capítulo
-
-La investigación reproducible requiere herramientas capaces de integrar datos, análisis y documentación dentro de un mismo flujo de trabajo.
-
-R proporciona un entorno flexible para el análisis estadístico y la ciencia de datos, mientras que Quarto permite transformar esos análisis en documentos científicos dinámicos y reproducibles.
-
-A partir de este capítulo comenzaremos a utilizar ambas herramientas para construir un proyecto de investigación completo, siguiendo los principios de transparencia y reproducibilidad estudiados en los capítulos anteriores.

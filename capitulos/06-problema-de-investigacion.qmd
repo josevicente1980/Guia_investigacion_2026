@@ -1,15 +1,5 @@
 # Del problema de investigación a la pregunta de investigación
 
-## Objetivos de aprendizaje
-
-Al finalizar este capítulo, el lector será capaz de:
-
-- Comprender la diferencia entre un tema, un problema y una pregunta de investigación.
-- Identificar las características de un problema científicamente investigable.
-- Formular preguntas de investigación claras, precisas y relevantes.
-- Reconocer la relación entre problema, pregunta, objetivos e hipótesis.
-- Construir preguntas de investigación alineadas con diseños cuantitativos, cualitativos y mixtos.
-
 ## Introducción
 
 Toda investigación comienza con una inquietud. Un investigador observa una situación, identifica una necesidad de conocimiento o detecta una contradicción entre la teoría y la realidad. Sin embargo, no toda inquietud constituye automáticamente un problema de investigación.
@@ -250,31 +240,3 @@ Entre los errores más comunes destacan:
 - No delimitar población, espacio o tiempo.
 
 Evitar estos errores facilita considerablemente el desarrollo posterior de la investigación.
-
-## Manos a la obra
-
-Seleccione un tema de interés relacionado con su área de formación y complete el siguiente esquema:
-
-```{.text}
-Tema:
-
-Problema:
-
-Pregunta de investigación:
-
-Población:
-
-Ubicación:
-
-Período de estudio:
-```
-
-Posteriormente, verifique que su pregunta cumple con los criterios de claridad, especificidad, relevancia y viabilidad analizados en este capítulo.
-
-## Resumen del capítulo
-
-Toda investigación científica comienza con la identificación de un problema que requiere ser comprendido o explicado. La formulación adecuada de preguntas de investigación constituye una etapa fundamental porque orienta la construcción de objetivos, hipótesis y diseños metodológicos.
-
-La calidad de una investigación depende en gran medida de la precisión con la que se definen el problema y la pregunta que guiarán el proceso de generación de conocimiento.
-
-En el siguiente capítulo aprenderemos cómo transformar las preguntas de investigación en objetivos generales y específicos coherentes con el problema planteado.
