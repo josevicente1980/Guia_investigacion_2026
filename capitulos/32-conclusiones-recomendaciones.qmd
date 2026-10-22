@@ -197,7 +197,7 @@ Investigaciones futuras
 
 ### Incorrecto
 
-> El coeficiente estimado fue 4.12 y el valor p fue menor a 0.05.
+> El coeficiente estimado fue 4,12 y el valor p fue menor a 0,05.
 
 Esto corresponde a resultados.
 

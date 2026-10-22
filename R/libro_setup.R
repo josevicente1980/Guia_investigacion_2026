@@ -142,3 +142,30 @@ formatear_estimacion_ic <- function(estimate, low, high) {
     "]"
   )
 }
+
+# Los chunks de Quarto pueden ejecutarse en un entorno distinto de .GlobalEnv.
+# Publicar allí los helpers permite que los chunks encuentren estas funciones
+# después de source(), sin duplicar sus implementaciones.
+if (requireNamespace("knitr", quietly = TRUE)) {
+  .entorno_libro <- environment()
+  .entorno_knitr <- knitr::knit_global()
+  .helpers_libro <- c(
+    "cargar_paquetes_libro",
+    "ruta_objeto_libro",
+    "leer_objeto_libro",
+    "etiquetar_terminos_modelo",
+    "formatear_p_tabla",
+    "formatear_num_tabla",
+    "formatear_estimacion_ic"
+  )
+
+  for (.helper in .helpers_libro) {
+    assign(
+      .helper,
+      get(.helper, envir = .entorno_libro, inherits = FALSE),
+      envir = .entorno_knitr
+    )
+  }
+
+  rm(.entorno_libro, .entorno_knitr, .helpers_libro, .helper)
+}

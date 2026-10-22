@@ -226,7 +226,7 @@ Investigaciones futuras
 
 ### Incorrecto
 
-> El coeficiente fue 3.25 y el valor p fue menor que 0.05.
+> El coeficiente fue 3,25 y el valor p fue menor que 0,05.
 
 Esto pertenece a resultados.
 

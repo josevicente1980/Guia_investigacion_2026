@@ -55,6 +55,19 @@ Estado: **REVIEW favorable**, a la espera de valoración editorial de la excepci
 - Las 67 restantes están justificadas en la matriz: 17 fundacionales, 44 metodológicas, 2 normativas/institucionales y 4 históricas. Referencias antiguas no justificadas: 0; indicador operativo: 0/88 = 0 %. Este indicador no es una fórmula oficial de la Editorial.
 - No se eliminaron referencias por antigüedad. Las 15 entradas BibTeX no citadas se mantuvieron intactas.
 
+# Auditoría de estilo técnico / INEN — 2026-10-21
+
+Estado: **PASS**.
+
+- Se revisaron las 42 fuentes `.qmd` activas: 2.563 líneas textuales no vacías examinadas, además de una búsqueda contextual de notación, unidades, cursivas y terminología.
+- Se corrigieron cuatro separadores decimales en dos ejemplos narrativos: `3.25`/`0.05` → `3,25`/`0,05` y `4.12`/`0.05` → `4,12`/`0,05`.
+- No se identificaron ceros iniciales omitidos, espacios valor-unidad que corregir, cursivas científicas/latinas omitidas ni inconsistencias terminológicas inequívocas.
+- Los puntos decimales restantes encontrados pertenecen a código R y se conservaron.
+- El instructivo UNL exige INEN/SI y coma decimal; los documentos locales no detallan el espaciado exacto de cada símbolo. La regla SI de espacio entre valor y símbolo (incluido `%` y `°C`) se contrastó con el folleto oficial del BIPM.
+- El fallo técnico se resolvió en `R/libro_setup.R`: al cargar el archivo, sus helpers se exponen al entorno de ejecución de knitr, donde los chunks de Quarto pueden encontrarlos. No se duplicaron funciones ni se modificaron capítulos.
+- Los cuatro scripts con avisos de entrada (`libro_setup.R`, `pre_render.R`, `preparar_objetos_libro.R` y `auditar_entorno.R`) son UTF-8 válido. Al retirar `LANG`, `LC_ALL` y `LC_CTYPE` solo del proceso de render, desaparecieron los avisos de locale/entrada inválida; no se convirtió ningún archivo.
+- El render DOCX completo terminó correctamente. La inspección estructural del DOCX confirmó 8 partes, capítulos numerados 1–29 en secuencia, 37 captions de figura, 122 captions de tabla y 88 párrafos bibliográficos. El DOCX temporal y el de `reportes/` tienen el mismo SHA-256. Esta comprobación fue estructural; no constituye una nueva auditoría visual.
+
 # Próxima acción
 
-Auditoría INEN. No reducir contenido para disminuir páginas ni hacer compactación masiva o cambios arbitrarios de márgenes o tipografía.
+Continuar con el siguiente bloque editorial aprobado. El bloque INEN queda cerrado; no reducir contenido para disminuir páginas ni hacer compactación masiva o cambios arbitrarios de márgenes o tipografía.
