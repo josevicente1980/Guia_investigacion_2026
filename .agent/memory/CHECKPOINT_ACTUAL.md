@@ -1,18 +1,18 @@
 # Checkpoint actual
 
-Fecha: 2026-10-22
-HEAD base de la auditoría final: `78e26b224b050de2209f96764839200373adf1b6`
+Fecha: 2026-10-23
+HEAD base del cierre visual: `14dcd96edc2fb689d9900cd30d3be6185892a266`
 
 # Último bloque cerrado
 
-Bloque 3: Partes I–VIII visibles en DOCX.
-Resultado: PASS.
+Maquetación final y estructura DOCX.
+Resultado: **PASS visual y estructural**.
 
 # Bloque actual
 
-Auditoría final de maquetación y estructura DOCX.
-Estado: **FAIL para cierre de maquetación; PASS en estructura y geometría; REVIEW en actualización persistente del TOC**.
-El resultado detallado de 2026-10-22 al final de este archivo prevalece sobre los resultados visuales históricos para este DOCX nuevo. No se modificó la plantilla ni el manuscrito.
+Cierre editorial previo al paquete de entrega.
+Estado: **PASS en maquetación, estructura, geometría, figuras, tablas, captions, APA 7 e INEN; REVIEW favorable en actualidad bibliográfica; TOC pendiente de actualización manual final en Word**.
+La compilación final revisada del 2026-10-23 conserva las ocho partes y los capítulos 1–29. Las incidencias de ancho de tablas, captions/cabeceras separados y recorte de ejes fueron corregidas sin modificar contenido científico ni la plantilla.
 
 # Métricas actuales
 
@@ -104,30 +104,21 @@ El DOCX contiene un único campo `TOC \o "1-2" \h \z \u`, marcado para actualiza
 
 Actualizar campos de la tabla de contenido en Word antes del envío final.
 
-## Incidencias CORREGIR (pendientes, no modificadas)
+## Cierre de maquetación — 2026-10-23
 
-| ID | Evidencia en Word | Incidencia |
-|---|---|---|
-| M01 | Tabla 14.1, p. 135; también se observan casos en pp. 69, 128, 137, 157–158, 192, 195, 204, 218, 220, 223, 231, 233, 236–237, 240, 242, 244, 255, 260, 262, 276, 288, 300 y 303 | Columnas o texto derecho recortados; p. 135 confirma pérdida visible de la columna Máximo. Tabla 3.1, p. 20, invade el margen derecho. La lista es de localizaciones observadas, no un conteo exhaustivo de tablas defectuosas. |
-| M02 | Tabla 3.1 pp. 19–20; 13.5 pp. 118–119; 16.3 pp. 174–175; 16.6 pp. 181–182; 18.6 pp. 214–215; 21.4 pp. 246–247; 25.1 pp. 268–269 | Caption de tabla queda en la página anterior al cuerpo. |
-| M03 | Tabla 16.9 pp. 188–189; 20.7 pp. 228–229; 23.5 pp. 258–259; 26.5 pp. 278–279; 27.2 pp. 283–284; 28.3 pp. 297–298 | Caption/cabecera separados de las filas de datos. En 16.9, incluso el único valor queda en la página siguiente. |
-| M04 | Figura 18.3 pp. 202–203; 18.6 pp. 211–212; 20.4 pp. 238–239; 24.2 pp. 263–264 | Caption separado de la figura, al comienzo de la página siguiente. |
-| M05 | Tabla 16.6, p. 182 | Primera columna excesivamente estrecha: Concepto, Asociación y Causalidad se fragmentan en varias líneas muy cortas. |
+Estado: **PASS**.
 
-El XML presenta **160 tablas de primer nivel** (incluyen contenedores de figuras/captions, no equivalen a 160 tablas científicas), todas con suma de `tblGrid` de 7920 twips = 139,7 mm, mayor que los 120 mm útiles. Las 37 imágenes tienen ancho nominal de 119,94 mm. Es evidencia para investigar el ajuste general de tablas/contenedores; no se afirma que cambiar un único atributo resuelva todos los casos. No se aplicó corrección global ni parche directo al DOCX.
+- Se revisó la compilación final en formato 17 × 24 cm después de las correcciones de maquetación.
+- Las tablas problemáticas previamente identificadas (incluidas 3.1, 14.1, 16.6, 16.9, 23.5 y 25.1) se muestran dentro del ancho útil, sin pérdida visible de columnas.
+- Los captions de tablas y figuras previamente separados quedaron asociados a sus objetos.
+- Las Figuras 18.5 y 18.6 muestran completa la etiqueta final del eje X (`1250`) tras ampliar el margen y la expansión del eje.
+- No se detectaron nuevos recortes, superposiciones ni defectos graves en las incidencias revisadas.
+- El documento conserva la geometría editorial de 170 × 240 mm y márgenes de 25 mm.
+- Las ocho partes permanecen visibles y los capítulos 1–29 mantienen numeración consecutiva.
+- La paginación puede variar entre Word y otros motores; el número de páginas no constituye criterio de fallo.
+- **Acción manual final obligatoria:** abrir el DOCX definitivo en Microsoft Word, actualizar todos los campos de la tabla de contenido y guardar antes del envío.
+- No reabrir este bloque salvo que una nueva compilación cambie la maquetación o la Editorial solicite una corrección adicional.
 
-## Incidencias REVIEW y límites
+# Próxima acción
 
-- **R01:** actualización y guardado final del TOC en Word, seguido de nueva comprobación de páginas y enlaces.
-- **R02:** recorte menor del extremo derecho de la etiqueta 1250 en la Figura 18.5, p. 209; revisar también Figura 18.6, p. 211. Confirmar si procede de la imagen de origen o del contenedor de Word antes de corregir.
-- **R03:** cortes de tablas entre páginas sin cabecera repetida y fragmentación de bloques de código. Ejemplos: tabla 14.3 pp. 139–140, 15.6 pp. 162–163, 20.6 pp. 226–227, 20.11 pp. 233–234, 27.6 pp. 289–290 y 28.2 pp. 296–297. No reducir contenido para resolver paginación.
-- **R04:** espacios amplios antes de figuras (p. ej. pp. 88, 149, 205, 256 y 264) y en gráficos con mucho espacio interno (p. 257). No se modifican estilos globales para detalles menores.
-- **R05:** no se detectaron títulos completamente aislados al pie ni viudas/huérfanas textuales graves en la inspección realizada; no se emite PASS visual exhaustivo. El TOC comparte página con la portada textual y con Acrónimos: conservar salvo decisión editorial expresa de separarlos.
-- Los nuevos defectos se documentan con evidencia de Word del DOCX actual; no invalidan retrospectivamente la auditoría externa previa ni reabren APA 7 o INEN.
-
-## Cambios y entrega
-
-- Incidencias de maquetación corregidas: **ninguna**. Se detuvieron las correcciones al identificar un problema extendido cuyo tratamiento podría afectar plantilla o flujo global, conforme a la instrucción expresa de esta tarea.
-- Únicos archivos versionados modificados: `.agent/memory/CHECKPOINT_ACTUAL.md` y `.agent/memory/HISTORIAL_BLOQUES.md`. DOCX regenerado y evidencias locales excluidos por `.gitignore`.
-- Siguiente acción: acordar el alcance del bloque de correcciones de maquetación, resolver M01–M05 sin tocar contenido científico, comprobar nuevamente en Word y actualizar/guardar el TOC antes del envío. No declarar cierre editorial visual con estas incidencias abiertas.
-- Sin commit y sin push.
+Preparar el cierre editorial y el paquete de entrega: TOC final en Word, portada/contraportada, resumen de hasta 150 palabras, resolución definitiva de imágenes de cubierta y verificación administrativa de anexos/identificaciones. La actualidad bibliográfica permanece como REVIEW favorable documentado para valoración de la Editorial.
