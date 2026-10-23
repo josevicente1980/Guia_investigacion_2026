@@ -101,7 +101,7 @@ function Get-ScaledWidths($table, [int]$targetTotal) {
     if ($sum -le 0) { throw 'Anchos de tabla invalidos.' }
     $scaled = @($current | ForEach-Object { [int][math]::Max(1, [math]::Floor($_ / $sum * $targetTotal)) })
     $scaled[-1] += $targetTotal - ($scaled | Measure-Object -Sum).Sum
-    return ,$scaled
+    return $scaled
 }
 
 $fullPath = (Resolve-Path -LiteralPath $Path).Path
