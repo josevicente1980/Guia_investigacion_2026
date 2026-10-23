@@ -93,6 +93,17 @@ function Set-TableWidth($table, [int[]]$widths) {
     }
 }
 
+function Get-ScaledWidths($table, [int]$targetTotal) {
+    $grid = @($table.SelectNodes('w:tblGrid/w:gridCol', $script:ns))
+    if ($grid.Count -eq 0) { throw 'Tabla sin tblGrid.' }
+    $current = @($grid | ForEach-Object { [int]$_.GetAttribute('w', $w) })
+    $sum = ($current | Measure-Object -Sum).Sum
+    if ($sum -le 0) { throw 'Anchos de tabla invalidos.' }
+    $scaled = @($current | ForEach-Object { [int][math]::Max(1, [math]::Floor($_ / $sum * $targetTotal)) })
+    $scaled[-1] += $targetTotal - ($scaled | Measure-Object -Sum).Sum
+    return ,$scaled
+}
+
 $fullPath = (Resolve-Path -LiteralPath $Path).Path
 if ([IO.Path]::GetFileName($fullPath) -ne 'Investigacion_reproducible_con_R_y_Quarto.docx') {
     throw 'Solo se admite la salida del libro; nunca una plantilla.'
@@ -123,6 +134,10 @@ try {
             $length = $token.Index + $token.Length - $start
             $fragment = $xml.Substring($start, $length)
             $labels = @($targets.Keys | Where-Object { $fragment.Contains('w:name="' + $_ + '"') })
+            $genericTable = [regex]::Match($fragment, 'w:name="(tbl-[^"]+)"')
+            if ($labels.Count -eq 0 -and $genericTable.Success) {
+                $labels = @($genericTable.Groups[1].Value)
+            }
             if ($labels.Count -eq 0) { continue }
             if ($labels.Count -ne 1) { throw 'Contenedor con varios labels seleccionados.' }
             $label = $labels[0]
@@ -144,11 +159,14 @@ try {
             if ($label.StartsWith('tbl-')) {
                 Keep-Paragraph $paragraphs[0] $true
                 $inner = $cell.SelectSingleNode('w:tbl', $script:ns)
-                $widths = @($targets[$label] | ForEach-Object { [int][math]::Floor($_ / 120 * $usable) })
-                if ($widths.Count -gt 0) {
+                if ($null -eq $inner) { throw "Tabla interna ausente: $label" }
+                if ($targets.Contains($label) -and @($targets[$label]).Count -gt 0) {
+                    $widths = @($targets[$label] | ForEach-Object { [int][math]::Floor($_ / 120 * $usable) })
                     $widths[-1] += $usable - ($widths | Measure-Object -Sum).Sum
-                    Set-TableWidth $inner $widths
+                } else {
+                    $widths = @(Get-ScaledWidths $inner $usable)
                 }
+                Set-TableWidth $inner $widths
                 $rows = @($inner.SelectNodes('w:tr', $script:ns))
                 $rp = Set-Property $rows[0] 'trPr'
                 [void](Set-Property $rp 'tblHeader' @{val = '1'})
@@ -172,7 +190,10 @@ try {
             $depth++
         }
     }
-    if ($seen.Count -ne $targets.Count) { throw 'Faltan objetos de la lista cerrada; no se guarda el DOCX.' }
+    $missingTargets = @($targets.Keys | Where-Object { -not $seen.ContainsKey($_) })
+    if ($missingTargets.Count -gt 0) {
+        throw ('Faltan objetos obligatorios: ' + ($missingTargets -join ', '))
+    }
     foreach ($replacement in $replacements | Sort-Object { $_.start } -Descending) {
         $xml = $xml.Remove($replacement.start, $replacement.length).Insert($replacement.start, $replacement.xml)
     }
@@ -185,5 +206,5 @@ try {
     $newEntry = $zip.CreateEntry('word/document.xml', [IO.Compression.CompressionLevel]::Optimal)
     $writer = [IO.StreamWriter]::new($newEntry.Open(), [Text.UTF8Encoding]::new($false))
     try { $writer.Write($xml) } finally { $writer.Dispose() }
-    Write-Output "Maquetacion local: $($seen.Count) objetos; ancho util $usable twips."
+    Write-Output "Maquetacion local: $($seen.Count) objetos etiquetados ajustados; ancho util $usable twips."
 } finally { $zip.Dispose() }
