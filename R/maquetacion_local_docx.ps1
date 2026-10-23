@@ -141,8 +141,6 @@ try {
             if ($labels.Count -eq 0) { continue }
             if ($labels.Count -ne 1) { throw 'Contenedor con varios labels seleccionados.' }
             $label = $labels[0]
-            if ($seen.ContainsKey($label)) { throw "Label duplicado: $label" }
-            $seen[$label] = $true
             $part = [Xml.XmlDocument]::new()
             $part.PreserveWhitespace = $true
             $part.LoadXml($rootTag + $fragment + '</root>')
@@ -157,9 +155,22 @@ try {
             }
             $paragraphs = @($cell.SelectNodes('w:p', $script:ns))
             if ($label.StartsWith('tbl-')) {
-                Keep-Paragraph $paragraphs[0] $true
                 $inner = $cell.SelectSingleNode('w:tbl', $script:ns)
-                if ($null -eq $inner) { throw "Tabla interna ausente: $label" }
+
+                # Algunas salidas etiquetadas como tbl-* son bloques de consola/codigo
+                # y no tablas Word reales. Se omiten del ajuste general. Los targets
+                # obligatorios, en cambio, deben conservar la estructura esperada.
+                if ($null -eq $inner) {
+                    if ($targets.Contains($label)) {
+                        throw ('Tabla obligatoria sin estructura Word: ' + $label)
+                    }
+                    continue
+                }
+
+                if ($seen.ContainsKey($label)) { throw ('Label duplicado: ' + $label) }
+                $seen[$label] = $true
+
+                Keep-Paragraph $paragraphs[0] $true
                 if ($targets.Contains($label) -and @($targets[$label]).Count -gt 0) {
                     $widths = @($targets[$label] | ForEach-Object { [int][math]::Floor($_ / 120 * $usable) })
                     $widths[-1] += $usable - ($widths | Measure-Object -Sum).Sum
@@ -168,13 +179,19 @@ try {
                 }
                 Set-TableWidth $inner $widths
                 $rows = @($inner.SelectNodes('w:tr', $script:ns))
-                $rp = Set-Property $rows[0] 'trPr'
-                [void](Set-Property $rp 'tblHeader' @{val = '1'})
-                foreach ($p in $rows[0].SelectNodes('w:tc/w:p', $script:ns)) { Keep-Paragraph $p $true }
-                $rp = Set-Property $rows[1] 'trPr'
-                [void](Set-Property $rp 'cantSplit')
-                foreach ($p in $rows[1].SelectNodes('w:tc/w:p', $script:ns)) { Keep-Paragraph $p $false }
+                if ($rows.Count -gt 0) {
+                    $rp = Set-Property $rows[0] 'trPr'
+                    [void](Set-Property $rp 'tblHeader' @{val = '1'})
+                    foreach ($p in $rows[0].SelectNodes('w:tc/w:p', $script:ns)) { Keep-Paragraph $p $true }
+                }
+                if ($rows.Count -gt 1) {
+                    $rp = Set-Property $rows[1] 'trPr'
+                    [void](Set-Property $rp 'cantSplit')
+                    foreach ($p in $rows[1].SelectNodes('w:tc/w:p', $script:ns)) { Keep-Paragraph $p $false }
+                }
             } else {
+                if ($seen.ContainsKey($label)) { throw ('Label duplicado: ' + $label) }
+                $seen[$label] = $true
                 if ($paragraphs.Count -ne 2) { throw "Estructura de figura inesperada: $label" }
                 Keep-Paragraph $paragraphs[0] $true
                 Keep-Paragraph $paragraphs[1] $false
