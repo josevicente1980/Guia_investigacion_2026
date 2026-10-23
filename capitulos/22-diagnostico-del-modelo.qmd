@@ -378,7 +378,10 @@ base_modelo |>
     x = "Observación",
     y = "Distancia de Cook"
   ) +
-  theme(plot.margin = margin(5.5, 16, 5.5, 5.5))
+  scale_x_continuous(
+    expand = expansion(mult = c(0.02, 0.08))
+  ) +
+  theme(plot.margin = margin(5.5, 24, 5.5, 5.5))
 ```
 
 **Interpretación.** El gráfico permite identificar observaciones que destacan respecto al resto de la muestra.
@@ -457,7 +460,10 @@ base_modelo |>
     x = "Observación",
     y = "Leverage"
   ) +
-  theme(plot.margin = margin(5.5, 16, 5.5, 5.5))
+  scale_x_continuous(
+    expand = expansion(mult = c(0.02, 0.08))
+  ) +
+  theme(plot.margin = margin(5.5, 24, 5.5, 5.5))
 ```
 
 **Interpretación.** Las observaciones con leverage elevado pueden influir considerablemente en la posición de la recta de regresión.
