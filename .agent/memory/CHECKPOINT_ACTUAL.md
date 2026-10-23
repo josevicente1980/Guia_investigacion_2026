@@ -1,7 +1,7 @@
 # Checkpoint actual
 
-Fecha: 2026-10-21
-HEAD base aprobado: `c52eed4`
+Fecha: 2026-10-22
+HEAD base de la auditoría final: `78e26b224b050de2209f96764839200373adf1b6`
 
 # Último bloque cerrado
 
@@ -10,8 +10,9 @@ Resultado: PASS.
 
 # Bloque actual
 
-Bloque 4: Formato institucional Word 17 × 24.
-Estado: REVIEW favorable.
+Auditoría final de maquetación y estructura DOCX.
+Estado: **FAIL para cierre de maquetación; PASS en estructura y geometría; REVIEW en actualización persistente del TOC**.
+El resultado detallado de 2026-10-22 al final de este archivo prevalece sobre los resultados visuales históricos para este DOCX nuevo. No se modificó la plantilla ni el manuscrito.
 
 # Métricas actuales
 
@@ -70,4 +71,63 @@ Estado: **PASS**.
 
 # Próxima acción
 
-Continuar con el siguiente bloque editorial aprobado. El bloque INEN queda cerrado; no reducir contenido para disminuir páginas ni hacer compactación masiva o cambios arbitrarios de márgenes o tipografía.
+Autorizar y delimitar un bloque específico de corrección de anchos, cortes de tablas y unión de captions, antes del cierre de maquetación. No aplicar ajustes globales de plantilla sin aprobación. APA 7 e INEN siguen cerrados; no reducir contenido para disminuir páginas.
+
+# Auditoría final de maquetación y estructura — 2026-10-22
+
+## Ejecución y evidencia
+
+- Preflight: `## main...origin/main`, árbol limpio y HEAD esperado `78e26b2` confirmado.
+- Una compilación completa `quarto render --to docx`, exitosa (código 0), con ejecución de las 42 fuentes. Un arranque previo se interrumpió antes de compilar porque el registro abierto dentro de `.render_tmp` impedía su limpieza; se trasladó el registro fuera de la carpeta. No se repitió una compilación completa.
+- `LANG`, `LC_ALL` y `LC_CTYPE` se retiraron únicamente del proceso de render. No se persistieron cambios de locale.
+- Salida: `reportes/Investigacion_reproducible_con_R_y_Quarto.docx`; coincide con `.render_tmp/Investigacion_reproducible_con_R_y_Quarto.docx`. SHA-256: `D333ABCD7D26F31A2B5DD7DB39A2AB6532271604E08C24E7EFC8FBB9168442D4`.
+- Microsoft Word 16.0: **316 páginas** con TOC calculado en memoria. Apertura de solo lectura y cierre sin guardar; el SHA-256 del DOCX no cambió durante la auditoría.
+- La exportación PDF mediante Word no concluyó y se canceló. Se obtuvieron en su lugar las **316 imágenes de página directamente desde Word mediante `Page.EnhMetaFileBits`**, además del texto paginado y el TOC. Se cerró la instancia de Word de auditoría.
+- Inspección visual panorámica de las 316 páginas y ampliación de casos concretos; no se afirma una inspección al 100 % de cada página ni ausencia exhaustiva de defectos menores. Los defectos confirmados bastan para impedir el cierre visual.
+- Evidencia local reconstruible, ignorada por Git: `00_conocimiento_editorial/auditorias/resultados/maquetacion_final/` (`render.log`, `structure.json`, `word_geometry.json`, `toc_word.txt`, `word_pages.json`, `page-001.png` a `page-316.png`, láminas panorámicas y scripts auxiliares). Las páginas citadas abajo son las de esta vista de Word, no las de LibreOffice.
+- Fuentes institucionales locales contrastadas: instructivo OMP, p. 2 (170 × 240 mm), y plantilla original PDF, p. 2 (17 × 24 cm y márgenes de 2,5 cm). Esta tarea no constituye auditoría de vigencia web ni declaración de preparación para envío.
+
+## Controles PASS
+
+- **Preliminares:** título y cuatro autores, TOC, Acrónimos (pp. 8–9), Introducción (p. 9), Parte I (p. 10). No reaparecen Presentación, ¿Por qué este libro?, ¿A quién está dirigido? ni Cómo utilizar este libro como secciones independientes.
+- **Estructura:** ocho partes visibles no numeradas como capítulos. Ubicación: I p. 10; II p. 22; III p. 37; IV p. 66; V p. 133; VI p. 170; VII p. 247; VIII p. 281.
+- **Capítulos:** 1–29 consecutivos; las partes no consumen números. 42 H1, 144 H2 y 269 H3. Comparación secuencial de H1/H2/H3: sin saltos ni encabezados numerados duplicados. En el capítulo 27, Generación de HTML es 27.2.1, PDF 27.2.2 y Word 27.2.3; no aparece el 27.1.1 anómalo señalado como riesgo.
+- **Finales:** Reflexión final pp. 307–308; Bibliografía pp. 308–315; Declaración de uso de inteligencia artificial pp. 315–316. Los tres títulos carecen de número y no hay capítulos después. Se conservan los 88 párrafos bibliográficos; no se reabrió APA 7.
+- **Inventario:** 37 captions de figura y 122 de tabla; no se modifica contenido científico ni referencias.
+- **Geometría:** una sola sección vertical. Word informa 481,9 × 680,3 pt (aprox. 170,00 × 240,00 mm); cuatro márgenes de 70,85 pt (aprox. 24,995 mm). OOXML: 9638 × 13606 twips y márgenes de 1417 twips. Sin secciones con geometría inesperada. Área útil aproximada: 120 × 190 mm.
+- **Páginas en blanco:** ninguna accidental detectada en las 316 imágenes; tampoco hay páginas sin texto en la extracción paginada. No se observaron encabezados superpuestos ni ecuaciones cortadas en la revisión realizada.
+- **Plantillas protegidas:** ambas intactas. SHA-256 original: `3B3ABB5E51FB8D59BDA36693F18C0BCF5D4F75F8E2FE4C437690DEE94DF1C771`; experimental: `AB363260620CA4C25D450D701B54217B020FBF49B691EED8D4D0FF797516FCF3`.
+
+## TOC: PASS de contenido calculado / REVIEW de persistencia
+
+El DOCX contiene un único campo `TOC \o "1-2" \h \z \u`, marcado para actualización y sin resultado almacenado. Word lo calculó en memoria: **186 entradas**, exactamente los 42 H1 y 144 H2 esperados, en el mismo orden, sin faltantes, extras ni duplicados. Incluye las ocho partes, los 29 capítulos y los finales. Los H3 no se incluyen, conforme a `toc-depth: 2`. La vista calculada ocupa pp. 1–8; comparte la primera página con título/autores y la última con Acrónimos. No se forzó ningún cambio de contenido ni se guardó la actualización en el DOCX.
+
+Actualizar campos de la tabla de contenido en Word antes del envío final.
+
+## Incidencias CORREGIR (pendientes, no modificadas)
+
+| ID | Evidencia en Word | Incidencia |
+|---|---|---|
+| M01 | Tabla 14.1, p. 135; también se observan casos en pp. 69, 128, 137, 157–158, 192, 195, 204, 218, 220, 223, 231, 233, 236–237, 240, 242, 244, 255, 260, 262, 276, 288, 300 y 303 | Columnas o texto derecho recortados; p. 135 confirma pérdida visible de la columna Máximo. Tabla 3.1, p. 20, invade el margen derecho. La lista es de localizaciones observadas, no un conteo exhaustivo de tablas defectuosas. |
+| M02 | Tabla 3.1 pp. 19–20; 13.5 pp. 118–119; 16.3 pp. 174–175; 16.6 pp. 181–182; 18.6 pp. 214–215; 21.4 pp. 246–247; 25.1 pp. 268–269 | Caption de tabla queda en la página anterior al cuerpo. |
+| M03 | Tabla 16.9 pp. 188–189; 20.7 pp. 228–229; 23.5 pp. 258–259; 26.5 pp. 278–279; 27.2 pp. 283–284; 28.3 pp. 297–298 | Caption/cabecera separados de las filas de datos. En 16.9, incluso el único valor queda en la página siguiente. |
+| M04 | Figura 18.3 pp. 202–203; 18.6 pp. 211–212; 20.4 pp. 238–239; 24.2 pp. 263–264 | Caption separado de la figura, al comienzo de la página siguiente. |
+| M05 | Tabla 16.6, p. 182 | Primera columna excesivamente estrecha: Concepto, Asociación y Causalidad se fragmentan en varias líneas muy cortas. |
+
+El XML presenta **160 tablas de primer nivel** (incluyen contenedores de figuras/captions, no equivalen a 160 tablas científicas), todas con suma de `tblGrid` de 7920 twips = 139,7 mm, mayor que los 120 mm útiles. Las 37 imágenes tienen ancho nominal de 119,94 mm. Es evidencia para investigar el ajuste general de tablas/contenedores; no se afirma que cambiar un único atributo resuelva todos los casos. No se aplicó corrección global ni parche directo al DOCX.
+
+## Incidencias REVIEW y límites
+
+- **R01:** actualización y guardado final del TOC en Word, seguido de nueva comprobación de páginas y enlaces.
+- **R02:** recorte menor del extremo derecho de la etiqueta 1250 en la Figura 18.5, p. 209; revisar también Figura 18.6, p. 211. Confirmar si procede de la imagen de origen o del contenedor de Word antes de corregir.
+- **R03:** cortes de tablas entre páginas sin cabecera repetida y fragmentación de bloques de código. Ejemplos: tabla 14.3 pp. 139–140, 15.6 pp. 162–163, 20.6 pp. 226–227, 20.11 pp. 233–234, 27.6 pp. 289–290 y 28.2 pp. 296–297. No reducir contenido para resolver paginación.
+- **R04:** espacios amplios antes de figuras (p. ej. pp. 88, 149, 205, 256 y 264) y en gráficos con mucho espacio interno (p. 257). No se modifican estilos globales para detalles menores.
+- **R05:** no se detectaron títulos completamente aislados al pie ni viudas/huérfanas textuales graves en la inspección realizada; no se emite PASS visual exhaustivo. El TOC comparte página con la portada textual y con Acrónimos: conservar salvo decisión editorial expresa de separarlos.
+- Los nuevos defectos se documentan con evidencia de Word del DOCX actual; no invalidan retrospectivamente la auditoría externa previa ni reabren APA 7 o INEN.
+
+## Cambios y entrega
+
+- Incidencias de maquetación corregidas: **ninguna**. Se detuvieron las correcciones al identificar un problema extendido cuyo tratamiento podría afectar plantilla o flujo global, conforme a la instrucción expresa de esta tarea.
+- Únicos archivos versionados modificados: `.agent/memory/CHECKPOINT_ACTUAL.md` y `.agent/memory/HISTORIAL_BLOQUES.md`. DOCX regenerado y evidencias locales excluidos por `.gitignore`.
+- Siguiente acción: acordar el alcance del bloque de correcciones de maquetación, resolver M01–M05 sin tocar contenido científico, comprobar nuevamente en Word y actualizar/guardar el TOC antes del envío. No declarar cierre editorial visual con estas incidencias abiertas.
+- Sin commit y sin push.

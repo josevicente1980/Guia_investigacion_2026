@@ -148,6 +148,7 @@ La homoscedasticidad implica que la variabilidad de los residuos permanece aprox
 ```{r}
 #| label: fig-reg22-homoscedasticidad
 #| fig-cap: "Evaluación visual de homoscedasticidad"
+#| fig-height: 3.5
 
 ggplot(
   base_modelo,
@@ -376,7 +377,8 @@ base_modelo |>
   labs(
     x = "Observación",
     y = "Distancia de Cook"
-  )
+  ) +
+  theme(plot.margin = margin(5.5, 16, 5.5, 5.5))
 ```
 
 **Interpretación.** El gráfico permite identificar observaciones que destacan respecto al resto de la muestra.
@@ -434,6 +436,7 @@ tibble(
 ```{r}
 #| label: fig-reg22-leverage
 #| fig-cap: "Valores de leverage"
+#| fig-height: 3.5
 
 base_modelo |>
   mutate(
@@ -453,7 +456,8 @@ base_modelo |>
   labs(
     x = "Observación",
     y = "Leverage"
-  )
+  ) +
+  theme(plot.margin = margin(5.5, 16, 5.5, 5.5))
 ```
 
 **Interpretación.** Las observaciones con leverage elevado pueden influir considerablemente en la posición de la recta de regresión.

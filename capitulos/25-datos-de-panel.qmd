@@ -653,6 +653,7 @@ coef_pooled |>
 ```{r}
 #| label: fig-reg25-comparacion-grafica
 #| fig-cap: "Comparación de estimadores"
+#| fig-height: 3.5
 
 bind_rows(
   tidy(modelo_pooled) |>
