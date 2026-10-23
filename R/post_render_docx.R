@@ -1,5 +1,5 @@
-# Post-render seguro: copiar la salida Word sin modificar su OOXML.
-# Los ajustes de tablas se resuelven antes de Pandoc mediante filtros Lua.
+# Post-render: corregir exclusivamente los labels de la auditoría de maquetación
+# y copiar la salida Word. No se modifican plantillas ni estilos globales.
 
 archivo_docx <- file.path(
   ".render_tmp",
@@ -10,6 +10,16 @@ if (!file.exists(archivo_docx)) {
   message("Post-render DOCX: no se encontró la salida Word temporal.")
   quit(save = "no", status = 0)
 }
+
+ajuste <- system2(
+  "powershell.exe",
+  c(
+    "-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
+    shQuote(file.path("R", "maquetacion_local_docx.ps1")),
+    "-Path", shQuote(archivo_docx)
+  )
+)
+if (ajuste != 0L) stop("Falló el ajuste local de maquetación DOCX.")
 
 dir.create(
   "reportes",
@@ -44,5 +54,5 @@ if (!copiado) {
 }
 
 message(
-  "Post-render DOCX: archivo copiado sin modificar su estructura OOXML."
+  "Post-render DOCX: ajustes locales aplicados; plantillas intactas."
 )

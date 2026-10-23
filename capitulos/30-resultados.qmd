@@ -127,6 +127,7 @@ modelsummary(
 ```{r}
 #| label: fig-reg30-regresion
 #| fig-cap: "Relación entre ingreso y esperanza de vida"
+#| fig-height: 3.5
 
 ggplot(
   datos_resultados,
