@@ -8,11 +8,24 @@ Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $w = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'
 $targets = [ordered]@{
+    # Anchos locales confirmados en la auditoria.
     'tbl-paquetes-r' = @(33, 87)
     'tbl-ch14-resumen-descriptivo' = @(25, 16, 20, 21, 15, 23)
     'tbl-ch19-asociacion-causalidad' = @(28, 44, 48)
     'tbl-ch19-correlacion-espuria' = @(120)
     'tbl-reg29-checklist' = @(60, 60)
+
+    # Casos de caption/cabecera separados: se conserva el ancho interno
+    # y solo se aplican propiedades de continuidad.
+    'tbl-ch13-valores-perdidos' = @()
+    'tbl-ch19-correlacion-pearson' = @()
+    'tbl-reg22-checklist' = @()
+    'tbl-reg25-pooled' = @()
+    'tbl-reg26-resumen-eficiencia' = @()
+    'tbl-reg31-coeficientes' = @()
+    'tbl-reg32-tipos-recomendacion' = @()
+    'tbl-reg33-pdf' = @()
+    'tbl-reg34-checklist' = @()
     'fig-reg22-homoscedasticidad' = @()
     'fig-reg22-cook' = @()
     'fig-reg22-leverage' = @()
@@ -132,8 +145,10 @@ try {
                 Keep-Paragraph $paragraphs[0] $true
                 $inner = $cell.SelectSingleNode('w:tbl', $script:ns)
                 $widths = @($targets[$label] | ForEach-Object { [int][math]::Floor($_ / 120 * $usable) })
-                $widths[-1] += $usable - ($widths | Measure-Object -Sum).Sum
-                Set-TableWidth $inner $widths
+                if ($widths.Count -gt 0) {
+                    $widths[-1] += $usable - ($widths | Measure-Object -Sum).Sum
+                    Set-TableWidth $inner $widths
+                }
                 $rows = @($inner.SelectNodes('w:tr', $script:ns))
                 $rp = Set-Property $rows[0] 'trPr'
                 [void](Set-Property $rp 'tblHeader' @{val = '1'})
