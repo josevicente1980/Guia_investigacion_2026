@@ -131,3 +131,9 @@ Estado: **PASS documental para la observación 1 del correo de subsanación**.
 - No se almacenan números de identificación ni copias de documentos personales en GitHub por tratarse de información sensible.
 - Para la carga editorial, conservar estos tres PDF como anexos separados junto con la documentación ya disponible de José Vicente Ordóñez Yaguache.
 - Próximo bloque pendiente: observación 2, portada y contraportada conforme a plantilla institucional, imagen de alta resolución y resumen de máximo 150 palabras.
+
+## Regla permanente de subsanación — prioridad del correo
+
+**Prioridad máxima:** para todo el cierre editorial de esta obra, si existe cualquier discrepancia entre el correo de subsanación del 16 de octubre de 2026 y la web, plantillas, guías u otras referencias, **prevalece estrictamente el correo**.
+
+Para portada y contraportada, aplicar literalmente lo solicitado en el correo: **imagen nítida, de alta resolución, conforme a las especificaciones institucionales (400 × 200 ppp, según lo indicado) y resumen de máximo 150 palabras**. No sustituir este requisito por 300 ppp ni reinterpretarlo durante la subsanación.
