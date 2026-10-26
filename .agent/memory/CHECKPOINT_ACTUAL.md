@@ -122,3 +122,12 @@ Estado: **PASS**.
 # Próxima acción
 
 Preparar el cierre editorial y el paquete de entrega: TOC final en Word, portada/contraportada, resumen de hasta 150 palabras, resolución definitiva de imágenes de cubierta y verificación administrativa de anexos/identificaciones. La actualidad bibliográfica permanece como REVIEW favorable documentado para valoración de la Editorial.
+
+## Expediente documental — 2026-10-26
+
+Estado: **PASS documental para la observación 1 del correo de subsanación**.
+
+- Se recibieron por este chat las copias digitales de las cédulas de Yomara Karolina Ruiz Reyes, Kevin Marlow Jiménez Villavicencio y Andrea Yolanda Jaramillo Castillo.
+- No se almacenan números de identificación ni copias de documentos personales en GitHub por tratarse de información sensible.
+- Para la carga editorial, conservar estos tres PDF como anexos separados junto con la documentación ya disponible de José Vicente Ordóñez Yaguache.
+- Próximo bloque pendiente: observación 2, portada y contraportada conforme a plantilla institucional, imagen de alta resolución y resumen de máximo 150 palabras.
