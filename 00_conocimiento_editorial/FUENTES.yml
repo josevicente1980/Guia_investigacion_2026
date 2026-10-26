@@ -20,13 +20,14 @@ fuentes:
     uso: "Preparación del expediente, registro, carga de archivos, colaboradores, revisores y envío final OMP"
     obligatoria: true
 
-  - id: UNL_PLANTILLA_MONOGRAFIA
-    tipo: plantilla_oficial
-    archivo_original: "[2] UNL - Monografía Colectiva- Autores por Capítulo.pdf"
+  - id: UNL_PLANTILLA_MONOGRAFIA_INDIVIDUAL
+    tipo: plantilla_oficial_vigente
+    url: "https://drive.google.com/file/d/1JTeW3rzZAALxqFy4rqyo0stEJAOqPaRF/view?usp=sharing"
+    archivo_oficial: "[1] UNL - Monografía Individual.pdf"
     organismo: "Universidad Nacional de Loja"
-    uso: "Estructura, tamaño, márgenes, títulos, tablas, figuras, ecuaciones y elementos preliminares"
+    uso: "Estructura, tamaño 17 x 24 cm, márgenes de 2,5 cm, títulos, tablas, figuras, ecuaciones y elementos preliminares"
     obligatoria: true
-    nota: "Aplicar solo si la tipología final de la obra corresponde a esta plantilla. La tipología debe resolverse antes de fijar tamaño y estilos finales."
+    nota: "Tipología confirmada para esta obra: monografía individual con autores comunes. Esta fuente sustituye para el cierre editorial a la plantilla colectiva previamente registrada."
 
   - id: UNL_CESION_DERECHOS
     tipo: formulario_oficial
