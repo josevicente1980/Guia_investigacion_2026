@@ -21,7 +21,7 @@ Estados permitidos: **PASS**, **REVIEW**, **BLOCK**.
 | Figuras y tablas numeradas, citadas y con títulos/fuentes correctos | REVIEW |
 | Ecuaciones editables; no capturas de pantalla | REVIEW |
 | Bibliografía y citas cruzadas auditadas | REVIEW |
-| Resumen editorial para contraportada ≤180 palabras | PASS |
+| Resumen editorial para contraportada ≤150 palabras | PASS |
 | Tres imágenes propuestas para portada, nítidas y con derechos de uso | REVIEW |
 
 ## B. Expediente administrativo
@@ -71,7 +71,7 @@ Estados permitidos: **PASS**, **REVIEW**, **BLOCK**.
 | Documentos administrativos cargados como “Otro” | REVIEW |
 | Todos los archivos del expediente presentes | BLOCK |
 | Tres propuestas de portada presentes | REVIEW |
-| Resumen de contraportada ≤180 palabras presente | PASS |
+| Resumen de contraportada ≤150 palabras presente | PASS |
 | Revisión final de metadatos realizada | REVIEW |
 | Auditoría final sin BLOCK | BLOCK |
 | Confirmación de “Envío completo” archivada | REVIEW |
