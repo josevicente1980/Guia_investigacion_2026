@@ -36,3 +36,9 @@ No se realizarán mejoras adicionales que no respondan a una observación del co
 - Verificación visual de portada interior y páginas del índice: **PASS**.
 - Archivo final de trabajo: `01_Manuscrito_SUBSANADO_FINAL.docx`.
 - Siguiente acción: ensamblar el paquete de subsanación conforme exclusivamente al correo editorial.
+
+## Paquete de subsanación armado — 2026-10-26
+
+**PASS:** paquete operativo preparado con los archivos requeridos expresamente por el correo: manuscrito final, cédulas faltantes de Kevin/Andrea/Yomara, cubierta en alta resolución y resumen de 136 palabras. La cédula de José no se repite porque el correo indica que ya consta en el expediente.
+
+Siguiente acción: cargar los archivos en la plataforma OMP y verificar que el envío quede completo.
